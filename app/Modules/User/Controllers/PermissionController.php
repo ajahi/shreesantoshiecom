@@ -56,11 +56,19 @@ class PermissionController extends Controller
         $user = Auth::user();
 
         if ($user->hasRole('admin')) {
-            $this->validate($request, [
+
+            $validation = Validator::make($request->all(), [
                 'name' => 'required|min:3|unique:roles',
                 'display_name' => 'required|min:3',
                 'description' => 'required|min:3',
             ]);
+
+
+            if ($validation->fails()) {
+                return response()->json($validation->errors());
+
+            }
+
             $permission_name = snake_case($request->input('name'));
             $permission_input_initial = collect($request->all());
             $permission_input = $permission_input_initial->merge(['name' => $permission_name]);
@@ -129,11 +137,19 @@ class PermissionController extends Controller
         if ($user->hasRole('admin') ) {
             $permission = Permission::findOrFail($id);
 
-            $this->validate($request, [
+            $validation = Validator::make($request->all(), [
                 'name' => 'sometimes|min:3',
                 'display_name' => 'sometimes|min:3',
                 'description' => 'sometimes|min:3',
             ]);
+
+
+            if ($validation->fails()) {
+                return response()->json($validation->errors());
+
+            }
+
+
 
             $permission_input = collect($request->all());
 

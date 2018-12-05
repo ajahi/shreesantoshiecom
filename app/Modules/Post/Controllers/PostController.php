@@ -47,14 +47,21 @@ class PostController extends Controller
         $user = Auth::user();
 
         if ($user->hasRole('admin')) {
-            $this->validate($request, [
+
+            $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:categories',
                 'description' => 'required',
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
                 'icon' => 'required'
-
             ]);
+
+
+            if ($validation->fails()) {
+                return response()->json($validation->errors());
+
+            }
+
 
             $post = Post::create($request->all());
             if ($request['image'] != null) {

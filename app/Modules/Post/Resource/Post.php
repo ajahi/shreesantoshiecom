@@ -3,7 +3,6 @@
 namespace App\Modules\Post\Resource;
 
 use App\Modules\Category\Models\Category;
-use App\Modules\Category\Resource\Category as CategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 class Post extends JsonResource
 {

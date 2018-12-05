@@ -56,12 +56,20 @@ class RoleController extends Controller
         $user = Auth::user();
 
         if ($user->hasRole('admin')) {
-            $this->validate($request, [
+
+            $validation = Validator::make($request->all(), [
                 'name' => 'required|min:3|unique:roles',
                 'display_name' => 'required|min:3',
                 'description' => 'required|min:3',
                 'permission_list' => 'sometimes'
             ]);
+
+
+            if ($validation->fails()) {
+                return response()->json($validation->errors());
+
+            }
+
             $role_name = snake_case($request->input('name'));
             $role_input_initial = collect($request->all());
             $role_input = $role_input_initial->merge(['name' => $role_name]);
@@ -134,12 +142,19 @@ class RoleController extends Controller
         if ($user->hasRole('admin')) {
             $role = Role::findOrFail($id);
 
-            $this->validate($request, [
+            $validation = Validator::make($request->all(), [
                 'name' => 'sometimes|min:3',
                 'display_name' => 'sometimes|min:3',
                 'description' => 'sometimes|min:3',
                 'permission_list' => 'sometimes'
             ]);
+
+
+            if ($validation->fails()) {
+                return response()->json($validation->errors());
+
+            }
+
 
             $role_input_initial = collect($request->all());
             if (isset($request->name)) {

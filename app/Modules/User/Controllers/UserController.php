@@ -69,12 +69,21 @@ class UserController extends Controller
         $user = Auth::user();
 
         if ($user->hasRole('admin')) {
-            $this->validate($request, [
+
+
+            $validation = Validator::make($request->all(), [
                 'name' => 'required|min:3',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:6|confirmed',
                 'role_id' => 'required'
             ]);
+
+
+            if ($validation->fails()) {
+                return response()->json($validation->errors());
+
+            }
+
             $user_input = $request->all();
             $user_input['password'] = bcrypt($user_input['password']);
             $created_user = User::create($user_input);
@@ -140,11 +149,19 @@ class UserController extends Controller
 
             $user_update = User::findOrFail($id);
 
-            $this->validate($request, [
+
+            $validation = Validator::make($request->all(), [
                 'name' => 'sometimes|min:3',
                 'email' => 'sometimes|email',
                 'role_id' => 'sometimes'
             ]);
+
+
+            if ($validation->fails()) {
+                return response()->json($validation->errors());
+
+            }
+
             $user_input = $request->all();
             if ($request['password'] != null) {
                 $this->validate($request, [

@@ -51,12 +51,20 @@ class CategoryController extends Controller
         $user = Auth::user();
 
         if ($user->hasRole('admin')) {
-            $this->validate($request, [
+
+
+            $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:categories',
                 'description' => 'required',
                 'position' => 'required'
-
             ]);
+
+
+            if ($validation->fails()) {
+                return response()->json($validation->errors());
+
+            }
+
 
             $category = Category::create($request->all());
             if ($request['image'] != null) {
