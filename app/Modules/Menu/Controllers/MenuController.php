@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Modules\Category\Controllers;
+namespace App\Modules\Menu\Controllers;
 
-use App\Modules\Category\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Modules\Category\Resource\Category as CategoryResource;
 
-class CategoryController extends Controller
+use App\Modules\Menu\Models\Menu as Menu;
+use App\Modules\Menu\Resource\Menu as MenuResource;
+use Illuminate\Support\Facades\Auth;
+
+class MenuController extends Controller
 {
 
     /**
@@ -19,13 +20,18 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
-            $category = Category::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return CategoryResource::collection($category);
+            $menu = Menu::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+            return MenuResource::collection($menu);
         }
-        return CategoryResource::collection(Category::all());
-
+        elseif ($request->has('title') && $request->has('limit') && $request->has('sort')&& $request->has('parent_id')) {
+            $menu = Menu::where('title', 'like', '%' . $request->title . '%')->where('parent_id',null)->orderBy('id', $request->sort)->paginate($request->input('limit'));
+            return MenuResource::collection($menu);
+        }elseif ($request->has('parent_id')){
+            $menu = Menu::where('parent_id',null)->get();
+            return MenuResource::collection($menu);
+        }
+        return MenuResource::collection(Menu::all());
     }
 
     /**
@@ -41,8 +47,8 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return CategoryResource
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -54,7 +60,8 @@ class CategoryController extends Controller
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:categories',
                 'description' => 'required',
-                'position' => 'required'
+                'position' => 'required',
+                'parent_id' => 'numeric'
             ]);
 
 
@@ -64,13 +71,13 @@ class CategoryController extends Controller
             }
 
 
-            $category = Category::create($request->all());
+            $menu = Menu::create($request->all());
             if ($request['image'] != null) {
-                $category->clearMediaCollection('photo');
-                $category->addMediaFromRequest('image')->toMediaCollection('photo');
+                $menu->clearMediaCollection('photo');
+                $menu->addMediaFromRequest('image')->toMediaCollection('photo');
 
             }
-            return new  CategoryResource($category);
+            return new  MenuResource($menu);
 
         } else {
             $return = ["status" => "error",
@@ -85,15 +92,15 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return CategoryResource
+     * @param  int  $id
+     * @return MenuResource
      */
     public function show($id)
     {
         $user = Auth::user();
 
         if ($user->hasRole('admin')) {
-            return new CategoryResource(Category::find($id));
+            return new MenuResource(Menu::find($id));
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -107,7 +114,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -118,28 +125,37 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return CategoryResource
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return MenuResource
      */
     public function update(Request $request, $id)
     {
-//        $category = Category::findOrFail($id);
-//
         $user = Auth::user();
         if ($user->hasRole('admin')) {
-            $category = Category::findOrFail($id);
-            $category->fill($request->all())->save();
+            $menu = Menu::findOrFail($id);
 
+            if ($request->parent_id) {
+                $menu = Menu::findOrFail($request->parent_id);
 
-            if ($request['image'] != null) {
-                $category->clearMediaCollection('photo');
-                $category->addMediaFromRequest('image')->toMediaCollection('photo');
+                if ($menu->parent_id == $id) {
+
+                } else {
+                    $menu->fill($request->all())->save();
+
+                }
+            } else {
+                $menu->fill($request->all())->save();
 
             }
-            $category = Category::findOrFail($id);
+            if ($request['image'] != null) {
+                $menu->clearMediaCollection('photo');
+                $menu->addMediaFromRequest('image')->toMediaCollection('photo');
 
-            return new  CategoryResource($category);
+            }
+            $menu = Menu::findOrFail($id);
+
+            return new MenuResource($menu);
 
         } else {
             $return = ["status" => "error",
@@ -154,14 +170,14 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $user = Auth::user();
         if ($user->hasRole('admin')) {
-            Category::whereId($id)->delete();
+            Menu::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,
@@ -178,6 +194,4 @@ class CategoryController extends Controller
             return response()->json($return, 403);
         }
     }
-
-
 }
