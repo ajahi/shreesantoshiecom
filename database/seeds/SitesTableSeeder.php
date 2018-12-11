@@ -10,8 +10,7 @@ class SitesTableSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        for($i=0; $i<10; $i++) {
-            Site::Create([
+            Site::create([
                 'title'=>$faker->word,
                 'slogan'=>$faker->word,
                 'description'=>$faker->paragraph,
@@ -31,5 +30,4 @@ class SitesTableSeeder extends Seeder
                 'updated_at'=>$faker->dateTime
             ]);
         }
-    }
 }
