@@ -8,6 +8,8 @@ use App\Post as PostModel;
 use App\Http\Resource\Post as PostResource;
 use Illuminate\Support\Facades\Auth;
 
+use Validator;
+
 class Post extends Controller
 {
 

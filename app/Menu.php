@@ -13,5 +13,12 @@ class Menu extends Model implements HasMedia
     protected $fillable = [
         'title', 'description', 'position','parent_id'
     ];
+    public function children() {
+        return $this->hasMany('App\Menu','parent_id');
+    }
+    public function parent() {
+        return $this->belongsTo('App\Menu','parent_id');
+    }
+
 
 }

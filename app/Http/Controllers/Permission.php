@@ -8,6 +8,8 @@ use App\Http\Resources\Permission as PermissionResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Validator;
+
 
 class Permission extends Controller
 {

@@ -177,7 +177,6 @@ return [
 
 
 //        3rd party
-        ArtemSchander\L5Modular\ModuleServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
 
     ],

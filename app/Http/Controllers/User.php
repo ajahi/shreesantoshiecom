@@ -9,6 +9,9 @@ use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
+use Validator;
+
 class User extends Controller
 {
 

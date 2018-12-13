@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Role as RoleResource;
 use Illuminate\Support\Facades\Auth;
 
+use Validator;
+
 
 class Role extends Controller
 {

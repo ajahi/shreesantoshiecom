@@ -8,6 +8,8 @@ use App\Menu as MenuModel;
 use App\Http\Resource\Menu as MenuResource;
 use Illuminate\Support\Facades\Auth;
 
+use Validator;
+
 class Menu extends Controller
 {
 
@@ -22,12 +24,11 @@ class Menu extends Controller
         if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
             $menu = MenuModel::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
             return MenuResource::collection($menu);
-        }
-        elseif ($request->has('title') && $request->has('limit') && $request->has('sort')&& $request->has('parent_id')) {
-            $menu = MenuModel::where('title', 'like', '%' . $request->title . '%')->where('parent_id',null)->orderBy('id', $request->sort)->paginate($request->input('limit'));
+        } elseif ($request->has('title') && $request->has('limit') && $request->has('sort') && $request->has('parent_id')) {
+            $menu = MenuModel::where('title', 'like', '%' . $request->title . '%')->where('parent_id', null)->orderBy('id', $request->sort)->paginate($request->input('limit'));
             return MenuResource::collection($menu);
-        }elseif ($request->has('parent_id')){
-            $menu = MenuModel::where('parent_id',null)->get();
+        } elseif ($request->has('parent_id')) {
+            $menu = MenuModel::where('parent_id', null)->get();
             return MenuResource::collection($menu);
         }
         return MenuResource::collection(MenuModel::all());
@@ -46,8 +47,8 @@ class Menu extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return MenuResource
      */
     public function store(Request $request)
     {
@@ -57,9 +58,9 @@ class Menu extends Controller
 
 
             $validation = Validator::make($request->all(), [
-                'title' => 'required|unique:categories',
+                'title' => 'required|unique:menus',
                 'description' => 'required',
-                'position' => 'required',
+                'position' => 'required|numeric',
                 'parent_id' => 'numeric'
             ]);
 
@@ -71,12 +72,17 @@ class Menu extends Controller
 
 
             $menu = MenuModel::create($request->all());
+
             if ($request['image'] != null) {
                 $menu->clearMediaCollection('photo');
                 $menu->addMediaFromRequest('image')->toMediaCollection('photo');
 
             }
+
+//            return $menu;
+
             return new  MenuResource($menu);
+
 
         } else {
             $return = ["status" => "error",
@@ -91,7 +97,7 @@ class Menu extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return MenuResource
      */
     public function show($id)
@@ -113,7 +119,7 @@ class Menu extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -124,8 +130,8 @@ class Menu extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return MenuResource
      */
     public function update(Request $request, $id)
@@ -169,7 +175,7 @@ class Menu extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

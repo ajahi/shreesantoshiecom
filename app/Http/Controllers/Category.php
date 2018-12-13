@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resource\Category as CategoryResource;
 
+use Validator;
+
 class Category extends Controller
 {
 
