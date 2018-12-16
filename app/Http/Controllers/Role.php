@@ -18,13 +18,17 @@ class Role extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-
         if ($user->hasRole('admin')) {
+            if ($request->has('name')) {
+                $user = RoleModel::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
-            return RoleResource::collection(RoleModel::all());
+                return RoleResource::collection($user);
+            }
+
+            return RoleResource::collection(RoleModel::orderBy('id', $request->sort)->paginate($request->input('limit')));
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -66,7 +70,7 @@ class Role extends Controller
 
 
             if ($validation->fails()) {
-                return response()->json($validation->errors());
+                return response()->json($validation->errors() , 422);
 
             }
 
@@ -78,7 +82,7 @@ class Role extends Controller
             $role = RoleModel::create($role_input_table);
 
             if (isset($request->permission_list)) {
-                $perm_list = $role_input->permission_list;
+                $perm_list = $request->permission_list;
                 $role->perms()->attach($perm_list);
             }
 

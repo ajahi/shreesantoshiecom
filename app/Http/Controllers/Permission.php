@@ -19,15 +19,18 @@ class Permission extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-
         if ($user->hasRole('admin')) {
+            if ($request->has('name')) {
+                $user = PermissionModel::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
-            return PermissionResource::collection(PermissionModel::all());
-        }
-        else {
+                return PermissionResource::collection($user);
+            }
+
+            return PermissionResource::collection(PermissionModel::orderBy('id', $request->sort)->paginate($request->input('limit')));
+        } else {
             $return = ["status" => "error",
                 "error" => [
                     "code" => 403,
@@ -60,14 +63,15 @@ class Permission extends Controller
         if ($user->hasRole('admin')) {
 
             $validation = Validator::make($request->all(), [
-                'name' => 'required|min:3|unique:roles',
+                'name' => 'required|min:3|unique:permissions',
                 'display_name' => 'required|min:3',
                 'description' => 'required|min:3',
             ]);
 
 
+
             if ($validation->fails()) {
-                return response()->json($validation->errors());
+                return response()->json($validation->errors() , 422);
 
             }
 

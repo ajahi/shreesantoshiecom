@@ -1,19 +1,23 @@
 import Vue from 'vue'
 import Login from '../views/authentication/Login.vue'
-import Home from '../views/home.vue'
 import Dashboard from '../views/dashboard.vue'
 import Layout from '../views/layout/Layout'
-import Table from '../views/user/index.vue'
-import Register from '../views/authentication/Register.vue'
-import Verify from '../views/authentication/Verify.vue'
+
+import User from '../views/user/index.vue'
+import UserCreate from '../views/user/create.vue'
+import UserEdit from '../views/user/edit.vue'
+
+
+import Role from '../views/role/index.vue'
+import RoleCreate from '../views/role/create.vue'
+import RoleEdit from '../views/role/edit.vue'
+
+
+import Permission from '../views/permission/index.vue'
+import PermissionCreate from '../views/permission/create.vue'
+import PermissionEdit from '../views/permission/edit.vue'
+
 import Router from 'vue-router'
-
-
-
-
-import App from '../views/app/index.vue'
-import Slide from '../views/app/slide.vue'
-import Menu from '../views/app/menu.vue'
 
 Vue.use(Router)
 
@@ -21,44 +25,23 @@ const router = new Router({
     mode: 'history',
     routes: [
         {
-            path: "/login",
+            path: '/login',
             component: Login,
             meta: {
                 forVisitors: true,
                 nav: false,
-                roles: ['admin','customer']
+                roles: ['admin']
 
-            }
-            , hidden: true
+            },
+            hidden: true
         },
-        {
-            path: "/register",
-            component: Register,
-            meta: {
-                forVisitors: true,
-                nav: false,
-                roles: ['admin','customer']
 
-            }
-            , hidden: true
-        },
-        {
-            path: "/verify",
-            component: Verify,
-            meta: {
-                forVisitors: true,
-                nav: false,
-                roles: ['admin','customer']
-
-            }
-            , hidden: true
-        },
         {
             path: '/dashboard',
             component: Layout,
             redirect: '/dashboard/index',
             meta: {
-                roles: ['admin','customer']
+                roles: ['admin']
             },
             children: [{
                 path: 'index',
@@ -71,104 +54,177 @@ const router = new Router({
                     noCache: true,
                     forAuth: true,
                     nav: false,
-                    roles: ['admin','customer']
+                    roles: ['admin', 'customer']
                 }
             }]
         },
         {
             path: '/user',
             component: Layout,
-            redirect: '/user/list',
+            redirect: '/user/user',
             name: 'User',
             meta: {
                 title: 'User',
-                icon: 'example',
+                icon: 'user',
                 forAuth: true,
                 nav: false,
                 roles: ['admin']
             },
             children: [
                 {
-                    path: 'list',
-                    name: 'List',
-                    component: Table,
+                    path: 'user',
+                    name: 'User',
+                    component: User,
                     meta: {
                         title: 'User',
+                        icon: 'list',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'Create',
+                    component: UserCreate,
+                    meta: {
+                        title: 'User Create',
+                        icon: 'edit',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    }
+                },
+                {
+                    path: 'edit/:id(\\d+)',
+                    name: 'Edit',
+                    component: UserEdit,
+                    meta: {
+                        title: 'User Edit',
                         icon: 'table',
                         forAuth: true,
                         nav: false,
                         roles: ['admin']
-                    }
-                }
+                    },
+                    hidden: true
+                },
 
             ]
         },
-        {
-            path: "/",
-            component: Home,
-            meta: {
-                forVisitors: true,
-                nav: true,
-                roles: ['admin','customer']
-
-            }
-            , hidden: true
-        },
 
         {
-            path: '/app',
+            path: '/role',
             component: Layout,
-            redirect: '/app/app',
-            name: 'App',
+            redirect: '/role/role',
+            name: 'Role',
             meta: {
-                title: 'App',
-                icon: 'example',
+                title: 'Role',
+                icon: 'eye',
                 forAuth: true,
                 nav: false,
                 roles: ['admin']
             },
             children: [
                 {
-                    path: 'app',
-                    name: 'app',
-                    component: App,
+                    path: 'role',
+                    name: 'Role',
+                    component: Role,
                     meta: {
-                        title: 'App',
-                        icon: 'example',
+                        title: 'Role',
+                        icon: 'list',
                         forAuth: true,
                         nav: false,
                         roles: ['admin']
                     }
                 },
                 {
-                    path: 'slide',
-                    component: Slide,
-                    name: 'Slide',
+                    path: 'create',
+                    name: 'Create',
+                    component: RoleCreate,
                     meta: {
-                        title: 'Slide',
-                        noCache: true,
+                        title: 'Role Create',
+                        icon: 'edit',
+                        forAuth: true,
                         nav: false,
                         roles: ['admin']
-                    },
-                    hidden: true,
-                }
-                ,
-                {
-                    path: 'menu',
-                    component: Menu,
-                    name: 'Menu',
-                    meta: {
-                        title: 'Menu',
-                        noCache: true,
-                        nav: false,
-                        roles: ['admin']
-                    },
-                    hidden: true,
+                    }
                 },
-
+                {
+                    path: 'edit/:id(\\d+)',
+                    name: 'Edit',
+                    component: RoleEdit,
+                    meta: {
+                        title: 'Role Edit',
+                        icon: 'table',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    },
+                    hidden: true
+                },
 
             ]
         },
+
+        {
+            path: '/permission',
+            component: Layout,
+            redirect: '/permission/permission',
+            name: 'Permission',
+            meta: {
+                title: 'Permission',
+                icon: 'star',
+                forAuth: true,
+                nav: false,
+                roles: ['admin']
+            },
+            children: [
+                {
+                    path: 'permission',
+                    name: 'Permission',
+                    component: Permission,
+                    meta: {
+                        title: 'Permission',
+                        icon: 'list',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'Create',
+                    component: PermissionCreate,
+                    meta: {
+                        title: 'Permission Create',
+                        icon: 'edit',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    }
+                },
+                {
+                    path: 'edit/:id(\\d+)',
+                    name: 'Edit',
+                    component: PermissionEdit,
+                    meta: {
+                        title: 'Permission Edit',
+                        icon: 'table',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    },
+                    hidden: true
+                },
+
+            ]
+        },
+        {
+            path: '/',
+            redirect: '/dashboard',
+        },
+
+
     ]
 })
 

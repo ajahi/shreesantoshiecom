@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Http\Resources\Permission as PermissionResource;
+
 class Role extends JsonResource
 {
     /**
@@ -19,7 +21,9 @@ class Role extends JsonResource
             'name' => $this->name ,
             'display_name' => $this->display_name,
             'description' => $this->description ,
-            'permission' => Permission::collection($this->perms)
+            'permission' => PermissionResource::collection($this->perms),
+            'permission_list' => $this->perms->pluck('id')->toArray()
+
         ];
     }
 }

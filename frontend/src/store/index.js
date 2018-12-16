@@ -8,11 +8,11 @@ import tagsView from './modules/tagsView'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-    modules: {
-        user, app,tagsView
+  modules: {
+    user, app, tagsView
 
-    },
-    getters
+  },
+  getters
 })
 
 export default store

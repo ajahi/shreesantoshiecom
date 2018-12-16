@@ -1,27 +1,22 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
-    <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-    <breadcrumb></breadcrumb>
+    <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
+    <breadcrumb/>
     <div class="right-menu">
       <el-tooltip effect="dark" content="Full Screen" placement="bottom">
-        <screenfull class="screenfull right-menu-item"></screenfull>
+        <screenfull class="screenfull right-menu-item"/>
       </el-tooltip>
-    <el-dropdown class="avatar-container" trigger="click">
-      <div class="avatar-wrapper">
-        <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
-        <i class="el-icon-caret-bottom"></i>
-      </div>
-      <el-dropdown-menu class="user-dropdown" slot="dropdown">
-        <router-link class="inlineBlock" to="/">
-          <el-dropdown-item>
-            Home
+      <el-dropdown class="avatar-container" trigger="click">
+        <div class="avatar-wrapper">
+          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <i class="el-icon-caret-bottom"/>
+        </div>
+        <el-dropdown-menu slot="dropdown" class="user-dropdown">
+          <el-dropdown-item divided>
+            <span style="display:block;" @click="logout">LogOut</span>
           </el-dropdown-item>
-        </router-link>
-        <el-dropdown-item divided>
-          <span @click="logout" style="display:block;">LogOut</span>
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </el-menu>
 </template>
@@ -36,7 +31,7 @@ export default {
   components: {
     Breadcrumb,
     Hamburger,
-      Screenfull,
+    Screenfull
 
   },
   computed: {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Category\Models\Category;
+use App\Category;
 use Illuminate\Database\Seeder;
 
 use Faker\Factory;

@@ -1,7 +1,7 @@
 <?php
 
-use App\Modules\Category\Models\Category;
-use App\Modules\Post\Models\Post;
+use App\Category;
+use App\Post;
 use Illuminate\Database\Seeder;
 use Faker\Factory;
 
