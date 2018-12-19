@@ -30,6 +30,9 @@ import Category from '../views/category/index.vue'
 import CategoryCreate from '../views/category/create.vue'
 import CategoryEdit from '../views/category/edit.vue'
 
+import Site from '../views/site/site.vue'
+
+
 import Router from 'vue-router'
 
 Vue.use(Router)
@@ -306,7 +309,7 @@ const router = new Router({
                     hidden: true
                 },
 
-                ]
+            ]
         },
         {
             path: '/category',
@@ -358,6 +361,39 @@ const router = new Router({
                     },
                     hidden: true
                 },
+
+            ]
+        },
+        {
+            path: '/site',
+            component: Layout,
+            redirect: '/site/site',
+            name: 'Site',
+            meta: {
+                title: 'Site',
+                icon: 'example',
+                forAuth: true,
+                nav: false,
+                roles: ['admin']
+            },
+            hidden: true,
+
+            children: [
+                {
+                    path: 'site',
+                    name: 'site',
+                    component: Site,
+                    meta: {
+                        title: 'Site',
+                        icon: 'list',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    }, hidden: true
+
+
+                },
+
 
             ]
         },

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Post as PostModel;
 use App\Http\Resource\Post as PostResource;
-
+use App\Http\Resources\Media as MediaResource;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -74,15 +74,16 @@ class Post extends Controller
 
 
             if ($validation->fails()) {
-                return response()->json($validation->errors() , 422);
+                return response()->json($validation->errors(), 422);
 
             }
 
 
             $post = PostModel::create($request->all());
-            if ($request['image'] != null) {
-                $post->clearMediaCollection('image');
-                $post->addMediaFromRequest('image')->toMediaCollection('image');
+
+            if ($request['featured'] != null) {
+                $post->clearMediaCollection('featured');
+                $post->addMediaFromRequest('featured')->toMediaCollection('featured');
 
             }
             return new  PostResource($post);
@@ -136,11 +137,12 @@ class Post extends Controller
             $post->fill($request->all())->save();
 
 
-            if ($request['image'] != null) {
-                $post->clearMediaCollection('image');
-                $post->addMediaFromRequest('image')->toMediaCollection('image');
+            if ($request['featured'] != null) {
+                $post->clearMediaCollection('featured');
+                $post->addMediaFromRequest('featured')->toMediaCollection('featured');
 
             }
+
             $post = PostModel::findOrFail($id);
 
             return new  PostResource($post);
@@ -182,4 +184,45 @@ class Post extends Controller
             return response()->json($return, 403);
         }
     }
+
+    public function uploads(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'post' => 'required|numeric',
+        ]);
+
+
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+
+        }
+
+        $post = PostModel::findOrFail($request->post);
+
+        if ($request['file'] != null) {
+
+            $post->addMediaFromRequest('file')->toMediaCollection('gallery');
+
+
+        }
+        $post = PostModel::findOrFail($request->post);
+        return MediaResource::collection($post->getMedia('gallery'));
+
+
+    }
+
+
+    public function deleteMedia($id, $mediaID)
+    {
+        $post = PostModel::findOrFail($id);
+        $media = $post->getMedia('gallery');
+
+        $delete = $media->where('id', $mediaID)->first();
+        $delete->delete();
+
+        $post = PostModel::findOrFail($id);
+        return MediaResource::collection($post->getMedia('gallery'));
+    }
+
+
 }

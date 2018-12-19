@@ -18,7 +18,39 @@
                         </span>
                     </el-form-item>
 
+                    <div class="postInfo-container">
+                        <el-row>
+                            <el-col :span="6">
+                                <el-form-item class="postInfo-container-item" label="Icon" prop="icon">
+                                    <el-input v-model="temp.icon"/>
+                                    <span style="color: red" v-if="errors.icon">
+                            <li v-for="item in errors.icon">{{item}}</li>
+                        </span>
+                                </el-form-item>
+                            </el-col>
 
+                            <el-col :span="6">
+                                <el-form-item class="postInfo-container-item" label="Status" prop="status">
+                                    <el-select class="filter-item" v-model="temp.status" placeholder="Please select">
+                                        <el-option v-for="item in  statusOptions" :key="item.key" :label="item.label"
+                                                   :value="item.key">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+
+                            <el-col :span="6">
+                                <el-form-item class="postInfo-container-item" label="Category" prop="category_id">
+                                    <el-select class="filter-item" v-model="temp.category_id"
+                                               placeholder="please select role">
+                                        <el-option v-for="item in  categories" :key="item.id" :label="item.title"
+                                                   :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </div>
                     <el-form-item label="Description" prop="description">
                         <div class="editor-container">
                             <Tinymce :height=400 ref="editor" v-model="temp.description"/>
@@ -28,30 +60,40 @@
                         </span>
                     </el-form-item>
 
-                    <el-form-item label="Icon" prop="icon">
-                        <el-input v-model="temp.icon"/>
-                        <span style="color: red" v-if="errors.icon">
-                            <li v-for="item in errors.icon">{{item}}</li>
-                        </span>
+                    <el-form-item label="Featured Image" prop="featured">
+                        <img :src="temp.featured" height="200px">
+                        <br>
+                        <input type="file" id="file" ref="featured" v-on:change="handleFileUpload()"/>
                     </el-form-item>
 
-                    <el-form-item label="Status" prop="status">
-                        <el-select class="filter-item" v-model="temp.status" placeholder="Please select">
-                            <el-option v-for="item in  statusOptions" :key="item.key" :label="item.label"
-                                       :value="item.key">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
+                    <el-form-item label="Gallery" prop="gallery">
+
+                        <el-upload
+                                action="http://localhost:8000/api/post/uploads"
+                                drag
+                                multiple
+                                :limit="3"
+                                :headers="headerInfo"
+                                :on-preview="handlePictureCardPreview"
+                                :on-remove="handleRemove"
+                                :data="uploadData"
+                                name="file"
+                                :file-list="fileList"
+                                :before-upload="setUploadData">
 
 
-                    <el-form-item label="Category" prop="category_id">
-                        <el-select v-model="temp.category_id" placeholder="please select role">
-                            <el-option v-for="item in  categories" :key="item.id" :label="item.title" :value="item.id">
-                            </el-option>
-                        </el-select>
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
+                            <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
+                        </el-upload>
+                        <el-dialog :visible.sync="dialogVisible">
+                            <img width="100%" :src="dialogImageUrl" alt="">
+                        </el-dialog>
+
                     </el-form-item>
 
                 </el-col>
+
             </el-form>
 
             <div slot="footer" class="dialog-footer">
@@ -65,6 +107,7 @@
 <script>
     import waves from '../../../directive/waves/index.js'
     import Tinymce from '../../../components/Tinymce'
+    import Vue from 'vue'
 
     export default {
         name: 'Post-Detail',
@@ -89,6 +132,11 @@
                 categories: [],
                 //tracking variable
 
+                featured: null,
+
+                fileList: [],
+
+
                 //form element
                 temp: {
                     id: undefined,
@@ -96,7 +144,9 @@
                     description: '',
                     category_id: null,
                     icon: null,
-                    status: null
+                    status: null,
+                    featured: null,
+                    gallery: []
 
                 },
 
@@ -111,6 +161,12 @@
                     category_id: [{required: true, message: 'Category is required', trigger: 'change'}],
                     status: [{required: true, message: 'Status is required', trigger: 'change'}]
 
+                },
+                uploadData: {},
+                dialogImageUrl: '',
+                dialogVisible: false,
+                headerInfo: {
+                    'Authorization': `Bearer ${Vue.auth.getToken()}`,
                 },
 
                 //state variable
@@ -134,7 +190,12 @@
             fetchData(id) {
                 this.$axios.get('/post/' + id).then(response => {
                     this.temp = response.data.data
+                    this.fileList = response.data.data.gallery
                 })
+            },
+
+            handleFileUpload() {
+                this.featured = this.$refs.featured.files[0];
             },
             upload() {
                 this.$refs['dataForm'].validate((valid) => {
@@ -142,7 +203,19 @@
                     if (valid) {
                         this.apiCall = true;
                         if (!this.isEdit) {
-                            this.$axios.post('/post/', this.temp).then(response => {
+                            var formData = new FormData();
+
+                            formData.append('title', this.temp.title);
+                            formData.append('description', this.temp.description);
+                            formData.append('category_id', this.temp.category_id);
+                            formData.append('status', this.temp.status);
+
+                            formData.append('icon', this.temp.icon);
+
+                            if (this.featured) {
+                                formData.append('featured', this.featured);
+                            }
+                            this.$axios.post('/post/', formData).then(response => {
                                 this.$message({
                                     type: 'success',
                                     message: 'Post Creation completed'
@@ -153,8 +226,21 @@
                                 this.errors = error.response.data;
                             })
                         } else {
-                            this.temp['_method'] = 'put'
-                            this.$axios.post('/post/' + this.temp.id, this.temp).then(response => {
+
+                            var formData = new FormData();
+                            formData.append('_method', "put");
+
+                            formData.append('title', this.temp.title);
+                            formData.append('description', this.temp.description);
+                            formData.append('category_id', this.temp.category_id);
+                            formData.append('status', this.temp.status);
+
+                            formData.append('icon', this.temp.icon);
+
+                            if (this.featured) {
+                                formData.append('featured', this.featured);
+                            }
+                            this.$axios.post('/post/' + this.temp.id, formData).then(response => {
                                 this.$message({
                                     type: 'success',
                                     message: 'Post Updated'
@@ -167,7 +253,37 @@
                         }
                     }
                 })
+            },
+
+        //    gallery related function
+            setUploadData(file) {
+                return new Promise(resolve => {
+                    this.uploadData = {
+                        post: this.temp.id,
+                    }
+
+                    this.$nextTick(() => {
+                        resolve(file)
+                    })
+                })
+            },
+
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+
+            },
+
+            handleRemove(file) {
+                this.$axios.get("/media/" + this.temp.id + "/" + file.id).then(response => {
+                    this.fileList = response.data.data;
+                    this.temp.media = response.data.data;
+
+
+                })
             }
+
+
         },
         watch: {}
     }

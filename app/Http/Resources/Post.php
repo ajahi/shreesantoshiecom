@@ -4,6 +4,9 @@ namespace App\Http\Resource;
 
 use App\Category as CategoryModel;
 use Illuminate\Http\Resources\Json\JsonResource;
+
+
+use App\Http\Resources\Media as MediaResource;
 class Post extends JsonResource
 {
     /**
@@ -22,14 +25,13 @@ class Post extends JsonResource
             'icon' => $this->icon,
             'category' => CategoryModel::find($this->category_id),
              'category_id' => $this->category_id,
-            'photo' => $this->when(1, function () {
-                if (count($this->getMedia('image')) > 0) {
-                    return $this->getMedia('image')[0]->getFullUrl();
-
-                } else {
-                    return "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
+            'featured' => $this->when(1, function () {
+                if (count($this->getMedia('featured')) > 0) {
+                    return $this->getMedia('featured')[0]->getFullUrl();
                 }
             }),
+            'gallery' => MediaResource::collection($this->getMedia('gallery')),
+
         ];
     }
 }

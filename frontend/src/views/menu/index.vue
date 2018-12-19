@@ -40,6 +40,8 @@
 
                 <img :src="temp.photo" height="200px">
                 <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+
+
             </el-form>
             <el-row type="flex" class="row-bg" justify="center">
                 <el-button v-if="dialogStatus==='create'" type="primary" @click="createData">Add</el-button>
@@ -132,7 +134,7 @@
                         if (this.temp.parent_id) {
                             formData.append('parent_id', this.temp.parent_id);
                         }
-                        formData.append('position', this.temp.parent_id);
+                        formData.append('position', this.temp.position);
 
 
                         if (this.file) {
