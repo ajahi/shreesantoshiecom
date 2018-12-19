@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Post as PostModel;
 use App\Http\Resource\Post as PostResource;
+
+
 use Illuminate\Support\Facades\Auth;
 
 use Validator;
@@ -16,15 +18,28 @@ class Post extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
     {
-        if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
-            $post = PostModel::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+
+
+        if ($request->has('name')) {
+            $post = PostModel::where('name', 'like', '%' . $request->name . '%')->orWhere('description', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+
+            if ($request->has('status')) {
+                $post = PostModel::orWhere([['name', 'like', '%' . $request->name . '%'], ['description', 'like', '%' . $request->name . '%']])->where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
+            }
+
             return PostResource::collection($post);
+        } elseif ($request->has('status')) {
+            $post = PostModel::where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
+            return PostResource::collection($post);
+
         }
-        return PostResource::collection(PostModel::all());
+        return PostResource::collection(PostModel::orderBy('id', $request->sort)->paginate($request->input('limit')));
+
     }
 
     /**
@@ -59,7 +74,7 @@ class Post extends Controller
 
 
             if ($validation->fails()) {
-                return response()->json($validation->errors());
+                return response()->json($validation->errors() , 422);
 
             }
 
@@ -86,22 +101,12 @@ class Post extends Controller
      * Display the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return PostResource
      */
     public function show($id)
     {
-        $user = Auth::user();
+        return new PostResource(PostModel::find($id));
 
-        if ($user->hasRole('admin')) {
-            return new PostResource(PostModel::find($id));
-        } else {
-            $return = ["status" => "error",
-                "error" => [
-                    "code" => 403,
-                    "errors" => 'Forbidden'
-                ]];
-            return response()->json($return, 403);
-        }
     }
 
     /**

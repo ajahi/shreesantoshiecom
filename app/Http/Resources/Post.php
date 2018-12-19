@@ -21,7 +21,8 @@ class Post extends JsonResource
             'status'=> $this->status,
             'icon' => $this->icon,
             'category' => CategoryModel::find($this->category_id),
-            'image' => $this->when(1, function () {
+             'category_id' => $this->category_id,
+            'photo' => $this->when(1, function () {
                 if (count($this->getMedia('image')) > 0) {
                     return $this->getMedia('image')[0]->getFullUrl();
 

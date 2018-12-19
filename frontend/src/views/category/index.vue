@@ -16,14 +16,12 @@
                 <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key"/>
             </el-select>
 
-
-
             <!--call filter function-->
             <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search
             </el-button>
 
             <!--route to role create page-->
-            <router-link to="/user/create">
+            <router-link to="/category/create">
                 <el-button
                         class="filter-item"
                         style="margin-left: 10px;"
@@ -44,7 +42,6 @@
         </div>
 
         <!--Table listing-->
-
         <el-table
                 v-loading.body="listLoading"
                 :data="list"
@@ -55,31 +52,29 @@
                 style="width: 100%;margin-top: 10px;margin-bottom: 10px">
             <el-table-column align="center" label="ID" width="95">
                 <template slot-scope="scope">
-                    {{ scope.$index + 1 }}
+                    {{ scope.$index + 1}}
                 </template>
             </el-table-column>
-            <el-table-column label="Name">
+            <el-table-column label="Title">
                 <template slot-scope="scope">
-                    {{ scope.row.name }}
+                    {{ scope.row.title }}
                 </template>
             </el-table-column>
-            <el-table-column label="Email" align="center">
+            <el-table-column label="Description" align="center">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.email }}</span>
+                    <span>{{ scope.row.description }}</span>
                 </template>
             </el-table-column>
 
-            <el-table-column label="Role" align="center" width="100">
+            <el-table-column label="Position" align="center">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.roles[0].display_name }}</span>
+                    <span>{{ scope.row.position }}</span>
                 </template>
             </el-table-column>
-
 
             <el-table-column align="center" label="Action" width="250" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
-
-                    <router-link :to="'/user/edit/'+scope.row.id">
+                    <router-link :to="'/category/edit/'+scope.row.id">
                         <el-button type="primary" size="mini">Edit</el-button>
                     </router-link>
                     <el-button
@@ -89,7 +84,6 @@
                     </el-button>
                 </template>
             </el-table-column>
-
         </el-table>
 
         <div class="pagination-container">
@@ -116,9 +110,7 @@
         directives: {
             waves
         },
-        filters: {
-
-        },
+        filters: {},
         data() {
 
             return {
@@ -135,17 +127,15 @@
                 },
                 sortOptions: [{label: 'Ascending', key: 'asc'}, {label: 'Descending', key: 'desc'}],
 
-
             }
         },
         created() {
             this.getList()
-
         },
         methods: {
             getList() {
                 this.listLoading = true
-                this.$axios.get('/user', {params: this.listQuery}).then(response => {
+                this.$axios.get('/category', {params: this.listQuery}).then(response => {
                     console.log(response.data)
                     this.list = response.data.data
                     this.total = response.data.meta.total
@@ -159,14 +149,11 @@
                 this.listQuery = {
                     page: 1,
                     limit: 50,
-                    status: undefined,
                     name: undefined,
-                    type: undefined,
                     sort: 'desc'
                 }
                 this.getList()
             },
-
             handleFilter() {
                 this.listQuery.page = 1
                 this.getList()
@@ -177,7 +164,7 @@
                     cancelButtonText: 'Cancel',
                     type: 'warning'
                 }).then(() => {
-                    this.$axios.delete('/user/' + row.id).then(response => {
+                    this.$axios.delete('/category/' + row.id).then(response => {
                         const index = this.list.indexOf(row)
                         this.list.splice(index, 1)
                         this.$message({
@@ -200,7 +187,6 @@
                 this.listQuery.page = val
                 this.getList()
             },
-
 
         }
     }

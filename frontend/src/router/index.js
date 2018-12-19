@@ -3,6 +3,10 @@ import Login from '../views/authentication/Login.vue'
 import Dashboard from '../views/dashboard.vue'
 import Layout from '../views/layout/Layout'
 
+
+import Menu from '../views/menu/index.vue'
+
+
 import User from '../views/user/index.vue'
 import UserCreate from '../views/user/create.vue'
 import UserEdit from '../views/user/edit.vue'
@@ -16,6 +20,15 @@ import RoleEdit from '../views/role/edit.vue'
 import Permission from '../views/permission/index.vue'
 import PermissionCreate from '../views/permission/create.vue'
 import PermissionEdit from '../views/permission/edit.vue'
+
+
+import Post from '../views/post/index.vue'
+import PostCreate from '../views/post/create.vue'
+import PostEdit from '../views/post/edit.vue'
+
+import Category from '../views/category/index.vue'
+import CategoryCreate from '../views/category/create.vue'
+import CategoryEdit from '../views/category/edit.vue'
 
 import Router from 'vue-router'
 
@@ -46,15 +59,37 @@ const router = new Router({
             children: [{
                 path: 'index',
                 component: Dashboard,
-                name: 'dashboard',
+                name: 'Dashboard',
 
                 meta: {
-                    title: 'dashboard',
+                    title: 'Dashboard',
                     icon: 'dashboard',
                     noCache: true,
                     forAuth: true,
                     nav: false,
-                    roles: ['admin', 'customer']
+                    roles: ['admin']
+                }
+            }]
+        },
+        {
+            path: '/menu',
+            component: Layout,
+            redirect: '/menu/index',
+            meta: {
+                roles: ['admin']
+            },
+            children: [{
+                path: 'index',
+                component: Menu,
+                name: 'Menu',
+
+                meta: {
+                    title: 'Menu',
+                    icon: 'tab',
+                    noCache: true,
+                    forAuth: true,
+                    nav: false,
+                    roles: ['admin']
                 }
             }]
         },
@@ -209,6 +244,113 @@ const router = new Router({
                     component: PermissionEdit,
                     meta: {
                         title: 'Permission Edit',
+                        icon: 'table',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    },
+                    hidden: true
+                },
+
+            ]
+        },
+
+        {
+            path: '/post',
+            component: Layout,
+            redirect: '/post/post',
+            name: 'Post',
+            meta: {
+                title: 'Post',
+                icon: 'excel',
+                forAuth: true,
+                nav: false,
+                roles: ['admin']
+            },
+            children: [
+                {
+                    path: 'post',
+                    name: 'post',
+                    component: Post,
+                    meta: {
+                        title: 'Post',
+                        icon: 'list',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'PostCreate',
+                    component: PostCreate,
+                    meta: {
+                        title: 'Post Create',
+                        icon: 'edit',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    }
+                },
+                {
+                    path: 'edit/:id(\\d+)',
+                    name: 'PostEdit',
+                    component: PostEdit,
+                    meta: {
+                        title: 'Post Edit',
+                        icon: 'table',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    },
+                    hidden: true
+                },
+
+                ]
+        },
+        {
+            path: '/category',
+            component: Layout,
+            redirect: '/category/category',
+            name: 'Category',
+            meta: {
+                title: 'Category',
+                icon: 'example',
+                forAuth: true,
+                nav: false,
+                roles: ['admin']
+            },
+            children: [
+                {
+                    path: 'category',
+                    name: 'category',
+                    component: Category,
+                    meta: {
+                        title: 'Category',
+                        icon: 'list',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    }
+                },
+                {
+                    path: 'create',
+                    name: 'CategoryCreate',
+                    component: CategoryCreate,
+                    meta: {
+                        title: 'Category Create',
+                        icon: 'edit',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin']
+                    }
+                },
+                {
+                    path: 'edit/:id(\\d+)',
+                    name: 'CategoryEdit',
+                    component: CategoryEdit,
+                    meta: {
+                        title: 'Category Edit',
                         icon: 'table',
                         forAuth: true,
                         nav: false,

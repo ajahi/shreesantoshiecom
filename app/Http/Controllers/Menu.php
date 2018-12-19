@@ -66,7 +66,7 @@ class Menu extends Controller
 
 
             if ($validation->fails()) {
-                return response()->json($validation->errors());
+                return response()->json($validation->errors() , 422);
 
             }
 

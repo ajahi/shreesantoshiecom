@@ -24,6 +24,9 @@ class Category extends Controller
         if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
             $category = CategoryModel::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
             return CategoryResource::collection($category);
+        }elseif ($request->has('limit') && $request->has('sort')){
+            $category = CategoryModel::orderBy('id', $request->sort)->paginate($request->input('limit'));
+            return CategoryResource::collection($category);
         }
         return CategoryResource::collection(CategoryModel::all());
 
@@ -91,18 +94,8 @@ class Category extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
+        return new CategoryResource(CategoryModel::find($id));
 
-        if ($user->hasRole('admin')) {
-            return new CategoryResource(CategoryModel::find($id));
-        } else {
-            $return = ["status" => "error",
-                "error" => [
-                    "code" => 403,
-                    "errors" => 'Forbidden'
-                ]];
-            return response()->json($return, 403);
-        }
     }
 
     /**

@@ -16,14 +16,18 @@
                 <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key"/>
             </el-select>
 
-
+            <!--status filter-->
+            <el-select @change='handleFilter' style="width: 140px" class="filter-item"  v-model="listQuery.status">
+                <el-option v-for="item in statusOptions" :key="item.key" :label="item.label" :value="item.key">
+                </el-option>
+            </el-select>
 
             <!--call filter function-->
             <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search
             </el-button>
 
             <!--route to role create page-->
-            <router-link to="/user/create">
+            <router-link to="/post/create">
                 <el-button
                         class="filter-item"
                         style="margin-left: 10px;"
@@ -55,23 +59,30 @@
                 style="width: 100%;margin-top: 10px;margin-bottom: 10px">
             <el-table-column align="center" label="ID" width="95">
                 <template slot-scope="scope">
-                    {{ scope.$index + 1 }}
+                    {{ scope.$index +1 }}
                 </template>
             </el-table-column>
-            <el-table-column label="Name">
+            <el-table-column label="Title">
                 <template slot-scope="scope">
-                    {{ scope.row.name }}
+                    {{ scope.row.title }}
                 </template>
             </el-table-column>
-            <el-table-column label="Email" align="center">
+            <el-table-column label="Description" align="center">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.email }}</span>
+                    <span>{{ scope.row.description.substring(0, 100) + '...' }}</span>
                 </template>
             </el-table-column>
 
-            <el-table-column label="Role" align="center" width="100">
+            <el-table-column label="Status" align="center" width="100">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.roles[0].display_name }}</span>
+                    <span>{{scope.row.status | statusFilter}}</span>
+                </template>
+            </el-table-column>
+
+
+            <el-table-column label="Category" align="center" width="100">
+                <template slot-scope="scope">
+                    {{scope.row.category.title}}
                 </template>
             </el-table-column>
 
@@ -79,7 +90,7 @@
             <el-table-column align="center" label="Action" width="250" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
 
-                    <router-link :to="'/user/edit/'+scope.row.id">
+                    <router-link :to="'/post/edit/'+scope.row.id">
                         <el-button type="primary" size="mini">Edit</el-button>
                     </router-link>
                     <el-button
@@ -117,11 +128,19 @@
             waves
         },
         filters: {
+            statusFilter(status) {
+                const statusMap = {
+                    published: 'Published',
+                    draft: 'Draft',
 
+                }
+                return statusMap[status]
+            }
         },
         data() {
 
             return {
+
                 total: null,
                 list: null,
                 listLoading: true,
@@ -133,6 +152,7 @@
                     type: undefined,
                     sort: 'desc'
                 },
+                statusOptions: [{label: 'Published' ,key:'published'}, {label: 'Draft',key:'draft'}],
                 sortOptions: [{label: 'Ascending', key: 'asc'}, {label: 'Descending', key: 'desc'}],
 
 
@@ -145,7 +165,7 @@
         methods: {
             getList() {
                 this.listLoading = true
-                this.$axios.get('/user', {params: this.listQuery}).then(response => {
+                this.$axios.get('/post', {params: this.listQuery}).then(response => {
                     console.log(response.data)
                     this.list = response.data.data
                     this.total = response.data.meta.total
@@ -177,7 +197,7 @@
                     cancelButtonText: 'Cancel',
                     type: 'warning'
                 }).then(() => {
-                    this.$axios.delete('/user/' + row.id).then(response => {
+                    this.$axios.delete('/post/' + row.id).then(response => {
                         const index = this.list.indexOf(row)
                         this.list.splice(index, 1)
                         this.$message({
