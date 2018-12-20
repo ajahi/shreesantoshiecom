@@ -19,6 +19,9 @@ class Menu extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'parent_id' => $this->parent_id,
+            'position' => $this->position,
+            'description' => $this->description,
+
             'children' =>  TempMenuResource::collection($this->children),
             'photo' => $this->when(1, function () {
                 if (count($this->getMedia('photo')) > 0) {

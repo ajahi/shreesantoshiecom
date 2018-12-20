@@ -11,93 +11,104 @@
 
                 <el-col :span="24">
 
-                    <el-form-item label="Title" prop="title">
-                        <el-input v-model="temp.title"/>
-                        <span style="color: red" v-if="errors.title">
+                    <el-form-item  prop="title">
+                        <el-input placeholder="Title" v-model="temp.title">
+                            <template slot="prepend">Title</template>
+                        </el-input>                        <span style="color: red" v-if="errors.title">
                             <li v-for="item in errors.title">{{item}}</li>
                         </span>
                     </el-form-item>
 
-                    <div class="postInfo-container">
-                        <el-row>
-                            <el-col :span="6">
-                                <el-form-item class="postInfo-container-item" label="Icon" prop="icon">
-                                    <el-input v-model="temp.icon"/>
-                                    <span style="color: red" v-if="errors.icon">
-                            <li v-for="item in errors.icon">{{item}}</li>
-                        </span>
-                                </el-form-item>
-                            </el-col>
-
-                            <el-col :span="6">
-                                <el-form-item class="postInfo-container-item" label="Status" prop="status">
-                                    <el-select class="filter-item" v-model="temp.status" placeholder="Please select">
-                                        <el-option v-for="item in  statusOptions" :key="item.key" :label="item.label"
-                                                   :value="item.key">
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-
-                            <el-col :span="6">
-                                <el-form-item class="postInfo-container-item" label="Category" prop="category_id">
-                                    <el-select class="filter-item" v-model="temp.category_id"
-                                               placeholder="please select role">
-                                        <el-option v-for="item in  categories" :key="item.id" :label="item.title"
-                                                   :value="item.id">
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                    </div>
-                    <el-form-item label="Description" prop="description">
-                        <div class="editor-container">
-                            <Tinymce :height=400 ref="editor" v-model="temp.description"/>
-                        </div>
-                        <span style="color: red" v-if="errors.description">
+                    <el-row>
+                        <el-col :xl="15" :lg="15">
+                            <el-form-item label="Description" prop="description">
+                                <div class="editor-container">
+                                    <Tinymce :height=400 ref="editor" v-model="temp.description"/>
+                                </div>
+                                <span style="color: red" v-if="errors.description">
                             <li v-for="item in errors.description">{{item}}</li>
                         </span>
-                    </el-form-item>
-
-                    <el-form-item label="Featured Image" prop="featured">
-                        <img :src="temp.featured" height="200px">
-                        <br>
-                        <input type="file" id="file" ref="featured" v-on:change="handleFileUpload()"/>
-                    </el-form-item>
-
-                    <el-form-item label="Gallery" prop="gallery">
-
-                        <el-upload
-                                action="http://localhost:8000/api/post/uploads"
-                                drag
-                                multiple
-                                :limit="3"
-                                :headers="headerInfo"
-                                :on-preview="handlePictureCardPreview"
-                                :on-remove="handleRemove"
-                                :data="uploadData"
-                                name="file"
-                                :file-list="fileList"
-                                :before-upload="setUploadData">
+                            </el-form-item>
+                        </el-col>
+                        <el-col style="padding: 30px;  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);" offset="1" :xl="8" :lg="8">
 
 
-                            <i class="el-icon-upload"></i>
-                            <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
-                            <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
-                        </el-upload>
-                        <el-dialog :visible.sync="dialogVisible">
-                            <img width="100%" :src="dialogImageUrl" alt="">
-                        </el-dialog>
 
-                    </el-form-item>
+                            <el-form-item class="postInfo-container-item" label="Status" prop="status">
+                                <br>
+                                <el-select class="filter-item" v-model="temp.status" placeholder="Please select">
+                                    <el-option v-for="item in  statusOptions" :key="item.key" :label="item.label"
+                                               :value="item.key">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+
+
+                            <el-form-item class="postInfo-container-item" label="Category" prop="category_id">
+                                <br>
+                                <el-select class="filter-item" v-model="temp.category_id"
+                                           placeholder="please select role">
+                                    <el-option v-for="item in  categories" :key="item.id" :label="item.title"
+                                               :value="item.id">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+
+
+                            <el-form-item class="postInfo-container-item" label="Icon" prop="icon">
+                                <br>
+                                <el-input style="width: 64%" v-model="temp.icon"/>
+                                <span style="color: red" v-if="errors.icon">
+                            <li v-for="item in errors.icon">{{item}}</li>
+                        </span>
+                            </el-form-item>
+
+                            <el-form-item label="Featured Image" prop="featured">
+                                <br>
+                                <img :src="temp.featured" height="200px">
+                                <br>
+                                <input type="file" id="file" ref="featured" v-on:change="handleFileUpload()"/>
+                            </el-form-item>
+                            
+                            <el-button style="float: right;" type="primary"  :loading="apiCall" @click="upload">Save</el-button>
+
+
+                        </el-col>
+                    </el-row>
+
+
 
                 </el-col>
 
             </el-form>
 
-            <div slot="footer" class="dialog-footer">
-                <el-button type="primary" :loading="apiCall" @click="upload">Save</el-button>
+            <br>
+
+            <div style=" box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);padding: 30px; " v-if="isEdit" label="Gallery" prop="gallery">
+
+                <h1>Gallery</h1>
+                <el-upload
+                        action="http://localhost:8000/api/post/uploads"
+                        drag
+                        multiple
+                        :limit="3"
+                        :headers="headerInfo"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove"
+                        :data="uploadData"
+                        name="file"
+                        :file-list="fileList"
+                        :before-upload="setUploadData">
+
+
+                    <i class="el-icon-upload"></i>
+                    <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
+                    <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+
             </div>
         </div>
 
@@ -255,7 +266,7 @@
                 })
             },
 
-        //    gallery related function
+            //    gallery related function
             setUploadData(file) {
                 return new Promise(resolve => {
                     this.uploadData = {

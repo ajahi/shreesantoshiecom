@@ -21,6 +21,7 @@ class Post extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+
             'status'=> $this->status,
             'icon' => $this->icon,
             'category' => CategoryModel::find($this->category_id),

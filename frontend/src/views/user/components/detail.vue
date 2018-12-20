@@ -107,7 +107,7 @@
                 rules: {
                     name: [{ required: true, message: 'name is required', trigger: 'change' }],
                     email: [{ type: 'email', required: true, message: 'email is required', trigger: 'change' }],
-                    password: [{ required: true, message: 'password is required', trigger: 'change' }],
+                    password: [{ required: true, message: 'password is required'}],
                     password_confirmation: [
                         {
                             validator: confirmpassword,
@@ -136,6 +136,7 @@
             fetchData(id) {
                 this.$axios.get('/user/' + id).then(response => {
                     this.temp = response.data.data
+                    this.temp.password = ''
                 })
             },
             upload() {

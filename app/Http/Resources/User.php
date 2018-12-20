@@ -31,6 +31,12 @@ class User extends JsonResource
                     return $role;
                 }
             }),
+            'role_id' => $this->when(1, function () {
+                if (count($this->roles) > 0) {
+                    ;
+                    return  $this->roles[0]['id'] ;
+                }
+            }),
             'verified' => $this->when(1, function () {
                 if ($this->activation_token == "") {
                     return  true;

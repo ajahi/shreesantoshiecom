@@ -28,7 +28,7 @@ class Menu extends Controller
             $menu = MenuModel::where('title', 'like', '%' . $request->title . '%')->where('parent_id', null)->orderBy('id', $request->sort)->paginate($request->input('limit'));
             return MenuResource::collection($menu);
         } elseif ($request->has('parent_id')) {
-            $menu = MenuModel::where('parent_id', null)->get();
+            $menu = MenuModel::where('parent_id', null)->orderBy('position')->get();
             return MenuResource::collection($menu);
         }
         return MenuResource::collection(MenuModel::all());
@@ -60,7 +60,6 @@ class Menu extends Controller
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:menus',
                 'description' => 'required',
-                'position' => 'required|numeric',
                 'parent_id' => 'numeric'
             ]);
 
@@ -70,8 +69,20 @@ class Menu extends Controller
 
             }
 
+            $data  = collect($request->all());
 
-            $menu = MenuModel::create($request->all());
+            $data = $data->toArray();
+
+
+            if($request->parent_id){
+                $position = MenuModel::where('parent_id','=',$request->parent_id)->count();
+            }else{
+                $position = MenuModel::count();
+            }
+            $data['position'] = $position +1 ;
+
+
+            $menu = MenuModel::create($data);
 
             if ($request['image'] != null) {
                 $menu->clearMediaCollection('photo');

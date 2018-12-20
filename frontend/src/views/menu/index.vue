@@ -27,7 +27,7 @@
                 <el-form-item label="Description" prop="description">
                     <el-input v-model="temp.description"></el-input>
                 </el-form-item>
-                <el-form-item label="Position" prop="position">
+                <el-form-item v-if="edit" label="Position" prop="position">
                     <el-input v-model="temp.position"></el-input>
                 </el-form-item>
 
@@ -70,18 +70,18 @@
                     update: 'Edit',
                     create: 'Create'
                 },
+                edit:false,
                 file: null,
                 temp: {
                     id: undefined,
                     title: '',
                     parent_id: undefined,
-                    position: null,
+                    position: undefined,
                     description:'',
                     photo: null
                 },
                 rules: {
                     title: [{required: true, message: 'title is required', trigger: 'blur'}],
-                    position: [{required: true, message: 'position is required', trigger: 'blur'}],
                     description: [{required: true, message: 'description is required', trigger: 'blur'}],
 
                 }
@@ -113,7 +113,7 @@
                     title: '',
                     parent_id: null,
                     photo: null,
-                    position: null,
+                    position: undefined,
                     description: ''
                 }
                 this.dialogStatus = "create";
@@ -134,7 +134,6 @@
                         if (this.temp.parent_id) {
                             formData.append('parent_id', this.temp.parent_id);
                         }
-                        formData.append('position', this.temp.position);
 
 
                         if (this.file) {
@@ -180,6 +179,9 @@
                                 type: 'success',
                                 message: 'Category update completed'
                             });
+                            this.edit = false;
+                            this.resetTemp();
+
                         })
                     }
                 })
@@ -189,7 +191,11 @@
                 this.temp.id = node.id;
                 this.temp.title = node.title;
                 this.temp.parent_id = node.parent_id;
+                this.temp.position = node.position;
+                this.temp.description = node.description;
+
                 this.temp.photo = node.photo;
+                this.edit = true;
 
                 console.log('Node Click', node);
 
