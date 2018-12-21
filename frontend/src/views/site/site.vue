@@ -116,16 +116,26 @@
 
                     </el-form-item>
 
+                    <el-form-item label="Additional property">
+                        <br>
+                        <div>
+                            <p style="padding: 10px" v-for="(value, propertyName) in temp.attributes">
+                                <el-button>{{ propertyName }} </el-button>: <el-button>{{ value }} </el-button><el-button type="danger" @click="remove(propertyName)">X</el-button>
+                            </p>
 
-                    <el-form-item label="Attributes" prop="attributes">
-                        <el-input v-model="temp.attributes" type="text"/>
-                        <span style="color: red" v-if="errors.attributes">
-                            <li v-for="item in errors.attributes">{{item}}</li>
-                        </span>
-
+                        </div>
+                        <el-row :gutter="20">
+                            <el-col :xl="5" :lg="5" :md="5">
+                                <el-input v-model="Aproperty" placeholder="Property" type="text"/>
+                            </el-col>
+                            <el-col :xl="5" :lg="5" :md="5">
+                                <el-input v-model="Avalue" placeholder="Value" type="text"/>
+                            </el-col>
+                            <el-col :xl="5" :lg="5" :md="5">
+                                <el-button @click="add(Aproperty,Avalue)">Add</el-button>
+                            </el-col>
+                        </el-row>
                     </el-form-item>
-
-
                 </el-col>
             </el-form>
 
@@ -138,8 +148,9 @@
 </template>
 
 <script>
-    import waves from '../../directive/waves/index.js'
+    import Vue from 'vue'
 
+    import waves from '../../directive/waves/index.js'
 
     export default {
         name: 'Role-Detail',
@@ -153,7 +164,8 @@
         data() {
 
             return {
-
+                Aproperty: '',
+                Avalue: '',
                 //required element
                 permissions: [],
                 //tracking variable
@@ -182,6 +194,7 @@
             fetchData() {
                 this.$axios.get('/site/').then(response => {
                     this.temp = response.data
+                    console.log(this.temp);
                 })
             },
             upload() {
@@ -189,25 +202,35 @@
 
                     if (valid) {
                         this.apiCall = true;
-                            this.$axios.post('/site/', this.temp).then(response => {
-                                this.temp = response.data
+                        this.$axios.post('/site/', this.temp).then(response => {
+                            this.temp = response.data
+                            this.apiCall = false;
 
-                                this.$message({
-                                    type: 'success',
-                                    message: 'Site updated'
-                                })
-                            }).catch((error) => {
-                                this.apiCall = false;
-                                this.errors = error.response.data;
-
+                            this.$message({
+                                type: 'success',
+                                message: 'Site updated'
                             })
+                        }).catch((error) => {
+                            this.apiCall = false;
+                            this.errors = error.response.data;
+
+                        })
                     }
                 })
+            },
+            remove(property) {
+                Vue.delete(this.temp.attributes, property);
+            },
+
+            add(property, value) {
+                if (this.Aproperty.trim() !== '' && this.Avalue.trim() !== '') {
+                    this.temp.attributes[property] = value;
+                    this.Aproperty = '';
+                    this.Avalue = '';
+                }
             }
         },
-        watch: {
-
-        }
+        watch: {}
     }
 </script>
 

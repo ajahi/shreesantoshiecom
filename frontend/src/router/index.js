@@ -376,7 +376,7 @@ const router = new Router({
                 nav: false,
                 roles: ['admin']
             },
-            hidden: true,
+            hidden: false,
 
             children: [
                 {
@@ -389,7 +389,7 @@ const router = new Router({
                         forAuth: true,
                         nav: false,
                         roles: ['admin']
-                    }, hidden: true
+                    },
 
 
                 },

@@ -22,10 +22,12 @@ class Site extends Controller
         if (count($site->getMedia('logo')) > 0) {
             $site['logo'] = $site->getMedia('logo')[0]->getFullUrl();
 
+
         } else {
             $site['logo'] = "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
         }
 
+        $site->attributes = json_decode($site->attributes);
         return response()->json($site);
     }
 
@@ -64,6 +66,8 @@ class Site extends Controller
             $site = SiteModel::first();
             $data = collect($request->all());
             $data= $data->except(['logo']);
+
+            $data['attributes']  = json_encode($data['attributes']);
             $site->fill($data->toArray())->save();
 
 
@@ -80,6 +84,7 @@ class Site extends Controller
             } else {
                 $site['logo'] = "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
             }
+            $site->attributes = json_decode($site->attributes);
 
             return response()->json($site);
 

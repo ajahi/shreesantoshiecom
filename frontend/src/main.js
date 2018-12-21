@@ -17,6 +17,9 @@ import './icons' // icon
 import './axios.js'
 import './permission.js'
 
+import JsonEditor from 'vue-json-edit'
+
+Vue.use(JsonEditor)
 Vue.use(VueResource)
 Vue.use(Auth)
 Vue.use(require('vue-moment'))
