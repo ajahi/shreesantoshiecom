@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Modules\Site\Models\Site;
+use App\Site;
 use Faker\Factory;
 
 class SitesTableSeeder extends Seeder

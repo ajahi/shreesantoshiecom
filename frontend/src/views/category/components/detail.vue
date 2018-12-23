@@ -25,7 +25,7 @@
                         </span>
                     </el-form-item>
 
-                    <el-form-item label="Position" style="margin-bottom: 40px;" prop="position">
+                    <el-form-item v-if="isEdit" label="Position" style="margin-bottom: 40px;" prop="position">
                         <el-input v-model="temp.position" type="text"/>
                         <span style="color: red" v-if="errors.position">
                             <li v-for="item in errors.position">{{item}}</li>
@@ -79,7 +79,6 @@
                 //form validation rule
                 rules: {
                     title: [{required: true, message: 'Name is required'}],
-                    position: [{required: true, message: 'Position is required'}],
                     description: [{required: true, message: 'Description is required'}],
                 },
 

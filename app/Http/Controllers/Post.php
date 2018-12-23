@@ -69,7 +69,6 @@ class Post extends Controller
                 'description' => 'required',
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
-                'icon' => 'required'
             ]);
 
 

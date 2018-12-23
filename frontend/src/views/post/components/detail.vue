@@ -11,10 +11,11 @@
 
                 <el-col :span="24">
 
-                    <el-form-item  prop="title">
+                    <el-form-item prop="title">
                         <el-input placeholder="Title" v-model="temp.title">
                             <template slot="prepend">Title</template>
-                        </el-input>                        <span style="color: red" v-if="errors.title">
+                        </el-input>
+                        <span style="color: red" v-if="errors.title">
                             <li v-for="item in errors.title">{{item}}</li>
                         </span>
                     </el-form-item>
@@ -30,8 +31,8 @@
                         </span>
                             </el-form-item>
                         </el-col>
-                        <el-col style="padding: 30px;  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);" offset="1" :xl="8" :lg="8">
-
+                        <el-col style="padding: 30px;  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);"
+                                offset="1" :xl="8" :lg="8">
 
 
                             <el-form-item class="postInfo-container-item" label="Status" prop="status">
@@ -69,13 +70,13 @@
                                 <br>
                                 <input type="file" id="file" ref="featured" v-on:change="handleFileUpload()"/>
                             </el-form-item>
-                            
-                            <el-button style="float: right;" type="primary"  :loading="apiCall" @click="upload">Save</el-button>
+
+                            <el-button style="float: right;" type="primary" :loading="apiCall" @click="upload">Save
+                            </el-button>
 
 
                         </el-col>
                     </el-row>
-
 
 
                 </el-col>
@@ -84,7 +85,8 @@
 
             <br>
 
-            <div style=" box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);padding: 30px; " v-if="isEdit" label="Gallery" prop="gallery">
+            <div style=" box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);padding: 30px; "
+                 v-if="isEdit" label="Gallery" prop="gallery">
 
                 <h1>Gallery</h1>
                 <el-upload
@@ -168,7 +170,6 @@
                 rules: {
                     title: [{required: true, message: 'title is required', trigger: 'change'}],
                     description: [{required: true, message: 'description is required', trigger: 'change'}],
-                    icon: [{required: true, message: 'icon is required', trigger: 'change'}],
                     category_id: [{required: true, message: 'Category is required', trigger: 'change'}],
                     status: [{required: true, message: 'Status is required', trigger: 'change'}]
 

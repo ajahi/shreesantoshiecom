@@ -24,7 +24,7 @@ class Category extends Controller
         if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
             $category = CategoryModel::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
             return CategoryResource::collection($category);
-        }elseif ($request->has('limit') && $request->has('sort')){
+        } elseif ($request->has('limit') && $request->has('sort')) {
             $category = CategoryModel::orderBy('id', $request->sort)->paginate($request->input('limit'));
             return CategoryResource::collection($category);
         }
@@ -58,7 +58,6 @@ class Category extends Controller
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:categories',
                 'description' => 'required',
-                'position' => 'required'
             ]);
 
 
@@ -66,9 +65,14 @@ class Category extends Controller
                 return response()->json($validation->errors());
 
             }
+            $data = collect($request->all());
 
+            $data = $data->toArray();
 
-            $category = CategoryModel::create($request->all());
+            $position = CategoryModel::count();
+            $data['position'] = $position + 1;
+            $category = CategoryModel::create($data);
+
             if ($request['image'] != null) {
                 $category->clearMediaCollection('photo');
                 $category->addMediaFromRequest('image')->toMediaCollection('photo');
