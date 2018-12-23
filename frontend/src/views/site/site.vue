@@ -120,7 +120,7 @@
                         <br>
                         <div>
                             <p style="padding: 10px" v-for="(value, propertyName) in temp.attributes">
-                                <el-button>{{ propertyName }} </el-button>: <el-button>{{ value }} </el-button><el-button type="danger" @click="remove(propertyName)">X</el-button>
+                                <el-input style="width: 100px"  v-model="propertyName"></el-input>  :  <el-input style="width: 40%"  v-model="temp.attributes[propertyName]"></el-input> <el-button type="danger" @click="remove(propertyName)">X</el-button>
                             </p>
 
                         </div>

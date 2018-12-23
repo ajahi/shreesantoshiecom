@@ -157,7 +157,7 @@
                     description: '',
                     category_id: null,
                     icon: null,
-                    status: null,
+                    status: 'published',
                     featured: null,
                     gallery: []
 
