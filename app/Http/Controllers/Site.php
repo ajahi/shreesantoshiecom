@@ -67,7 +67,7 @@ class Site extends Controller
             $data = collect($request->all());
             $data= $data->except(['logo']);
 
-            $data['attributes']  = json_encode($data['attributes']);
+//            $data['attributes']  = $data['attributes'];
             $site->fill($data->toArray())->save();
 
 

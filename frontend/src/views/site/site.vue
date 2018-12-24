@@ -17,6 +17,13 @@
                         </span>
                     </el-form-item>
 
+                    <el-form-item label="Logo" prop="logo">
+                        <br>
+                        <img :src="temp.logo" height="200px">
+                        <br>
+                        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+                    </el-form-item>
+
                     <el-form-item label="Slogan" prop="slogan">
                         <el-input v-model="temp.slogan" type="name"/>
                         <span style="color: red" v-if="errors.slogan">
@@ -120,7 +127,10 @@
                         <br>
                         <div>
                             <p style="padding: 10px" v-for="(value, propertyName) in temp.attributes">
-                                <el-input style="width: 100px"  v-model="propertyName"></el-input>  :  <el-input style="width: 40%"  v-model="temp.attributes[propertyName]"></el-input> <el-button type="danger" @click="remove(propertyName)">X</el-button>
+                                <el-input style="width: 100px" v-model="propertyName"></el-input>
+                                :
+                                <el-input style="width: 40%" v-model="temp.attributes[propertyName]"></el-input>
+                                <el-button type="danger" @click="remove(propertyName)">X</el-button>
                             </p>
 
                         </div>
@@ -174,6 +184,9 @@
                 //form element
                 temp: {},
 
+                file: null,
+
+
                 //errors
                 errors: [],
 
@@ -197,12 +210,36 @@
                     console.log(this.temp);
                 })
             },
+            handleFileUpload() {
+                this.file = this.$refs.file.files[0];
+            },
             upload() {
                 this.$refs['dataForm'].validate((valid) => {
 
                     if (valid) {
                         this.apiCall = true;
-                        this.$axios.post('/site/', this.temp).then(response => {
+                        var formData = new FormData();
+                        formData.append('title', this.temp.title);
+                        formData.append('slogan', this.temp.slogan);
+                        formData.append('description', this.temp.description);
+                        formData.append('logo', this.temp.logo);
+                        formData.append('website', this.temp.website);
+                        formData.append('location', this.temp.location);
+                        formData.append('telephone', this.temp.telephone);
+                        formData.append('working_days', this.temp.working_days);
+                        formData.append('facebook', this.temp.facebook);
+                        formData.append('google', this.temp.google);
+                        formData.append('twitter', this.temp.twitter);
+                        formData.append('instagram', this.temp.instagram);
+                        formData.append('linkedin', this.temp.linkedin);
+                        formData.append('skype', this.temp.skype);
+                        formData.append('attributes', JSON.stringify(this.temp.attributes));
+                        if (this.file) {
+
+                            formData.append('file', this.file);
+                        }
+
+                        this.$axios.post('/site/', formData).then(response => {
                             this.temp = response.data
                             this.apiCall = false;
 
