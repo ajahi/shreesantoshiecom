@@ -32,6 +32,13 @@ class Post extends JsonResource
                 }
             }),
             'gallery' => MediaResource::collection($this->getMedia('gallery')),
+            'attributes' => $this->when(1, function () {
+                if ($this->attributes != null) {
+                    return json_decode($this->attributes);
+                }else{
+                    return "[]";
+                }
+            })
 
         ];
     }

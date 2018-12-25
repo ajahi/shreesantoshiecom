@@ -30,6 +30,30 @@
                             <li v-for="item in errors.description">{{item}}</li>
                         </span>
                             </el-form-item>
+
+                            <el-form-item label="Additional property">
+                                <br>
+                                <div>
+                                    <p style="padding: 10px" v-for="(value, propertyName) in temp.attributes">
+                                        <el-input style="width: 100px" v-model="propertyName"></el-input>
+                                        :
+                                        <el-input style="width: 40%" v-model="temp.attributes[propertyName]"></el-input>
+                                        <el-button type="danger" @click="remove(propertyName)">X</el-button>
+                                    </p>
+
+                                </div>
+                                <el-row :gutter="20">
+                                    <el-col :xl="5" :lg="5" :md="5">
+                                        <el-input v-model="Aproperty" placeholder="Property" type="text"/>
+                                    </el-col>
+                                    <el-col :xl="5" :lg="5" :md="5">
+                                        <el-input v-model="Avalue" placeholder="Value" type="text"/>
+                                    </el-col>
+                                    <el-col :xl="5" :lg="5" :md="5">
+                                        <el-button @click="add(Aproperty,Avalue)">Add</el-button>
+                                    </el-col>
+                                </el-row>
+                            </el-form-item>
                         </el-col>
                         <el-col style="padding: 30px;  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);"
                                 offset="1" :xl="8" :lg="8">
@@ -140,6 +164,8 @@
 
 
             return {
+                Aproperty: '',
+                Avalue: '',
 
                 //required element
                 categories: [],
@@ -159,7 +185,8 @@
                     icon: null,
                     status: 'published',
                     featured: null,
-                    gallery: []
+                    gallery: [],
+                    attributes:{}
 
                 },
 
@@ -203,6 +230,9 @@
                 this.$axios.get('/post/' + id).then(response => {
                     this.temp = response.data.data
                     this.fileList = response.data.data.gallery
+                    if(this.temp.attributes === null){
+                        this.temp.attributes = {}
+                    }
                 })
             },
 
@@ -223,6 +253,8 @@
                             formData.append('status', this.temp.status);
 
                             formData.append('icon', this.temp.icon);
+                            formData.append('attributes', JSON.stringify(this.temp.attributes));
+
 
                             if (this.featured) {
                                 formData.append('featured', this.featured);
@@ -248,6 +280,7 @@
                             formData.append('status', this.temp.status);
 
                             formData.append('icon', this.temp.icon);
+                            formData.append('attributes', JSON.stringify(this.temp.attributes));
 
                             if (this.featured) {
                                 formData.append('featured', this.featured);
@@ -293,6 +326,13 @@
 
 
                 })
+            },
+            add(property, value) {
+                if (this.Aproperty.trim() !== '' && this.Avalue.trim() !== '') {
+                    this.temp.attributes[property] = value;
+                    this.Aproperty = '';
+                    this.Avalue = '';
+                }
             }
 
 
