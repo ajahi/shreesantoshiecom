@@ -17,9 +17,8 @@ import './icons' // icon
 import './axios.js'
 import './permission.js'
 
-import JsonEditor from 'vue-json-edit'
-
-Vue.use(JsonEditor)
+import ToggleButton from 'vue-js-toggle-button'
+Vue.use(ToggleButton)
 Vue.use(VueResource)
 Vue.use(Auth)
 Vue.use(require('vue-moment'))

@@ -34,13 +34,32 @@
                             <el-form-item label="Additional property">
                                 <br>
                                 <div>
-                                    <p style="padding: 10px" v-for="(value, propertyName) in temp.attributes">
+                                    <el-row :gutter="20">
+
+
+
+                                    <p style="padding: 10px" v-for="(value,propertyName) in temp.attributes">
+                                        <el-button type="danger" @click="remove(propertyName)">X</el-button>
+
                                         <el-input style="width: 100px" v-model="propertyName"></el-input>
                                         :
-                                        <el-input style="width: 40%" v-model="temp.attributes[propertyName]"></el-input>
-                                        <el-button type="danger" @click="remove(propertyName)">X</el-button>
+                                        <el-select style="width: 100px"  v-model="temp.attributes[propertyName]['type']"
+                                                   placeholder="Select type">
+                                            <el-option
+                                                    label="Editor"
+                                                    value="editor">
+                                            </el-option>
+                                            <el-option
+                                                    label="Text"
+                                                    value="text">
+                                            </el-option>
+                                        </el-select>
+                                        <Tinymce :height=400 v-if="temp.attributes[propertyName]['type'] === 'editor'"
+                                                 v-model="temp.attributes[propertyName]['value']"/>
+                                        <el-input v-else style="width: 40%"
+                                                  v-model="temp.attributes[propertyName]['value']"></el-input>
                                     </p>
-
+                                    </el-row>
                                 </div>
                                 <el-row :gutter="20">
                                     <el-col :xl="5" :lg="5" :md="5">
@@ -50,7 +69,19 @@
                                         <el-input v-model="Avalue" placeholder="Value" type="text"/>
                                     </el-col>
                                     <el-col :xl="5" :lg="5" :md="5">
-                                        <el-button @click="add(Aproperty,Avalue)">Add</el-button>
+                                        <el-select v-model="Atype" placeholder="Select type">
+                                            <el-option
+                                                    label="Editor"
+                                                    value="editor">
+                                            </el-option>
+                                            <el-option
+                                                    label="Text"
+                                                    value="text">
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                    <el-col :xl="5" :lg="5" :md="5">
+                                        <el-button @click="add(Aproperty,Avalue,Atype)">Add</el-button>
                                     </el-col>
                                 </el-row>
                             </el-form-item>
@@ -166,6 +197,7 @@
             return {
                 Aproperty: '',
                 Avalue: '',
+                Atype: 'text',
 
                 //required element
                 categories: [],
@@ -186,7 +218,7 @@
                     status: 'published',
                     featured: null,
                     gallery: [],
-                    attributes:{}
+                    attributes: {}
 
                 },
 
@@ -230,7 +262,7 @@
                 this.$axios.get('/post/' + id).then(response => {
                     this.temp = response.data.data
                     this.fileList = response.data.data.gallery
-                    if(this.temp.attributes === null){
+                    if (this.temp.attributes === null) {
                         this.temp.attributes = {}
                     }
                 })
@@ -327,9 +359,14 @@
 
                 })
             },
-            add(property, value) {
+            add(property, value, type) {
                 if (this.Aproperty.trim() !== '' && this.Avalue.trim() !== '') {
-                    this.temp.attributes[property] = value;
+                    var property1 = {
+                        'value': value,
+                        'type': type
+                    };
+                    this.temp.attributes[property] = property1;
+
                     this.Aproperty = '';
                     this.Avalue = '';
                 }
