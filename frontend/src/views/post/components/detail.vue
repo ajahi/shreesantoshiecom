@@ -37,36 +37,47 @@
                                     <el-row :gutter="20">
 
 
+                                        <p style="padding: 30px" v-for="(value,propertyName) in temp.attributes">
+                                            <el-button v-if="userrole.name === 'super_admin'" type="danger" @click="remove(propertyName)">X</el-button>
 
-                                    <p style="padding: 10px" v-for="(value,propertyName) in temp.attributes">
-                                        <el-button type="danger" @click="remove(propertyName)">X</el-button>
+                                            <el-input v-if="userrole.name === 'super_admin'" style="width: 100px" v-model="propertyName"></el-input>
+                                            <label v-else>{{propertyName}}</label>
 
-                                        <el-input style="width: 100px" v-model="propertyName"></el-input>
-                                        :
-                                        <el-select style="width: 100px"  v-model="temp.attributes[propertyName]['type']"
-                                                   placeholder="Select type">
-                                            <el-option
-                                                    label="Editor"
-                                                    value="editor">
-                                            </el-option>
-                                            <el-option
-                                                    label="Text"
-                                                    value="text">
-                                            </el-option>
-                                        </el-select>
-                                        <Tinymce :height=400 v-if="temp.attributes[propertyName]['type'] === 'editor'"
-                                                 v-model="temp.attributes[propertyName]['value']"/>
-                                        <el-input v-else style="width: 40%"
-                                                  v-model="temp.attributes[propertyName]['value']"></el-input>
-                                    </p>
+                                            :
+                                            <el-select v-if="userrole.name === 'super_admin'" style="width: 100px" v-model="temp.attributes[propertyName]['type']"
+                                                       placeholder="Select type">
+                                                <el-option
+                                                        label="Editor"
+                                                        value="editor">
+                                                </el-option>
+                                                <el-option
+                                                        label="Text"
+                                                        value="text">
+                                                </el-option>
+                                                <el-option
+                                                        label="Media"
+                                                        value="media">
+                                                </el-option>
+                                            </el-select>
+                                            <Tinymce :height=400 v-if="temp.attributes[propertyName]['type'] === 'editor'"
+                                                     v-model="temp.attributes[propertyName]['value']"/>
+                                            <el-input  style="width: 40%"
+                                                       v-if="temp.attributes[propertyName]['type'] === 'text'"  v-model="temp.attributes[propertyName]['value']"></el-input>
+                                            <a style="width: 40%" class="btn"  v-if="temp.attributes[propertyName]['type'] === 'media'"
+                                               :href="temp.attributes[propertyName]['url'] | CompleteUrl(base_url) "  >{{propertyName}}</a>
+
+                                        </p>
                                     </el-row>
                                 </div>
-                                <el-row :gutter="20">
+                                <el-row v-if="userrole.name === 'super_admin'" :gutter="20">
                                     <el-col :xl="5" :lg="5" :md="5">
                                         <el-input v-model="Aproperty" placeholder="Property" type="text"/>
                                     </el-col>
                                     <el-col :xl="5" :lg="5" :md="5">
-                                        <el-input v-model="Avalue" placeholder="Value" type="text"/>
+                                        <el-input v-if="Atype === 'text'" v-model="Avalue" placeholder="Value" type="text"/>
+                                        <Tinymce :height=400 v-if="Atype === 'editor'" v-model="Avalue" />
+                                        <input type="file" id="uploadFile" v-if="Atype === 'media'" ref="file1" v-on:change="handleMediaUpload()"/>
+
                                     </el-col>
                                     <el-col :xl="5" :lg="5" :md="5">
                                         <el-select v-model="Atype" placeholder="Select type">
@@ -78,6 +89,10 @@
                                                     label="Text"
                                                     value="text">
                                             </el-option>
+                                            <el-option
+                                                    label="Media"
+                                                    value="media">
+                                            </el-option>
                                         </el-select>
                                     </el-col>
                                     <el-col :xl="5" :lg="5" :md="5">
@@ -85,6 +100,7 @@
                                     </el-col>
                                 </el-row>
                             </el-form-item>
+
                         </el-col>
                         <el-col style="padding: 30px;  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);"
                                 offset="1" :xl="8" :lg="8">
@@ -121,7 +137,7 @@
 
                             <el-form-item label="Featured Image" prop="featured">
                                 <br>
-                                <img :src="temp.featured" height="200px">
+                                <img style="max-width: 100%;height: auto" :src="temp.featured" height="200px">
                                 <br>
                                 <input type="file" id="file" ref="featured" v-on:change="handleFileUpload()"/>
                             </el-form-item>
@@ -145,7 +161,8 @@
 
                 <h1>Gallery</h1>
                 <el-upload
-                        action="http://localhost:8000/api/post/uploads"
+                        :action="image_url"
+
                         drag
                         multiple
                         :limit="3"
@@ -176,6 +193,7 @@
     import waves from '../../../directive/waves/index.js'
     import Tinymce from '../../../components/Tinymce'
     import Vue from 'vue'
+    import { mapGetters } from 'vuex'
 
     export default {
         name: 'Post-Detail',
@@ -184,20 +202,38 @@
             isEdit: {
                 type: Boolean,
                 default: false
+            },
+            redirect: {
+                type: String,
+                default: null
             }
         },
 
         directives: {
             waves
         },
+        computed :{
+            ...mapGetters([
+                'userrole'
+            ]),
+            image_url: function () {
+                // `this` points to the vm instance
+                return process.env.BASE_API+'post/uploads'
+            }
+
+        },
         filters: {},
         data() {
 
 
             return {
+                //attribute related variable
                 Aproperty: '',
-                Avalue: '',
+                Avalue: null,
                 Atype: 'text',
+                Aurl:null,
+                file1: null,
+
 
                 //required element
                 categories: [],
@@ -245,6 +281,8 @@
 
                 statusOptions: [{label: 'Published', key: 'published'}, {label: 'Draft', key: 'draft'}],
 
+                redirect:null
+
 
             }
         },
@@ -256,6 +294,7 @@
                 const id = this.$route.params && this.$route.params.id;
                 this.fetchData(id);
             }
+
         },
         methods: {
             fetchData(id) {
@@ -291,13 +330,18 @@
                             if (this.featured) {
                                 formData.append('featured', this.featured);
                             }
-                            this.$axios.post('/post/', formData).then(response => {
+                            this.$axios.post('/post', formData).then(response => {
                                 this.$message({
                                     type: 'success',
                                     message: 'Post Creation completed'
                                 })
-                                this.$router.push({path: "/post"})
-                            }).catch((error) => {
+                                if(this.redirect){
+                                    this.$router.push({path: "/admin/"+this.$route.query.redirect})
+
+                                }else{
+                                    this.$router.push({path: "/post"})
+
+                                }                            }).catch((error) => {
                                 this.apiCall = false;
                                 this.errors = error.response.data;
                             })
@@ -322,7 +366,15 @@
                                     type: 'success',
                                     message: 'Post Updated'
                                 })
-                                this.$router.push({path: "/post"})
+
+                                if(this.redirect){
+                                    this.$router.push({path: "/admin/"+this.$route.query.redirect})
+
+                                }else{
+                                    this.$router.push({path: "/post"})
+
+                                }
+
                             }).catch((error) => {
                                 this.apiCall = false;
                                 this.errors = error.response.data;
@@ -359,18 +411,75 @@
 
                 })
             },
+
+            handleMediaUpload() {
+                this.file1 = this.$refs.file1.files[0];
+                if (this.file1) {
+                    var formData = new FormData();
+
+                    formData.append('file', this.file1);
+                    this.$axios.post('/site/upload', formData).then(response => {
+
+                        this.Avalue = response.data.file;
+                        this.Aurl = response.data.url;
+
+                        this.$message({
+                            type: 'success',
+                            message: 'File Uploaded'
+                        })
+                    }).catch((error) => {
+
+                    })
+                }
+
+
+            },
+
+            remove(property) {
+                if(this.temp.attributes[property].type === 'media'){
+                    this.$axios.post('/site/media/delete',{
+                        file : this.temp.attributes[property].type.value
+                    }).then(response => {
+                        Vue.delete(this.temp.attributes, property);
+
+                        this.$message({
+                            type: 'success',
+                            message: 'File Deleted'
+                        })
+                    }).catch((error) => {
+
+                    })
+                }else{
+                    Vue.delete(this.temp.attributes, property);
+
+                }
+            },
+
             add(property, value, type) {
                 if (this.Aproperty.trim() !== '' && this.Avalue.trim() !== '') {
-                    var property1 = {
-                        'value': value,
-                        'type': type
-                    };
+
+                    if(type === 'media'){
+                        var property1 = {
+                            'value': value,
+                            'type': type,
+                            'url' : this.Aurl
+                        };
+                    }else{
+                        var property1 = {
+                            'value': value,
+                            'type': type,
+
+                        };
+                    }
                     this.temp.attributes[property] = property1;
 
                     this.Aproperty = '';
-                    this.Avalue = '';
+                    this.Avalue = null;
+                    this.Aurl= null;
+                    this.Atype  = 'text';
                 }
             }
+
 
 
         },
