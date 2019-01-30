@@ -12,7 +12,7 @@
                 <el-col :span="24">
 
                     <el-form-item prop="title">
-                        <el-input placeholder="Title" v-model="temp.title">
+                        <el-input placeholder="Title" v-model="temptitle">
                             <template slot="prepend">Title</template>
                         </el-input>
                         <span style="color: red" v-if="errors.title">
@@ -38,13 +38,17 @@
 
 
                                         <p style="padding: 30px" v-for="(value,propertyName) in temp.attributes">
-                                            <el-button v-if="userrole.name === 'super_admin'" type="danger" @click="remove(propertyName)">X</el-button>
+                                            <el-button v-if="userrole.name === 'super_admin'" type="danger"
+                                                       @click="remove(propertyName)">X
+                                            </el-button>
 
-                                            <el-input v-if="userrole.name === 'super_admin'" style="width: 100px" v-model="propertyName"></el-input>
+                                            <el-input v-if="userrole.name === 'super_admin'" style="width: 100px"
+                                                      v-model="propertyName"></el-input>
                                             <label v-else>{{propertyName}}</label>
 
                                             :
-                                            <el-select v-if="userrole.name === 'super_admin'" style="width: 100px" v-model="temp.attributes[propertyName]['type']"
+                                            <el-select v-if="userrole.name === 'super_admin'" style="width: 100px"
+                                                       v-model="temp.attributes[propertyName]['type']"
                                                        placeholder="Select type">
                                                 <el-option
                                                         label="Editor"
@@ -59,12 +63,15 @@
                                                         value="media">
                                                 </el-option>
                                             </el-select>
-                                            <Tinymce :height=400 v-if="temp.attributes[propertyName]['type'] === 'editor'"
+                                            <Tinymce :height=400
+                                                     v-if="temp.attributes[propertyName]['type'] === 'editor'"
                                                      v-model="temp.attributes[propertyName]['value']"/>
-                                            <el-input  style="width: 40%"
-                                                       v-if="temp.attributes[propertyName]['type'] === 'text'"  v-model="temp.attributes[propertyName]['value']"></el-input>
-                                            <a style="width: 40%" class="btn"  v-if="temp.attributes[propertyName]['type'] === 'media'"
-                                               :href="temp.attributes[propertyName]['url'] | CompleteUrl(base_url) "  >{{propertyName}}</a>
+                                            <el-input style="width: 40%"
+                                                      v-if="temp.attributes[propertyName]['type'] === 'text'"
+                                                      v-model="temp.attributes[propertyName]['value']"></el-input>
+                                            <a style="width: 40%" class="btn"
+                                               v-if="temp.attributes[propertyName]['type'] === 'media'"
+                                               :href="temp.attributes[propertyName]['url'] | CompleteUrl(base_url) ">{{propertyName}}</a>
 
                                         </p>
                                     </el-row>
@@ -74,9 +81,11 @@
                                         <el-input v-model="Aproperty" placeholder="Property" type="text"/>
                                     </el-col>
                                     <el-col :xl="5" :lg="5" :md="5">
-                                        <el-input v-if="Atype === 'text'" v-model="Avalue" placeholder="Value" type="text"/>
-                                        <Tinymce :height=400 v-if="Atype === 'editor'" v-model="Avalue" />
-                                        <input type="file" id="uploadFile" v-if="Atype === 'media'" ref="file1" v-on:change="handleMediaUpload()"/>
+                                        <el-input v-if="Atype === 'text'" v-model="Avalue" placeholder="Value"
+                                                  type="text"/>
+                                        <Tinymce :height=400 v-if="Atype === 'editor'" v-model="Avalue"/>
+                                        <input type="file" id="uploadFile" v-if="Atype === 'media'" ref="file1"
+                                               v-on:change="handleMediaUpload()"/>
 
                                     </el-col>
                                     <el-col :xl="5" :lg="5" :md="5">
@@ -114,7 +123,13 @@
                                     </el-option>
                                 </el-select>
                             </el-form-item>
-
+                            <el-form-item class="postInfo-container-item" label="Slug" prop="slug">
+                                <br>
+                                <el-input style="width: 64%" v-model="temp.slug"/>
+                                <span style="color: red" v-if="errors.slug">
+                            <li v-for="item in errors.slug">{{item}}</li>
+                        </span>
+                            </el-form-item>
 
                             <el-form-item class="postInfo-container-item" label="Category" prop="category_id">
                                 <br>
@@ -193,7 +208,7 @@
     import waves from '../../../directive/waves/index.js'
     import Tinymce from '../../../components/Tinymce'
     import Vue from 'vue'
-    import { mapGetters } from 'vuex'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: 'Post-Detail',
@@ -212,13 +227,13 @@
         directives: {
             waves
         },
-        computed :{
+        computed: {
             ...mapGetters([
                 'userrole'
             ]),
             image_url: function () {
                 // `this` points to the vm instance
-                return process.env.BASE_API+'post/uploads'
+                return process.env.BASE_API + 'post/uploads'
             }
 
         },
@@ -231,7 +246,7 @@
                 Aproperty: '',
                 Avalue: null,
                 Atype: 'text',
-                Aurl:null,
+                Aurl: null,
                 file1: null,
 
 
@@ -245,6 +260,7 @@
 
 
                 //form element
+                temptitle:null,
                 temp: {
                     id: undefined,
                     title: '',
@@ -254,7 +270,8 @@
                     status: 'published',
                     featured: null,
                     gallery: [],
-                    attributes: {}
+                    attributes: {},
+                    slug:''
 
                 },
 
@@ -266,7 +283,9 @@
                     title: [{required: true, message: 'title is required', trigger: 'change'}],
                     description: [{required: true, message: 'description is required', trigger: 'change'}],
                     category_id: [{required: true, message: 'Category is required', trigger: 'change'}],
-                    status: [{required: true, message: 'Status is required', trigger: 'change'}]
+                    status: [{required: true, message: 'Status is required', trigger: 'change'}],
+                    slug: [{required: true, message: 'slug is required', trigger: 'blur'}],
+
 
                 },
                 uploadData: {},
@@ -281,7 +300,7 @@
 
                 statusOptions: [{label: 'Published', key: 'published'}, {label: 'Draft', key: 'draft'}],
 
-                redirect:null
+                redirect: null
 
 
             }
@@ -296,15 +315,43 @@
             }
 
         },
+
         methods: {
             fetchData(id) {
                 this.$axios.get('/post/' + id).then(response => {
                     this.temp = response.data.data
+                    this.temptitle = response.data.data.title
+
                     this.fileList = response.data.data.gallery
                     if (this.temp.attributes === null) {
                         this.temp.attributes = {}
                     }
                 })
+            },
+            //generate slug from title
+            sanitizeTitle: function (title) {
+                var slug = "";
+                // Change to lower case
+
+                var titleLower = title.toLowerCase();
+                // Letter "e"
+                slug = titleLower.replace(/e|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ễ|ể|ệ/gi, 'e');
+                // Letter "a"
+                slug = slug.replace(/a|á|à|ã|ả|ạ|ă|ắ|ằ|ẵ|ẳ|ặ|â|ấ|ầ|ẫ|ẩ|ậ/gi, 'a');
+                // Letter "o"
+                slug = slug.replace(/o|ó|ò|õ|ỏ|ọ|ô|ố|ồ|ỗ|ổ|ộ|ơ|ớ|ờ|ỡ|ở|ợ/gi, 'o');
+                // Letter "u"
+                slug = slug.replace(/u|ú|ù|ũ|ủ|ụ|ư|ứ|ừ|ữ|ử|ự/gi, 'u');
+                // Letter "d"
+
+                slug = slug.replace(/đ/gi, 'd');
+                // Trim the last whitespace
+                slug = slug.replace(/\s*$/g, '');
+                // Change whitespace to "-"
+                slug = slug.replace(/\s+/g, '-');
+                slug = slug.replace('/', '-');
+
+                return slug;
             },
 
             handleFileUpload() {
@@ -319,6 +366,8 @@
                             var formData = new FormData();
 
                             formData.append('title', this.temp.title);
+                            formData.append('slug', this.temp.slug);
+
                             formData.append('description', this.temp.description);
                             formData.append('category_id', this.temp.category_id);
                             formData.append('status', this.temp.status);
@@ -335,13 +384,14 @@
                                     type: 'success',
                                     message: 'Post Creation completed'
                                 })
-                                if(this.redirect){
-                                    this.$router.push({path: "/admin/"+this.$route.query.redirect})
+                                if (this.redirect) {
+                                    this.$router.push({path: "/admin/" + this.$route.query.redirect})
 
-                                }else{
+                                } else {
                                     this.$router.push({path: "/post"})
 
-                                }                            }).catch((error) => {
+                                }
+                            }).catch((error) => {
                                 this.apiCall = false;
                                 this.errors = error.response.data;
                             })
@@ -351,6 +401,8 @@
                             formData.append('_method', "put");
 
                             formData.append('title', this.temp.title);
+                            formData.append('slug', this.temp.slug);
+
                             formData.append('description', this.temp.description);
                             formData.append('category_id', this.temp.category_id);
                             formData.append('status', this.temp.status);
@@ -367,10 +419,10 @@
                                     message: 'Post Updated'
                                 })
 
-                                if(this.redirect){
-                                    this.$router.push({path: "/admin/"+this.$route.query.redirect})
+                                if (this.redirect) {
+                                    this.$router.push({path: "/admin/" + this.$route.query.redirect})
 
-                                }else{
+                                } else {
                                     this.$router.push({path: "/post"})
 
                                 }
@@ -436,9 +488,9 @@
             },
 
             remove(property) {
-                if(this.temp.attributes[property].type === 'media'){
-                    this.$axios.post('/site/media/delete',{
-                        file : this.temp.attributes[property].type.value
+                if (this.temp.attributes[property].type === 'media') {
+                    this.$axios.post('/site/media/delete', {
+                        file: this.temp.attributes[property].type.value
                     }).then(response => {
                         Vue.delete(this.temp.attributes, property);
 
@@ -449,7 +501,7 @@
                     }).catch((error) => {
 
                     })
-                }else{
+                } else {
                     Vue.delete(this.temp.attributes, property);
 
                 }
@@ -458,13 +510,13 @@
             add(property, value, type) {
                 if (this.Aproperty.trim() !== '' && this.Avalue.trim() !== '') {
 
-                    if(type === 'media'){
+                    if (type === 'media') {
                         var property1 = {
                             'value': value,
                             'type': type,
-                            'url' : this.Aurl
+                            'url': this.Aurl
                         };
-                    }else{
+                    } else {
                         var property1 = {
                             'value': value,
                             'type': type,
@@ -475,16 +527,21 @@
 
                     this.Aproperty = '';
                     this.Avalue = null;
-                    this.Aurl= null;
-                    this.Atype  = 'text';
+                    this.Aurl = null;
+                    this.Atype = 'text';
                 }
             }
 
 
-
         },
-        watch: {}
-    }
+        watch: {
+            //watch change in title and generate slug
+            temptitle: function () {
+                this.temp.title = this.temptitle
+                this.temp.slug = this.sanitizeTitle(this.temptitle);
+            },
+
+        },    }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

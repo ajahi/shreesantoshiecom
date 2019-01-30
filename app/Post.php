@@ -11,7 +11,7 @@ class Post extends Model implements HasMedia {
 
     use HasMediaTrait;
     protected $fillable = [
-        'title', 'description','icon','status','category_id', 'attributes'
+        'title', 'description','icon','status','category_id', 'attributes','slug'
     ];
 
 

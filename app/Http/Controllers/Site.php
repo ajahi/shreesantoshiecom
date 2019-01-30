@@ -62,7 +62,7 @@ class Site extends Controller
         }
 
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             $site = SiteModel::first();
             $data = collect($request->all());
             $data= $data->except(['logo']);

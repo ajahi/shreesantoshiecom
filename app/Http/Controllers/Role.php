@@ -21,7 +21,7 @@ class Role extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             if ($request->has('name')) {
                 $user = RoleModel::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
@@ -59,7 +59,7 @@ class Role extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
 
             $validation = Validator::make($request->all(), [
                 'name' => 'required|min:3|unique:roles',
@@ -109,7 +109,7 @@ class Role extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             return new RoleResource(RoleModel::find($id));
         } else {
             $return = ["status" => "error",
@@ -143,7 +143,7 @@ class Role extends Controller
     {
 //        return $request;
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             $role = RoleModel::findOrFail($id);
 
             $validation = Validator::make($request->all(), [
@@ -195,7 +195,7 @@ class Role extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             RoleModel::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [

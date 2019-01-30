@@ -10,6 +10,7 @@ use App\Http\Resources\Media as MediaResource;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Validation\Rule;
 use Validator;
 
 class Post extends Controller
@@ -62,10 +63,12 @@ class Post extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
 
             $validation = Validator::make($request->all(), [
-                'title' => 'required|unique:categories',
+                'title' => 'required|unique:posts',
+                'slug' => 'required|unique:posts',
+
                 'description' => 'required',
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
@@ -126,12 +129,19 @@ class Post extends Controller
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
 
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
+
+            $this->validate($request, [
+                'title' => ['sometimes', Rule::unique('posts')->ignore($id)],
+                'slug' => ['sometimes', Rule::unique('posts')->ignore($id)],
+            ]);
+
             $post = PostModel::findOrFail($id);
             $post->fill($request->all())->save();
 
@@ -165,7 +175,7 @@ class Post extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             PostModel::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [
@@ -186,34 +196,42 @@ class Post extends Controller
 
     public function uploads(Request $request)
     {
-        $validation = Validator::make($request->all(), [
-            'post' => 'required|numeric',
-        ]);
+        $user = Auth::user();
+
+        if ($user->hasRole(['admin','super_admin'])) {
+
+            $validation = Validator::make($request->all(), [
+                'post' => 'required|numeric',
+            ]);
 
 
-        if ($validation->fails()) {
-            return response()->json($validation->errors(), 422);
+            if ($validation->fails()) {
+                return response()->json($validation->errors(), 422);
+
+            }
+
+            $post = PostModel::findOrFail($request->post);
+
+            if ($request['file'] != null) {
+
+                $post->addMediaFromRequest('file')->toMediaCollection('gallery');
+
+
+            }
+            $post = PostModel::findOrFail($request->post);
+            return MediaResource::collection($post->getMedia('gallery'));
 
         }
-
-        $post = PostModel::findOrFail($request->post);
-
-        if ($request['file'] != null) {
-
-            $post->addMediaFromRequest('file')->toMediaCollection('gallery');
-
-
-        }
-        $post = PostModel::findOrFail($request->post);
-        return MediaResource::collection($post->getMedia('gallery'));
-
-
     }
 
 
     public function deleteMedia($id, $mediaID)
     {
-        $post = PostModel::findOrFail($id);
+        $user = Auth::user();
+
+        if ($user->hasRole(['admin','super_admin'])) {
+
+            $post = PostModel::findOrFail($id);
         $media = $post->getMedia('gallery');
 
         $delete = $media->where('id', $mediaID)->first();
@@ -221,6 +239,7 @@ class Post extends Controller
 
         $post = PostModel::findOrFail($id);
         return MediaResource::collection($post->getMedia('gallery'));
+        }
     }
 
 

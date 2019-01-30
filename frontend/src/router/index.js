@@ -46,8 +46,6 @@ const router = new Router({
             meta: {
                 forVisitors: true,
                 nav: false,
-                roles: ['admin']
-
             },
             hidden: true
         },
@@ -57,7 +55,7 @@ const router = new Router({
             component: Layout,
             redirect: '/dashboard/index',
             meta: {
-                roles: ['admin']
+                roles: ['admin','super_admin']
             },
             children: [{
                 path: 'index',
@@ -70,7 +68,7 @@ const router = new Router({
                     noCache: true,
                     forAuth: true,
                     nav: false,
-                    roles: ['admin']
+                    roles: ['admin','super_admin']
                 }
             }]
         },
@@ -79,7 +77,7 @@ const router = new Router({
             component: Layout,
             redirect: '/menu/index',
             meta: {
-                roles: ['admin']
+                roles: ['admin','super_admin']
             },
             children: [{
                 path: 'index',
@@ -92,7 +90,7 @@ const router = new Router({
                     noCache: true,
                     forAuth: true,
                     nav: false,
-                    roles: ['admin']
+                    roles: ['admin','super_admin']
                 }
             }]
         },
@@ -106,7 +104,7 @@ const router = new Router({
                 icon: 'user',
                 forAuth: true,
                 nav: false,
-                roles: ['admin']
+                roles: ['admin','super_admin']
             },
             children: [
                 {
@@ -118,7 +116,7 @@ const router = new Router({
                         icon: 'list',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -130,7 +128,7 @@ const router = new Router({
                         icon: 'edit',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -142,7 +140,7 @@ const router = new Router({
                         icon: 'table',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     },
                     hidden: true
                 },
@@ -160,7 +158,7 @@ const router = new Router({
                 icon: 'eye',
                 forAuth: true,
                 nav: false,
-                roles: ['admin']
+                roles: ['admin','super_admin']
             },
             children: [
                 {
@@ -172,7 +170,7 @@ const router = new Router({
                         icon: 'list',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -184,7 +182,7 @@ const router = new Router({
                         icon: 'edit',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -196,7 +194,7 @@ const router = new Router({
                         icon: 'table',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     },
                     hidden: true
                 },
@@ -214,7 +212,7 @@ const router = new Router({
                 icon: 'star',
                 forAuth: true,
                 nav: false,
-                roles: ['admin']
+                roles: ['admin','super_admin']
             },
             children: [
                 {
@@ -226,7 +224,7 @@ const router = new Router({
                         icon: 'list',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -238,7 +236,7 @@ const router = new Router({
                         icon: 'edit',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -250,7 +248,7 @@ const router = new Router({
                         icon: 'table',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     },
                     hidden: true
                 },
@@ -268,7 +266,7 @@ const router = new Router({
                 icon: 'excel',
                 forAuth: true,
                 nav: false,
-                roles: ['admin']
+                roles: ['admin','super_admin']
             },
             children: [
                 {
@@ -280,7 +278,7 @@ const router = new Router({
                         icon: 'list',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -292,7 +290,7 @@ const router = new Router({
                         icon: 'edit',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -304,7 +302,7 @@ const router = new Router({
                         icon: 'table',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     },
                     hidden: true
                 },
@@ -321,7 +319,7 @@ const router = new Router({
                 icon: 'example',
                 forAuth: true,
                 nav: false,
-                roles: ['admin']
+                roles: ['admin','super_admin']
             },
             children: [
                 {
@@ -333,7 +331,7 @@ const router = new Router({
                         icon: 'list',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -345,7 +343,7 @@ const router = new Router({
                         icon: 'edit',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     }
                 },
                 {
@@ -357,7 +355,7 @@ const router = new Router({
                         icon: 'table',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     },
                     hidden: true
                 },
@@ -374,7 +372,7 @@ const router = new Router({
                 icon: 'example',
                 forAuth: true,
                 nav: false,
-                roles: ['admin']
+                roles: ['admin','super_admin']
             },
             hidden: false,
 
@@ -388,7 +386,7 @@ const router = new Router({
                         icon: 'list',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin']
+                        roles: ['admin','super_admin']
                     },
 
 

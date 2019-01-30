@@ -22,7 +22,7 @@ class Permission extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             if ($request->has('name')) {
                 $user = PermissionModel::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
@@ -60,7 +60,7 @@ class Permission extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
 
             $validation = Validator::make($request->all(), [
                 'name' => 'required|min:3|unique:permissions',
@@ -106,7 +106,7 @@ class Permission extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             return new PermissionResource(PermissionModel::find($id));
         }
         else {
@@ -140,7 +140,7 @@ class Permission extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin') ) {
+        if ($user->hasRole(['admin','super_admin'])) {
             $permission = PermissionModel::findOrFail($id);
 
             $validation = Validator::make($request->all(), [
@@ -191,7 +191,7 @@ class Permission extends Controller
     public function destroy($id)
     {
         $user=Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             PermissionModel::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [

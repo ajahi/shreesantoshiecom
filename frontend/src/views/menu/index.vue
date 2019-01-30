@@ -48,6 +48,52 @@
                 <el-button v-else type="primary" @click="updateData">Edit</el-button>
             </el-row>
         </el-col>
+
+        <el-col :offset="4" :span="16">
+
+            <!--filter-->
+            <div class="filter-container">
+                <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="keyword"
+                          v-model="search">
+                </el-input>
+
+            </div>
+
+            <!--Starting of table-->
+            <el-table :data="filteredList"  element-loading-text="Loading" border fit
+                      highlight-current-row style="width: 100%;margin-top: 10px;margin-bottom: 10px">
+
+                <el-table-column align="center" label='ID' width="95">
+                    <template slot-scope="scope">
+                        {{scope.$index + 1}}
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" label="Title" >
+                    <template slot-scope="scope">
+                        {{scope.row.title}}
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" label="Parent" >
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.parent">{{scope.row.parent.title}}</span>
+                    </template>
+                </el-table-column>
+
+
+
+                <el-table-column align="center" label="Action" width="160">
+                    <template slot-scope="scope">
+
+                        <el-button type="primary" size="mini" style="margin: 2px" @click=" handleedit(scope.row)">Edit
+                        </el-button>
+
+                    </template>
+                </el-table-column>
+
+            </el-table>
+            <!--End of table listing-->
+
+        </el-col>
     </el-row>
 </template>
 
@@ -59,6 +105,10 @@
             waves
         }, data() {
             return {
+
+                //search text
+                search: '',
+
                 menu: null,
                 data: null,
                 defaultProps: {
@@ -90,15 +140,21 @@
         created() {
             this.getList()
         },
-
+        computed: {
+            filteredList() {
+                return this.data.filter(menu => {
+                    return menu.title.toLowerCase().includes(this.search.toLowerCase())
+                })
+            }
+        },
         methods: {
             handleFileUpload() {
                 this.file = this.$refs.file.files[0];
             },
             getList() {
-                this.$axios.get("/menu", {
+                this.$axios.get("/menu", { params:{
                     "parent_id": 1
-                }).then(response => {
+                }}).then(response => {
                     console.log(response.data)
                     this.menu = response.data.data;
                 })

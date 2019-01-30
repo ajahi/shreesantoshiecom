@@ -29,6 +29,7 @@ class Menu extends Controller
             return MenuResource::collection($menu);
         } elseif ($request->has('parent_id')) {
             $menu = MenuModel::where('parent_id', null)->orderBy('position')->get();
+
             return MenuResource::collection($menu);
         }
         return MenuResource::collection(MenuModel::all());
@@ -54,7 +55,7 @@ class Menu extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
 
 
             $validation = Validator::make($request->all(), [
@@ -115,7 +116,7 @@ class Menu extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             return new MenuResource(MenuModel::find($id));
         } else {
             $return = ["status" => "error",
@@ -148,7 +149,7 @@ class Menu extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             $menu = MenuModel::findOrFail($id);
 
             if ($request->parent_id) {
@@ -192,7 +193,7 @@ class Menu extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             MenuModel::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [

@@ -25,7 +25,7 @@ class User extends Controller
     {
 
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             if ($request->has('name')) {
                 $user = UserModel::where('name', 'like', '%' . $request->name . '%')->orWhere('email', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
@@ -70,7 +70,7 @@ class User extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
 
 
             $validation = Validator::make($request->all(), [
@@ -112,7 +112,8 @@ class User extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin') || $user->id == $id) {
+
+            if ($user->hasRole(['admin','super_admin']) || $user->id == $id) {
             return new  UserResource(UserModel::find($id));
         } else {
             $return = ["status" => "error",
@@ -147,7 +148,7 @@ class User extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin') || $user->id == $id) {
+        if ($user->hasRole(['admin','super_admin']) || $user->id == $id) {
 
             $user_update = UserModel::findOrFail($id);
 
@@ -217,7 +218,7 @@ class User extends Controller
     {
         $user = Auth::user();
         $user_delete = UserModel::findOrFail($id);
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             if ($user_delete->token()) {
                 $accessToken = $user_delete->token();
                 DB::table('oauth_refresh_tokens')

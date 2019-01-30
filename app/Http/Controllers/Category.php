@@ -52,7 +52,7 @@ class Category extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
 
 
             $validation = Validator::make($request->all(), [
@@ -124,7 +124,7 @@ class Category extends Controller
     {
 
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             $category = CategoryModel::findOrFail($id);
             $category->fill($request->all())->save();
 
@@ -157,7 +157,7 @@ class Category extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(['admin','super_admin'])) {
             CategoryModel::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [

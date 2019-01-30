@@ -29,7 +29,7 @@ class CreateSitesTable extends Migration
             $table->string('instagram');
             $table->string('linkedin');
             $table->string('skype');
-            $table->json('attributes');
+            $table->text('attributes');
             $table->timestamps();
         });
     }

@@ -96,7 +96,13 @@ export default {
         if (response.access_token) {
           this.$store.dispatch('GetUserInfo').then(() => {
             this.show = false
-            this.$router.push({ path: '/dashboard' })
+              if(this.$store.getters.userrole.name === 'admin'){
+                  this.$router.push({ path: '/dashboard' })
+
+              }else{
+                  this.$router.push({ path: '/' })
+
+              }
           }).catch((err) => {
             this.show = false
           })
