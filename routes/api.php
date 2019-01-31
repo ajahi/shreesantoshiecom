@@ -38,5 +38,9 @@ Route::group(['middleware' => ['cors','auth:api']], function() {
     Route::resource('menu', 'Menu', array('except' => array('index','show')));
     Route::post('/post/uploads', 'Post@uploads');
     Route::get('/media/{id}/{mediaID}', 'Post@deleteMedia');
+    Route::post('/gallery/uploads', 'Site@uploadsGallery');
+    Route::get('/gallery/{id}/{mediaID}', 'Site@deleteMediaGallery');
+    Route::post('/site/upload', 'Site@uploadMedia');
+    Route::post('/site/media/delete', 'Site@deleteMedia');
 
 });

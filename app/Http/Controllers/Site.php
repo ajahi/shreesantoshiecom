@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 use App\Site as SiteModel;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Storage;
 use Validator;
+
+
+use App\Http\Resources\Media as MediaResource;
+
 
 class Site extends Controller
 {
@@ -143,4 +148,84 @@ class Site extends Controller
     {
         //
     }
+
+    public function uploadsGallery(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'site' => 'required|numeric',
+        ]);
+
+
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+
+        }
+
+        $site = SiteModel::findOrFail($request->site);
+
+        if ($request['file'] != null) {
+
+            $site->addMediaFromRequest('file')->toMediaCollection('gallery');
+
+
+        }
+        $site = SiteModel::findOrFail($request->site);
+        return MediaResource::collection($site->getMedia('gallery'));
+
+
+    }
+
+
+    public function deleteMediaGallery($id, $mediaID)
+    {
+        $site = SiteModel::findOrFail($id);
+        $media = $site->getMedia('gallery');
+
+        $delete = $media->where('id', $mediaID)->first();
+        $delete->delete();
+
+        $site = SiteModel::findOrFail($id);
+        return MediaResource::collection($site->getMedia('gallery'));
+    }
+
+
+    public function uploadMedia(Request $request)
+    {
+        $max_size = (int)ini_get('upload_max_filesize') * 1000;
+
+
+
+        $validation = Validator::make($request->all(), [
+            'file' => 'required|file|max:' . $max_size
+
+        ]);
+
+
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+
+        }
+
+        $path = $request->file('file')->store('public/uploads');
+        $data['file'] = $path;
+        $data['url'] = Storage::url($path);
+        return $data;
+
+
+
+
+    }
+
+    public function deleteMedia(Request $request)
+    {
+        if ($request->has('file')) {
+            if ((string)Storage::delete($request->file) == '1') {
+                return 1;
+            }else{
+                return 0;
+            }
+
+        }
+    }
+
 }
