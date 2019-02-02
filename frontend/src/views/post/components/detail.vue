@@ -584,7 +584,7 @@
         padding-left: 2rem;  
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
-    @media @media (min-width: 500px) and (max-width: 900) {
+    @media (min-width: 500px) and (max-width: 900) {
         .side-bar {
             margin-left: 0rem;
         }
