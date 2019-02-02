@@ -31,7 +31,7 @@
                         </span>
                             </el-form-item>
 
-                            <el-form-item label="Additional property" style="padding-left: .5rem;">
+                            <el-form-item label="Additional property" style="padding-left:.5rem;">
                                 <br>
                                 <div>
                                     <el-row :gutter="20">
@@ -111,7 +111,7 @@
                             </el-form-item>
 
                         </el-col>
-                        <el-col :xl="7" :sm="8" :lg="8" class="side-bar" >
+                        <el-col :xl="8" :lg="8" class="side-bar">
 
                             <el-form-item class="postInfo-container-item" label="Status" prop="status">
                                 <br>
@@ -580,8 +580,8 @@
         }
     }
      .side-bar {
-        margin-right: 1.5rem; 
-        padding-left: 2rem;  
+        margin-left: 1.5rem; 
+        padding-left: 2rem; 
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
     @media (min-width: 500px) and (max-width: 900) {
@@ -589,5 +589,6 @@
             margin-left: 0rem;
         }
     }
+
 
 </style>
