@@ -47,7 +47,7 @@
             </el-form>
 
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" :loading="apiCall" @click="upload">Save</el-button>
+                <el-button type="primary" :loading="apiCall" @click="upload" style="width: 120px;">Save</el-button>
             </div>
         </div>
 

@@ -19,7 +19,7 @@
 
                     <el-form-item label="Logo" prop="logo">
                         <br>
-                        <img :src="temp.logo" height="200px">
+                        <img :src="temp.logo" style="max-width: 100%; height: auto;">
                         <br>
                         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
                     </el-form-item>
@@ -198,7 +198,7 @@
 
 
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" :loading="apiCall" @click="upload">Save</el-button>
+                <el-button type="primary" :loading="apiCall" @click="upload" style="width: 120px;">Save</el-button>
             </div>
         </div>
 

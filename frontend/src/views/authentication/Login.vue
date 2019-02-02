@@ -5,18 +5,17 @@
       :show="show"
       :label="label"/>
 
-    <el-col :span="10" :offset="7">
+    <el-col  :span="12" :offset="6" class="login-col">
       <el-card class="box-card">
         <el-row
           type="flex"
           class="row-bg"
           justify="center"
           style="border-bottom: 1px solid teal; margin-top: 0px;margin: 20px;">
-          <p
-            class="text-center font-weight-bold"
-            style="/*! border-bottom: 1px solid teal; */ margin-bottom: 6px; margin-top: 0px;font-size: 35px;font-variant: all-petite-caps;color: teal;font-weight: bold;margin-bottom: 5px">
-          <router-link to="/"> {{ app.title }}</router-link></p>
+          <h1 style="color: #EB7B10; text-align: center; margin-top: 0px;margin-bottom: 5px">
+          <router-link to="/"> {{ app.title }}</router-link></h1>
         </el-row>
+        <p style="font-size: 16px; text-align: center; margin-top: 0px; margin-bottom: 1rem;">Login To Access CMS</p>
 
         <el-form
           ref="dataForm"
@@ -24,12 +23,12 @@
           :model="loginForm"
           label-position="left"
           label-width="100px"
-          style="width: 400px; margin-left:50px;">
+          style="max-width: 100%; margin-top: 2rem; margin: 0 auto;">
           <el-form-item label="Email" prop="email">
             <el-input
               v-model="loginForm.email"
               type="email"
-              placeholder="Email"
+              placeholder="Email"login-btn
               aria-required="true"/>
 
           </el-form-item>
@@ -41,8 +40,8 @@
               aria-required="true"/>
           </el-form-item>
 
-          <el-form-item>
-            <el-button style="background-color: teal ; color: white" class="float-right" @click="login()">
+          <el-form-item class="text-center">
+            <el-button class="login-btn" @click="login()">
               Login
             </el-button>
 
@@ -134,7 +133,12 @@ export default {
         font-weight: bolder;
 
     }
-
+    @media(max-width: 767px){
+      .login-col {
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
     .login-form {
         width: 340px;
         margin: 50px auto;
@@ -160,7 +164,14 @@ export default {
         font-size: 15px;
         font-weight: bold;
     }
-
+    .text-center {
+      text-align: center;
+    }
+    .login-btn {
+      width: 50%;
+      background-color: #2F3C80; 
+      color: #fff;
+    }
     .g-signin-button {
         /* This is where you control how the button looks. Be creative! */
         display: inline-block;

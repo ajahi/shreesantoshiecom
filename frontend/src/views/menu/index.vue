@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-col :span="12" style="padding: 10px">
+        <el-col :xs="24" :sm="12" :md="12" :lg="12" style="padding: 10px">
             <el-tree
                     :data="menu"
                     node-key="id"
@@ -13,25 +13,24 @@
                     :allow-drag="allowDrag">
             </el-tree>
         </el-col>
-        <el-col :span="12" style="margin-top: 100px">
-
+        <el-col :xs="24" :sm="12" :md="12" :lg="12"  class="form-col">
             <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="100px"
-                     style='width: 400px; margin-left:50px;'>
+              class="menu-form">
                 <h2 style="color: #1f2d3d !important; font-variant: all-petite-caps; font-size: 30px">
                     {{textMap[dialogStatus]}}</h2>
 
-                <el-form-item label="Title" prop="title">
+                <el-form-item label="Title" prop="title" class="form-label">
                     <el-input v-model="temp.title"></el-input>
                 </el-form-item>
 
-                <el-form-item label="Description" prop="description">
+                <el-form-item label="Description" prop="description" class="form-label">
                     <el-input v-model="temp.description"></el-input>
                 </el-form-item>
-                <el-form-item v-if="edit" label="Position" prop="position">
+                <el-form-item v-if="edit" label="Position" prop="position" class="form-label">
                     <el-input v-model="temp.position"></el-input>
                 </el-form-item>
 
-                <el-form-item label="Parent" prop="parent_id">
+                <el-form-item label="Parent" prop="parent_id" class="form-label">
                     <el-select v-model="temp.parent_id" placeholder="please select Parent">
                         <el-option v-for="item in  data" :key="item.id" :label="item.title" :value="item.id">
                         </el-option>
@@ -44,8 +43,8 @@
 
             </el-form>
             <el-row type="flex" class="row-bg" justify="center">
-                <el-button v-if="dialogStatus==='create'" type="primary" @click="createData">Add</el-button>
-                <el-button v-else type="primary" @click="updateData">Edit</el-button>
+                <el-button v-if="dialogStatus==='create'" type="primary" @click="createData" style="width:33%; margin-top: 1rem; margin-bottom: 1rem;">Add</el-button>
+                <el-button v-else type="primary" @click="updateData" style="width:45%; margin-top: 1rem; margin-bottom: 1rem;">Edit</el-button>
             </el-row>
         </el-col>
 
@@ -313,5 +312,25 @@
         font-size: 40px !important;
         font-variant: all-petite-caps;
     }
+     .form-col {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+    .menu-form {
+        width: 90%;
+        margin-left:50px;
+    }
+
+    @media (min-width: 767px) and (max-width: 1000px){
+    .form-label  {
+        width: 90%;
+        }
+    }
+    @media (min-width: 320px) and (max-width: 500px){
+    .menu-form {
+        padding-left: 1.5rem;
+        margin-left:0px;
+    }
+    }
+
 
 </style>
