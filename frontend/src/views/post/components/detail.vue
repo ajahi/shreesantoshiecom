@@ -580,11 +580,11 @@
         }
     }
      .side-bar {
-        margin-left: 1.5rem; 
-        padding-left: 2rem; 
+        margin-left: 1.5rem;
+        padding-left: 2rem;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
-    @media (min-width: 500px) and (max-width: 900) {
+    @media (min-width: 300px) and (max-width: 900px) {
         .side-bar {
             margin-left: 0rem;
         }
