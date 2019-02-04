@@ -53,12 +53,15 @@ const router = new Router({
         {
             path: '/dashboard',
             component: Layout,
-            redirect: '/dashboard/index',
+            redirect: '',
             meta: {
+                noCache: true,
+                forAuth: true,
+                nav: false,
                 roles: ['admin','super_admin']
             },
             children: [{
-                path: 'index',
+                path: '',
                 component: Dashboard,
                 name: 'Dashboard',
 
@@ -75,14 +78,17 @@ const router = new Router({
         {
             path: '/menu',
             component: Layout,
-            redirect: '/menu/index',
+            redirect: '',
+
             meta: {
-                roles: ['admin','super_admin']
+                roles: ['admin','super_admin'],
+                forAuth: true,
+                nav: false,
             },
             children: [{
-                path: 'index',
+                path: '',
                 component: Menu,
-                name: 'Menu',
+                name: 'Menu List',
 
                 meta: {
                     title: 'Menu',
@@ -97,8 +103,7 @@ const router = new Router({
         {
             path: '/user',
             component: Layout,
-            redirect: '/user/user',
-            name: 'User',
+            redirect: '',
             meta: {
                 title: 'User',
                 icon: 'user',
@@ -108,8 +113,8 @@ const router = new Router({
             },
             children: [
                 {
-                    path: 'user',
-                    name: 'User',
+                    path: '',
+                    name: 'User List',
                     component: User,
                     meta: {
                         title: 'User',
@@ -151,8 +156,7 @@ const router = new Router({
         {
             path: '/role',
             component: Layout,
-            redirect: '/role/role',
-            name: 'Role',
+            redirect: '',
             meta: {
                 title: 'Role',
                 icon: 'eye',
@@ -162,8 +166,8 @@ const router = new Router({
             },
             children: [
                 {
-                    path: 'role',
-                    name: 'Role',
+                    path: '',
+                    name: 'Role List',
                     component: Role,
                     meta: {
                         title: 'Role',
@@ -175,7 +179,7 @@ const router = new Router({
                 },
                 {
                     path: 'create',
-                    name: 'Create',
+                    name: 'Role Create',
                     component: RoleCreate,
                     meta: {
                         title: 'Role Create',
@@ -187,7 +191,7 @@ const router = new Router({
                 },
                 {
                     path: 'edit/:id(\\d+)',
-                    name: 'Edit',
+                    name: 'Role Edit',
                     component: RoleEdit,
                     meta: {
                         title: 'Role Edit',
@@ -205,8 +209,7 @@ const router = new Router({
         {
             path: '/permission',
             component: Layout,
-            redirect: '/permission/permission',
-            name: 'Permission',
+            redirect: '',
             meta: {
                 title: 'Permission',
                 icon: 'star',
@@ -216,8 +219,8 @@ const router = new Router({
             },
             children: [
                 {
-                    path: 'permission',
-                    name: 'Permission',
+                    path: '',
+                    name: 'Permission List',
                     component: Permission,
                     meta: {
                         title: 'Permission',
@@ -229,7 +232,7 @@ const router = new Router({
                 },
                 {
                     path: 'create',
-                    name: 'Create',
+                    name: 'Permission Create',
                     component: PermissionCreate,
                     meta: {
                         title: 'Permission Create',
@@ -241,7 +244,7 @@ const router = new Router({
                 },
                 {
                     path: 'edit/:id(\\d+)',
-                    name: 'Edit',
+                    name: 'Permission Edit',
                     component: PermissionEdit,
                     meta: {
                         title: 'Permission Edit',
@@ -259,8 +262,7 @@ const router = new Router({
         {
             path: '/post',
             component: Layout,
-            redirect: '/post/post',
-            name: 'Post',
+            redirect: '',
             meta: {
                 title: 'Post',
                 icon: 'excel',
@@ -270,7 +272,7 @@ const router = new Router({
             },
             children: [
                 {
-                    path: 'post',
+                    path: '',
                     name: 'post',
                     component: Post,
                     meta: {
@@ -312,8 +314,7 @@ const router = new Router({
         {
             path: '/category',
             component: Layout,
-            redirect: '/category/category',
-            name: 'Category',
+            redirect: '',
             meta: {
                 title: 'Category',
                 icon: 'example',
@@ -323,7 +324,7 @@ const router = new Router({
             },
             children: [
                 {
-                    path: 'category',
+                    path: '',
                     name: 'category',
                     component: Category,
                     meta: {
@@ -365,8 +366,7 @@ const router = new Router({
         {
             path: '/site',
             component: Layout,
-            redirect: '/site/site',
-            name: 'Site',
+            redirect: '',
             meta: {
                 title: 'Site',
                 icon: 'example',
@@ -378,7 +378,7 @@ const router = new Router({
 
             children: [
                 {
-                    path: 'site',
+                    path: '',
                     name: 'site',
                     component: Site,
                     meta: {

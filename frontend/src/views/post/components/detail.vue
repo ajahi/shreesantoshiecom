@@ -31,7 +31,7 @@
                         </span>
                             </el-form-item>
 
-                            <el-form-item label="Additional property" style="padding-left:.5rem;">
+                            <el-form-item label="Additional property" style="padding-left: .5rem;">
                                 <br>
                                 <div>
                                     <el-row :gutter="20">
@@ -72,6 +72,10 @@
                                             <a style="width: 40%" class="btn"
                                                v-if="temp.attributes[propertyName]['type'] === 'media'"
                                                :href="temp.attributes[propertyName]['url'] | CompleteUrl(base_url) ">{{propertyName}}</a>
+                                            <input type="file" id="change"
+                                                   v-if="temp.attributes[propertyName]['type'] === 'media'"
+                                                   v-on:change="changeMediaUpload(propertyName , $event)"/>
+
 
                                         </p>
                                     </el-row>
@@ -84,7 +88,7 @@
                                         <el-input v-if="Atype === 'text'" v-model="Avalue" placeholder="Value"
                                                   type="text"/>
                                         <Tinymce :height=400 v-if="Atype === 'editor'" v-model="Avalue"/>
-                                        <input type="file" id="uploadFile" v-if="Atype === 'media'" ref="file1"
+                                        <input type="file" id="uploadFile1" v-if="Atype === 'media'" ref="file1"
                                                v-on:change="handleMediaUpload()"/>
 
                                     </el-col>
@@ -156,10 +160,12 @@
                             </el-form-item>
 
                             <div style="text-align: center;">
-                            <el-button style="width: 50%; margin-bottom: 1rem;" type="primary" :loading="apiCall" @click="upload">Save
-                            </el-button>
-                            </div>
+                                <el-button style="width: 50%; margin-bottom: 1rem;" type="primary" :loading="apiCall"
+                                           @click="upload">Save
+                                </el-button>
+                                <el-button type="success" @click="$router.go(-1)">Cancel</el-button>
 
+                            </div>
 
 
                         </el-col>
@@ -235,10 +241,18 @@
             image_url: function () {
                 // `this` points to the vm instance
                 return process.env.BASE_API + 'post/uploads'
+            },
+            base_url: function () {
+                // `this` points to the vm instance
+                return process.env.BASE_URL
             }
 
         },
-        filters: {},
+        filters: {
+            CompleteUrl: function (value, url) {
+                return url + value;
+            }
+        },
         data() {
 
 
@@ -249,6 +263,7 @@
                 Atype: 'text',
                 Aurl: null,
                 file1: null,
+                change: null,
 
 
                 //required element
@@ -261,7 +276,7 @@
 
 
                 //form element
-                temptitle:null,
+                temptitle: null,
                 temp: {
                     id: undefined,
                     title: '',
@@ -272,7 +287,7 @@
                     featured: null,
                     gallery: [],
                     attributes: {},
-                    slug:''
+                    slug: ''
 
                 },
 
@@ -300,8 +315,6 @@
                 apiCall: false,
 
                 statusOptions: [{label: 'Published', key: 'published'}, {label: 'Draft', key: 'draft'}],
-
-                redirect: null
 
 
             }
@@ -465,6 +478,33 @@
                 })
             },
 
+            changeMediaUpload(propertyName, event) {
+                this.change = event.target.files[0];
+                if (this.change) {
+                    var formData = new FormData();
+
+                    formData.append('file', this.change);
+                    this.$axios.post('/site/media/delete', {
+                        file: this.temp.attributes[propertyName].type.value
+                    }).then(response => {
+                        this.$axios.post('/site/upload', formData).then(response => {
+
+                            this.temp.attributes[propertyName].value = response.data.file;
+                            this.temp.attributes[propertyName].url = response.data.url;
+
+                            this.$message({
+                                type: 'success',
+                                message: 'File Uploaded'
+                            })
+                        }).catch((error) => {
+
+                        })
+                    }).catch((error) => {
+
+                    })
+
+                }
+            },
             handleMediaUpload() {
                 this.file1 = this.$refs.file1.files[0];
                 if (this.file1) {
@@ -535,6 +575,7 @@
 
 
         },
+
         watch: {
             //watch change in title and generate slug
             temptitle: function () {
@@ -542,7 +583,8 @@
                 this.temp.slug = this.sanitizeTitle(this.temptitle);
             },
 
-        },    }
+        },
+    }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -579,11 +621,13 @@
             top: 0px;
         }
     }
-     .side-bar {
+
+    .side-bar {
         margin-left: 1.5rem;
         padding-left: 2rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     }
+
     @media (min-width: 300px) and (max-width: 900px) {
         .side-bar {
             margin-left: 0rem;

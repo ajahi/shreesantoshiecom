@@ -5,7 +5,6 @@
             <el-form
                     class="form-container"
                     ref="dataForm"
-                    :rules="rules"
                     :model="temp"
             >
 
@@ -123,20 +122,24 @@
 
                     </el-form-item>
 
-                    <el-form-item label="Additional property">
+                    <el-form-item label="Additional property" style="padding-left: .5rem;">
                         <br>
                         <div>
-                            <el-row  :gutter="20">
+                            <el-row :gutter="20">
 
 
-                                <p style="padding: 10px" v-for="(value,propertyName) in temp.attributes">
-                                    <el-button v-if="userrole.name === 'super_admin'" type="danger" @click="remove(propertyName)">X</el-button>
+                                <p style="padding: 30px" v-for="(value,propertyName) in temp.attributes">
+                                    <el-button v-if="userrole.name === 'super_admin'" type="danger"
+                                               @click="remove(propertyName)">X
+                                    </el-button>
 
-                                    <el-input v-if="userrole.name === 'super_admin'" style="width: 100px" v-model="propertyName"></el-input>
+                                    <el-input v-if="userrole.name === 'super_admin'" style="width: 100px"
+                                              v-model="propertyName"></el-input>
                                     <label v-else>{{propertyName}}</label>
 
                                     :
-                                    <el-select v-if="userrole.name === 'super_admin'" style="width: 100px" v-model="temp.attributes[propertyName]['type']"
+                                    <el-select v-if="userrole.name === 'super_admin'" style="width: 100px"
+                                               v-model="temp.attributes[propertyName]['type']"
                                                placeholder="Select type">
                                         <el-option
                                                 label="Editor"
@@ -151,12 +154,19 @@
                                                 value="media">
                                         </el-option>
                                     </el-select>
-                                    <Tinymce :height=400 v-if="temp.attributes[propertyName]['type'] === 'editor'"
+                                    <Tinymce :height=400
+                                             v-if="temp.attributes[propertyName]['type'] === 'editor'"
                                              v-model="temp.attributes[propertyName]['value']"/>
-                                    <el-input  style="width: 40%"
-                                               v-if="temp.attributes[propertyName]['type'] === 'text'"  v-model="temp.attributes[propertyName]['value']"></el-input>
-                                    <a style="width: 40%" class="btn"  v-if="temp.attributes[propertyName]['type'] === 'media'"
-                                       :href="temp.attributes[propertyName]['url'] | CompleteUrl(base_url) "  >{{propertyName}}</a>
+                                    <el-input style="width: 40%"
+                                              v-if="temp.attributes[propertyName]['type'] === 'text'"
+                                              v-model="temp.attributes[propertyName]['value']"></el-input>
+                                    <a style="width: 40%" class="btn"
+                                       v-if="temp.attributes[propertyName]['type'] === 'media'"
+                                       :href="temp.attributes[propertyName]['url'] | CompleteUrl(base_url) ">{{propertyName}}</a>
+                                    <input type="file" id="change"
+                                           v-if="temp.attributes[propertyName]['type'] === 'media'"
+                                           v-on:change="changeMediaUpload(propertyName , $event)"/>
+
 
                                 </p>
                             </el-row>
@@ -166,12 +176,14 @@
                                 <el-input v-model="Aproperty" placeholder="Property" type="text"/>
                             </el-col>
                             <el-col :xl="5" :lg="5" :md="5">
-                                <el-input v-if="Atype === 'text'" v-model="Avalue" placeholder="Value" type="text"/>
-                                <Tinymce :height=400 v-if="Atype === 'editor'" v-model="Avalue" />
-                                <input type="file" id="uploadFile" v-if="Atype === 'media'" ref="file1" v-on:change="handleMediaUpload()"/>
+                                <el-input v-if="Atype === 'text'" v-model="Avalue" placeholder="Value"
+                                          type="text"/>
+                                <Tinymce :height=400 v-if="Atype === 'editor'" v-model="Avalue"/>
+                                <input type="file" id="uploadFile1" v-if="Atype === 'media'" ref="file1"
+                                       v-on:change="handleMediaUpload()"/>
 
                             </el-col>
-                            <el-col  :xl="5" :lg="5" :md="5">
+                            <el-col :xl="5" :lg="5" :md="5">
                                 <el-select v-model="Atype" placeholder="Select type">
                                     <el-option
                                             label="Editor"
@@ -196,9 +208,9 @@
             </el-form>
 
 
-
             <div slot="footer" class="dialog-footer">
                 <el-button type="primary" :loading="apiCall" @click="upload" style="width: 120px;">Save</el-button>
+
             </div>
         </div>
 
@@ -210,7 +222,7 @@
     import Tinymce from '../../components/Tinymce'
 
     import waves from '../../directive/waves/index.js'
-    import { mapGetters } from 'vuex'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: 'Role-Detail',
@@ -226,7 +238,7 @@
                 Aproperty: '',
                 Avalue: null,
                 Atype: 'text',
-                Aurl:null,
+                Aurl: null,
                 //required element
                 permissions: [],
                 //tracking variable
@@ -237,7 +249,7 @@
 
                 file: null,
                 file1: null,
-
+                change: null,
 
                 //errors
                 errors: [],
@@ -265,13 +277,41 @@
             handleFileUpload() {
                 this.file = this.$refs.file.files[0];
             },
+
+            changeMediaUpload(propertyName, event) {
+                this.change = event.target.files[0];
+                if (this.change) {
+                    var formData = new FormData();
+
+                    formData.append('file', this.change);
+                    this.$axios.post('/site/media/delete', {
+                        file: this.temp.attributes[propertyName].type.value
+                    }).then(response => {
+                        this.$axios.post('/site/upload', formData).then(response => {
+
+                            this.temp.attributes[propertyName].value = response.data.file;
+                            this.temp.attributes[propertyName].url = response.data.url;
+
+                            this.$message({
+                                type: 'success',
+                                message: 'File Uploaded'
+                            })
+                        }).catch((error) => {
+
+                        })
+                    }).catch((error) => {
+
+                    })
+
+                }
+            },
             handleMediaUpload() {
                 this.file1 = this.$refs.file1.files[0];
                 if (this.file1) {
                     var formData = new FormData();
 
                     formData.append('file', this.file1);
-                    this.$axios.post('/site/upload', formData , {
+                    this.$axios.post('/site/upload', formData, {
                         headers: {
                             'content-type': 'multipart/form-data'
                         }
@@ -291,9 +331,9 @@
 
 
             },
-            deleteMedia(name){
-                this.$axios.post('/site/media/delete',{
-                    file : name
+            deleteMedia(name) {
+                this.$axios.post('/site/media/delete', {
+                    file: name
                 }).then(response => {
 
                     this.$message({
@@ -335,6 +375,7 @@
                         this.$axios.post('/site', formData).then(response => {
                             this.temp = response.data
                             this.apiCall = false;
+                            this.errors = [];
 
                             this.$message({
                                 type: 'success',
@@ -349,9 +390,9 @@
                 })
             },
             remove(property) {
-                if(this.temp.attributes[property].type === 'media'){
-                    this.$axios.post('/site/media/delete',{
-                        file : this.temp.attributes[property].type.value
+                if (this.temp.attributes[property].type === 'media') {
+                    this.$axios.post('/site/media/delete', {
+                        file: this.temp.attributes[property].type.value
                     }).then(response => {
                         Vue.delete(this.temp.attributes, property);
 
@@ -363,7 +404,7 @@
 
                     })
                 }
-                else{
+                else {
                     Vue.delete(this.temp.attributes, property);
 
                 }
@@ -372,13 +413,13 @@
             add(property, value, type) {
                 if (this.Aproperty.trim() !== '' && this.Avalue.trim() !== '') {
 
-                    if(type === 'media'){
+                    if (type === 'media') {
                         var property1 = {
                             'value': value,
                             'type': type,
-                            'url' : this.Aurl
+                            'url': this.Aurl
                         };
-                    }else{
+                    } else {
                         var property1 = {
                             'value': value,
                             'type': type,
@@ -389,13 +430,13 @@
 
                     this.Aproperty = '';
                     this.Avalue = null;
-                    this.Aurl= null;
-                    this.Atype  = 'text';
+                    this.Aurl = null;
+                    this.Atype = 'text';
                 }
             }
         },
         watch: {},
-        computed :{
+        computed: {
             ...mapGetters([
                 'userrole'
             ]),
@@ -406,12 +447,12 @@
 
         },
 
-        filters:{
+        filters: {
             /**
              * @return {string}
              */
-            CompleteUrl:  function (value , url) {
-                return url+value;
+            CompleteUrl: function (value, url) {
+                return url + value;
             }
         }
 

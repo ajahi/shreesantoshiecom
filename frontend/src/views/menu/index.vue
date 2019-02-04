@@ -32,7 +32,7 @@
 
                 <el-form-item label="Parent" prop="parent_id" class="form-label">
                     <el-select v-model="temp.parent_id" placeholder="please select Parent">
-                        <el-option v-for="item in  data" :key="item.id" :label="item.title" :value="item.id">
+                        <el-option  v-for="item in  data" :key="item.id" :label="item.title" :value="item.id">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -105,7 +105,6 @@
         }, data() {
             return {
 
-                //search text
                 search: '',
 
                 menu: null,
@@ -141,9 +140,14 @@
         },
         computed: {
             filteredList() {
-                return this.data.filter(menu => {
-                    return menu.title.toLowerCase().includes(this.search.toLowerCase())
-                })
+
+                if(this.data){
+                    return this.data.filter(menu => {
+                        return menu.title.toLowerCase().includes(this.search.toLowerCase())
+                    })
+                }
+
+
             }
         },
         methods: {
@@ -154,11 +158,9 @@
                 this.$axios.get("/menu", { params:{
                     "parent_id": 1
                 }}).then(response => {
-                    console.log(response.data)
                     this.menu = response.data.data;
                 })
                 this.$axios.get("/menu").then(response => {
-                    console.log(response.data)
                     this.data = response.data.data;
                 })
             },
@@ -252,23 +254,17 @@
                 this.temp.photo = node.photo;
                 this.edit = true;
 
-                console.log('Node Click', node);
 
             },
             handleDragStart(node, ev) {
-                console.log('drag start', node);
             },
             handleDragEnter(draggingNode, dropNode, ev) {
-                console.log('tree drag enter: ', dropNode.label);
             },
             handleDragLeave(draggingNode, dropNode, ev) {
-                console.log('tree drag leave: ', dropNode.label);
             },
             handleDragOver(draggingNode, dropNode, ev) {
-                console.log('tree drag over: ', dropNode.label);
             },
             handleDragEnd(draggingNode, dropNode, dropType, ev) {
-                console.log(draggingNode.data.id, dropNode.data.id, dropType);
 
                 this.$axios.post("/menu", {
                     "_method":"put",
@@ -282,7 +278,6 @@
             },
             handleDrop(draggingNode, dropNode, dropType, ev) {
 
-                console.log('parent id of  ', draggingNode, 'is', dropNode, dropType);
             },
             allowDrop() {
                 return true;

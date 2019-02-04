@@ -166,7 +166,6 @@
             getList() {
                 this.listLoading = true
                 this.$axios.get('/post', {params: this.listQuery}).then(response => {
-                    console.log(response.data)
                     this.list = response.data.data
                     this.total = response.data.meta.total
 

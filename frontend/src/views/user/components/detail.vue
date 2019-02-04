@@ -48,6 +48,8 @@
 
             <div slot="footer" class="dialog-footer">
                 <el-button type="primary" :loading="apiCall" @click="upload" style="width: 120px;">Save</el-button>
+                <el-button type="success" @click="$router.go(-1)">Cancel</el-button>
+
             </div>
         </div>
 
