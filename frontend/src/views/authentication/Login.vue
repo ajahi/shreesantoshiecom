@@ -95,7 +95,7 @@ export default {
         if (response.access_token) {
           this.$store.dispatch('GetUserInfo').then(() => {
             this.show = false
-              if(this.$store.getters.userrole.name === 'admin'){
+              if(this.$store.getters.userrole.name === 'admin'  || this.$store.getters.userrole.name === 'super_admin'){
                   this.$router.push({ path: '/dashboard' })
 
               }else{

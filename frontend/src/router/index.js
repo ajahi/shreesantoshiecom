@@ -76,31 +76,6 @@ const router = new Router({
             }]
         },
         {
-            path: '/menu',
-            component: Layout,
-            redirect: '',
-
-            meta: {
-                roles: ['admin','super_admin'],
-                forAuth: true,
-                nav: false,
-            },
-            children: [{
-                path: '',
-                component: Menu,
-                name: 'Menu List',
-
-                meta: {
-                    title: 'Menu',
-                    icon: 'tab',
-                    noCache: true,
-                    forAuth: true,
-                    nav: false,
-                    roles: ['admin','super_admin']
-                }
-            }]
-        },
-        {
             path: '/user',
             component: Layout,
             redirect: '',
@@ -162,7 +137,7 @@ const router = new Router({
                 icon: 'eye',
                 forAuth: true,
                 nav: false,
-                roles: ['admin','super_admin']
+                roles: ['super_admin']
             },
             children: [
                 {
@@ -174,7 +149,7 @@ const router = new Router({
                         icon: 'list',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin','super_admin']
+                        roles: ['super_admin']
                     }
                 },
                 {
@@ -186,7 +161,7 @@ const router = new Router({
                         icon: 'edit',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin','super_admin']
+                        roles: ['super_admin']
                     }
                 },
                 {
@@ -198,7 +173,7 @@ const router = new Router({
                         icon: 'table',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin','super_admin']
+                        roles: ['super_admin']
                     },
                     hidden: true
                 },
@@ -215,7 +190,7 @@ const router = new Router({
                 icon: 'star',
                 forAuth: true,
                 nav: false,
-                roles: ['admin','super_admin']
+                roles: ['super_admin']
             },
             children: [
                 {
@@ -227,7 +202,7 @@ const router = new Router({
                         icon: 'list',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin','super_admin']
+                        roles: ['super_admin']
                     }
                 },
                 {
@@ -239,7 +214,7 @@ const router = new Router({
                         icon: 'edit',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin','super_admin']
+                        roles: ['super_admin']
                     }
                 },
                 {
@@ -251,66 +226,71 @@ const router = new Router({
                         icon: 'table',
                         forAuth: true,
                         nav: false,
-                        roles: ['admin','super_admin']
+                        roles: ['super_admin']
                     },
                     hidden: true
                 },
 
             ]
         },
-
         {
-            path: '/post',
+            path: '/site',
             component: Layout,
             redirect: '',
             meta: {
-                title: 'Post',
-                icon: 'excel',
+                title: 'Site',
+                icon: 'example',
                 forAuth: true,
                 nav: false,
                 roles: ['admin','super_admin']
             },
+            hidden: false,
+
             children: [
                 {
                     path: '',
-                    name: 'post',
-                    component: Post,
+                    name: 'site',
+                    component: Site,
                     meta: {
-                        title: 'Post',
+                        title: 'Site',
                         icon: 'list',
                         forAuth: true,
                         nav: false,
                         roles: ['admin','super_admin']
-                    }
-                },
-                {
-                    path: 'create',
-                    name: 'PostCreate',
-                    component: PostCreate,
-                    meta: {
-                        title: 'Post Create',
-                        icon: 'edit',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    }
-                },
-                {
-                    path: 'edit/:id(\\d+)',
-                    name: 'PostEdit',
-                    component: PostEdit,
-                    meta: {
-                        title: 'Post Edit',
-                        icon: 'table',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
                     },
-                    hidden: true
+
+
                 },
+
 
             ]
         },
+        {
+            path: '/menu',
+            component: Layout,
+            redirect: '',
+
+            meta: {
+                roles: ['admin','super_admin'],
+                forAuth: true,
+                nav: false,
+            },
+            children: [{
+                path: '',
+                component: Menu,
+                name: 'Menu List',
+
+                meta: {
+                    title: 'Menu',
+                    icon: 'tab',
+                    noCache: true,
+                    forAuth: true,
+                    nav: false,
+                    roles: ['admin','super_admin']
+                }
+            }]
+        },
+
         {
             path: '/category',
             component: Layout,
@@ -364,37 +344,59 @@ const router = new Router({
             ]
         },
         {
-            path: '/site',
+            path: '/post',
             component: Layout,
             redirect: '',
             meta: {
-                title: 'Site',
-                icon: 'example',
+                title: 'Post',
+                icon: 'excel',
                 forAuth: true,
                 nav: false,
                 roles: ['admin','super_admin']
             },
-            hidden: false,
-
             children: [
                 {
                     path: '',
-                    name: 'site',
-                    component: Site,
+                    name: 'post',
+                    component: Post,
                     meta: {
-                        title: 'Site',
+                        title: 'Post',
                         icon: 'list',
                         forAuth: true,
                         nav: false,
                         roles: ['admin','super_admin']
-                    },
-
-
+                    }
                 },
-
+                {
+                    path: 'create',
+                    name: 'PostCreate',
+                    component: PostCreate,
+                    meta: {
+                        title: 'Post Create',
+                        icon: 'edit',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin','super_admin']
+                    }
+                },
+                {
+                    path: 'edit/:id(\\d+)',
+                    name: 'PostEdit',
+                    component: PostEdit,
+                    meta: {
+                        title: 'Post Edit',
+                        icon: 'table',
+                        forAuth: true,
+                        nav: false,
+                        roles: ['admin','super_admin']
+                    },
+                    hidden: true
+                },
 
             ]
         },
+
+
         {
             path: '/',
             redirect: '/dashboard',
