@@ -21,6 +21,7 @@ class Menu extends JsonResource
             'parent_id' => $this->parent_id,
             'position' => $this->position,
             'description' => $this->description,
+            'url' => $this->url,
 
             'parent' => $this->parent,
             'children' =>  TempMenuResource::collection($this->children),

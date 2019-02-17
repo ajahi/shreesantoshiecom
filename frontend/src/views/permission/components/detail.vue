@@ -114,7 +114,7 @@
                     if (valid) {
                         this.apiCall = true;
                         if (!this.isEdit) {
-                            this.$axios.post('/permission/', this.temp).then(response => {
+                            this.$axios.post('/permission', this.temp).then(response => {
                                 this.$message({
                                     type: 'success',
                                     message: 'Permission Creation completed'

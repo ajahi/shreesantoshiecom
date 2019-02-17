@@ -21,6 +21,7 @@ class TempMenu extends JsonResource
             'parent_id' => $this->parent_id,
             'position' => $this->position,
             'description' => $this->description,
+            'url' => $this->url,
 
             'children' => MenuResource::collection($this->children),
             'photo' => $this->when(1, function () {

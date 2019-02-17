@@ -30,6 +30,10 @@
                     <el-input v-model="temp.position"></el-input>
                 </el-form-item>
 
+                <el-form-item  label="Url" prop="url" class="form-label">
+                    <el-input v-model="temp.url"></el-input>
+                </el-form-item>
+
                 <el-form-item label="Parent" prop="parent_id" class="form-label">
                     <el-select v-model="temp.parent_id" placeholder="please select Parent">
                         <el-option  v-for="item in  data" :key="item.id" :label="item.title" :value="item.id">
@@ -44,7 +48,7 @@
             </el-form>
             <el-row type="flex" class="row-bg" justify="center">
                 <el-button v-if="dialogStatus==='create'" type="primary" @click="createData" style="width:33%; margin-top: 1rem; margin-bottom: 1rem;">Add</el-button>
-                <el-button v-else type="primary" @click="updateData" style="width:45%; margin-top: 1rem; margin-bottom: 1rem;">Edit</el-button>
+                <el-button v-else type="primary" @click="updateData" style="width:45%; margin-top: 1rem; margin-bottom: 1rem;">Update</el-button>
             </el-row>
         </el-col>
 
@@ -78,7 +82,11 @@
                     </template>
                 </el-table-column>
 
-
+                <el-table-column align="center" label="Url" >
+                    <template slot-scope="scope">
+                        {{scope.row.url}}
+                    </template>
+                </el-table-column>
 
                 <el-table-column align="center" label="Action" width="160">
                     <template slot-scope="scope">
@@ -126,11 +134,13 @@
                     parent_id: undefined,
                     position: undefined,
                     description:'',
-                    photo: null
+                    photo: null,
+                    url:''
                 },
                 rules: {
                     title: [{required: true, message: 'title is required', trigger: 'blur'}],
                     description: [{required: true, message: 'description is required', trigger: 'blur'}],
+                    url: [{required: true, message: 'url is required', trigger: 'blur'}],
 
                 }
             };
@@ -171,7 +181,8 @@
                     parent_id: null,
                     photo: null,
                     position: undefined,
-                    description: ''
+                    description: '',
+                    url:''
                 }
                 this.dialogStatus = "create";
                 this.file = null;
@@ -186,6 +197,8 @@
                             formData.append('id', this.temp.id);
                         }
                         formData.append('title', this.temp.title);
+                        formData.append('url', this.temp.url);
+
                         formData.append('description', this.temp.description);
 
                         if (this.temp.parent_id) {
@@ -197,7 +210,7 @@
                             formData.append('image', this.file);
                         }
 
-                        this.$axios.post("/menu/", formData).then(() => {
+                        this.$axios.post("/menu", formData).then(() => {
                             this.getList();
                             this.resetTemp();
                             this.$message({
@@ -219,6 +232,7 @@
                         formData.append('title', this.temp.title);
                         formData.append('position', this.temp.position);
                         formData.append('description', this.temp.description);
+                        formData.append('url', this.temp.url);
 
                         if (this.temp.parent_id) {
                             formData.append('parent_id', this.temp.parent_id);
@@ -250,6 +264,7 @@
                 this.temp.parent_id = node.parent_id;
                 this.temp.position = node.position;
                 this.temp.description = node.description;
+                this.temp.url = node.url;
 
                 this.temp.photo = node.photo;
                 this.edit = true;

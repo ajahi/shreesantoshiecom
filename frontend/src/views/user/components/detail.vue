@@ -147,7 +147,7 @@
                     if (valid) {
                         this.apiCall = true;
                         if (!this.isEdit) {
-                            this.$axios.post('/user/', this.temp).then(response => {
+                            this.$axios.post('/user', this.temp).then(response => {
                                 this.$message({
                                     type: 'success',
                                     message: 'User Creation completed'

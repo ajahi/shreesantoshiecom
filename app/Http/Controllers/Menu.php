@@ -61,7 +61,8 @@ class Menu extends Controller
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:menus',
                 'description' => 'required',
-                'parent_id' => 'numeric'
+                'parent_id' => 'numeric',
+                'url'=>'required'
             ]);
 
 

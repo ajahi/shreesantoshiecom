@@ -132,7 +132,7 @@
                     if (valid) {
                         this.apiCall = true;
                         if (!this.isEdit) {
-                            this.$axios.post('/role/', this.temp).then(response => {
+                            this.$axios.post('/role', this.temp).then(response => {
                                 this.$message({
                                     type: 'success',
                                     message: 'Role Creation completed'

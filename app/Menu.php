@@ -11,7 +11,7 @@ class Menu extends Model implements HasMedia
 
     use HasMediaTrait;
     protected $fillable = [
-        'title', 'description', 'position','parent_id'
+        'title', 'description', 'position','parent_id','url'
     ];
     public function children() {
         return $this->hasMany('App\Menu','parent_id');

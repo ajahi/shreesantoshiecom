@@ -216,7 +216,7 @@
     import Tinymce from '../../../components/Tinymce'
     import Vue from 'vue'
     import {mapGetters} from 'vuex'
-
+    var slugify = require('slugify')
     export default {
         name: 'Post-Detail',
         components: {Tinymce},
@@ -511,7 +511,7 @@
                     var formData = new FormData();
 
                     formData.append('file', this.file1);
-                    this.$axios.post('/site/upload', formData).then(response => {
+                       this.$axios.post('/site/upload', formData).then(response => {
 
                         this.Avalue = response.data.file;
                         this.Aurl = response.data.url;
@@ -580,7 +580,7 @@
             //watch change in title and generate slug
             temptitle: function () {
                 this.temp.title = this.temptitle
-                this.temp.slug = this.sanitizeTitle(this.temptitle);
+                this.temp.slug = slugify(this.temptitle)
             },
 
         },
