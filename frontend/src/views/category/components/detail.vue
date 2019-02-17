@@ -107,7 +107,7 @@
                     if (valid) {
                         this.apiCall = true;
                         if (!this.isEdit) {
-                            this.$axios.post('/category/', this.temp).then(response => {
+                            this.$axios.post('/category', this.temp).then(response => {
                                 this.$message({
                                     type: 'success',
                                     message: 'Category Creation completed'
