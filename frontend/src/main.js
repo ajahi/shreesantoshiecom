@@ -1,33 +1,57 @@
+import '@babel/polyfill'
 import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'normalize.css/normalize.css'// A modern alternative to CSS resets
-import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-import './styles/index.scss' // global css
-
-import 'element-ui/lib/theme-chalk/index.css'
-import 'element-ui/lib/theme-chalk/display.css'
+import './plugins/vuetify'
 import App from './App.vue'
-import Router from './router/index.js'
-import VueResource from 'vue-resource'
-import Auth from './packages/auth/auth.js'
-import axios from 'axios'
-import store from './store'
-import './icons' // icon
+import router from './router'
+import { store } from "./store";
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import VueClip from 'vue-clip';
+import errorHandler from './errorHandler';
+import JsonExcel from 'vue-json-excel';
 
-import './axios.js'
-import './permission.js'
+import 'vue2-dropzone/dist/vue2Dropzone.css'
+import '@fortawesome/fontawesome-free/css/all.css' // Ensure you are using css-loader
+import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
 
-import ToggleButton from 'vue-js-toggle-button'
-Vue.use(ToggleButton)
-Vue.use(VueResource)
-Vue.use(Auth)
-Vue.use(require('vue-moment'))
-Vue.use(axios)
-Vue.use(ElementUI, { locale })
+import VDateRange from 'vuetify-daterange-picker';
+import 'vuetify-daterange-picker/dist/vuetify-daterange-picker.css';
 
-window.vm = new Vue({
-  el: '#app',
-  store,
-  render: h => h(App),
-  router: Router
+
+
+
+Vue.config.productionTip = false
+
+Vue.use(VueAxios, axios);
+
+Vue.use(VueClip);
+
+Vue.component('downloadExcel',JsonExcel);
+
+Vue.use(VDateRange);
+
+Vue.filter('downloadUrl', function (value) {
+    if(!value) return ''
+    else return process.env.VUE_APP_SERVER_URL+'/downloadFile/'+value
 })
+
+
+//auto authentication
+const token = localStorage.getItem('token')
+if (token) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+}
+
+axios.defaults.baseURL = process.env.VUE_APP_SERVER_URL
+
+//checking in interceptor works
+axios.interceptors.response.use(
+    response => response,
+    errorHandler
+);
+
+new Vue({
+    router,
+    store,
+  render: h => h(App)
+}).$mount('#app')

@@ -1,64 +1,42 @@
-import Cookies from 'js-cookie'
-import axios from 'axios/index'
+import axios from 'axios';
 
-const app = {
-  state: {
-    sidebar: {
-      opened: !+Cookies.get('sidebarStatus'),
-      withoutAnimation: false
+export default {
+    state: {
+        snackbar: {
+            show:false,
+            text: '',
+            color: ''
+        }
     },
-    device: 'desktop',
-      app: {
-          title:  "App Name",
-          description:  "This is App description",
-      },
+    mutations:{
+        setSnackbar(state,payload){
+            state.snackbar.show = payload.show;
+            state.snackbar.text = payload.text;
+            state.snackbar.color = payload.color;
 
-  },
-  mutations: {
-    TOGGLE_SIDEBAR: state => {
-      if (state.sidebar.opened) {
-        Cookies.set('sidebarStatus', 1)
-      } else {
-        Cookies.set('sidebarStatus', 0)
-      }
-      state.sidebar.opened = !state.sidebar.opened
-      state.sidebar.withoutAnimation = false
+        },
+
+
+
     },
-    CLOSE_SIDEBAR: (state, withoutAnimation) => {
-      Cookies.set('sidebarStatus', 1)
-      state.sidebar.opened = false
-      state.sidebar.withoutAnimation = withoutAnimation
-    },
-    TOGGLE_DEVICE: (state, device) => {
-      state.device = device
-    },
-    SET_APP: (state, app) => {
-      state.app = app
+    actions: {
+            setSnackbar({commit,state},payload){
+                commit('setSnackbar',payload)
+            },
+            showSuccessSnackbar({commit,state},payload){
+                commit('setSnackbar',{ show: 'true', text: payload, color:'green'})
+
+            },
+            showErrorSnackbar({commit,state},payload){
+                commit('setSnackbar',{ show: 'true', text: payload, color:'red'})
+
+
+            }
+            },
+    getters: {
+        getSnackbar:state => {
+            return state.snackbar;
+        },
+
     }
-  },
-  actions: {
-    ToggleSideBar: ({ commit }) => {
-      commit('TOGGLE_SIDEBAR')
-    },
-    CloseSideBar({ commit }, { withoutAnimation }) {
-      commit('CLOSE_SIDEBAR', withoutAnimation)
-    },
-    ToggleDevice({ commit }, device) {
-      commit('TOGGLE_DEVICE', device)
-    },
-    App({ commit }) {
-      return new Promise((resolve, reject) => {
-        axios.get('/site')
-          .then(response => {
-            const data = response.data
-            commit('SET_APP', data)
-            resolve()
-          }).catch(error => {
-            reject(error)
-          })
-      })
-    }
-  }
 }
-
-export default app

@@ -1,18 +1,24 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+    <!--<v-app>
+      <component v-bind:is="layout"></component>
+
+    </v-app>-->
+    <app-layout></app-layout>
 </template>
 
 <script>
+import AppLayout from './layouts/AppLayout'
+import SimpleLayout from './layouts/SimpleLayout'
 
 export default {
-  name: 'App',
-  components: {
+  computed: {
+      layout(){
+          return this.$store.getters.layout
+      }
   },
-  data() {
-    return {}
-  },
-  methods: {}
+    components: {
+      'app-layout': AppLayout,
+        'simple-layout': SimpleLayout
+    }
 }
 </script>

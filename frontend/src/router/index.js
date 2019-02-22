@@ -1,409 +1,134 @@
 import Vue from 'vue'
-import Login from '../views/authentication/Login.vue'
-import Dashboard from '../views/dashboard.vue'
-import Layout from '../views/layout/Layout'
-
-
-import Menu from '../views/menu/index.vue'
-
-
-import User from '../views/user/index.vue'
-import UserCreate from '../views/user/create.vue'
-import UserEdit from '../views/user/edit.vue'
-
-
-import Role from '../views/role/index.vue'
-import RoleCreate from '../views/role/create.vue'
-import RoleEdit from '../views/role/edit.vue'
-
-
-import Permission from '../views/permission/index.vue'
-import PermissionCreate from '../views/permission/create.vue'
-import PermissionEdit from '../views/permission/edit.vue'
-
-
-import Post from '../views/post/index.vue'
-import PostCreate from '../views/post/create.vue'
-import PostEdit from '../views/post/edit.vue'
-
-import Category from '../views/category/index.vue'
-import CategoryCreate from '../views/category/create.vue'
-import CategoryEdit from '../views/category/edit.vue'
-
-import Site from '../views/site/site.vue'
-
-
 import Router from 'vue-router'
+import { store } from '../store';
+import Site from '../components/site/Site';
+import Profile from '../components/Profile';
+import User from '../components/User';
+import Signup from '../components/site/Signup';
+import Signin from '../components/site/Signin'
+import HelloWorld from '../components/HelloWorld';
+import Supplier from '../components/Supplier';
+import SupplierList from '../components/SupplierList';
+import NotFound from '../components/site/NotFound';
+import AccessDenied from '../components/site/Deny';
+import Club from '../components/club/Club'
+import ClubList from '../components/club/ClubList'
+import Member from '../components/member/Member'
+import MemberList from '../components/member/MemberList'
+import MemberCrud from '../components/member/MemberCrud'
+import ClubCrud from '../components/club/ClubCrud'
+import YearCrud from '../components/club/YearCrud'
+import YearList from '../components/club/YearList'
+import ClubDesignationCrud from '../components/member/ClubDesignationCrud'
+import QuoteList from '../components/quote/QuoteList'
+import Quote from '../components/quote/Quote'
+import EbookList from '../components/ebook/EbookList'
+import Ebook from '../components/ebook/Ebook'
+import CalendarList from '../components/calendar/CalendarList'
+import Calendar from '../components/calendar/Calendar'
+
+const routerOptions = [
+    { path: '*',
+        redirect: {
+            path:'/404'
+        }
+    },
+    {
+        path:'/404',
+        name:'NotFound',
+        component: NotFound
+    },
+    {
+        path:'/403',
+        name:'AccessDenied',
+        component: AccessDenied
+    },
+    {   path: '/',
+        redirect: {
+            name:'home'
+        }
+    },
+    {   path: '/signin',name:'login',component: Signin },
+    {   path: '/signup', component: Signup },
+    {   path: '/dashboard',name:'dashboard', component: HelloWorld, meta: { requiresAuth: true } },
+    {   path: '/dashboard/profile',
+        component: User,
+        meta: {requiresAuth: true},
+        props: true,
+        children: [
+            {path: '',component: Profile,meta:{requiresAuth:true}},
+
+        ],
+     },
+    { path:'/dashboard/supplier/:id',name:'supplier',component: Supplier,meta:{requiresAuth:true} ,props:true },
+    { path:'/dashboard/suppliers',name:'supplierList',component: SupplierList,meta:{requiresAuth:true} },
+    { path:'/dashboard/club/:id',component: Club,meta:{requiresAuth:true}, props:true,
+      children: [
+          {
+              path: '', name:'club', meta:{requiresAuth:true},props:true,
+              component:ClubCrud
+          },
+          {
+              path: 'year/:yearid', name:'year', meta:{requiresAuth:true},props:true,
+              component:YearCrud
+          },
+          {
+              path: 'years', name:'yearList', meta:{requiresAuth:true},props:true,
+              component:YearList
+          }
+      ]
+    },
+    { path:'/dashboard/clubs',name:'clubs',component: ClubList,meta:{requiresAuth:true} },
+    { path:'/dashboard/member/:id',component: Member,meta:{requiresAuth:true}, props:true,
+        children: [
+            {
+                path: '', name:'member', meta:{requiresAuth:true},props:true,
+                component:MemberCrud
+            },
+
+        ]
+    },
+    {
+        path: '/dashboard/member/:id/designation', name:'club-designation', meta:{requiresAuth:true},props:true,
+        component:ClubDesignationCrud
+    },
+    { path:'/dashboard/members',name:'members',component: MemberList,meta:{requiresAuth:true} },
+    { path:'/dashboard/quote/:id',name:'quote',component: Quote,meta:{requiresAuth:true} ,props:true },
+    { path:'/dashboard/quotes',name:'quotes',component: QuoteList,meta:{requiresAuth:true} },
+    { path:'/dashboard/ebook/:id',name:'ebook',component: Ebook,meta:{requiresAuth:true} ,props:true },
+    { path:'/dashboard/ebooks',name:'ebooks',component: EbookList,meta:{requiresAuth:true} },
+    { path:'/dashboard/calendar/:id',name:'calendar',component: Calendar,meta:{requiresAuth:true} ,props:true },
+    { path:'/dashboard/calendars',name:'calendars',component: CalendarList,meta:{requiresAuth:true} },
+]
+
+
+/*const routes = routerOptions.map(route => {
+    return {
+        ...route,
+        component: () => import(`@/components/${route.component}.vue`)
+    }
+})*/
 
 Vue.use(Router)
 
-const router = new Router({
+
+const  router = new Router({
     mode: 'history',
-    routes: [
-        {
-            path: '/login',
-            component: Login,
-            meta: {
-                forVisitors: true,
-                nav: false,
-            },
-            hidden: true
-        },
+    routes: routerOptions
+})
 
-        {
-            path: '/dashboard',
-            component: Layout,
-            redirect: '',
-            meta: {
-                noCache: true,
-                forAuth: true,
-                nav: false,
-                roles: ['admin','super_admin']
-            },
-            children: [{
-                path: '',
-                component: Dashboard,
-                name: 'Dashboard',
-
-                meta: {
-                    title: 'Dashboard',
-                    icon: 'dashboard',
-                    noCache: true,
-                    forAuth: true,
-                    nav: false,
-                    roles: ['admin','super_admin']
-                }
-            }]
-        },
-        {
-            path: '/user',
-            component: Layout,
-            redirect: '',
-            meta: {
-                title: 'User',
-                icon: 'user',
-                forAuth: true,
-                nav: false,
-                roles: ['admin','super_admin']
-            },
-            children: [
-                {
-                    path: '',
-                    name: 'User List',
-                    component: User,
-                    meta: {
-                        title: 'User',
-                        icon: 'list',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    }
-                },
-                {
-                    path: 'create',
-                    name: 'Create',
-                    component: UserCreate,
-                    meta: {
-                        title: 'User Create',
-                        icon: 'edit',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    }
-                },
-                {
-                    path: 'edit/:id(\\d+)',
-                    name: 'Edit',
-                    component: UserEdit,
-                    meta: {
-                        title: 'User Edit',
-                        icon: 'table',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    },
-                    hidden: true
-                },
-
-            ]
-        },
-
-        {
-            path: '/role',
-            component: Layout,
-            redirect: '',
-            meta: {
-                title: 'Role',
-                icon: 'eye',
-                forAuth: true,
-                nav: false,
-                roles: ['super_admin']
-            },
-            children: [
-                {
-                    path: '',
-                    name: 'Role List',
-                    component: Role,
-                    meta: {
-                        title: 'Role',
-                        icon: 'list',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['super_admin']
-                    }
-                },
-                {
-                    path: 'create',
-                    name: 'Role Create',
-                    component: RoleCreate,
-                    meta: {
-                        title: 'Role Create',
-                        icon: 'edit',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['super_admin']
-                    }
-                },
-                {
-                    path: 'edit/:id(\\d+)',
-                    name: 'Role Edit',
-                    component: RoleEdit,
-                    meta: {
-                        title: 'Role Edit',
-                        icon: 'table',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['super_admin']
-                    },
-                    hidden: true
-                },
-
-            ]
-        },
-
-        {
-            path: '/permission',
-            component: Layout,
-            redirect: '',
-            meta: {
-                title: 'Permission',
-                icon: 'star',
-                forAuth: true,
-                nav: false,
-                roles: ['super_admin']
-            },
-            children: [
-                {
-                    path: '',
-                    name: 'Permission List',
-                    component: Permission,
-                    meta: {
-                        title: 'Permission',
-                        icon: 'list',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['super_admin']
-                    }
-                },
-                {
-                    path: 'create',
-                    name: 'Permission Create',
-                    component: PermissionCreate,
-                    meta: {
-                        title: 'Permission Create',
-                        icon: 'edit',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['super_admin']
-                    }
-                },
-                {
-                    path: 'edit/:id(\\d+)',
-                    name: 'Permission Edit',
-                    component: PermissionEdit,
-                    meta: {
-                        title: 'Permission Edit',
-                        icon: 'table',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['super_admin']
-                    },
-                    hidden: true
-                },
-
-            ]
-        },
-        {
-            path: '/site',
-            component: Layout,
-            redirect: '',
-            meta: {
-                title: 'Site',
-                icon: 'example',
-                forAuth: true,
-                nav: false,
-                roles: ['admin','super_admin']
-            },
-            hidden: false,
-
-            children: [
-                {
-                    path: '',
-                    name: 'site',
-                    component: Site,
-                    meta: {
-                        title: 'Site',
-                        icon: 'list',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    },
-
-
-                },
-
-
-            ]
-        },
-        {
-            path: '/menu',
-            component: Layout,
-            redirect: '',
-
-            meta: {
-                roles: ['admin','super_admin'],
-                forAuth: true,
-                nav: false,
-            },
-            children: [{
-                path: '',
-                component: Menu,
-                name: 'Menu List',
-
-                meta: {
-                    title: 'Menu',
-                    icon: 'tab',
-                    noCache: true,
-                    forAuth: true,
-                    nav: false,
-                    roles: ['admin','super_admin']
-                }
-            }]
-        },
-
-        {
-            path: '/category',
-            component: Layout,
-            redirect: '',
-            meta: {
-                title: 'Category',
-                icon: 'example',
-                forAuth: true,
-                nav: false,
-                roles: ['admin','super_admin']
-            },
-            children: [
-                {
-                    path: '',
-                    name: 'category',
-                    component: Category,
-                    meta: {
-                        title: 'Category',
-                        icon: 'list',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    }
-                },
-                {
-                    path: 'create',
-                    name: 'CategoryCreate',
-                    component: CategoryCreate,
-                    meta: {
-                        title: 'Category Create',
-                        icon: 'edit',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    }
-                },
-                {
-                    path: 'edit/:id(\\d+)',
-                    name: 'CategoryEdit',
-                    component: CategoryEdit,
-                    meta: {
-                        title: 'Category Edit',
-                        icon: 'table',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    },
-                    hidden: true
-                },
-
-            ]
-        },
-        {
-            path: '/post',
-            component: Layout,
-            redirect: '',
-            meta: {
-                title: 'Post',
-                icon: 'excel',
-                forAuth: true,
-                nav: false,
-                roles: ['admin','super_admin']
-            },
-            children: [
-                {
-                    path: '',
-                    name: 'post',
-                    component: Post,
-                    meta: {
-                        title: 'Post',
-                        icon: 'list',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    }
-                },
-                {
-                    path: 'create',
-                    name: 'PostCreate',
-                    component: PostCreate,
-                    meta: {
-                        title: 'Post Create',
-                        icon: 'edit',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    }
-                },
-                {
-                    path: 'edit/:id(\\d+)',
-                    name: 'PostEdit',
-                    component: PostEdit,
-                    meta: {
-                        title: 'Post Edit',
-                        icon: 'table',
-                        forAuth: true,
-                        nav: false,
-                        roles: ['admin','super_admin']
-                    },
-                    hidden: true
-                },
-
-            ]
-        },
-
-
-        {
-            path: '/',
-            redirect: '/dashboard',
-        },
-
-
-    ]
+router.beforeEach((to,from,next) => {
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+    const isAuthenticated = store.state.auth.token;
+    if (requiresAuth && !isAuthenticated) {
+        next('/signin')
+    } else {
+        // fetch user
+        if(isAuthenticated) {
+            store.dispatch('getMe')
+        }
+        next()
+    }
 })
 
 export default router
