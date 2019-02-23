@@ -3,40 +3,59 @@ import axios from 'axios';
 export default {
     state: {
         categories: [],
-        category: {
-            id:'',
-            name:'',
-            parent: ''
-        }
+        category: {},
     },
     mutations:{
         setCategory(state,payload){
-            state.category.id = payload.id;
-            state.category.name = payload.name;
-            if(payload.parent){
-                state.category.parent= payload.parent.id;
-            }
+            state.category = payload
+
         },
-        setCategories(state,categorys){
-            state.categories = categorys;
+        setCategories(state,categories){
+            state.categories = categories;
         },
         setCategoryId(state,payload){
             state.category.id = payload
-        }
+        },
 
     },
     actions: {
-        fetchCategories({commit,state,rootState}){
-            commit('setLoading',true);
-            axios.get(rootState.serverUrl+'/api/category')
-                .then(response =>{
-                    commit('setCategories',response.data);
-                    commit('setLoading',false)
+        fetchCategory({commit,state,rootState},payload){
+            return new Promise(((resolve, reject) => {
+                commit('setLoading',true);
+                axios.get('/category/'+payload)
+                    .then(response =>{
+                        commit('setLoading',false)
+                        commit('setCategory',response.data)
+                        resolve(response)
 
-                })
-                .catch(error => {
-                    commit('setAlert',{msg:error.response.data.message,type:'error'})
-                })
+                    })
+                    .catch(error => {
+                        commit('setLoading',false);
+                        commit('setAlert',{msg:error.response.data.errors,type:'error'})
+                        reject(error)
+                    })
+
+            }))
+
+        },
+        fetchCategories({commit,state,rootState},payload){
+            return new Promise(((resolve, reject) => {
+                commit('setLoading',true);
+                axios.get('/category',{params:payload})
+                    .then(response =>{
+                        commit('setLoading',false)
+                        commit('setCategories',response.data.data)
+                        resolve(response)
+
+                    })
+                    .catch(error => {
+                        commit('setLoading',false);
+                        commit('setAlert',{msg:error.response.data.errors,type:'error'})
+                        reject(error)
+                    })
+
+            }))
+
         },
         saveCategory({commit,state,rootState},payload){
             return new Promise(((resolve, reject) => {
@@ -44,31 +63,29 @@ export default {
                 commit('setLoading',true);
                 const app = this;
                 if(payload.id){
-                    axios.put(rootState.serverUrl+'/api/category/'+payload.id,payload)
+                    axios.put('/category/'+payload.id,payload)
                         .then(response => {
                             commit('setLoading',false);
                             commit('setAlert',{msg:response.data.message,type:'success'});
-                            app.dispatch('fetchCategories');
                             resolve(response);
                         })
                         .catch(error => {
                             commit('setLoading',false);
-                            commit('setAlert',{msg:error.response.data.message,type:'error'});
+                            commit('setAlert',{msg:error.response.data.errors,type:'error'});
                             reject(error);
                         });
                 }
                 else{
-                    axios.post(rootState.serverUrl+'/api/category',payload)
+                    axios.post('/category',payload)
                         .then(response => {
                             commit('setLoading',false);
                             commit('setAlert',{msg:response.data.message,type:'success'});
                             commit('setCategoryId',response.data.created_id);
-                            app.dispatch('fetchCategories');
                             resolve(response);
                         })
                         .catch(error => {
                             commit('setLoading',false);
-                            commit('setAlert',{msg:error.response.data.message,type:'error'});
+                            commit('setAlert',{msg:error.response.data.errors,type:'error'});
                             reject(error);
                         });
                 }
@@ -77,16 +94,40 @@ export default {
 
 
         },
+
+        deleteCategory({commit,state,rootState},payload){
+            return new Promise(((resolve, reject) => {
+                commit('setLoading',true);
+                axios.delete('/category/'+payload)
+                    .then(response =>{
+                        commit('setLoading',false)
+                        commit('setAlert',{msg:response.data.message,type:'success'});
+                        resolve(response)
+
+                    })
+                    .catch(error => {
+                        commit('setLoading',false);
+                        commit('setAlert',{msg:error.response.data.errors,type:'error'})
+                        reject(error)
+                    })
+
+            }))
+
+        },
         setCategory({commit,state},payload){
             commit('setCategory',payload);
-        }
+        },
+        clearCategory({commit}){
+            commit('setCategory',{})
+        },
+
     },
     getters: {
-        getCategories:state => {
-            return state.categories;
-        },
         getCategory:state => {
             return state.category;
+        },
+        getCategories:state => {
+            return state.categories;
         }
     }
 }

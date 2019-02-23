@@ -110,7 +110,7 @@
                             </v-list-tile-avatar>
 
                             <v-list-tile-content>
-                                <v-list-tile-title v-if="getProfile.firstName">{{ getProfile.firstName + ' ' + getProfile.lastName}}</v-list-tile-title>
+                                <v-list-tile-title v-if="getProfile.name">{{ getProfile.name}}</v-list-tile-title>
                                 <v-list-tile-sub-title>{{ getProfile.email}}</v-list-tile-sub-title>
                             </v-list-tile-content>
                         </v-list-tile>
@@ -264,7 +264,7 @@
                 return this.$store.getters.isLoggedIn;
             },
             getProfileImage(){
-                return this.$store.state.profile.profile.imageUrl;
+                return this.$store.state.profile.profile.avatar;
             },
             getProfile(){
                 return this.$store.state.profile.profile;

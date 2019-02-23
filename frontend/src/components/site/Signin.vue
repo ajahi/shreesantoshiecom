@@ -10,9 +10,9 @@
                                 <div class="layout column align-center">
                                     <v-avatar
                                             size="250">
-                                        <img src="@/assets/smj_intro_pic.jpg" alt="Swamji and Maharajji" class="mb-5">
+                                        <img src="@/assets/logo.png" alt="Company Logo" class="mb-5">
                                     </v-avatar>
-                                    <h1 class="flex my-2 secondary--text">Site Admin  | Login </h1>
+                                    <h1 class="flex my-2 secondary--text"> {{app.title}}</h1>
                                 </div>
                                 <!--<v-layout align-space-between justify-center column fill-height>
                                     <h3 class="text-xs-center green&#45;&#45;text text&#45;&#45;lighten-1" >Login with ease</h3>
@@ -29,7 +29,7 @@
 
                                 </v-layout>-->
                                 <alert-box />
-                                <v-form ref="form">
+                                <v-form ref="form" v-on:submit.prevent>
                                     <v-text-field append-icon="person" name="login" label="Login" type="text" v-model="email"></v-text-field>
                                     <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password" v-model="password"></v-text-field>
 
@@ -69,6 +69,7 @@
 
 <script>
     import AlertBox from '../shared/AlertBox';
+    import {mapGetters} from "vuex";
     export default {
         components: {
             'alert-box': AlertBox
@@ -93,6 +94,9 @@
 
         },
         computed: {
+            ...mapGetters([
+                'app'
+            ]),
             loading(){
                 return this.$store.getters.loading;
             },

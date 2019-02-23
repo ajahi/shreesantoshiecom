@@ -21,13 +21,21 @@ class Category extends Controller
     public function index(Request $request)
     {
 
-        if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
-            $category = CategoryModel::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+        if ($request->has('title') && $request->has('limit') && $request->has('sortBy')) {
+            $category = CategoryModel::where('title', 'like', '%' . $request->title . '%')
+                ->orderBy('id', $request->sortBy)
+                ->paginate($request->input('limit')!= -1?$request->input('limit'):0);
             return CategoryResource::collection($category);
-        } elseif ($request->has('limit') && $request->has('sort')) {
-            $category = CategoryModel::orderBy('id', $request->sort)->paginate($request->input('limit'));
+        } elseif ($request->has('limit') && $request->has('sortBy')) {
+            $category = CategoryModel::orderBy('id', $request->sortBy)
+                ->paginate($request->input('limit')!= -1?$request->input('limit'):0);
             return CategoryResource::collection($category);
         }
+         elseif($request->has('limit')){
+             $category = CategoryModel::
+             paginate($request->input('limit')!= -1?$request->input('limit'):'');
+             return CategoryResource::collection($category);
+         }
         return CategoryResource::collection(CategoryModel::all());
 
     }

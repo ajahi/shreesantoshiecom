@@ -6,6 +6,11 @@ export default {
             show:false,
             text: '',
             color: ''
+        },
+        pageSize : [10,25,50,{"text":"$vuetify.dataIterator.rowsPerPageAll","value":-1}],
+        app: {
+            title: 'DreamSYS CMS',
+            description: 'DreamSYS CMS is a user friendly Content Management System from Dreamsys.'
         }
     },
     mutations:{
@@ -15,6 +20,9 @@ export default {
             state.snackbar.color = payload.color;
 
         },
+        setPageSize(state,payload){
+            state.pageSize  = payload
+        }
 
 
 
@@ -31,12 +39,18 @@ export default {
                 commit('setSnackbar',{ show: 'true', text: payload, color:'red'})
 
 
-            }
+            },
+        setPageSize({commit},payload){
+                commit('setPageSize',payload)
+        }
             },
     getters: {
         getSnackbar:state => {
             return state.snackbar;
         },
+        getPageSize:state => {
+            return state.pageSize;
+        }
 
     }
 }

@@ -1,36 +1,37 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { store } from '../store';
-import Site from '../components/site/Site';
-import Profile from '../components/Profile';
-import User from '../components/User';
+import Profile from '../components/dashboard/Profile';
+import User from '../components/dashboard/User';
 import Signup from '../components/site/Signup';
 import Signin from '../components/site/Signin'
-import HelloWorld from '../components/HelloWorld';
-import Supplier from '../components/Supplier';
-import SupplierList from '../components/SupplierList';
+import Dashboard from '../components/dashboard/Dashboard';
 import NotFound from '../components/site/NotFound';
 import AccessDenied from '../components/site/Deny';
-import Club from '../components/club/Club'
-import ClubList from '../components/club/ClubList'
-import Member from '../components/member/Member'
-import MemberList from '../components/member/MemberList'
-import MemberCrud from '../components/member/MemberCrud'
-import ClubCrud from '../components/club/ClubCrud'
-import YearCrud from '../components/club/YearCrud'
-import YearList from '../components/club/YearList'
-import ClubDesignationCrud from '../components/member/ClubDesignationCrud'
-import QuoteList from '../components/quote/QuoteList'
-import Quote from '../components/quote/Quote'
-import EbookList from '../components/ebook/EbookList'
-import Ebook from '../components/ebook/Ebook'
-import CalendarList from '../components/calendar/CalendarList'
-import Calendar from '../components/calendar/Calendar'
+import Club from '../components/dashboard/club/Club'
+import ClubList from '../components/dashboard/club/ClubList'
+import Member from '../components/dashboard/member/Member'
+import MemberList from '../components/dashboard/member/MemberList'
+import MemberCrud from '../components/dashboard/member/MemberCrud'
+import ClubCrud from '../components/dashboard/club/ClubCrud'
+import YearCrud from '../components/dashboard/club/YearCrud'
+import YearList from '../components/dashboard/club/YearList'
+import ClubDesignationCrud from '../components/dashboard/member/ClubDesignationCrud'
+import QuoteList from '../components/dashboard/quote/QuoteList'
+import Quote from '../components/dashboard/quote/Quote'
+import EbookList from '../components/dashboard/ebook/EbookList'
+import Ebook from '../components/dashboard/ebook/Ebook'
+import CalendarList from '../components/dashboard/calendar/CalendarList'
+import Calendar from '../components/dashboard/calendar/Calendar'
+import CategoryList from '../components/dashboard/category/CategoryList'
+import Category from '../components/dashboard/category/Category'
+
+import Home from '../components/site/Home'
 
 const routerOptions = [
     { path: '*',
         redirect: {
-            path:'/404'
+            path:'/'
         }
     },
     {
@@ -43,14 +44,16 @@ const routerOptions = [
         name:'AccessDenied',
         component: AccessDenied
     },
-    {   path: '/',
-        redirect: {
-            name:'home'
-        }
+    {   path: '',
+        name:'home',
+        component: Home
     },
-    {   path: '/signin',name:'login',component: Signin },
+    {   path: '/login',name:'login',component: Signin },
     {   path: '/signup', component: Signup },
-    {   path: '/dashboard',name:'dashboard', component: HelloWorld, meta: { requiresAuth: true } },
+
+
+    //dashboard area
+    {   path: '/dashboard',name:'dashboard', component: Dashboard, meta: { requiresAuth: true } },
     {   path: '/dashboard/profile',
         component: User,
         meta: {requiresAuth: true},
@@ -60,8 +63,6 @@ const routerOptions = [
 
         ],
      },
-    { path:'/dashboard/supplier/:id',name:'supplier',component: Supplier,meta:{requiresAuth:true} ,props:true },
-    { path:'/dashboard/suppliers',name:'supplierList',component: SupplierList,meta:{requiresAuth:true} },
     { path:'/dashboard/club/:id',component: Club,meta:{requiresAuth:true}, props:true,
       children: [
           {
@@ -99,6 +100,8 @@ const routerOptions = [
     { path:'/dashboard/ebooks',name:'ebooks',component: EbookList,meta:{requiresAuth:true} },
     { path:'/dashboard/calendar/:id',name:'calendar',component: Calendar,meta:{requiresAuth:true} ,props:true },
     { path:'/dashboard/calendars',name:'calendars',component: CalendarList,meta:{requiresAuth:true} },
+    { path:'/dashboard/category/:id',name:'category',component: Category,meta:{requiresAuth:true} ,props:true },
+    { path:'/dashboard/categories',name:'categories',component: CategoryList,meta:{requiresAuth:true} },
 ]
 
 
@@ -121,7 +124,7 @@ router.beforeEach((to,from,next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
     const isAuthenticated = store.state.auth.token;
     if (requiresAuth && !isAuthenticated) {
-        next('/signin')
+        next('/login')
     } else {
         // fetch user
         if(isAuthenticated) {

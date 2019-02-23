@@ -10,6 +10,8 @@ import designation from  './modules/designation'
 import quote from  './modules/quote'
 import ebook from  './modules/ebook'
 import calendar from  './modules/calendar'
+import category from './modules/category'
+import getters from './getters'
 
 Vue.use(Vuex)
 
@@ -24,7 +26,8 @@ export const store = new Vuex.Store({
         designation,
         quote,
         ebook,
-        calendar
+        calendar,
+        category
     },
     state: {
         appTitle: 'Mis for Divine Youth Club Nepal',
@@ -62,31 +65,5 @@ export const store = new Vuex.Store({
 
 
     },
-    getters: {
-        layout(state) {
-            return state.layout
-        },
-        fbLoginUrl(state){
-            return state.serverUrl + '/auth/facebook?scope=email,user_location'
-        },
-        googleLoginUrl(state){
-            return state.serverUrl + '/auth/google'
-        },
-        loading(state){
-            return state.loading
-        },
-        getServerUrl(state){
-            return state.serverUrl;
-        },
-        getAlertMsg(state){
-            return state.alertMsg;
-        },
-        getAlertType(state){
-            return state.alertType;
-        }
-
-
-
-
-    },
+    getters
 })
