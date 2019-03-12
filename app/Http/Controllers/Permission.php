@@ -155,8 +155,6 @@ class Permission extends Controller
 
             }
 
-
-
             $permission_input = collect($request->all());
 
             if(isset($request->name)){
@@ -167,7 +165,6 @@ class Permission extends Controller
 
             $permission_input_table = $permission_input->all();
             $permission->fill($permission_input_table)->save();
-
 
             return new  PermissionResource($permission);
 

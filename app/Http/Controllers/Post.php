@@ -32,7 +32,6 @@ class Post extends Controller
             if ($request->has('status')) {
                 $post = PostModel::orWhere([['name', 'like', '%' . $request->name . '%'], ['description', 'like', '%' . $request->name . '%']])->where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
             }
-
             return PostResource::collection($post);
         } elseif ($request->has('status')) {
             $post = PostModel::where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
@@ -64,7 +63,6 @@ class Post extends Controller
         $user = Auth::user();
 
         if ($user->hasRole(['admin','super_admin'])) {
-
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:posts',
                 'slug' => 'required|unique:posts',
@@ -73,13 +71,9 @@ class Post extends Controller
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
             ]);
-
-
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
-
             }
-
 
             $post = PostModel::create($request->all());
 
@@ -137,10 +131,13 @@ class Post extends Controller
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
 
-            $this->validate($request, [
+            $validation = Validator::make($request->all(), [
                 'title' => ['sometimes', Rule::unique('posts')->ignore($id)],
                 'slug' => ['sometimes', Rule::unique('posts')->ignore($id)],
             ]);
+            if ($validation->fails()) {
+                return response()->json($validation->errors(), 422);
+            }
 
             $post = PostModel::findOrFail($id);
             $post->fill($request->all())->save();
@@ -204,10 +201,8 @@ class Post extends Controller
                 'post' => 'required|numeric',
             ]);
 
-
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
-
             }
 
             $post = PostModel::findOrFail($request->post);

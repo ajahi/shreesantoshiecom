@@ -72,14 +72,12 @@ class User extends Controller
 
         if ($user->hasRole(['admin','super_admin'])) {
 
-
             $validation = Validator::make($request->all(), [
                 'name' => 'required|min:3',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:6|confirmed',
                 'role_id' => 'required'
             ]);
-
 
             if ($validation->fails()) {
                 return response()->json($validation->errors() , 422);
@@ -91,7 +89,6 @@ class User extends Controller
             $created_user = UserModel::create($user_input);
             $created_user->roles()->attach($request['role_id']);
             return new  UserResource($created_user);
-
 
         } else {
             $return = ["status" => "error",
@@ -152,7 +149,6 @@ class User extends Controller
 
             $user_update = UserModel::findOrFail($id);
 
-
             $validation = Validator::make($request->all(), [
                 'name' => 'sometimes|min:3',
                 'email' => 'sometimes|email',
@@ -161,7 +157,7 @@ class User extends Controller
 
 
             if ($validation->fails()) {
-                return response()->json($validation->errors());
+                return response()->json($validation->errors(),422);
 
             }
 

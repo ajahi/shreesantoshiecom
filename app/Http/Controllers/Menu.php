@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
-
 use App\Menu as MenuModel;
 use App\Http\Resource\Menu as MenuResource;
 use Illuminate\Support\Facades\Auth;
-
-use Validator;
 
 class Menu extends Controller
 {
@@ -64,7 +62,6 @@ class Menu extends Controller
                 'parent_id' => 'numeric',
                 'url'=>'required'
             ]);
-
 
             if ($validation->fails()) {
                 return response()->json($validation->errors() , 422);
