@@ -3,40 +3,45 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use App\Role;
 use Illuminate\Http\Request;
-use App\Menu as MenuModel;
-use App\Http\Resource\Menu as MenuResource;
+use App\Http\Resources\Role as RoleResource;
 use Illuminate\Support\Facades\Auth;
 
-class Menu extends Controller
+
+class RoleController extends Controller
 {
 
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
     {
-        if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
-            $menu = MenuModel::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return MenuResource::collection($menu);
-        } elseif ($request->has('title') && $request->has('limit') && $request->has('sort') && $request->has('parent_id')) {
-            $menu = MenuModel::where('title', 'like', '%' . $request->title . '%')->where('parent_id', null)->orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return MenuResource::collection($menu);
-        } elseif ($request->has('parent_id')) {
-            $menu = MenuModel::where('parent_id', null)->orderBy('position')->get();
+        $user = Auth::user();
+        if ($user->hasRole(['admin','super_admin'])) {
+            if ($request->has('name')) {
+                $user = RoleModel::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
-            return MenuResource::collection($menu);
+                return RoleResource::collection($user);
+            }
+
+            return RoleResource::collection(RoleModel::orderBy('id', $request->sort)->paginate($request->input('limit')));
+        } else {
+            $return = ["status" => "error",
+                "error" => [
+                    "code" => 403,
+                    "errors" => 'Forbidden'
+                ]];
+            return response()->json($return, 403);
         }
-        return MenuResource::collection(MenuModel::all());
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -47,7 +52,7 @@ class Menu extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return MenuResource
+     * @return RoleResource
      */
     public function store(Request $request)
     {
@@ -55,43 +60,32 @@ class Menu extends Controller
 
         if ($user->hasRole(['admin','super_admin'])) {
 
-
             $validation = Validator::make($request->all(), [
-                'title' => 'required|unique:menus',
-                'description' => 'required',
-                'parent_id' => 'numeric',
-                'url'=>'required'
+                'name' => 'required|min:3|unique:roles',
+                'display_name' => 'required|min:3',
+                'description' => 'required|min:3',
+                'permission_list' => 'sometimes'
             ]);
+
 
             if ($validation->fails()) {
                 return response()->json($validation->errors() , 422);
 
             }
 
-            $data  = collect($request->all());
+            $role_name = snake_case($request->input('name'));
+            $role_input_initial = collect($request->all());
+            $role_input = $role_input_initial->merge(['name' => $role_name]);
 
-            $data = $data->toArray();
+            $role_input_table = $role_input->all();
+            $role = RoleModel::create($role_input_table);
 
-
-            if($request->parent_id){
-                $position = MenuModel::where('parent_id','=',$request->parent_id)->count();
-            }else{
-                $position = MenuModel::count();
-            }
-            $data['position'] = $position +1 ;
-
-
-            $menu = MenuModel::create($data);
-
-            if ($request['image'] != null) {
-                $menu->clearMediaCollection('photo');
-                $menu->addMediaFromRequest('image')->toMediaCollection('photo');
-
+            if (isset($request->permission_list)) {
+                $perm_list = $request->permission_list;
+                $role->perms()->attach($perm_list);
             }
 
-//            return $menu;
-
-            return new  MenuResource($menu);
+            return new  RoleResource($role);
 
 
         } else {
@@ -108,14 +102,14 @@ class Menu extends Controller
      * Display the specified resource.
      *
      * @param  int $id
-     * @return MenuResource
+     * @return RoleResource
      */
     public function show($id)
     {
         $user = Auth::user();
 
         if ($user->hasRole(['admin','super_admin'])) {
-            return new MenuResource(MenuModel::find($id));
+            return new RoleResource(RoleModel::find($id));
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -130,7 +124,7 @@ class Menu extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function edit($id)
     {
@@ -142,35 +136,42 @@ class Menu extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @return MenuResource
+     * @return void
      */
     public function update(Request $request, $id)
     {
+
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            $menu = MenuModel::findOrFail($id);
+            $role = RoleModel::findOrFail($id);
 
-            if ($request->parent_id) {
-                $menu = MenuModel::findOrFail($request->parent_id);
+            $validation = Validator::make($request->all(), [
+                'name' => 'sometimes|min:3',
+                'display_name' => 'sometimes|min:3',
+                'description' => 'sometimes|min:3',
+                'permission_list' => 'sometimes'
+            ]);
 
-                if ($menu->parent_id == $id) {
-
-                } else {
-                    $menu->fill($request->all())->save();
-
-                }
-            } else {
-                $menu->fill($request->all())->save();
+            if ($validation->fails()) {
+                return response()->json($validation->errors(),422);
 
             }
-            if ($request['image'] != null) {
-                $menu->clearMediaCollection('photo');
-                $menu->addMediaFromRequest('image')->toMediaCollection('photo');
+
+            $role_input_initial = collect($request->all());
+            if (isset($request->name)) {
+                $role_name = snake_case($request->input('name'));
+                $role_input_initial = $role_input_initial->merge(['name' => $role_name]);
 
             }
-            $menu = MenuModel::findOrFail($id);
 
-            return new MenuResource($menu);
+            $role_input_table = $role_input_initial->all();
+            $role->fill($role_input_table)->save();
+
+            if (isset($request->permission_list)) {
+                $perms_list = $role_input_initial->pop();
+                $role->perms()->sync($perms_list);
+            }
+            return new  RoleResource($role);
 
         } else {
             $return = ["status" => "error",
@@ -186,13 +187,13 @@ class Menu extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy($id)
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            MenuModel::whereId($id)->delete();
+            RoleModel::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,

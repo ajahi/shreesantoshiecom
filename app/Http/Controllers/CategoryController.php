@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Category as CategoryModel;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resource\Category as CategoryResource;
 
 use Validator;
 
-class Category extends Controller
+class CategoryController extends Controller
 {
 
     /**
@@ -22,13 +22,13 @@ class Category extends Controller
     {
 
         if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
-            $category = CategoryModel::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+            $category = Category::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
             return CategoryResource::collection($category);
         } elseif ($request->has('limit') && $request->has('sort')) {
-            $category = CategoryModel::orderBy('id', $request->sort)->paginate($request->input('limit'));
+            $category = Category::orderBy('id', $request->sort)->paginate($request->input('limit'));
             return CategoryResource::collection($category);
         }
-        return CategoryResource::collection(CategoryModel::all());
+        return CategoryResource::collection(Category::all());
 
     }
 
@@ -69,9 +69,9 @@ class Category extends Controller
 
             $data = $data->toArray();
 
-            $position = CategoryModel::count();
+            $position = Category::count();
             $data['position'] = $position + 1;
-            $category = CategoryModel::create($data);
+            $category = Category::create($data);
 
             if ($request['image'] != null) {
                 $category->clearMediaCollection('photo');
@@ -98,7 +98,7 @@ class Category extends Controller
      */
     public function show($id)
     {
-        return new CategoryResource(CategoryModel::find($id));
+        return new CategoryResource(Category::find($id));
 
     }
 
@@ -125,7 +125,7 @@ class Category extends Controller
 
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            $category = CategoryModel::findOrFail($id);
+            $category = Category::findOrFail($id);
             $category->fill($request->all())->save();
 
 
@@ -134,7 +134,7 @@ class Category extends Controller
                 $category->addMediaFromRequest('image')->toMediaCollection('photo');
 
             }
-            $category = CategoryModel::findOrFail($id);
+            $category = Category::findOrFail($id);
 
             return new  CategoryResource($category);
 
@@ -158,7 +158,7 @@ class Category extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            CategoryModel::whereId($id)->delete();
+            Category::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,

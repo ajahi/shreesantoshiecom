@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User as UserModel;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\User as UserResource;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 use Validator;
 
-class User extends Controller
+class UserController extends Controller
 {
 
     /**
@@ -27,19 +27,19 @@ class User extends Controller
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             if ($request->has('name')) {
-                $user = UserModel::where('name', 'like', '%' . $request->name . '%')->orWhere('email', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                $user = User::where('name', 'like', '%' . $request->name . '%')->orWhere('email', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
                 if ($request->has('status')) {
-                    $user = UserModel::orWhere([['name', 'like', '%' . $request->name . '%'], ['email', 'like', '%' . $request->name . '%']])->where('active', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                    $user = User::orWhere([['name', 'like', '%' . $request->name . '%'], ['email', 'like', '%' . $request->name . '%']])->where('active', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
                 }
 
                 return UserResource::collection($user);
             } elseif ($request->has('status')) {
-                $user = UserModel::where('active', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                $user = User::where('active', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
                 return UserResource::collection($user);
 
             }
-            return UserResource::collection(UserModel::orderBy('id', $request->sort)->paginate($request->input('limit')));
+            return UserResource::collection(User::orderBy('id', $request->sort)->paginate($request->input('limit')));
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -86,7 +86,7 @@ class User extends Controller
 
             $user_input = $request->all();
             $user_input['password'] = bcrypt($user_input['password']);
-            $created_user = UserModel::create($user_input);
+            $created_user = User::create($user_input);
             $created_user->roles()->attach($request['role_id']);
             return new  UserResource($created_user);
 
@@ -111,7 +111,7 @@ class User extends Controller
         $user = Auth::user();
 
             if ($user->hasRole(['admin','super_admin']) || $user->id == $id) {
-            return new  UserResource(UserModel::find($id));
+            return new  UserResource(User::find($id));
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -147,7 +147,7 @@ class User extends Controller
 
         if ($user->hasRole(['admin','super_admin']) || $user->id == $id) {
 
-            $user_update = UserModel::findOrFail($id);
+            $user_update = User::findOrFail($id);
 
             $validation = Validator::make($request->all(), [
                 'name' => 'sometimes|min:3',
@@ -213,7 +213,7 @@ class User extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        $user_delete = UserModel::findOrFail($id);
+        $user_delete = User::findOrFail($id);
         if ($user->hasRole(['admin','super_admin'])) {
             if ($user_delete->token()) {
                 $accessToken = $user_delete->token();
