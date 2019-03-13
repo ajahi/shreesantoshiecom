@@ -3,9 +3,9 @@
 namespace App\Http\Resource;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resource\TempMenu as TempMenuResource;
+use App\Http\Resource\MenuResource as MenuResource;
 
-class Menu extends JsonResource
+class TempMenuResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,8 +23,7 @@ class Menu extends JsonResource
             'description' => $this->description,
             'url' => $this->url,
 
-            'parent' => $this->parent,
-            'children' =>  TempMenuResource::collection($this->children),
+            'children' => MenuResource::collection($this->children),
             'photo' => $this->when(1, function () {
                 if (count($this->getMedia('photo')) > 0) {
                     return $this->getMedia('photo')[0]->getFullUrl();

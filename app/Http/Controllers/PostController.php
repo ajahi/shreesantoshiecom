@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Post;
-use App\Http\Resource\Post as PostResource;
-use App\Http\Resources\Media as MediaResource;
+use App\Http\Resource\PostResource;
+use App\Http\Resources\MediaResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Validator;

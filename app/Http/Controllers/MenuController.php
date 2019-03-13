@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\Menu;
-use App\Http\Resource\Menu as MenuResource;
+use App\Http\Resource\MenuResource;
 use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller

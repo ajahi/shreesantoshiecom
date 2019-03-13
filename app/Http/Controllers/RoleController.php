@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use App\Role;
 use Illuminate\Http\Request;
-use App\Http\Resources\Role as RoleResource;
+use App\Http\Resources\RoleResource;
 use Illuminate\Support\Facades\Auth;
 
 

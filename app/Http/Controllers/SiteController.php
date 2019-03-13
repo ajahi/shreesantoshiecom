@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Site as SiteModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\Media as MediaResource;
+use App\Http\Resources\MediaResource;
 
 
 class Site extends Controller

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Validator;
 use App\Permission;
-use App\Http\Resources\Permission as PermissionResource;
+use App\Http\Resources\PermissionResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
