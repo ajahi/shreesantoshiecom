@@ -1,4 +1,5 @@
 // vue.config.js
+const webpack = require('webpack');
 module.exports = {
   // proxy all webpack dev-server requests starting with /api
   // to our Spring Boot backend (localhost:8088) using http-proxy-middleware
@@ -17,5 +18,15 @@ module.exports = {
   // see https://cli.vuejs.org/config/
   outputDir: '../public/',
   indexPath:'../resources/views/index.blade.php',
-  assetsDir: 'static'
+  assetsDir: 'static',
+    configureWebpack: {
+    plugins: [
+        new webpack.ProvidePlugin({
+            'window.Quill': 'quill/dist/quill.js',
+            'Quill': 'quill/dist/quill.js',
+        }),
+
+    ]
+    }
+
 }

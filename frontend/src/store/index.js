@@ -11,6 +11,7 @@ import quote from  './modules/quote'
 import ebook from  './modules/ebook'
 import calendar from  './modules/calendar'
 import category from './modules/category'
+import post from './modules/post'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -20,14 +21,8 @@ export const store = new Vuex.Store({
         auth,
         profile,
         app,
-        club,
-        member,
-        enums,
-        designation,
-        quote,
-        ebook,
-        calendar,
-        category
+        category,
+        post
     },
     state: {
         appTitle: 'Mis for Divine Youth Club Nepal',

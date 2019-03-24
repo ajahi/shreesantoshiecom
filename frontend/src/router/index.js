@@ -25,6 +25,8 @@ import CalendarList from '../components/dashboard/calendar/CalendarList'
 import Calendar from '../components/dashboard/calendar/Calendar'
 import CategoryList from '../components/dashboard/category/CategoryList'
 import Category from '../components/dashboard/category/Category'
+import Post from '../components/dashboard/post/Post'
+import PostList from '../components/dashboard/post/PostList'
 
 import Home from '../components/site/Home'
 
@@ -100,8 +102,12 @@ const routerOptions = [
     { path:'/dashboard/ebooks',name:'ebooks',component: EbookList,meta:{requiresAuth:true} },
     { path:'/dashboard/calendar/:id',name:'calendar',component: Calendar,meta:{requiresAuth:true} ,props:true },
     { path:'/dashboard/calendars',name:'calendars',component: CalendarList,meta:{requiresAuth:true} },
+
     { path:'/dashboard/category/:id',name:'category',component: Category,meta:{requiresAuth:true} ,props:true },
     { path:'/dashboard/categories',name:'categories',component: CategoryList,meta:{requiresAuth:true} },
+
+    { path:'/dashboard/post/:id',name:'post',component: Post,meta:{requiresAuth:true} ,props:true },
+    { path:'/dashboard/posts',name:'posts',component: PostList,meta:{requiresAuth:true} },
 ]
 
 

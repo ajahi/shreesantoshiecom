@@ -2,30 +2,30 @@ import axios from 'axios';
 
 export default {
     state: {
-        categories: [],
-        category: {},
+        posts: [],
+        post: {},
     },
     mutations:{
-        setCategory(state,payload){
-            state.category = payload
+        setPost(state,payload){
+            state.post = payload
 
         },
-        setCategories(state,categories){
-            state.categories = categories;
+        setPosts(state,posts){
+            state.posts = posts;
         },
-        setCategoryId(state,payload){
-            state.category.id = payload
+        setPostId(state,payload){
+            state.post.id = payload
         },
 
     },
     actions: {
-        fetchCategory({commit,state,rootState},payload){
+        fetchPost({commit,state,rootState},payload){
             return new Promise(((resolve, reject) => {
                 commit('setLoading',true);
-                axios.get('/category/'+payload)
+                axios.get('/post/'+payload)
                     .then(response =>{
                         commit('setLoading',false)
-                        commit('setCategory',response.data)
+                        commit('setPost',response.data)
                         resolve(response)
 
                     })
@@ -38,13 +38,13 @@ export default {
             }))
 
         },
-        fetchCategories({commit,state,rootState},payload){
+        fetchPosts({commit,state,rootState},payload){
             return new Promise(((resolve, reject) => {
                 commit('setLoading',true);
-                axios.get('/category',{params:payload})
+                axios.get('/post',{params:payload})
                     .then(response =>{
                         commit('setLoading',false)
-                        commit('setCategories',response.data.data)
+                        commit('setPosts',response.data.data)
                         resolve(response)
 
                     })
@@ -57,13 +57,13 @@ export default {
             }))
 
         },
-        saveCategory({commit,state,rootState},payload){
+        savePost({commit,state,rootState},payload){
             return new Promise(((resolve, reject) => {
 
                 commit('setLoading',true);
                 const app = this;
                 if(payload.id){
-                    axios.put('/category/'+payload.id,payload)
+                    axios.put('/post/'+payload.id,payload)
                         .then(response => {
                             commit('setLoading',false);
                             resolve(response);
@@ -74,7 +74,7 @@ export default {
                         });
                 }
                 else{
-                    axios.post('/category',payload)
+                    axios.post('/post',payload)
                         .then(response => {
                             commit('setLoading',false);
                             resolve(response);
@@ -90,10 +90,10 @@ export default {
 
         },
 
-        deleteCategory({commit,state,rootState},payload){
+        deletePost({commit,state,rootState},payload){
             return new Promise(((resolve, reject) => {
                 commit('setLoading',true);
-                axios.delete('/category/'+payload)
+                axios.delete('/post/'+payload)
                     .then(response =>{
                         commit('setLoading',false)
                         commit('setAlert',{msg:response.data.message,type:'success'});
@@ -109,20 +109,20 @@ export default {
             }))
 
         },
-        setCategory({commit,state},payload){
-            commit('setCategory',payload);
+        setPost({commit,state},payload){
+            commit('setPost',payload);
         },
-        clearCategory({commit}){
-            commit('setCategory',{})
+        clearPost({commit}){
+            commit('setPost',{})
         },
 
     },
     getters: {
-        getCategory:state => {
-            return state.category;
+        getPost:state => {
+            return state.post;
         },
-        getCategories:state => {
-            return state.categories;
+        getPosts:state => {
+            return state.posts;
         }
     }
 }

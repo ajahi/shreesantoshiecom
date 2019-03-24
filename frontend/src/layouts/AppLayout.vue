@@ -198,34 +198,10 @@
                 },
                 {   icon: 'keyboard_arrow_up',
                     'icon-alt': 'keyboard_arrow_down',
-                    text: 'Clubs ',
+                    text: 'Categories ',
                     children: [
-                        {icon:'fa-plus', text:'Create a Club', action:'/dashboard/club/create'},
-                        {icon:'fa-list-ul', text:'Club list', action:'/dashboard/clubs'},
-                    ]
-                },
-                {   icon: 'keyboard_arrow_up',
-                    'icon-alt': 'keyboard_arrow_down',
-                    text: 'Members ',
-                    children: [
-                        {icon:'fa-plus', text:'Create a Member', action:'/dashboard/member/create'},
-                        {icon:'fa-list-ul', text:'Member list', action:'/dashboard/members'},
-                    ]
-                },
-                {   icon: 'keyboard_arrow_up',
-                    'icon-alt': 'keyboard_arrow_down',
-                    text: 'Quotes ',
-                    children: [
-                        {icon:'fa-plus', text:'Create a Quote', action:'/dashboard/quote/create'},
-                        {icon:'fa-list-ul', text:'Quote list', action:'/dashboard/quotes'},
-                    ]
-                },
-                {   icon: 'keyboard_arrow_up',
-                    'icon-alt': 'keyboard_arrow_down',
-                    text: 'Magazine ',
-                    children: [
-                        {icon:'fa-plus', text:'Create a Magazine', action:'/dashboard/ebook/create'},
-                        {icon:'fa-list-ul', text:'Magazine list', action:'/dashboard/ebooks'},
+                        {icon:'fa-plus', text:'Create a Category', action:'/dashboard/category/create'},
+                        {icon:'fa-list-ul', text:'Categories', action:'/dashboard/categories'},
                     ]
                 },
                 {   icon: 'keyboard_arrow_up',

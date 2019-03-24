@@ -3,12 +3,13 @@ import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
-import { store } from "./store";
+import {store} from "./store";
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueClip from 'vue-clip';
 import errorHandler from './errorHandler';
 import JsonExcel from 'vue-json-excel';
+import VeeValidate from 'vee-validate';
 
 import 'vue2-dropzone/dist/vue2Dropzone.css'
 import '@fortawesome/fontawesome-free/css/all.css' // Ensure you are using css-loader
@@ -16,9 +17,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure
 
 import VDateRange from 'vuetify-daterange-picker';
 import 'vuetify-daterange-picker/dist/vuetify-daterange-picker.css';
-
-
-
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 Vue.config.productionTip = false
 
@@ -26,13 +25,18 @@ Vue.use(VueAxios, axios);
 
 Vue.use(VueClip);
 
-Vue.component('downloadExcel',JsonExcel);
+Vue.component('downloadExcel', JsonExcel);
 
 Vue.use(VDateRange);
 
+Vue.use(VeeValidate, { inject: false })
+
+Vue.use( CKEditor );
+
+
 Vue.filter('downloadUrl', function (value) {
-    if(!value) return ''
-    else return process.env.VUE_APP_SERVER_URL+'/downloadFile/'+value
+    if (!value) return ''
+    else return process.env.VUE_APP_SERVER_URL + '/downloadFile/' + value
 })
 
 
@@ -50,8 +54,8 @@ axios.interceptors.response.use(
     errorHandler
 );
 
-new Vue({
+export const app = new Vue({
     router,
     store,
-  render: h => h(App)
+    render: h => h(App)
 }).$mount('#app')

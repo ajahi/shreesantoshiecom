@@ -1,6 +1,6 @@
 const getters = {
     app: state => state.app.app,
-    token: state => state.user.token,
+    token: state => state.auth.token,
     userid: state => state.profile.profile.id,
     userrole: state => state.profile.profile.roles,
     profile: state => state.profile.profile,

@@ -9,41 +9,47 @@
                 </v-card-title>
                 <v-card-text>
 
-                    <v-form ref="category" v-model="valid">
+                    <v-form ref="post" v-model="valid">
                         <v-container grid-list-md text-md-center>
                             <v-layout row wrap align-center>
-                                <input type="hidden" v-model="category.id"/>
+                                <input type="hidden" v-model="post.id"/>
                                 <v-flex md12 sm12>
                                     <v-text-field
-                                            prepend-icon="person"
-                                            name="category"
-                                            label="Category *"
+                                            name="post"
+                                            label="Post *"
                                             type="text"
-                                            v-model="category.title"
+                                            v-model="post.title"
                                             :rules="requiredRules"
                                             data-vv-name="title"
                                             :error-messages="errors.first('title')"
                                     ></v-text-field>
                                 </v-flex>
                                 <v-flex md12 sm12>
-                                    <v-text-field
-                                            prepend-icon="person"
+                                   <!-- <v-textarea
                                             name="description"
                                             label="Description *"
                                             type="text"
-                                            v-model="category.description"
+                                            v-model="post.description"
                                             :rules="requiredRules"
                                             data-vv-name="description"
                                             :error-messages="errors.first('description')"
-                                    ></v-text-field>
+                                    ></v-textarea>-->
+                                    <v-textarea
+                                        v-model="post.description">
+                                    </v-textarea>
+
+                                   <!-- <vue-editor
+                                            :customModules="customModulesForEditor"
+                                            :editorOptions="editorSettings"
+                                            v-model="post.description"></vue-editor>-->
+
                                 </v-flex>
-                                <v-flex md12 sm12 v-if="category.id">
+                                <v-flex md12 sm12 >
                                     <v-text-field
                                             prepend-icon="person"
-                                            name="url"
-                                            label="Category Position *"
-                                            type="number"
-                                            v-model="category.position"
+                                            name="status"
+                                            label="Status *"
+                                            v-model="post.status"
                                             :rules="requiredRules"
                                     ></v-text-field>
                                 </v-flex>
@@ -57,7 +63,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
 
-                    <v-btn color="primary" :disabled="!valid || loading" @click="saveCategory">Save
+                    <v-btn color="primary" :disabled="!valid || loading" @click="savePost">Save
                         <v-icon v-if="loading">fas fa-circle-notch fa-spin</v-icon>
                     </v-btn>
                     <v-btn @click="$router.go(-1)">Cancel
@@ -75,54 +81,69 @@
     import { mapGetters} from 'vuex';
     import AlertBox from '../../shared/AlertBox';
 
+    import { VueEditor,Quill } from 'vue2-editor'
+    import { ImageDrop } from "quill-image-drop-module";
+    import ImageResize from "quill-image-resize-module";
+
     export default {
-        name: "member",
+        name: "post",
         props: ['msg','id'],
         components: {
             'alert-box': AlertBox,
+            'vue-editor': VueEditor
         },
         inject: ['$validator'],
         data() {
             return {
+                customModulesForEditor: [
+                    { alias: "imageDrop", module: ImageDrop },
+                    { alias: "imageResize", module: ImageResize }
+                ],
+                editorSettings: {
+                    modules: {
+                        imageDrop: true,
+                        imageResize: {}
+                    }
+                },
                 alert: false,
                 valid: true,
                 requiredRules: [
                     v => !!v || 'Required field'
                 ],
-                category:{},
+                post:{},
                 monthMenu: false,
                 formData:null
             }
         },
         created: function(){
-            this.fetchCategory()
+            this.fetchPost()
 
         },
         mounted(){
 
         },
         methods:{
-            fetchCategory(){
+            fetchPost(){
                 if(this.id){
                   if(this.id ==='create'){
-                      this.$store.dispatch('clearCategory');
+                      this.$store.dispatch('clearPost');
 
                   }
                   else {
-                      this.$store.dispatch('fetchCategory',this.id)
+                      this.$store.dispatch('fetchPost',this.id)
                           .then(response => {
-                              this.category = response.data.data;
+                              this.post = response.data.data;
                           })
                   }
               }
             },
-            saveCategory(){
-                if(this.$refs.category.validate()){
-                    this.$store.dispatch('saveCategory',this.category).then(response => {
+            savePost(){
+                if(this.$refs.post.validate()){
+                    this.$store.dispatch('savePost',this.post).then(response => {
                         if(response.status === 201){
-                            this.$store.dispatch('showSuccessSnackbar','Category was created successfully');
+                            this.$store.dispatch('showSuccessSnackbar','Post was created successfully');
                         }else{
-                            this.$store.dispatch('showSuccessSnackbar','Category was edited successfully');
+                            this.$store.dispatch('showSuccessSnackbar','Post was edited successfully');
                         }
                         this.$router.push({name:'categories'});
 
@@ -136,27 +157,27 @@
             },
             onFileChange(fieldName, file) {
                 const { maxSize } = this
-                let categoryFile = file[0]
+                let postFile = file[0]
                 if (file.length>0) {
-                    // let size = categoryFile.size / maxSize / maxSize
+                    // let size = postFile.size / maxSize / maxSize
                         // Append file into FormData and turn file into image URL
                         this.formData = new FormData()
-                        let imageURL = URL.createObjectURL(categoryFile)
-                        this.formData.append(fieldName, categoryFile)
+                        let imageURL = URL.createObjectURL(postFile)
+                        this.formData.append(fieldName, postFile)
                         // Emit the FormData and image URL to the parent component
                 }
             }
         },
         computed: {
             ...mapGetters([
-                'loading','getCategory'
+                'loading','getPost'
             ]),
             title(){
-                if(this.category.id){
-                    return "Edit "+ this.category.title
+                if(this.post.id){
+                    return "Edit "+ this.post.title
                 }
                 else
-                    return "Create Category"
+                    return "Create Post"
 
             },
             loading(){
