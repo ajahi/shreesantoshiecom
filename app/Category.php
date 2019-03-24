@@ -13,7 +13,6 @@ class Category extends Model implements HasMedia {
         'title', 'description','position'
     ];
 
-
     public function posts() {
         return $this->hasMany('App\Post');
     }

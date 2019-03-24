@@ -21,6 +21,9 @@ Route::group(['middleware' => ['cors']], function() {
     Route::get('/category/{id}', 'CategoryController@show');
     Route::get('/menu', 'MenuController@index');
     Route::get('/menu/{id}', 'MenuController@show');
+    Route::get('/tag','TagController@index');
+    Route::get('/tag/{id}','TagController@show');
+
 
 });
 
@@ -36,11 +39,16 @@ Route::group(['middleware' => ['cors','auth:api']], function() {
     Route::resource('post', 'PostController', array('except' => array('index','show')));
     Route::resource('category', 'CategoryController', array('except' => array('index','show')));
     Route::resource('menu', 'MenuController', array('except' => array('index','show')));
+    Route::resource('tag','TagController');
     Route::post('/post/uploads', 'PostController@uploads');
     Route::get('/media/{id}/{mediaID}', 'PostController@deleteMedia');
     Route::post('/gallery/uploads', 'SiteController@uploadsGallery');
     Route::get('/gallery/{id}/{mediaID}', 'SiteController@deleteMediaGallery');
     Route::post('/site/upload', 'SiteController@uploadMedia');
     Route::post('/site/media/delete', 'SiteController@deleteMedia');
+
+    Route::post('/tag','TagController@store');
+    Route::put('/tag/{id}','TagController@update');
+    Route::delete('/tag/{id}','TagController@destroy');
 
 });

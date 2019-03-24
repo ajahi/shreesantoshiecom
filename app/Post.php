@@ -19,4 +19,8 @@ class Post extends Model implements HasMedia {
         return $this->belongsTo('App\Category');
     }
 
+    public function tag() {
+        return $this->hasMany('App\Tag');
+    }
+
 }
