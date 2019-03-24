@@ -14,13 +14,13 @@
 
 Route::group(['middleware' => ['cors']], function() {
     Route::post('/login', 'Api\LoginController@login');
-    Route::get('/site', 'Site@index');
-    Route::get('/post', 'Post@index');
-    Route::get('/post/{id}', 'Post@show');
-    Route::get('/category', 'Category@index');
-    Route::get('/category/{id}', 'Category@show');
-    Route::get('/menu', 'Menu@index');
-    Route::get('/menu/{id}', 'Menu@show');
+    Route::get('/site', 'SiteController@index');
+    Route::get('/post', 'PostController@index');
+    Route::get('/post/{id}', 'PostController@show');
+    Route::get('/category', 'CategoryController@index');
+    Route::get('/category/{id}', 'CategoryController@show');
+    Route::get('/menu', 'MenuController@index');
+    Route::get('/menu/{id}', 'MenuController@show');
 
 });
 
@@ -29,18 +29,18 @@ Route::group(['middleware' => ['cors','auth:api']], function() {
 
     Route::get('/logout', 'Api\LoginController@logout');
     Route::get('/auth/user', 'Api\LoginController@user');
-    Route::resource('site', 'Site', array('except' => array('index','show','update','destroy')));
-    Route::resource('user', 'User');
-    Route::resource('role', 'Role');
-    Route::resource('permission', 'Permission');
-    Route::resource('post', 'Post', array('except' => array('index','show')));
-    Route::resource('category', 'Category', array('except' => array('index','show')));
-    Route::resource('menu', 'Menu', array('except' => array('index','show')));
-    Route::post('/post/uploads', 'Post@uploads');
-    Route::get('/media/{id}/{mediaID}', 'Post@deleteMedia');
-    Route::post('/gallery/uploads', 'Site@uploadsGallery');
-    Route::get('/gallery/{id}/{mediaID}', 'Site@deleteMediaGallery');
-    Route::post('/site/upload', 'Site@uploadMedia');
-    Route::post('/site/media/delete', 'Site@deleteMedia');
+    Route::resource('site', 'SiteController', array('except' => array('index','show','update','destroy')));
+    Route::resource('user', 'UserController');
+    Route::resource('role', 'RoleController');
+    Route::resource('permission', 'PermissionController');
+    Route::resource('post', 'PostController', array('except' => array('index','show')));
+    Route::resource('category', 'CategoryController', array('except' => array('index','show')));
+    Route::resource('menu', 'MenuController', array('except' => array('index','show')));
+    Route::post('/post/uploads', 'PostController@uploads');
+    Route::get('/media/{id}/{mediaID}', 'PostController@deleteMedia');
+    Route::post('/gallery/uploads', 'SiteController@uploadsGallery');
+    Route::get('/gallery/{id}/{mediaID}', 'SiteController@deleteMediaGallery');
+    Route::post('/site/upload', 'SiteController@uploadMedia');
+    Route::post('/site/media/delete', 'SiteController@deleteMedia');
 
 });
