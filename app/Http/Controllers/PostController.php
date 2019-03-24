@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Post as PostModel;
-use App\Http\Resource\Post as PostResource;
-use App\Http\Resources\Media as MediaResource;
-
+use App\Post;
+use App\Http\Resource\PostResource;
+use App\Http\Resources\MediaResource;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Validation\Rule;
 use Validator;
 
-class Post extends Controller
+class PostController extends Controller
 {
 
     /**
@@ -27,19 +25,18 @@ class Post extends Controller
 
 
         if ($request->has('name')) {
-            $post = PostModel::where('name', 'like', '%' . $request->name . '%')->orWhere('description', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+            $post = Post::where('name', 'like', '%' . $request->name . '%')->orWhere('description', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
             if ($request->has('status')) {
-                $post = PostModel::orWhere([['name', 'like', '%' . $request->name . '%'], ['description', 'like', '%' . $request->name . '%']])->where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                $post = Post::orWhere([['name', 'like', '%' . $request->name . '%'], ['description', 'like', '%' . $request->name . '%']])->where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
             }
-
             return PostResource::collection($post);
         } elseif ($request->has('status')) {
-            $post = PostModel::where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
+            $post = Post::where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
             return PostResource::collection($post);
 
         }
-        return PostResource::collection(PostModel::orderBy('id', $request->sort)->paginate($request->input('limit')));
+        return PostResource::collection(Post::orderBy('id', $request->sort)->paginate($request->input('limit')));
 
     }
 
@@ -64,7 +61,6 @@ class Post extends Controller
         $user = Auth::user();
 
         if ($user->hasRole(['admin','super_admin'])) {
-
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:posts',
                 'slug' => 'required|unique:posts',
@@ -73,15 +69,11 @@ class Post extends Controller
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
             ]);
-
-
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
-
             }
 
-
-            $post = PostModel::create($request->all());
+            $post = Post::create($request->all());
 
             if ($request['featured'] != null) {
                 $post->clearMediaCollection('featured');
@@ -108,7 +100,7 @@ class Post extends Controller
      */
     public function show($id)
     {
-        return new PostResource(PostModel::find($id));
+        return new PostResource(Post::find($id));
 
     }
 
@@ -137,12 +129,15 @@ class Post extends Controller
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
 
-            $this->validate($request, [
+            $validation = Validator::make($request->all(), [
                 'title' => ['sometimes', Rule::unique('posts')->ignore($id)],
                 'slug' => ['sometimes', Rule::unique('posts')->ignore($id)],
             ]);
+            if ($validation->fails()) {
+                return response()->json($validation->errors(), 422);
+            }
 
-            $post = PostModel::findOrFail($id);
+            $post = Post::findOrFail($id);
             $post->fill($request->all())->save();
 
 
@@ -152,7 +147,7 @@ class Post extends Controller
 
             }
 
-            $post = PostModel::findOrFail($id);
+            $post = Post::findOrFail($id);
 
             return new  PostResource($post);
 
@@ -176,7 +171,7 @@ class Post extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            PostModel::whereId($id)->delete();
+            Post::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,
@@ -204,13 +199,11 @@ class Post extends Controller
                 'post' => 'required|numeric',
             ]);
 
-
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
-
             }
 
-            $post = PostModel::findOrFail($request->post);
+            $post = Post::findOrFail($request->post);
 
             if ($request['file'] != null) {
 
@@ -218,7 +211,7 @@ class Post extends Controller
 
 
             }
-            $post = PostModel::findOrFail($request->post);
+            $post = Post::findOrFail($request->post);
             return MediaResource::collection($post->getMedia('gallery'));
 
         }
@@ -231,13 +224,13 @@ class Post extends Controller
 
         if ($user->hasRole(['admin','super_admin'])) {
 
-            $post = PostModel::findOrFail($id);
+            $post = Post::findOrFail($id);
         $media = $post->getMedia('gallery');
 
         $delete = $media->where('id', $mediaID)->first();
         $delete->delete();
 
-        $post = PostModel::findOrFail($id);
+        $post = Post::findOrFail($id);
         return MediaResource::collection($post->getMedia('gallery'));
         }
     }

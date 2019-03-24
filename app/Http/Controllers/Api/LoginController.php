@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Client;
 
 
-use App\Http\Resources\User as UserResource;
+use App\Http\Resources\UserResource as UserResource;
 
 class LoginController extends Controller
 {

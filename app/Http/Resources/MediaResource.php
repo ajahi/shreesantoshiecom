@@ -10,7 +10,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Media extends JsonResource
+class MediaResource extends JsonResource
 {
     public function toArray($request)
     {

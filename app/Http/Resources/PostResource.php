@@ -6,8 +6,8 @@ use App\Category as CategoryModel;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
-use App\Http\Resources\Media as MediaResource;
-class Post extends JsonResource
+use App\Http\Resources\MediaResource as MediaResource;
+class PostResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

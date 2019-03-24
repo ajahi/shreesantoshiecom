@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Role as RoleModel;
+use Validator;
+use App\Role;
 use Illuminate\Http\Request;
-use App\Http\Resources\Role as RoleResource;
+use App\Http\Resources\RoleResource;
 use Illuminate\Support\Facades\Auth;
 
-use Validator;
 
-
-class Role extends Controller
+class RoleController extends Controller
 {
 
     /**
@@ -141,7 +140,7 @@ class Role extends Controller
      */
     public function update(Request $request, $id)
     {
-//        return $request;
+
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             $role = RoleModel::findOrFail($id);
@@ -153,12 +152,10 @@ class Role extends Controller
                 'permission_list' => 'sometimes'
             ]);
 
-
             if ($validation->fails()) {
-                return response()->json($validation->errors());
+                return response()->json($validation->errors(),422);
 
             }
-
 
             $role_input_initial = collect($request->all());
             if (isset($request->name)) {

@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
-
 use App\Site as SiteModel;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Storage;
-use Validator;
-
-
-use App\Http\Resources\Media as MediaResource;
+use App\Http\Resources\MediaResource;
 
 
 class Site extends Controller
@@ -26,7 +22,6 @@ class Site extends Controller
         $site = SiteModel::first();
         if (count($site->getMedia('logo')) > 0) {
             $site['logo'] = $site->getMedia('logo')[0]->getFullUrl();
-
 
         } else {
             $site['logo'] = "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
@@ -54,12 +49,10 @@ class Site extends Controller
      */
     public function store(Request $request)
     {
-
         $validation = Validator::make($request->all(), [
             'email' => 'email',
-            'title' => 'min:6'
+            'title' => 'required|min:6'
         ]);
-
 
         if ($validation->fails()) {
             return response()->json($validation->errors(), 422);
@@ -75,12 +68,10 @@ class Site extends Controller
 //            $data['attributes']  = $data['attributes'];
             $site->fill($data->toArray())->save();
 
-
             if ($request['file'] != null) {
                 $site->clearMediaCollection('logo');
                 $site->addMediaFromRequest('file')->toMediaCollection('logo');
             }
-
 
             $site = SiteModel::first();
             if (count($site->getMedia('logo')) > 0) {
@@ -92,7 +83,6 @@ class Site extends Controller
             $site->attributes = json_decode($site->attributes);
 
             return response()->json($site);
-
 
         } else {
             $return = ["status" => "error",
@@ -155,7 +145,6 @@ class Site extends Controller
             'site' => 'required|numeric',
         ]);
 
-
         if ($validation->fails()) {
             return response()->json($validation->errors(), 422);
 
@@ -167,14 +156,11 @@ class Site extends Controller
 
             $site->addMediaFromRequest('file')->toMediaCollection('gallery');
 
-
         }
         $site = SiteModel::findOrFail($request->site);
         return MediaResource::collection($site->getMedia('gallery'));
 
-
     }
-
 
     public function deleteMediaGallery($id, $mediaID)
     {
@@ -193,13 +179,10 @@ class Site extends Controller
     {
         $max_size = (int)ini_get('upload_max_filesize') * 1000;
 
-
-
         $validation = Validator::make($request->all(), [
             'file' => 'required|file|max:' . $max_size
 
         ]);
-
 
         if ($validation->fails()) {
             return response()->json($validation->errors(), 422);
@@ -210,9 +193,6 @@ class Site extends Controller
         $data['file'] = $path;
         $data['url'] = Storage::url($path);
         return $data;
-
-
-
 
     }
 

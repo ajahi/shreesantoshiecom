@@ -34,14 +34,14 @@
                                             data-vv-name="description"
                                             :error-messages="errors.first('description')"
                                     ></v-textarea>-->
-                                    <v-textarea
+                                   <!-- <v-textarea
                                         v-model="post.description">
-                                    </v-textarea>
+                                    </v-textarea>-->
 
-                                   <!-- <vue-editor
+                                    <vue-editor
                                             :customModules="customModulesForEditor"
                                             :editorOptions="editorSettings"
-                                            v-model="post.description"></vue-editor>-->
+                                            v-model="post.description"></vue-editor>
 
                                 </v-flex>
                                 <v-flex md12 sm12 >
@@ -101,7 +101,6 @@
                 ],
                 editorSettings: {
                     modules: {
-                        imageDrop: true,
                         imageResize: {}
                     }
                 },
@@ -139,6 +138,7 @@
             },
             savePost(){
                 if(this.$refs.post.validate()){
+                    this.post.attributes = JSON.stringify(this.post.attributes)
                     this.$store.dispatch('savePost',this.post).then(response => {
                         if(response.status === 201){
                             this.$store.dispatch('showSuccessSnackbar','Post was created successfully');

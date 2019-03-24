@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Permission as PermissionModel;
-
-use App\Http\Resources\Permission as PermissionResource;
+use Validator;
+use App\Permission;
+use App\Http\Resources\PermissionResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use Validator;
 
-
-class Permission extends Controller
+class PermissionController extends Controller
 {
 
     /**
@@ -24,12 +22,12 @@ class Permission extends Controller
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             if ($request->has('name')) {
-                $user = PermissionModel::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                $user = Permission::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
                 return PermissionResource::collection($user);
             }
 
-            return PermissionResource::collection(PermissionModel::orderBy('id', $request->sort)->paginate($request->input('limit')));
+            return PermissionResource::collection(Permission::orderBy('id', $request->sort)->paginate($request->input('limit')));
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -80,7 +78,7 @@ class Permission extends Controller
             $permission_input = $permission_input_initial->merge(['name' => $permission_name]);
 
             $permission_input_table = $permission_input->all();
-            $permission = PermissionModel::create($permission_input_table);
+            $permission = Permission::create($permission_input_table);
 
 
             return new  PermissionResource($permission);
@@ -107,7 +105,7 @@ class Permission extends Controller
         $user = Auth::user();
 
         if ($user->hasRole(['admin','super_admin'])) {
-            return new PermissionResource(PermissionModel::find($id));
+            return new PermissionResource(Permission::find($id));
         }
         else {
             $return = ["status" => "error",
@@ -141,7 +139,7 @@ class Permission extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            $permission = PermissionModel::findOrFail($id);
+            $permission = Permission::findOrFail($id);
 
             $validation = Validator::make($request->all(), [
                 'name' => 'sometimes|min:3',
@@ -155,8 +153,6 @@ class Permission extends Controller
 
             }
 
-
-
             $permission_input = collect($request->all());
 
             if(isset($request->name)){
@@ -167,7 +163,6 @@ class Permission extends Controller
 
             $permission_input_table = $permission_input->all();
             $permission->fill($permission_input_table)->save();
-
 
             return new  PermissionResource($permission);
 
@@ -192,7 +187,7 @@ class Permission extends Controller
     {
         $user=Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            PermissionModel::whereId($id)->delete();
+            Permission::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,

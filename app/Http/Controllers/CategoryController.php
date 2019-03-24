@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
-
-use App\Menu as MenuModel;
-use App\Http\Resource\Menu as MenuResource;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Resource\CategoryResource;
 use Validator;
 
-class Menu extends Controller
+class CategoryController extends Controller
 {
 
     /**
@@ -21,18 +19,35 @@ class Menu extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
-            $menu = MenuModel::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return MenuResource::collection($menu);
-        } elseif ($request->has('title') && $request->has('limit') && $request->has('sort') && $request->has('parent_id')) {
-            $menu = MenuModel::where('title', 'like', '%' . $request->title . '%')->where('parent_id', null)->orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return MenuResource::collection($menu);
-        } elseif ($request->has('parent_id')) {
-            $menu = MenuModel::where('parent_id', null)->orderBy('position')->get();
 
-            return MenuResource::collection($menu);
+/*<<<<<<< HEAD:app/Http/Controllers/Category.php
+        if ($request->has('title') && $request->has('limit') && $request->has('sortBy')) {
+            $category = CategoryModel::where('title', 'like', '%' . $request->title . '%')
+                ->orderBy('id', $request->sortBy)
+                ->paginate($request->input('limit')!= -1?$request->input('limit'):0);
+            return CategoryResource::collection($category);
+        } elseif ($request->has('limit') && $request->has('sortBy')) {
+            $category = CategoryModel::orderBy('id', $request->sortBy)
+                ->paginate($request->input('limit')!= -1?$request->input('limit'):0);
+            return CategoryResource::collection($category);
         }
-        return MenuResource::collection(MenuModel::all());
+         elseif($request->has('limit')){
+             $category = CategoryModel::
+             paginate($request->input('limit')!= -1?$request->input('limit'):'');
+             return CategoryResource::collection($category);
+         }
+        return CategoryResource::collection(CategoryModel::all());
+=======*/
+        if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
+            $category = Category::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+            return CategoryResource::collection($category);
+        } elseif ($request->has('limit') && $request->has('sort')) {
+            $category = Category::orderBy('id', $request->sort)->paginate($request->input('limit'));
+            return CategoryResource::collection($category);
+        }
+        return CategoryResource::collection(Category::all());
+/*>>>>>>> development:app/Http/Controllers/CategoryController.php*/
+
     }
 
     /**
@@ -49,7 +64,7 @@ class Menu extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return MenuResource
+     * @return CategoryResource
      */
     public function store(Request $request)
     {
@@ -59,43 +74,29 @@ class Menu extends Controller
 
 
             $validation = Validator::make($request->all(), [
-                'title' => 'required|unique:menus',
+                'title' => 'required|unique:categories',
                 'description' => 'required',
-                'parent_id' => 'numeric',
-                'url'=>'required'
             ]);
 
 
             if ($validation->fails()) {
-                return response()->json($validation->errors() , 422);
+                return response()->json($validation->errors(),422);
 
             }
-
-            $data  = collect($request->all());
+            $data = collect($request->all());
 
             $data = $data->toArray();
 
-
-            if($request->parent_id){
-                $position = MenuModel::where('parent_id','=',$request->parent_id)->count();
-            }else{
-                $position = MenuModel::count();
-            }
-            $data['position'] = $position +1 ;
-
-
-            $menu = MenuModel::create($data);
+            $position = Category::count();
+            $data['position'] = $position + 1;
+            $category = Category::create($data);
 
             if ($request['image'] != null) {
-                $menu->clearMediaCollection('photo');
-                $menu->addMediaFromRequest('image')->toMediaCollection('photo');
+                $category->clearMediaCollection('photo');
+                $category->addMediaFromRequest('image')->toMediaCollection('photo');
 
             }
-
-//            return $menu;
-
-            return new  MenuResource($menu);
-
+            return new  CategoryResource($category);
 
         } else {
             $return = ["status" => "error",
@@ -111,22 +112,12 @@ class Menu extends Controller
      * Display the specified resource.
      *
      * @param  int $id
-     * @return MenuResource
+     * @return CategoryResource
      */
     public function show($id)
     {
-        $user = Auth::user();
+        return new CategoryResource(Category::find($id));
 
-        if ($user->hasRole(['admin','super_admin'])) {
-            return new MenuResource(MenuModel::find($id));
-        } else {
-            $return = ["status" => "error",
-                "error" => [
-                    "code" => 403,
-                    "errors" => 'Forbidden'
-                ]];
-            return response()->json($return, 403);
-        }
     }
 
     /**
@@ -145,35 +136,25 @@ class Menu extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @return MenuResource
+     * @return CategoryResource
      */
     public function update(Request $request, $id)
     {
+
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            $menu = MenuModel::findOrFail($id);
+            $category = Category::findOrFail($id);
+            $category->fill($request->all())->save();
 
-            if ($request->parent_id) {
-                $menu = MenuModel::findOrFail($request->parent_id);
 
-                if ($menu->parent_id == $id) {
-
-                } else {
-                    $menu->fill($request->all())->save();
-
-                }
-            } else {
-                $menu->fill($request->all())->save();
-
-            }
             if ($request['image'] != null) {
-                $menu->clearMediaCollection('photo');
-                $menu->addMediaFromRequest('image')->toMediaCollection('photo');
+                $category->clearMediaCollection('photo');
+                $category->addMediaFromRequest('image')->toMediaCollection('photo');
 
             }
-            $menu = MenuModel::findOrFail($id);
+            $category = Category::findOrFail($id);
 
-            return new MenuResource($menu);
+            return new  CategoryResource($category);
 
         } else {
             $return = ["status" => "error",
@@ -195,7 +176,7 @@ class Menu extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            MenuModel::whereId($id)->delete();
+            Category::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,
@@ -212,4 +193,6 @@ class Menu extends Controller
             return response()->json($return, 403);
         }
     }
+
+
 }

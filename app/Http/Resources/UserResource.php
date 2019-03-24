@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class User extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,7 +21,7 @@ class User extends JsonResource
             'status' => $this->active,
             'roles' => $this->when(1, function () {
                 if (count($this->roles) > 0) {
-                  return  Role::collection($this->roles);
+                  return  RoleResource::collection($this->roles);
                 } else {
                     $role[0]['name'] = "customer";
                     $role[0]['display_name'] = "Customer";
