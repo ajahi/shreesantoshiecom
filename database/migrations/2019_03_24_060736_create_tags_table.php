@@ -17,10 +17,7 @@ class CreateTagsTable extends Migration
             $table->increments('id');
             $table->text('title', 255);
             $table->text('description');
-            $table->integer('post_id');
             $table->timestamps();
-
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
     }
 
