@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\MediaResource;
 
 
-class Site extends Controller
+class SiteController extends Controller
 {
     /**
      * Display a listing of the resource.
