@@ -17,7 +17,6 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure
 
 import VDateRange from 'vuetify-daterange-picker';
 import 'vuetify-daterange-picker/dist/vuetify-daterange-picker.css';
-import CKEditor from '@ckeditor/ckeditor5-vue';
 
 Vue.config.productionTip = false
 
@@ -30,8 +29,6 @@ Vue.component('downloadExcel', JsonExcel);
 Vue.use(VDateRange);
 
 Vue.use(VeeValidate, { inject: false })
-
-Vue.use( CKEditor );
 
 
 Vue.filter('downloadUrl', function (value) {
