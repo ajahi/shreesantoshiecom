@@ -23,6 +23,17 @@
                                             data-vv-name="title"
                                             :error-messages="errors.first('title')"
                                     ></v-text-field>
+                                </v-flex><v-flex md12 sm12>
+                                    <v-text-field
+                                            name="slug"
+                                            label="Slug"
+                                            type="text"
+                                            disabled
+                                            v-model="post.slug"
+                                            :rules="requiredRules"
+                                            data-vv-name="slug"
+                                            :error-messages="errors.first('slug')"
+                                    ></v-text-field>
                                 </v-flex>
                                 <v-flex md12 sm12>
                                    <!-- <v-textarea
@@ -44,14 +55,37 @@
                                             v-model="post.description"></vue-editor>
 
                                 </v-flex>
-                                <v-flex md12 sm12 >
-                                    <v-text-field
-                                            prepend-icon="person"
+                                <v-flex md6 sm12 >
+                                    <v-select
                                             name="status"
+                                            :items="statusOptions"
                                             label="Status *"
                                             v-model="post.status"
                                             :rules="requiredRules"
-                                    ></v-text-field>
+                                    ></v-select>
+                                </v-flex>
+                                <v-flex md6 sm12 >
+                                    <v-select
+                                            name="category"
+                                            :items="getCategories"
+                                            label="Category *"
+                                            v-model="post.category_id"
+                                            item-text="title"
+                                            item-value="id"
+                                            :rules="requiredRules"
+                                    ></v-select>
+                                </v-flex>
+                                <v-flex md6 sm12 >
+                                    <v-label
+                                    >Feature Image:</v-label>
+                                    <img style="max-width: 100%;height: auto" :src="post.featured" height="200px" v-if="post.featured">
+
+                                    <input
+                                            name="featured"
+                                            label="Featured Image "
+                                            type="file"
+                                            @change="handleFileUpload"
+                                    />
                                 </v-flex>
 
                             </v-layout>
@@ -84,6 +118,7 @@
     import { VueEditor,Quill } from 'vue2-editor'
     import { ImageDrop } from "quill-image-drop-module";
     import ImageResize from "quill-image-resize-module";
+    import slugify from 'slugify'
 
     export default {
         name: "post",
@@ -111,11 +146,13 @@
                 ],
                 post:{},
                 monthMenu: false,
-                formData:null
+                formData:null,
+                statusOptions: [{text: 'Published', value: 'published'}, {text: 'Draft', value: 'draft'}],
             }
         },
         created: function(){
             this.fetchPost()
+            this.$store.dispatch('fetchCategories')
 
         },
         mounted(){
@@ -138,39 +175,52 @@
             },
             savePost(){
                 if(this.$refs.post.validate()){
+                    this.$store.commit('setLoading',true);
                     this.post.attributes = JSON.stringify(this.post.attributes)
-                    this.$store.dispatch('savePost',this.post).then(response => {
-                        if(response.status === 201){
-                            this.$store.dispatch('showSuccessSnackbar','Post was created successfully');
-                        }else{
-                            this.$store.dispatch('showSuccessSnackbar','Post was edited successfully');
-                        }
-                        this.$router.push({name:'categories'});
-
-                    })
-                        .catch(error => {
-                            this.$store.dispatch('showErrorSnackbar',error);
-
-
-                        })
+                    //for image converting all to formdata
+                    var formData = new FormData();
+                    formData.append('id',this.post.id);
+                    formData.append('title',this.post.title);
+                    formData.append('slug',this.post.slug);
+                    formData.append('description',this.post.description);
+                    formData.append('category_id',this.post.category_id);
+                    formData.append('status',this.post.status);
+                    formData.append('attributes', this.post.attributes);
+                    if (this.post.featured) {
+                        formData.append('featured', this.post.featured);
+                    }
+                    if(this.post.id){
+                        formData.append('_method', "put");
+                        this.axios.post('/post/'+this.post.id,formData)
+                            .then(response => {
+                                this.$store.commit('setLoading',false);
+                                this.$store.dispatch('showSuccessSnackbar','Post was edited successfully');
+                                this.$router.push({name:'posts'});
+                            })
+                            .catch(error => {
+                                this.$store.commit('setLoading',false);
+                            });
+                    }
+                    else{
+                        this.axios.post('/post',formData)
+                            .then(response => {
+                                this.$store.commit('setLoading',false);
+                                this.$store.dispatch('showSuccessSnackbar','Post was created successfully');
+                                this.$router.push({name:'posts'});
+                            })
+                            .catch(error => {
+                                this.$store.commit('setLoading',false);
+                            });
+                    }
                 }
             },
-            onFileChange(fieldName, file) {
-                const { maxSize } = this
-                let postFile = file[0]
-                if (file.length>0) {
-                    // let size = postFile.size / maxSize / maxSize
-                        // Append file into FormData and turn file into image URL
-                        this.formData = new FormData()
-                        let imageURL = URL.createObjectURL(postFile)
-                        this.formData.append(fieldName, postFile)
-                        // Emit the FormData and image URL to the parent component
-                }
+            handleFileUpload(event) {
+                this.post.featured = event.target.files[0]
             }
         },
         computed: {
             ...mapGetters([
-                'loading','getPost'
+                'loading','getPost','getCategories'
             ]),
             title(){
                 if(this.post.id){
@@ -180,8 +230,16 @@
                     return "Create Post"
 
             },
+            postTitle(){
+              return this.post.title
+            },
             loading(){
                 return this.$store.getters.loading;
+            }
+        },
+        watch: {
+            postTitle: function(val) {
+                this.post.slug= slugify(val,{lower:true});
             }
         }
     }

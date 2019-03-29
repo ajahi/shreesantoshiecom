@@ -206,6 +206,14 @@
                 },
                 {   icon: 'keyboard_arrow_up',
                     'icon-alt': 'keyboard_arrow_down',
+                    text: 'Post ',
+                    children: [
+                        {icon:'fa-plus', text:'Create a Post', action:'/dashboard/post/create'},
+                        {icon:'fa-list-ul', text:'Posts', action:'/dashboard/posts'},
+                    ]
+                },
+                {   icon: 'keyboard_arrow_up',
+                    'icon-alt': 'keyboard_arrow_down',
                     text: 'Calendar ',
                     children: [
                         {icon:'fa-plus', text:'Create a Calendar', action:'/dashboard/calendar/create'},

@@ -26,7 +26,7 @@
                     :rows-per-page-items="getPageSize"
                     :loading="loading">
                 <template slot="items" slot-scope="props">
-                    <td>{{ props.index +1 }}</td>
+                    <td>{{ props.index +1 + ((this.pagination.page-1) * this.pagination.rowsPerPage) }}</td>
                     <!--<td>
                         <router-link :to="{name: 'category',params: {id: props.item.id}}">
                             {{props.item.id}}

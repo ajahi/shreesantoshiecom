@@ -62,8 +62,8 @@ export default {
 
                 commit('setLoading',true);
                 const app = this;
-                if(payload.id){
-                    axios.put('/post/'+payload.id,payload)
+                if(payload.post.id){
+                    axios.put('/post/'+payload.post.id,payload.data)
                         .then(response => {
                             commit('setLoading',false);
                             resolve(response);
@@ -74,7 +74,7 @@ export default {
                         });
                 }
                 else{
-                    axios.post('/post',payload)
+                    axios.post('/post',payload.post)
                         .then(response => {
                             commit('setLoading',false);
                             resolve(response);
