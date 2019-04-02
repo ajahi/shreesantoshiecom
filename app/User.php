@@ -55,4 +55,5 @@ class User extends Authenticatable implements HasMedia
     public function post() {
         return $this->hasMany('App\Post');
     }
+
 }

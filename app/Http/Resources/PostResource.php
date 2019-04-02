@@ -40,7 +40,10 @@ class PostResource extends JsonResource
                 }
             }),
             'author' => $this->user->name,
+
             'Last_edited' => $this->updated_at
+
+
 
         ];
     }
