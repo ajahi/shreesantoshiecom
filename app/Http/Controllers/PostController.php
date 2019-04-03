@@ -24,11 +24,11 @@ class PostController extends Controller
     {
 
 
-        if ($request->has('name')) {
-            $post = Post::where('name', 'like', '%' . $request->name . '%')->orWhere('description', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+        if ($request->has('title')) {
+            $post = Post::where('title', 'like', '%' . $request->title . '%')->orWhere('description', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
             if ($request->has('status')) {
-                $post = Post::orWhere([['name', 'like', '%' . $request->name . '%'], ['description', 'like', '%' . $request->name . '%']])->where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                $post = Post::orWhere([['title', 'like', '%' . $request->title . '%'], ['description', 'like', '%' . $request->title . '%']])->where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
             }
             return PostResource::collection($post);
         } elseif ($request->has('status')) {

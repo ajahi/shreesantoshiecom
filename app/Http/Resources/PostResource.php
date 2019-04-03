@@ -39,7 +39,7 @@ class PostResource extends JsonResource
                     return "[]";
                 }
             }),
-            'author' => $this->user->name,
+            'author' => $this->user != null?$this->user->name:'',
 
             'Last_edited' => $this->updated_at
 
