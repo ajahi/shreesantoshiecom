@@ -68,6 +68,7 @@ class PostController extends Controller
                 'description' => 'required',
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
+                'user_id' => 'required|numeric|exists:users,id'
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
@@ -132,6 +133,7 @@ class PostController extends Controller
             $validation = Validator::make($request->all(), [
                 'title' => ['sometimes', Rule::unique('posts')->ignore($id)],
                 'slug' => ['sometimes', Rule::unique('posts')->ignore($id)],
+                'user_id' => 'required|numeric|exists:users,id'
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);

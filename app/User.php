@@ -51,4 +51,9 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany('App\Role');
 
     }
+
+    public function post() {
+        return $this->hasMany('App\Post');
+    }
+
 }

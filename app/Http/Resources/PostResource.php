@@ -3,6 +3,7 @@
 namespace App\Http\Resource;
 
 use App\Category as CategoryModel;
+use App\User as userModel;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\MediaResource as MediaResource;
 
@@ -37,7 +38,12 @@ class PostResource extends JsonResource
                 }else{
                     return "[]";
                 }
-            })
+            }),
+            'author' => $this->user->name,
+
+            'Last_edited' => $this->updated_at
+
+
 
         ];
     }
