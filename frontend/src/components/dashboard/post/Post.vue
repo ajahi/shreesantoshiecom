@@ -186,6 +186,8 @@
                     formData.append('category_id',this.post.category_id);
                     formData.append('status',this.post.status);
                     formData.append('attributes', this.post.attributes);
+                    //quick fix since for author user_id need to be send
+                    formData.append('user_id',this.$store.getters.userid);
                     if (this.post.featured) {
                         formData.append('featured', this.post.featured);
                     }
