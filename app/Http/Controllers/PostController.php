@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Http\Resource\CategoryResource;
 use Illuminate\Http\Request;
 
 use App\Post;
@@ -68,7 +70,6 @@ class PostController extends Controller
                 'description' => 'required',
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
-                'user_id' => 'required|numeric|exists:users,id'
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
@@ -103,6 +104,15 @@ class PostController extends Controller
     {
         return new PostResource(Post::find($id));
 
+    }
+
+
+    /**
+        This function returns the result from slug search.
+     */
+    public function slug(Request $request)
+    {
+        return new PostResource(Post::where('slug', 'like', '%' . $request->slug . '%')->first());
     }
 
     /**
