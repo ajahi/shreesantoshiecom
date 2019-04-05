@@ -112,7 +112,7 @@ class PostController extends Controller
      */
     public function slug(Request $request)
     {
-        return new PostResource(Post::where('slug', 'like', '%' . $request->slug . '%')->first());
+        return new PostResource(Post::where('slug', $request->slug)->first());
     }
 
     /**
