@@ -40,7 +40,8 @@ class PostResource extends JsonResource
             }),
             'author' => $this->user != null?$this->user->name:'',
 
-            'last_edited' => $this->updated_at
+            'last_edited' => $this->updated_at,
+            'created_at' => $this->created_at
 
 
 
