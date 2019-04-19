@@ -79,11 +79,14 @@ class PostController extends Controller
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
             }
-
+            $request['user_id'] = Auth::user()->id;
             $post = Post::create($request->all());
 
-            if($request->tags_id){
+            if(empty($request->tags_id)){
+                $post->tags()->detach();
+            }else {
                 $post->tags()->sync(explode(",", $request->tags_id));
+
             }
 
             if ($request['featured'] != null) {
@@ -157,7 +160,6 @@ class PostController extends Controller
             $validation = Validator::make($request->all(), [
                 'title' => ['sometimes', Rule::unique('posts')->ignore($id)],
                 'slug' => ['sometimes', Rule::unique('posts')->ignore($id)],
-                'user_id' => 'required|numeric|exists:users,id',
                 'tags.*' => 'exists:tags,id'
             ]);
             if ($validation->fails()) {
@@ -165,10 +167,14 @@ class PostController extends Controller
             }
 
             $post = Post::findOrFail($id);
+            $request['user_id'] = Auth::user()->id;
             $post->fill($request->all())->save();
 
-            if($request->tags_id){
+            if(empty($request->tags_id)){
+                $post->tags()->detach();
+            }else {
                 $post->tags()->sync(explode(",", $request->tags_id));
+
             }
 
 
