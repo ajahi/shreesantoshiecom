@@ -2,30 +2,30 @@ import axios from 'axios';
 
 export default {
     state: {
-        calendars: [],
-        calendar: {},
+        tags: [],
+        tag: {},
     },
     mutations:{
-        setCalendar(state,payload){
-            state.calendar = payload
+        setTag(state,payload){
+            state.tag = payload
 
         },
-        setCalendars(state,calendars){
-            state.calendars = calendars;
+        setTags(state,tags){
+            state.tags = tags;
         },
-        setCalendarId(state,payload){
-            state.calendar.id = payload
+        setTagId(state,payload){
+            state.tag.id = payload
         },
 
     },
     actions: {
-        fetchCalendar({commit,state,rootState},payload){
+        fetchTag({commit,state,rootState},payload){
             return new Promise(((resolve, reject) => {
                 commit('setLoading',true);
-                axios.get('/calendar/'+payload)
+                axios.get('/tag/'+payload)
                     .then(response =>{
                         commit('setLoading',false)
-                        commit('setCalendar',response.data)
+                        commit('setTag',response.data)
                         resolve(response)
 
                     })
@@ -38,13 +38,13 @@ export default {
             }))
 
         },
-        fetchCalendars({commit,state,rootState},payload){
+        fetchTags({commit,state,rootState},payload){
             return new Promise(((resolve, reject) => {
                 commit('setLoading',true);
-                axios.get('/calendar')
+                axios.get('/tag',{params:payload})
                     .then(response =>{
                         commit('setLoading',false)
-                        commit('setCalendars',response.data)
+                        commit('setTags',response.data.data)
                         resolve(response)
 
                     })
@@ -57,35 +57,30 @@ export default {
             }))
 
         },
-        saveCalendar({commit,state,rootState},payload){
+        saveTag({commit,state,rootState},payload){
             return new Promise(((resolve, reject) => {
 
                 commit('setLoading',true);
                 const app = this;
                 if(payload.id){
-                    axios.put('/calendar/'+payload.id,payload)
+                    axios.put('/tag/'+payload.id,payload)
                         .then(response => {
                             commit('setLoading',false);
-                            commit('setAlert',{msg:response.data.message,type:'success'});
                             resolve(response);
                         })
                         .catch(error => {
                             commit('setLoading',false);
-                            commit('setAlert',{msg:error.response.data.errors,type:'error'});
                             reject(error);
                         });
                 }
                 else{
-                    axios.post('/calendar',payload)
+                    axios.post('/tag',payload)
                         .then(response => {
                             commit('setLoading',false);
-                            commit('setAlert',{msg:response.data.message,type:'success'});
-                            commit('setCalendarId',response.data.created_id);
                             resolve(response);
                         })
                         .catch(error => {
                             commit('setLoading',false);
-                            commit('setAlert',{msg:error.response.data.errors,type:'error'});
                             reject(error);
                         });
                 }
@@ -95,10 +90,10 @@ export default {
 
         },
 
-        deleteCalendar({commit,state,rootState},payload){
+        deleteTag({commit,state,rootState},payload){
             return new Promise(((resolve, reject) => {
                 commit('setLoading',true);
-                axios.delete('/calendar/'+payload)
+                axios.delete('/tag/'+payload)
                     .then(response =>{
                         commit('setLoading',false)
                         commit('setAlert',{msg:response.data.message,type:'success'});
@@ -114,20 +109,20 @@ export default {
             }))
 
         },
-        setCalendar({commit,state},payload){
-            commit('setCalendar',payload);
+        setTag({commit,state},payload){
+            commit('setTag',payload);
         },
-        clearCalendar({commit}){
-            commit('setCalendar',{})
+        clearTag({commit}){
+            commit('setTag',{})
         },
 
     },
     getters: {
-        getCalendar:state => {
-            return state.calendar;
+        getTag:state => {
+            return state.tag;
         },
-        getCalendars:state => {
-            return state.calendars;
+        getTags:state => {
+            return state.tags;
         }
     }
 }

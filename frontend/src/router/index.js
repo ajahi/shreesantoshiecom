@@ -27,6 +27,8 @@ import CategoryList from '../components/dashboard/category/CategoryList'
 import Category from '../components/dashboard/category/Category'
 import Post from '../components/dashboard/post/Post'
 import PostList from '../components/dashboard/post/PostList'
+import Tag from '../components/dashboard/tag/Tag'
+import TagList from '../components/dashboard/tag/TagList'
 
 import Home from '../components/site/Home'
 
@@ -108,6 +110,9 @@ const routerOptions = [
 
     { path:'/dashboard/post/:id',name:'post',component: Post,meta:{requiresAuth:true} ,props:true },
     { path:'/dashboard/posts',name:'posts',component: PostList,meta:{requiresAuth:true} },
+
+    { path:'/dashboard/tag/:id',name:'tag',component: Tag,meta:{requiresAuth:true} ,props:true },
+    { path:'/dashboard/tags',name:'tags',component: TagList,meta:{requiresAuth:true} },
 ]
 
 

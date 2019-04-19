@@ -63,6 +63,10 @@ class PostController extends Controller
         $user = Auth::user();
 
         if ($user->hasRole(['admin','super_admin'])) {
+            // for validation purpose
+            if($request->tags_id){
+                $request['tags'] = explode(",",$request->tags_id);
+            }
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:posts',
                 'slug' => 'required|unique:posts',
@@ -70,12 +74,17 @@ class PostController extends Controller
                 'description' => 'required',
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
+                'tags.*' => 'exists:tags,id'
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
             }
 
             $post = Post::create($request->all());
+
+            if($request->tags_id){
+                $post->tags()->sync(explode(",", $request->tags_id));
+            }
 
             if ($request['featured'] != null) {
                 $post->clearMediaCollection('featured');
@@ -140,10 +149,16 @@ class PostController extends Controller
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
 
+            // for validation purpose
+            if($request->tags_id){
+                $request['tags'] = explode(",",$request->tags_id);
+            }
+
             $validation = Validator::make($request->all(), [
                 'title' => ['sometimes', Rule::unique('posts')->ignore($id)],
                 'slug' => ['sometimes', Rule::unique('posts')->ignore($id)],
-                'user_id' => 'required|numeric|exists:users,id'
+                'user_id' => 'required|numeric|exists:users,id',
+                'tags.*' => 'exists:tags,id'
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
@@ -151,6 +166,10 @@ class PostController extends Controller
 
             $post = Post::findOrFail($id);
             $post->fill($request->all())->save();
+
+            if($request->tags_id){
+                $post->tags()->sync(explode(",", $request->tags_id));
+            }
 
 
             if ($request['featured'] != null) {

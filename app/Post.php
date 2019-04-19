@@ -21,8 +21,8 @@ class Post extends Model implements HasMedia {
     public function user() {
         return $this->belongsTo('App\User');
     }
-    public function tag() {
-        return $this->hasMany('App\Tag');
+    public function tags() {
+        return $this->belongsToMany('App\Tag');
     }
 
 }

@@ -203,6 +203,13 @@
                         {icon:'fa-plus', text:'Create a Category', action:'/dashboard/category/create'},
                         {icon:'fa-list-ul', text:'Categories', action:'/dashboard/categories'},
                     ]
+                },{   icon: 'keyboard_arrow_up',
+                    'icon-alt': 'keyboard_arrow_down',
+                    text: 'Tags ',
+                    children: [
+                        {icon:'fa-plus', text:'Create a Tag', action:'/dashboard/tag/create'},
+                        {icon:'fa-list-ul', text:'Tags', action:'/dashboard/tags'},
+                    ]
                 },
                 {   icon: 'keyboard_arrow_up',
                     'icon-alt': 'keyboard_arrow_down',

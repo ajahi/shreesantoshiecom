@@ -18,23 +18,23 @@ class UsersPermissionTableSeeder extends Seeder
             'display_name' => 'Admin',
             'description' => 'This account is for Admin',
         ]);
-        $party = User::create([
+        /*$party = User::create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('secret'),
-        ]);
+        ]);*/
 
         $dreamsys = User::create([
             'name' => 'DreamSys',
-            'email' =>'dreamsysitsolution@gmail.com',
-            'password'=> bcrypt('secret'),
+            'email' =>env('EMAIL'),
+            'password'=> bcrypt(env('PASSWORD')),
         ]);
 
-        $user_role = Role::create([
+        /*$user_role = Role::create([
             'name' => 'user',
             'display_name' => 'User',
             'description' => 'This account is for User',
-        ]);
+        ]);*/
 
         $super_role = Role::create([
             'name' => 'super_admin',
@@ -42,22 +42,15 @@ class UsersPermissionTableSeeder extends Seeder
             'description' => 'This account is for Super user',
         ]);
 
-        $super = User::create([
+        /*$super = User::create([
             'name' => 'Super User',
             'email' =>'super@super.com',
             'password'=> bcrypt('secret'),
-        ]);
+        ]);*/
         $role_user = [
-            [
-                'user_id' => $party->id,
-                'role_id' => $admin_role->id
-            ],
+
             [
                 'user_id' => $dreamsys->id,
-                'role_id' => $admin_role->id
-            ],
-            [
-                'user_id' => $super->id,
                 'role_id' => $super_role->id
             ]
         ];

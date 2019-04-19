@@ -3,15 +3,9 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import profile from './modules/profile'
 import app from './modules/app'
-import club from './modules/club'
-import member from './modules/member'
-import enums from './modules/enums'
-import designation from  './modules/designation'
-import quote from  './modules/quote'
-import ebook from  './modules/ebook'
-import calendar from  './modules/calendar'
 import category from './modules/category'
 import post from './modules/post'
+import tag from './modules/tag'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -22,7 +16,8 @@ export const store = new Vuex.Store({
         profile,
         app,
         category,
-        post
+        post,
+        tag
     },
     state: {
         appTitle: 'Mis for Divine Youth Club Nepal',

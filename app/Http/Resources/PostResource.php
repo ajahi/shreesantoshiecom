@@ -38,6 +38,7 @@ class PostResource extends JsonResource
                     return "[]";
                 }
             }),
+            'tags_id' => $this->tags->pluck('id')->toArray(),
             'author' => $this->user != null?$this->user->name:'',
 
             'last_edited' => $this->updated_at,

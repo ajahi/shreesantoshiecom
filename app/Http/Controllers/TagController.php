@@ -19,7 +19,7 @@ class TagController extends Controller
     public function index(Request $request)
     {
         if ($request->has('title')) {
-            $tag = Tag::where('tile', 'like', '%' . $request->title . '%')->orWhere('description', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+            $tag = Tag::where('title', 'like', '%' . $request->title . '%')->orWhere('description', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
             return TagResource::collection($tag);
         }
 
@@ -49,8 +49,7 @@ class TagController extends Controller
 
         if ($user->hasRole(['admin','super_admin'])) {
             $validation = Validator::make($request->all(), [
-                'title' => 'required|unique:tags',
-                'description' => 'required'
+                'title' => 'required|unique:tags'
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
@@ -104,8 +103,7 @@ class TagController extends Controller
         if ($user->hasRole(['admin','super_admin'])) {
 
             $validation = Validator::make($request->all(), [
-                'title' => 'required',
-                'description' => 'required',
+                'title' => 'required'
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
