@@ -40,6 +40,7 @@ class PostResource extends JsonResource
             }),
             'tags' => $this->tags,
             'tags_id' => $this->tags->pluck('id')->toArray(),
+            'meta_description' =>$this->meta_description,
             'author' => $this->user != null?$this->user->name:'',
 
             'last_edited' => $this->updated_at,

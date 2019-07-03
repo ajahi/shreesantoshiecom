@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAttributesToPosts extends Migration
+class AddMetaDescriptionToPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddAttributesToPosts extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->text('attributes')->nullable();
+            $table->string('meta_description')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddAttributesToPosts extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('attributes');
+            $table->dropColumn('meta_description');
         });
     }
 }
