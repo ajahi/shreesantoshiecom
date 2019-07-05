@@ -37,7 +37,26 @@ class PostController extends Controller
             $post = Post::where('status', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
             return PostResource::collection($post);
 
+        } elseif ($request->has('category')) {
+            $query = Post::query();
+
+            $query->when(request('title',false ),function($q){
+                return $q->where('title', 'like', '%' . request('title') . '%')
+                    ->orWhere('description', 'like', '%' . request('title') . '%')
+                    ->orderBy('id', request('sort'));
+            });
+            $query->when(request('category',false),function($q){
+                return $q->where('category_id', request('category'))->orderBy('id', request('sort'));
+            });
+
+            $query->when(request('status',false),function($q){
+                return $q->where('status', request('status'))->orderBy('id', request('sort'));
+            });
+
+            $post = $query->paginate(request('limit'));
+            return PostResource::collection($post);
         }
+
         return PostResource::collection(Post::orderBy('id', $request->sort)->paginate($request->input('limit')));
 
     }
