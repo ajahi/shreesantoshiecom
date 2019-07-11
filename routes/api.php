@@ -18,6 +18,7 @@ Route::group(['middleware' => ['cors']], function() {
     Route::get('/post', 'PostController@index');
     Route::get('/post/{id}', 'PostController@show');
     Route::get('/post/slug/{slug}', 'PostController@slug');
+    Route::get('/post/menu','PostController@postTitleByCategories');
     Route::get('/category', 'CategoryController@index');
     Route::get('/category/{id}', 'CategoryController@show');
     Route::get('/menu', 'MenuController@index');

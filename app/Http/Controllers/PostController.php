@@ -311,5 +311,13 @@ class PostController extends Controller
         }
     }
 
+    public function postTitleByCategories(Request $request){
+        $request->validate([
+            'categories' => 'required'
+        ]);
+        return Post::whereIn('category_id',$request->categories)->with('category')
+            ->pluck('id,','title','category_id','category.id');
+    }
+
 
 }
