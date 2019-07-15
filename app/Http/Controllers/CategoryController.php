@@ -138,6 +138,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|unique:categories,title,'.$id,
+            'description' => 'required',
+        ]);
 
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {

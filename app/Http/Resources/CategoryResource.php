@@ -27,6 +27,7 @@ class CategoryResource extends JsonResource
                     return "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
                 }
             }),
+            'slug' => $this->slug
         ];
     }
 }

@@ -108,7 +108,7 @@ class PostController extends Controller
             }
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:posts',
-                'slug' => 'required|unique:posts',
+                //'slug' => 'required|unique:posts',
 
                 'description' => 'required',
                 'status' => 'required|in:published,draft',
@@ -132,6 +132,11 @@ class PostController extends Controller
                 $post->clearMediaCollection('featured');
                 $post->addMediaFromRequest('featured')->toMediaCollection('featured');
 
+            }
+
+            if($request['banner'] != null){
+                $post->clearMediaCollection('banner');
+                $post->addMediaFromRequest('banner')->toMediaCollection('banner');
             }
             return new  PostResource($post);
 
@@ -198,7 +203,7 @@ class PostController extends Controller
 
             $validation = Validator::make($request->all(), [
                 'title' => ['sometimes', Rule::unique('posts')->ignore($id)],
-                'slug' => ['sometimes', Rule::unique('posts')->ignore($id)],
+                //'slug' => ['sometimes', Rule::unique('posts')->ignore($id)],
                 'tags.*' => 'exists:tags,id'
             ]);
             if ($validation->fails()) {

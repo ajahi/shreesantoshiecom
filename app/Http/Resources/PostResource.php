@@ -30,12 +30,17 @@ class PostResource extends JsonResource
                     return $this->getMedia('featured')[0]->getFullUrl();
                 }
             }),
+            'banner' => $this->when(1, function () {
+                if (count($this->getMedia('banner')) > 0) {
+                    return $this->getMedia('banner')[0]->getFullUrl();
+                }
+            }),
             'gallery' => MediaResource::collection($this->getMedia('gallery')),
             'attributes' => $this->when(1, function () {
                 if ($this->attributes != null) {
                     return json_decode($this->attributes);
                 }else{
-                    return "[]";
+                    return "{}";
                 }
             }),
             'tags' => $this->tags,
