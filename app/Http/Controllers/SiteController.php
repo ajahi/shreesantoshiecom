@@ -27,6 +27,13 @@ class SiteController extends Controller
             $site['logo'] = "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
         }
 
+        if (count($site->getMedia('banner')) > 0) {
+            $site['banner'] = $site->getMedia('banner')[0]->getFullUrl();
+
+        } else {
+            $site['banner'] = "";
+        }
+
         $site->attributes = json_decode($site->attributes);
         return response()->json($site);
     }
@@ -73,6 +80,7 @@ class SiteController extends Controller
                 $site->addMediaFromRequest('file')->toMediaCollection('logo');
             }
 
+
             $site = SiteModel::first();
             if (count($site->getMedia('logo')) > 0) {
                 $site['logo'] = $site->getMedia('logo')[0]->getFullUrl();
@@ -80,6 +88,19 @@ class SiteController extends Controller
             } else {
                 $site['logo'] = "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
             }
+
+            if($request['banner'] != null){
+                $site->clearMediaCollection('banner');
+                $site->addMediaFromRequest('banner')->toMediaCollection('banner');
+            }
+
+            if (count($site->getMedia('banner')) > 0) {
+                $site['banner'] = $site->getMedia('banner')[0]->getFullUrl();
+
+            } else {
+                $site['banner'] = "";
+            }
+
             $site->attributes = json_decode($site->attributes);
 
             return response()->json($site);

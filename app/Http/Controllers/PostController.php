@@ -134,10 +134,7 @@ class PostController extends Controller
 
             }
 
-            if($request['banner'] != null){
-                $post->clearMediaCollection('banner');
-                $post->addMediaFromRequest('banner')->toMediaCollection('banner');
-            }
+
             return new  PostResource($post);
 
         } else {
