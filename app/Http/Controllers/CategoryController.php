@@ -89,9 +89,9 @@ class CategoryController extends Controller
             $data['position'] = $position + 1;
             $category = Category::create($data);
 
-            if ($request['image'] != null) {
-                $category->clearMediaCollection('photo');
-                $category->addMediaFromRequest('image')->toMediaCollection('photo');
+            if ($request['featured'] != null) {
+                $category->clearMediaCollection('featured');
+                $category->addMediaFromRequest('featured')->toMediaCollection('featured');
 
             }
             return new  CategoryResource($category);
@@ -149,9 +149,9 @@ class CategoryController extends Controller
             $category->fill($request->all())->save();
 
 
-            if ($request['image'] != null) {
-                $category->clearMediaCollection('photo');
-                $category->addMediaFromRequest('image')->toMediaCollection('photo');
+            if ($request['featured'] != null) {
+                $category->clearMediaCollection('featured');
+                $category->addMediaFromRequest('featured')->toMediaCollection('feature');
 
             }
             $category = Category::findOrFail($id);

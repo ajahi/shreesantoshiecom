@@ -19,12 +19,12 @@ class CategoryResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'position' => $this->position,
-            'photo' => $this->when(1, function () {
-                if (count($this->getMedia('photo')) > 0) {
-                    return $this->getMedia('photo')[0]->getFullUrl();
+            'featured' => $this->when(1, function () {
+                if (count($this->getMedia('featured')) > 0) {
+                    return $this->getMedia('featured')[0]->getFullUrl();
 
                 } else {
-                    return "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
+                    return null;
                 }
             }),
             'slug' => $this->slug
