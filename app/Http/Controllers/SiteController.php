@@ -212,7 +212,8 @@ class SiteController extends Controller
 
         $path = $request->file('file')->store('public/uploads');
         $data['file'] = $path;
-        $data['url'] = Storage::url($path);
+        // url('/') give root url and storage link give full path
+        $data['url'] = url('/').Storage::url($path);
         return $data;
 
     }
