@@ -24,7 +24,7 @@ class SiteController extends Controller
             $site['logo'] = $site->getMedia('logo')[0]->getFullUrl();
 
         } else {
-            $site['logo'] = "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
+            $site['logo'] = "";
         }
 
         if (count($site->getMedia('banner')) > 0) {
@@ -75,9 +75,9 @@ class SiteController extends Controller
 //            $data['attributes']  = $data['attributes'];
             $site->fill($data->toArray())->save();
 
-            if ($request['file'] != null) {
+            if ($request['logo'] != null) {
                 $site->clearMediaCollection('logo');
-                $site->addMediaFromRequest('file')->toMediaCollection('logo');
+                $site->addMediaFromRequest('logo')->toMediaCollection('logo');
             }
 
 
@@ -86,7 +86,7 @@ class SiteController extends Controller
                 $site['logo'] = $site->getMedia('logo')[0]->getFullUrl();
 
             } else {
-                $site['logo'] = "https://kcl-mrcdtp.com/wp-content/uploads/sites/201/2017/05/person_icongray-300x300.png";
+                $site['logo'] = "";
             }
 
             if($request['banner'] != null){
