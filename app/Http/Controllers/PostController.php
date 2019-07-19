@@ -321,5 +321,10 @@ class PostController extends Controller
             ->select('title','category_id','id')->get();
     }
 
+    public function getQuickLinkPost(){
+        return Post::where('attributes','like','%"QuickLink":{"value":true%')->get();
+    }
+
+
 
 }
