@@ -14,7 +14,7 @@ class AddAttributesToPosts extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->text('attributes')->nullable();
+            $table->json('attributes')->nullable();
         });
     }
 
