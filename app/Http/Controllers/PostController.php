@@ -319,7 +319,7 @@ class PostController extends Controller
             'categories' => 'required|array'
         ]);
         return Post::whereIn('category_id',$request->categories)
-            ->select('title','category_id','id')->get();
+            ->select('title','category_id','id','slug')->get();
     }
 
     public function getPostByKeyIfTrue(Request $request){
