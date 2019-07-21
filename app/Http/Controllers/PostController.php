@@ -10,6 +10,7 @@ use App\Post;
 use App\Http\Resource\PostResource;
 use App\Http\Resources\MediaResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Validator;
 
@@ -325,7 +326,7 @@ class PostController extends Controller
         $request->validate([
             'key' => 'required'
         ]);
-        return Post::where('attributes','like','%"'.$request->key.'":{"value":true%')->get();
+        return Post::where('attributes->'.$request->key.'->value',true)->get();
     }
 
 
