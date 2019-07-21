@@ -151,7 +151,7 @@ class CategoryController extends Controller
 
             if ($request['featured'] != null) {
                 $category->clearMediaCollection('featured');
-                $category->addMediaFromRequest('featured')->toMediaCollection('feature');
+                $category->addMediaFromRequest('featured')->toMediaCollection('featured');
 
             }
             $category = Category::findOrFail($id);
