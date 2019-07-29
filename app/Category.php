@@ -25,6 +25,7 @@ class Category extends Model implements HasMedia {
         // TODO: Implement getSlugOptions() method.
         return SlugOptions::create()
             ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->usingSeparator(env('SLUG',"-"));
     }
 }

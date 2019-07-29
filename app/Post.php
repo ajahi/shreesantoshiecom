@@ -32,6 +32,7 @@ class Post extends Model implements HasMedia {
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->usingSeparator(env('SLUG',"-"));
     }
 }

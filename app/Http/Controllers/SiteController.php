@@ -207,7 +207,6 @@ class SiteController extends Controller
 
         if ($validation->fails()) {
             return response()->json($validation->errors(), 422);
-
         }
 
         $path = $request->file('file')->store('public/uploads');
