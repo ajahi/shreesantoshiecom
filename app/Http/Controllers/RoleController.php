@@ -22,12 +22,12 @@ class RoleController extends Controller
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             if ($request->has('name')) {
-                $user = RoleModel::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                $user = Role::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
 
                 return RoleResource::collection($user);
             }
 
-            return RoleResource::collection(RoleModel::orderBy('id', $request->sort)->paginate($request->input('limit')));
+            return RoleResource::collection(Role::orderBy('id', $request->sort)->paginate($request->input('limit')));
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -78,7 +78,7 @@ class RoleController extends Controller
             $role_input = $role_input_initial->merge(['name' => $role_name]);
 
             $role_input_table = $role_input->all();
-            $role = RoleModel::create($role_input_table);
+            $role = Role::create($role_input_table);
 
             if (isset($request->permission_list)) {
                 $perm_list = $request->permission_list;
@@ -109,7 +109,7 @@ class RoleController extends Controller
         $user = Auth::user();
 
         if ($user->hasRole(['admin','super_admin'])) {
-            return new RoleResource(RoleModel::find($id));
+            return new RoleResource(Role::find($id));
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -143,7 +143,7 @@ class RoleController extends Controller
 
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            $role = RoleModel::findOrFail($id);
+            $role = Role::findOrFail($id);
 
             $validation = Validator::make($request->all(), [
                 'name' => 'sometimes|min:3',
@@ -193,7 +193,7 @@ class RoleController extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            RoleModel::whereId($id)->delete();
+            Role::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,

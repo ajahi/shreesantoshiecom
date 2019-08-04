@@ -6,6 +6,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -35,4 +36,19 @@ class Post extends Model implements HasMedia {
             ->saveSlugsTo('slug')
             ->usingSeparator(env('SLUG',"-"));
     }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(env('THUMB_WIDTH',150))
+            ->height(env('THUMB_HEIGHT',150))
+            ->performOnCollections('featured');
+
+        $this->addMediaConversion('medium')
+            ->width(env('MEDIUM_WIDTH',344))
+            ->height(env('MEDIUM_HEIGHT',204))
+            ->performOnCollections('featured');
+    }
+
+
 }

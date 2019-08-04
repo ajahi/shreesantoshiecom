@@ -29,6 +29,16 @@ class PostResource extends JsonResource
                 if (count($this->getMedia('featured')) > 0) {
                     return $this->getMedia('featured')[0]->getFullUrl();
                 }
+            })
+            ,'featured_thumb' => $this->when(1, function () {
+                if (count($this->getMedia('featured')) > 0) {
+                    return $this->getMedia('featured')[0]->getFullUrl('thumb');
+                }
+            }),
+            'featured_medium' => $this->when(1, function () {
+                if (count($this->getMedia('featured')) > 0) {
+                    return $this->getMedia('featured')[0]->getFullUrl('medium');
+                }
             }),
             'gallery' => MediaResource::collection($this->getMedia('gallery')),
             'attributes' => $this->when(1, function () {
