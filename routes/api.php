@@ -12,7 +12,7 @@
 */
 
 
-Route::group(['middleware' => ['cors']], function() {
+Route::group(['middleware' => []], function() {
     Route::post('/login', 'Api\LoginController@login');
     Route::get('/site', 'SiteController@index');
     Route::get('/post', 'PostController@index');
@@ -31,7 +31,7 @@ Route::group(['middleware' => ['cors']], function() {
 });
 
 
-Route::group(['middleware' => ['cors','auth:api']], function() {
+Route::group(['middleware' => ['auth:api']], function() {
 
     Route::get('/logout', 'Api\LoginController@logout');
     Route::get('/auth/user', 'Api\LoginController@user');

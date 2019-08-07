@@ -54,7 +54,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         /*temporary disabling*/
         /*'cors' =>  \Barryvdh\Cors\HandleCors::class,*/
-        'cors' => \App\Http\Middleware\CorsMiddleware::class,
+        /*'cors' => \App\Http\Middleware\CorsMiddleware::class,*/
 
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
