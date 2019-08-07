@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            /*\Barryvdh\Cors\HandleCors::class,*/
+            \Barryvdh\Cors\HandleCors::class,
         ],
     ];
 
@@ -53,7 +53,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         /*temporary disabling*/
-        /*'cors' =>  \Barryvdh\Cors\HandleCors::class,*/
+
         /*'cors' => \App\Http\Middleware\CorsMiddleware::class,*/
 
         'auth' => \App\Http\Middleware\Authenticate::class,
@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+        'cors' =>  \Barryvdh\Cors\HandleCors::class,
 
 
 
