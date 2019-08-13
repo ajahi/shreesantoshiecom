@@ -81,6 +81,9 @@ class CategoryController extends Controller
                 return response()->json($validation->errors(),422);
 
             }
+            /*converting slug*/
+            $request['slug'] = slug($request->title);
+
             $data = collect($request->all());
 
             $data = $data->toArray();
@@ -146,6 +149,8 @@ class CategoryController extends Controller
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             $category = Category::findOrFail($id);
+            /*converting slug*/
+            $request['slug'] = slug($request->title);
             $category->fill($request->all())->save();
 
 

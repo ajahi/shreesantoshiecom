@@ -13,9 +13,8 @@ use Spatie\Sluggable\SlugOptions;
 class Post extends Model implements HasMedia {
 
     use HasMediaTrait;
-    use HasSlug;
     protected $fillable = [
-        'title', 'description','icon','status','category_id', 'attributes','user_id','meta_description'
+        'title','slug','description','icon','status','category_id', 'attributes','user_id','meta_description'
     ];
 
 
@@ -29,13 +28,13 @@ class Post extends Model implements HasMedia {
         return $this->belongsToMany('App\Tag');
     }
 
-    public function getSlugOptions(): SlugOptions
+    /*public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug')
             ->usingSeparator(env('SLUG',"-"));
-    }
+    }*/
 
     public function registerMediaConversions(Media $media = null)
     {

@@ -116,10 +116,14 @@ class PostController extends Controller
                 'category_id' => 'required',
                 'tags.*' => 'exists:tags,id'
             ]);
+
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
             }
             $request['user_id'] = Auth::user()->id;
+            /*converting slug*/
+            $request['slug'] = slug($request->title);
+
             $post = Post::create($request->all());
 
             if(empty($request->tags_id)){
@@ -210,6 +214,9 @@ class PostController extends Controller
 
             $post = Post::findOrFail($id);
             $request['user_id'] = Auth::user()->id;
+            /*converting slug*/
+            $request['slug'] = slug($request->title);
+
             $post->fill($request->all())->save();
 
             if(empty($request->tags_id)){
@@ -328,6 +335,7 @@ class PostController extends Controller
         ]);
         return Post::where('attributes->'.$request->key.'->value',true)->get();
     }
+
 
 
 

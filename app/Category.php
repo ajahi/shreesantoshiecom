@@ -11,21 +11,21 @@ use Spatie\Sluggable\SlugOptions;
 class Category extends Model implements HasMedia {
 
     use HasMediaTrait;
-    use HasSlug;
+    /*use HasSlug;*/
     protected $fillable = [
-        'title', 'description','position'
+        'title','slug', 'description','position'
     ];
 
     public function posts() {
         return $this->hasMany('App\Post');
     }
 
-    public function getSlugOptions(): SlugOptions
+    /*public function getSlugOptions(): SlugOptions
     {
         // TODO: Implement getSlugOptions() method.
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug')
             ->usingSeparator(env('SLUG',"-"));
-    }
+    }*/
 }
