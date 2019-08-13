@@ -21,13 +21,23 @@ class RoleController extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
+
             if ($request->has('name')) {
-                $user = Role::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                if($user->hasRole('admin')){
+                    $user = Role::where('name', 'like', '%' . $request->name . '%')
+                        ->where('name','!=','super_admin')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                }else{
+                    $user = Role::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                }
 
                 return RoleResource::collection($user);
             }
+            if($user->hasRole('admin')){
+                return RoleResource::collection(Role::where('name','!=','super_admin')->orderBy('id', $request->sort)->paginate($request->input('limit')));
+            }else {
+                return RoleResource::collection(Role::orderBy('id', $request->sort)->paginate($request->input('limit')));
+            }
 
-            return RoleResource::collection(Role::orderBy('id', $request->sort)->paginate($request->input('limit')));
         } else {
             $return = ["status" => "error",
                 "error" => [

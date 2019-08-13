@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
@@ -73,8 +74,17 @@ class UserController extends Controller
                 'name' => 'required|min:3',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:6|confirmed',
-                'role_id' => 'required'
+                'role_id' => 'required|exists:roles,id'
             ]);
+            /*checking if admin role is trying to create super admin role*/
+            if(!$user->hasRole('super_admin')){
+                $role = Role::find($request->role_id);
+                $validation->after(function ($validator)use ($role){
+                    if($role->name === 'super_admin'){
+                        $validator->errors()->add('role_id','Role not allowed');
+                    }
+                });
+            }
 
             if ($validation->fails()) {
                 return response()->json($validation->errors() , 422);
