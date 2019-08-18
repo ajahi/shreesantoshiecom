@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Resource\CategoryResource;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 
 use App\Post;
@@ -11,7 +12,9 @@ use App\Http\Resource\PostResource;
 use App\Http\Resources\MediaResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Spatie\Sluggable\SlugOptions;
 use Validator;
 
 class PostController extends Controller
