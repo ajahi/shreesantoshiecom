@@ -14,7 +14,7 @@ use Spatie\Sluggable\SlugOptions;
 class Post extends Model implements HasMedia {
 
     use HasMediaTrait;
-    use Sluggable;
+    /*use Sluggable;*/
     protected $fillable = [
         'title','slug','description','icon','status','category_id', 'attributes','user_id','meta_description'
     ];
@@ -35,14 +35,14 @@ class Post extends Model implements HasMedia {
      *
      * @return array
      */
-    public function sluggable()
+    /*public function sluggable()
     {
         return [
             'slug' => [
                 'source' => 'title'
             ]
         ];
-    }
+    }*/
 
     /*public function getSlugOptions(): SlugOptions
     {
