@@ -21,13 +21,11 @@ class PermissionController extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
+            $query = Permission::query();
             if ($request->has('name')) {
-                $user = Permission::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
-
-                return PermissionResource::collection($user);
+                $query->where('name', 'like', '%' . $request->name . '%');
             }
-
-            return PermissionResource::collection(Permission::orderBy('id', $request->sort)->paginate($request->input('limit')));
+        return PermissionResource::collection($query->paginate($request->input('limit')));
         } else {
             $return = ["status" => "error",
                 "error" => [

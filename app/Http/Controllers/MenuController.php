@@ -19,18 +19,18 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
-            $menu = Menu::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return MenuResource::collection($menu);
-        } elseif ($request->has('title') && $request->has('limit') && $request->has('sort') && $request->has('parent_id')) {
-            $menu = Menu::where('title', 'like', '%' . $request->title . '%')->where('parent_id', null)->orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return MenuResource::collection($menu);
-        } elseif ($request->has('parent_id')) {
-            $menu = Menu::where('parent_id', null)->orderBy('position')->get();
-
-            return MenuResource::collection($menu);
+        $query = Menu::query();
+        if ($request->has('title')) {
+            $query->where('title', 'like', '%' . $request->title . '%');
         }
-        return MenuResource::collection(Menu::all());
+        if ($request->has('title')&& $request->has('parent_id')) {
+            $query->where('title', 'like', '%' . $request->title . '%')
+                ->where('parent_id', null);
+        }
+        if ($request->has('parent_id')) {
+            $query->where('parent_id', null);
+        }
+        return MenuResource::collection($query->paginate($request->input('limit')));
     }
 
     /**

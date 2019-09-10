@@ -23,21 +23,19 @@ class UserController extends Controller
     {
 
         $user = Auth::user();
+        $query = User::query();
         if ($user->hasRole(['admin','super_admin'])) {
             if ($request->has('name')) {
-                $user = User::where('name', 'like', '%' . $request->name . '%')->orWhere('email', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
-
-                if ($request->has('status')) {
-                    $user = User::orWhere([['name', 'like', '%' . $request->name . '%'], ['email', 'like', '%' . $request->name . '%']])->where('active', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
-                }
-
-                return UserResource::collection($user);
-            } elseif ($request->has('status')) {
-                $user = User::where('active', $request->status)->orderBy('id', $request->sort)->paginate($request->input('limit'));
-                return UserResource::collection($user);
-
+                $query->where('name', 'like', '%' . $request->name . '%')
+                    ->orWhere('email', 'like', '%' . $request->name . '%');
             }
-            return UserResource::collection(User::orderBy('id', $request->sort)->paginate($request->input('limit')));
+            if ($request->has('status')) {
+                $query->orWhere([['name', 'like', '%' . $request->name . '%'],
+                                 ['email', 'like', '%' . $request->name . '%']])
+                        ->where('active', $request->status)
+                        ->orderBy('id', $request->sort);
+            }
+        return UserResource::collection($query->paginate($request->input('limit')));
         } else {
             $return = ["status" => "error",
                 "error" => [

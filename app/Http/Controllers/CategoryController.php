@@ -19,32 +19,14 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-
-        if ($request->has('title') && $request->has('limit') && $request->has('sortBy')) {
-            $category = Category::where('title', 'like', '%' . $request->title . '%')
-                ->orderBy('id', $request->sortBy)
-                ->paginate($request->input('limit')!= -1?$request->input('limit'):0);
-            return CategoryResource::collection($category);
-        } elseif ($request->has('limit') && $request->has('sortBy')) {
-            $category = Category::orderBy('id', $request->sortBy)
-                ->paginate($request->input('limit')!= -1?$request->input('limit'):0);
-            return CategoryResource::collection($category);
+        $query = Category::query();
+        if ($request->has('title')) {
+            $query->where('title', 'like', '%' . $request->title . '%');
         }
-         elseif($request->has('limit')){
-             $category = Category::
-             paginate($request->input('limit')!= -1?$request->input('limit'):'');
-             return CategoryResource::collection($category);
-         }
-        return CategoryResource::collection(Category::all());
-        /*not good logic here*/
-       /* if ($request->has('title') && $request->has('limit') && $request->has('sort')) {
-            $category = Category::where('title', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return CategoryResource::collection($category);
-        } elseif ($request->has('limit') && $request->has('sort')) {
-            $category = Category::orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return CategoryResource::collection($category);
+        if ($request->has('limit') && $request->has('sortBy')) {
+            $query->orderBy('id', $request->sortBy);
         }
-        return CategoryResource::collection(Category::all());*/
+        return CategoryResource::collection($query->paginate($request->input('limit')));
 
     }
 

@@ -20,22 +20,23 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $query = Role::query();
         if ($user->hasRole(['admin','super_admin'])) {
-
             if ($request->has('name')) {
                 if($user->hasRole('admin')){
-                    $user = Role::where('name', 'like', '%' . $request->name . '%')
-                        ->where('name','!=','super_admin')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                    $query->where('name', 'like', '%' . $request->name . '%')
+                        ->where('name','!=','super_admin');
                 }else{
-                    $user = Role::where('name', 'like', '%' . $request->name . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
+                    $query->where('name', 'like', '%' . $request->name . '%');
                 }
-
-                return RoleResource::collection($user);
+                return RoleResource::collection($query->paginate($request->input('limit')));
             }
             if($user->hasRole('admin')){
-                return RoleResource::collection(Role::where('name','!=','super_admin')->orderBy('id', $request->sort)->paginate($request->input('limit')));
+                return RoleResource::collection($query->where('name','!=','super_admin')
+                        ->paginate($request->input('limit')));
             }else {
-                return RoleResource::collection(Role::orderBy('id', $request->sort)->paginate($request->input('limit')));
+                return RoleResource::collection($query->orderBy('id', $request->sort)
+                        ->paginate($request->input('limit')));
             }
 
         } else {

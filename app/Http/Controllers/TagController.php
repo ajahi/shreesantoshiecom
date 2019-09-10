@@ -18,13 +18,12 @@ class TagController extends Controller
      */
     public function index(Request $request)
     {
+        $query = Tag::query();
         if ($request->has('title')) {
-            $tag = Tag::where('title', 'like', '%' . $request->title . '%')->orWhere('description', 'like', '%' . $request->title . '%')->orderBy('id', $request->sort)->paginate($request->input('limit'));
-            return TagResource::collection($tag);
+            $query->where('title', 'like', '%' . $request->title . '%')
+                    ->orWhere('description', 'like', '%' . $request->title . '%');
         }
-
-        return TagResource::collection(Tag::orderBy('id', $request->sort)->paginate($request->input('limit')));
-
+        return TagResource::collection($query->paginate($request->input('limit')));
     }
 
     /**
