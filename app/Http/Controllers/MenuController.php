@@ -23,9 +23,6 @@ class MenuController extends Controller
         if ($request->has('title')) {
             $query->where('title', 'like', '%' . $request->title . '%');
         }
-        if ($request->has('title')) {
-            $query->where('title', 'like', '%' . $request->title . '%');
-        }
         if ($request->has('parent_id')) {
             $query->where('parent_id', null);
         }
