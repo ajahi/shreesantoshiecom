@@ -23,7 +23,7 @@ class CategoryController extends Controller
         if ($request->has('title')) {
             $query->where('title', 'like', '%' . $request->title . '%');
         }
-        if ($request->has('limit') && $request->has('sortBy')) {
+        if ($request->has('sortBy')) {
             $query->orderBy('id', $request->sortBy);
         }
         return CategoryResource::collection($query->paginate($request->input('limit')));

@@ -56,8 +56,6 @@ class PostResource extends JsonResource
             'last_edited' => $this->updated_at,
             'created_at' => $this->created_at
 
-
-
         ];
     }
 }

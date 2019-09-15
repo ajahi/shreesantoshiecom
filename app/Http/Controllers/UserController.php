@@ -26,14 +26,10 @@ class UserController extends Controller
         $query = User::query();
         if ($user->hasRole(['admin','super_admin'])) {
             if ($request->has('name')) {
-                $query->where('name', 'like', '%' . $request->name . '%')
-                    ->orWhere('email', 'like', '%' . $request->name . '%');
+                $query->where('name', 'like', '%' . $request->name . '%');
             }
             if ($request->has('status')) {
-                $query->orWhere([['name', 'like', '%' . $request->name . '%'],
-                                 ['email', 'like', '%' . $request->name . '%']])
-                        ->where('active', $request->status)
-                        ->orderBy('id', $request->sort);
+                $query->where('active', $request->status);
             }
         return UserResource::collection($query->paginate($request->input('limit')));
         } else {
