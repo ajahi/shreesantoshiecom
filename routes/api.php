@@ -43,6 +43,7 @@ Route::group(['middleware' => ['cors','auth:api']], function() {
     Route::resource('category', 'CategoryController', array('except' => array('index','show')));
     Route::resource('menu', 'MenuController', array('except' => array('index','show')));
     Route::resource('tag','TagController');
+    Route::resource('contact','ContactController');
     Route::post('/post/uploads', 'PostController@uploads');
     Route::get('/media/{id}/{mediaID}', 'PostController@deleteMedia');
     Route::post('/gallery/uploads', 'SiteController@uploadsGallery');
