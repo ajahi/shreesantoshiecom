@@ -11,7 +11,8 @@ class Site extends Model implements HasMedia {
 
     use HasMediaTrait;
     protected $fillable = [
-        'title', 'slogan', 'description', 'logo', 'website', 'email', 'location', 'telephone', 'working_days', 'facebook', 'google', 'twitter', 'instagram', 'linkedin', 'skype', 'attributes'
+        'title', 'slogan', 'description', 'logo', 'website', 'email', 'location', 'telephone', 'working_days',
+        'facebook', 'google', 'twitter', 'instagram', 'linkedin', 'skype', 'attributes'
     ];
 
 

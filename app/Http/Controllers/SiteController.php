@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use App\Site;
 use Illuminate\Http\Request;
-use App\Site as SiteModel;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\SiteResource;
 use App\Http\Resources\MediaResource;
+use Illuminate\Support\Facades\Storage;
 
 
 class SiteController extends Controller
@@ -19,23 +20,8 @@ class SiteController extends Controller
      */
     public function index()
     {
-        $site = SiteModel::first();
-        if (count($site->getMedia('logo')) > 0) {
-            $site['logo'] = $site->getMedia('logo')[0]->getFullUrl();
-
-        } else {
-            $site['logo'] = "";
-        }
-
-        if (count($site->getMedia('banner')) > 0) {
-            $site['banner'] = $site->getMedia('banner')[0]->getFullUrl();
-
-        } else {
-            $site['banner'] = "";
-        }
-
-        $site->attributes = json_decode($site->attributes);
-        return response()->json($site);
+        $site = Site::firstOrFail();
+        return new SiteResource($site);
     }
 
     /**
@@ -60,15 +46,13 @@ class SiteController extends Controller
             'email' => 'email',
             'title' => 'required|min:6'
         ]);
-
         if ($validation->fails()) {
             return response()->json($validation->errors(), 422);
-
         }
 
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            $site = SiteModel::first();
+            $site = Site::first();
             $data = collect($request->all());
             $data= $data->except(['logo']);
 
@@ -80,11 +64,9 @@ class SiteController extends Controller
                 $site->addMediaFromRequest('logo')->toMediaCollection('logo');
             }
 
-
-            $site = SiteModel::first();
+            $site = Site::firstOrFail();
             if (count($site->getMedia('logo')) > 0) {
                 $site['logo'] = $site->getMedia('logo')[0]->getFullUrl();
-
             } else {
                 $site['logo'] = "";
             }
@@ -103,7 +85,7 @@ class SiteController extends Controller
 
             $site->attributes = json_decode($site->attributes);
 
-            return response()->json($site);
+            return new SiteResource($site);
 
         } else {
             $return = ["status" => "error",
@@ -171,27 +153,27 @@ class SiteController extends Controller
 
         }
 
-        $site = SiteModel::findOrFail($request->site);
+        $site = Site::findOrFail($request->site);
 
         if ($request['file'] != null) {
 
             $site->addMediaFromRequest('file')->toMediaCollection('gallery');
 
         }
-        $site = SiteModel::findOrFail($request->site);
+        $site = Site::findOrFail($request->site);
         return MediaResource::collection($site->getMedia('gallery'));
 
     }
 
     public function deleteMediaGallery($id, $mediaID)
     {
-        $site = SiteModel::findOrFail($id);
+        $site = Site::findOrFail($id);
         $media = $site->getMedia('gallery');
 
         $delete = $media->where('id', $mediaID)->first();
         $delete->delete();
 
-        $site = SiteModel::findOrFail($id);
+        $site = Site::findOrFail($id);
         return MediaResource::collection($site->getMedia('gallery'));
     }
 
