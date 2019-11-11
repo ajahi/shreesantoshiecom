@@ -23,6 +23,7 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'status'=> $this->status,
             'icon' => $this->icon,
+            'counts' => $this->counts,
             'category' => CategoryModel::find($this->category_id),
              'category_id' => $this->category_id,
             'featured' => $this->when(1, function () {
@@ -53,7 +54,7 @@ class PostResource extends JsonResource
             'meta_description' =>$this->meta_description,
             'author' => $this->user != null?$this->user->name:'',
 
-            'last_edited' => $this->updated_at,
+            'updated_at' => $this->updated_at,
             'created_at' => $this->created_at
 
         ];

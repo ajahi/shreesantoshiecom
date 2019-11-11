@@ -29,22 +29,21 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $query = Post::query();
+        if ($request->has('category')){
+            $query->where('category_id', $request->category);
+        }
+        if ($request->has('status')){
+            $query->where('status', $request->status);
+        }
+        if ($request->has('title')){
+            $query->where('title', 'like' . $request->title )
+                ->orWhere('description', 'like' . $request->title );
+        }
+        if ($request->has('user')){
+            $query->where('user_id', $request->user);
+        }
 
-        $query->when(request('category',false),function($q){
-            return $q->where('category_id', request('category'))->orderBy('id', request('sort'));
-        });
-
-        $query->when(request('status',false),function($q){
-            return $q->where('status', request('status'))->orderBy('id', request('sort'));
-        });
-
-        $query->when(request('title',false ),function($q){
-            return $q->where('title', 'like', '%' . request('title') . '%')
-                ->orWhere('description', 'like', '%' . request('title') . '%')
-                ->orderBy('id', request('sort'));
-        });
-
-        $post = $query->paginate(request('limit'));
+        $post = $query->orderByDesc('created_at')->paginate(request('limit'));
         return PostResource::collection($post);
     }
 
@@ -75,17 +74,15 @@ class PostController extends Controller
             }
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:posts',
-                //'slug' => 'required|unique:posts',
-
                 'description' => 'required',
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
                 'tags.*' => 'exists:tags,id'
             ]);
-
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
             }
+
             $request['user_id'] = Auth::user()->id;
             /*converting slug*/
             $request['slug'] = slug($request->title);
@@ -96,15 +93,12 @@ class PostController extends Controller
                 $post->tags()->detach();
             }else {
                 $post->tags()->sync(explode(",", $request->tags_id));
-
             }
 
             if ($request['featured'] != null) {
                 $post->clearMediaCollection('featured');
                 $post->addMediaFromRequest('featured')->toMediaCollection('featured');
-
             }
-
 
             return new  PostResource($post);
 
@@ -126,8 +120,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return new PostResource(Post::find($id));
-
+        $post = Post::findOrFail($id);
+        $post->increment('counts');
+        return new PostResource($post);
     }
 
 
