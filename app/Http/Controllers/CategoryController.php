@@ -49,16 +49,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-
         if ($user->hasRole(['admin','super_admin'])) {
-
-
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:categories',
                 'description' => 'required',
             ]);
-
-
             if ($validation->fails()) {
                 return response()->json($validation->errors(),422);
 
@@ -67,7 +62,6 @@ class CategoryController extends Controller
             $request['slug'] = slug($request->title);
 
             $data = collect($request->all());
-
             $data = $data->toArray();
 
             $position = Category::count();
@@ -77,7 +71,6 @@ class CategoryController extends Controller
             if ($request['featured'] != null) {
                 $category->clearMediaCollection('featured');
                 $category->addMediaFromRequest('featured')->toMediaCollection('featured');
-
             }
             return new  CategoryResource($category);
 
@@ -139,7 +132,6 @@ class CategoryController extends Controller
             if ($request['featured'] != null) {
                 $category->clearMediaCollection('featured');
                 $category->addMediaFromRequest('featured')->toMediaCollection('featured');
-
             }
             $category = Category::findOrFail($id);
 
