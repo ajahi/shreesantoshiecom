@@ -1,9 +1,8 @@
 <?php
 
 use App\Category;
-use Illuminate\Database\Seeder;
-
 use Faker\Factory;
+use Illuminate\Database\Seeder;
 
 
 class CategoryTableSeeder extends Seeder
@@ -17,7 +16,7 @@ class CategoryTableSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Category::create([
                 'title'=>$faker->title,
                 'description' => $faker->paragraph,
