@@ -125,7 +125,6 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-
     /**
         This function returns the result from slug search.
      */
@@ -263,7 +262,6 @@ class PostController extends Controller
 
         }
     }
-
 
     public function deleteMedia($id, $mediaID)
     {
