@@ -25,7 +25,7 @@ class SitesTableSeeder extends Seeder
                 'instagram'=>$faker->word,
                 'linkedin'=>$faker->word,
                 'skype'=>$faker->word,
-                'attributes'=>json_encode(array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5)),
+                'attributes'=>json_encode(array()),
                 'created_at'=>$faker->dateTime,
                 'updated_at'=>$faker->dateTime
             ]);
