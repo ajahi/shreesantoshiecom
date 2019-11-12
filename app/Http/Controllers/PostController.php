@@ -36,8 +36,8 @@ class PostController extends Controller
             $query->where('status', $request->status);
         }
         if ($request->has('title')){
-            $query->where('title', 'like' . $request->title )
-                ->orWhere('description', 'like' . $request->title );
+            $query->where('title', 'like' . $request->title, '%')
+                ->orWhere('description', 'like' . $request->title, '%' );
         }
         if ($request->has('user')){
             $query->where('user_id', $request->user);

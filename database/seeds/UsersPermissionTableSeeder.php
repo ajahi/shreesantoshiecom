@@ -20,7 +20,7 @@ class UsersPermissionTableSeeder extends Seeder
         ]);
 
         $dreamsys = User::create([
-            'name' => 'DreamSys',
+            'name' => env('EMAIL'),
             'email' =>env('EMAIL'),
             'password'=> bcrypt(env('PASSWORD')),
         ]);
