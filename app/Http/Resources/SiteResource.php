@@ -20,7 +20,7 @@ class SiteResource extends JsonResource
             'description' => $this->description,
             'slogan' => $this->slogan,
             'working_days' => $this->working_days,
-            'website' => $this->status,
+            'website' => $this->website,
             'email' => $this->email,
             'location' => $this->location,
             'telephone' => $this->telephone,
