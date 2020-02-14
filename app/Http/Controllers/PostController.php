@@ -36,8 +36,10 @@ class PostController extends Controller
             $query->where('status', $request->status);
         }
         if ($request->has('title')){
-            $query->where('title', 'like' . $request->title, '%')
-                ->orWhere('description', 'like' . $request->title, '%' );
+            $query->where('title', 'like' . $request->title, '%');
+        }
+        if ($request->has('description')){
+            $query->where('description', $request->description);
         }
         if ($request->has('user')){
             $query->where('user_id', $request->user);
@@ -128,9 +130,12 @@ class PostController extends Controller
     /**
         This function returns the result from slug search.
      */
-    public function slug(Request $request)
+    public function slug(Request $request,$post)
     {
-        return new PostResource(Post::where('slug', $request->slug)->first());
+        $post= Post::where('slug', $request->slug)->first();
+        $post->increment('counter');
+
+        return new PostResource($post);
     }
 
     /**

@@ -26,6 +26,8 @@ Route::group(['middleware' => ['cors']], function() {
     Route::get('/menu/{id}', 'MenuController@show');
     Route::get('/tag','TagController@index');
     Route::get('/tag/{id}','TagController@show');
+    Route::get('/slider','SliderController@index');
+    Route::get('/slider/{id}','SliderController@show');
 
 
 });
@@ -42,6 +44,7 @@ Route::group(['middleware' => ['cors','auth:api']], function() {
     Route::resource('post', 'PostController', array('except' => array('index','show')));
     Route::resource('category', 'CategoryController', array('except' => array('index','show')));
     Route::resource('menu', 'MenuController', array('except' => array('index','show')));
+    Route::resource('slider', 'SliderController', array('except'=>array('index','show')));
     Route::resource('tag','TagController');
     Route::resource('contact','ContactController');
     Route::post('/post/uploads', 'PostController@uploads');
@@ -54,5 +57,8 @@ Route::group(['middleware' => ['cors','auth:api']], function() {
     Route::post('/tag','TagController@store');
     Route::put('/tag/{id}','TagController@update');
     Route::delete('/tag/{id}','TagController@destroy');
+
+    Route::put('/slider/{id','SliderController@update');
+    Route::delete('/slider/{id}','SliderController@delete');
 
 });
