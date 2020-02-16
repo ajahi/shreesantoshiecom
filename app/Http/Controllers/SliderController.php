@@ -117,14 +117,15 @@ class SliderController extends Controller
             }
 
 
-            $slider = Slider::create($request->all());
-
+            $slider = Slider::findOrFail($id);
+            $slider->fill($request->all())->save();
             if ($request['featured'] != null) {
                 $slider->clearMediaCollection('featured');
 
                 $slider->addMediaFromRequest('featured')->toMediaCollection('featured');
             }
-            return new  SliderResource($slider);
+            $slid=Slider::findOrFail($id);
+            return new  SliderResource($slid);
 
         } else {
             $return = ["status" => "error",
