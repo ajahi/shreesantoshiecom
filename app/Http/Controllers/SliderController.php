@@ -22,7 +22,7 @@ class SliderController extends Controller
             $query->where('title', 'like', '%' . $request->title . '%');
         }
         if($request->has('description')) {
-            $query->where('description',$request->descrition);
+            $query->where('description',$request->description);
         }
         $query->orderByDesc('created_at');
         return SliderResource::collection($query->paginate($request->input('limit')));
