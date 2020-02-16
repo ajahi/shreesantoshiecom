@@ -133,7 +133,7 @@ class PostController extends Controller
     public function slug(Request $request,$post)
     {
         $post= Post::where('slug', $request->slug)->first();
-        $post->increment('counter');
+        $post->increment('counts');
 
         return new PostResource($post);
     }

@@ -106,24 +106,24 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required'.$id,
-            'description' => 'required',
-        ]);
 
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            $slider = Slider::findOrFail($id);
-            /*converting slug*/
-            $slider->fill($request->all())->save();
+            $validation = Validator::make($request->all(), [
+                'title' => 'required'
+            ]);
+            if ($validation->fails()) {
+                return response()->json($validation->errors(), 422);
+            }
 
+
+            $slider = Slider::create($request->all());
 
             if ($request['featured'] != null) {
                 $slider->clearMediaCollection('featured');
+
                 $slider->addMediaFromRequest('featured')->toMediaCollection('featured');
             }
-            $slider = Slider::findOrFail($id);
-
             return new  SliderResource($slider);
 
         } else {
