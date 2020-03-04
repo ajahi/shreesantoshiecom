@@ -13,7 +13,7 @@ class Category extends Model implements HasMedia {
     use HasMediaTrait;
     /*use HasSlug;*/
     protected $fillable = [
-        'title','slug', 'description','position'
+        'title','slug', 'description','position','attributes'
     ];
 
     public function posts() {

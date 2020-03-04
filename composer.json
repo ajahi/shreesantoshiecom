@@ -19,7 +19,8 @@
         "laravel/tinker": "^1.0",
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-sluggable": "^2.1",
-        "zizaco/entrust": "^1.9"
+        "zizaco/entrust": "^1.9",
+      "ext-json": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
