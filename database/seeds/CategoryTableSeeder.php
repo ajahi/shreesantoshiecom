@@ -19,27 +19,36 @@ class CategoryTableSeeder extends Seeder
             'title' => 'Features',
             'slug' => slug(strtolower('Features')),
             'description' => 'This stores the information about us.',
-            'position'=>1
+            'position'=>1,
+            'attributes'=>
+                json_encode([])
+
 
         ]);
         DB::table('categories')->insert([
             'title' => 'Feature Text',
             'slug' => slug(strtolower('Feature Text')),
             'description' => 'This stores the information about us.',
-            'position'=>2
+            'position'=>2,
+            'attributes'=>
+                json_encode([])
         ]);
         DB::table('categories')->insert([
             'title' => 'Blogs',
             'slug' => slug(strtolower('Blogs')),
             'description' => 'This stores the information about us.',
-            'position'=>3
+            'position'=>3,
+            'attributes'=>
+                json_encode([])
 
         ]);
         DB::table('categories')->insert([
             'title' => 'Category four ',
             'slug' => slug(strtolower('Category Four')),
             'description' => 'This stores the information about us.',
-            'position'=>4
+            'position'=>4,
+            'attributes'=>
+                json_encode([])
         ]);
 
     }
