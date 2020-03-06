@@ -50,6 +50,14 @@ class CategoryTableSeeder extends Seeder
             'attributes'=>
                 json_encode([])
         ]);
+        DB::table('categories')->insert([
+            'title' => 'About us ',
+            'slug' => slug(strtolower('About us')),
+            'description' => 'This stores the information about about us.',
+            'position'=>5,
+            'attributes'=>
+                json_encode([])
+        ]);
 
     }
 }
