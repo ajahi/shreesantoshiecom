@@ -54,9 +54,9 @@ class CategoryTableSeeder extends Seeder
 
         ]);
         DB::table('categories')->insert([
-            'title' => 'Extra Category ',
+            'title' => 'CTA Category ',
             'slug' => slug(strtolower('Extra Category')),
-            'description' => 'This stores the information about Extra Category.',
+            'description' => 'This stores the information about cta Category.',
             'position'=>5,
             'attributes'=>
                 json_encode([])
