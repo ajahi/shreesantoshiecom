@@ -18,7 +18,7 @@ class CategoryTableSeeder extends Seeder
         DB::table('categories')->insert([
             'title' => 'About us ',
             'slug' => slug(strtolower('About us')),
-            'description' => 'This stores the information about about us.',
+            'description' => 'This stores the information of about us category',
             'position'=>1,
             'attributes'=>
                 json_encode([])
@@ -27,7 +27,7 @@ class CategoryTableSeeder extends Seeder
         DB::table('categories')->insert([
             'title' => 'Feature Content',
             'slug' => slug(strtolower('Feature Content')),
-            'description' => 'This stores the information about feature Content.',
+            'description' => 'This store the information of feature Content category',
             'position'=>2,
             'attributes'=>
                 json_encode([])
@@ -36,7 +36,7 @@ class CategoryTableSeeder extends Seeder
         DB::table('categories')->insert([
             'title' => 'Features',
             'slug' => slug(strtolower('Features')),
-            'description' => 'This stores the information about us.',
+            'description' => 'This store the information of features category.',
             'position'=>3,
             'attributes'=>
                 json_encode([])
@@ -47,7 +47,7 @@ class CategoryTableSeeder extends Seeder
         DB::table('categories')->insert([
             'title' => 'Blogs',
             'slug' => slug(strtolower('Blogs')),
-            'description' => 'This stores the information about us.',
+            'description' => 'This store the information of blog category',
             'position'=>4,
             'attributes'=>
                 json_encode([])
@@ -56,8 +56,16 @@ class CategoryTableSeeder extends Seeder
         DB::table('categories')->insert([
             'title' => 'CTA Category ',
             'slug' => slug(strtolower('Extra Category')),
-            'description' => 'This stores the information about cta Category.',
+            'description' => 'This store the information of cta category.',
             'position'=>5,
+            'attributes'=>
+                json_encode([])
+        ]);
+        DB::table('categories')->insert([
+            'title' => 'Pricing ',
+            'slug' => slug(strtolower('Pricing')),
+            'description' => 'This store the information of pricing category',
+            'position'=>6,
             'attributes'=>
                 json_encode([])
         ]);
