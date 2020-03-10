@@ -67,7 +67,9 @@ class CategoryTableSeeder extends Seeder
             'description' => 'This store the information of pricing category',
             'position'=>6,
             'attributes'=>
-                json_encode([])
+                json_encode([
+                    'price' => ['type' => 'number'],
+                ])
         ]);
 
     }
