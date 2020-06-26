@@ -19,7 +19,7 @@ class PostTableSeeder extends Seeder
         $faker = Factory::create();
         $category = Category::pluck('id')->toArray();;
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $title = $faker->unique()->sentence;
             $slug = Str::slug($title);
 
@@ -30,7 +30,8 @@ class PostTableSeeder extends Seeder
                 'status' => $faker->randomElement($array = array ('published','draft')),
                 'icon' => 'fa-none',
                 'description' => $faker->paragraph,
-                'attributes' => '{}'
+                'attributes' => '{}',
+                'user_id'=>1
             ]);
 
         }

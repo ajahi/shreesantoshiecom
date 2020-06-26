@@ -24,25 +24,6 @@ class CategoryTableSeeder extends Seeder
                 json_encode([])
         ]);
 
-        DB::table('categories')->insert([
-            'title' => 'Feature Content',
-            'slug' => slug(strtolower('Feature Content')),
-            'description' => 'This store the information of feature Content category',
-            'position'=>2,
-            'attributes'=>
-                json_encode([])
-        ]);
-
-        DB::table('categories')->insert([
-            'title' => 'Features',
-            'slug' => slug(strtolower('Features')),
-            'description' => 'This store the information of features category.',
-            'position'=>3,
-            'attributes'=>
-                json_encode([])
-
-
-        ]);
 
         DB::table('categories')->insert([
             'title' => 'Blogs',
@@ -52,24 +33,6 @@ class CategoryTableSeeder extends Seeder
             'attributes'=>
                 json_encode([])
 
-        ]);
-        DB::table('categories')->insert([
-            'title' => 'CTA Category ',
-            'slug' => slug(strtolower('Extra Category')),
-            'description' => 'This store the information of cta category.',
-            'position'=>5,
-            'attributes'=>
-                json_encode([])
-        ]);
-        DB::table('categories')->insert([
-            'title' => 'Pricing ',
-            'slug' => slug(strtolower('Pricing')),
-            'description' => 'This store the information of pricing category',
-            'position'=>6,
-            'attributes'=>
-                json_encode([
-                    'price' => ['type' => 'number'],
-                ])
         ]);
 
     }

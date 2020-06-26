@@ -44,6 +44,11 @@ class PostController extends Controller
         if ($request->has('user')){
             $query->where('user_id', $request->user);
         }
+        if($request->has('filter')) {
+            if ($request->filter === 'popular') {
+                $query->orderByDesc('counts');
+            }
+        }
 
         $post = $query->orderByDesc('created_at')->paginate(request('limit'));
         return PostResource::collection($post);
