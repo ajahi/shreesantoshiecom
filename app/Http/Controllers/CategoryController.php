@@ -19,14 +19,16 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Category::query();
-        if ($request->has('title')) {
-            $query->where('title', 'like', '%' . $request->title . '%');
-        }
-        if ($request->has('sortBy')) {
-            $query->orderBy('id', $request->sortBy);
-        }
-        return CategoryResource::collection($query->paginate($request->input('limit')));
+
+        return view('categoryindex',['category'=>Category::all()]);
+        // $query = Category::query();
+        // if ($request->has('title')) {
+        //     $query->where('title', 'like', '%' . $request->title . '%');
+        // }
+        // if ($request->has('sortBy')) {
+        //     $query->orderBy('id', $request->sortBy);
+        // }
+        // return CategoryResource::collection($query->paginate($request->input('limit')));
 
     }
 
@@ -37,7 +39,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categorycreate');
     }
 
     /**
@@ -47,7 +49,7 @@ class CategoryController extends Controller
      * @return CategoryResource
      */
     public function store(Request $request)
-    { return 'this is store path';
+    { 
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             $validation = Validator::make($request->all(), [
@@ -72,7 +74,7 @@ class CategoryController extends Controller
                 $category->clearMediaCollection('featured');
                 $category->addMediaFromRequest('featured')->toMediaCollection('featured');
             }
-            return new  CategoryResource($category);
+            return redirect('/category');
 
         } else {
             $return = ["status" => "error",
@@ -92,7 +94,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return new CategoryResource(Category::find($id));
+        // return view('/categoryshow',['category'=>Category::findOrFail($id)]);
+        // return new CategoryResource(Category::find($id));
 
     }
 
@@ -104,7 +107,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('/categoryedit',['post'=>Category::findOrFail($id)]);
     }
 
     /**
@@ -115,7 +118,7 @@ class CategoryController extends Controller
      * @return CategoryResource
      */
     public function update(Request $request, $id)
-    {
+    { 
         $request->validate([
             'title' => 'required|unique:categories,title,'.$id,
             'description' => 'required',
@@ -135,7 +138,7 @@ class CategoryController extends Controller
             }
             $category = Category::findOrFail($id);
 
-            return new  CategoryResource($category);
+            return redirect('/category');
 
         } else {
             $return = ["status" => "error",
@@ -163,7 +166,7 @@ class CategoryController extends Controller
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return response()->json($return, 200);
+            return redirect('/category');
 
         } else {
             $return = ["status" => "error",
@@ -171,7 +174,7 @@ class CategoryController extends Controller
                     "code" => 403,
                     "errors" => 'Forbidden'
                 ]];
-            return response()->json($return, 403);
+            return redirect('/category');
         }
     }
 

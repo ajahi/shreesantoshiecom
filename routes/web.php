@@ -18,7 +18,6 @@ Route::get('/test',function(){
     return "this is test";
 });
 Route::get('/post', 'PostController@page');
-Route::get('/category', 'CategoryController@index');
 Route::post('/login', 'Api\LoginController@login');
 Route::post('/posts', 'PostController@store');
 Route::get('/postcreate','PostController@create');
@@ -26,11 +25,15 @@ Route::get('/postshow','PostController@show');
 Route::get('post/{id}','PostController@edit');
 Route::put('post/{id}','PostController@update');
 Route::delete('postdel/{id}','PostController@destroy');
-Route::post('/logout','Auth\LoginController@logout');
+// Route::post('/logout','Auth\LoginController@logout');
 
-
-
+Route::get('/category','CategoryController@index');
+Route::get('/categorycreate','CategoryController@create');
 Route::post('/category','CategoryController@store');
+Route::get('/category/{id}','CategoryController@edit');
+Route::put('/category/{id}','CategoryController@update');
+Route::delete('/categorydel/{id}','CategoryController@destroy');
+
 
 
 Route::middleware('auth')->group(function(){
@@ -59,4 +62,4 @@ Route::middleware('auth')->group(function(){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
