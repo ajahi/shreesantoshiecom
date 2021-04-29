@@ -61,7 +61,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post');
     }
 
     /**
@@ -71,7 +71,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+     { //return 'this path for post';
         $user = Auth::user();
 
         if ($user->hasRole(['admin','super_admin'])) {
@@ -107,7 +107,7 @@ class PostController extends Controller
                 $post->addMediaFromRequest('featured')->toMediaCollection('featured');
             }
 
-            return new  PostResource($post);
+            return redirect('/postshow');
 
         } else {
             $return = ["status" => "error",
@@ -118,6 +118,9 @@ class PostController extends Controller
             return response()->json($return, 403);
         }
     }
+    public function page(){
+        return view('admin');
+    }
 
     /**
      * Display the specified resource.
@@ -125,11 +128,14 @@ class PostController extends Controller
      * @param  int $id
      * @return PostResource
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $post = Post::findOrFail($id);
-        $post->increment('counts');
-        return new PostResource($post);
+        return view('show',[
+            'posts'=>Post::all()
+        ]);
+        // $post = Post::findOrFail($id);
+        // $post->increment('counts');
+        // return new PostResource($post);
     }
 
     /**
@@ -150,8 +156,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        return view('edit',[
+            'post'=>Post::findOrFail($id)       
+        ]);
     }
 
     /**
@@ -205,7 +213,7 @@ class PostController extends Controller
 
             $post = Post::findOrFail($id);
 
-            return new  PostResource($post);
+            return redirect('/postshow');
 
         } else {
             $return = ["status" => "error",
@@ -233,7 +241,7 @@ class PostController extends Controller
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return response()->json($return, 200);
+            return redirect('/postshow');
 
         } else {
             $return = ["status" => "error",

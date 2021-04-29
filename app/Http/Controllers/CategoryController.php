@@ -47,7 +47,7 @@ class CategoryController extends Controller
      * @return CategoryResource
      */
     public function store(Request $request)
-    {
+    { return 'this is store path';
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             $validation = Validator::make($request->all(), [
