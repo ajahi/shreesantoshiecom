@@ -31,7 +31,7 @@ class UserController extends Controller
             if ($request->has('status')) {
                 $query->where('active', $request->status);
             }
-        return UserResource::collection($query->paginate($request->input('limit')));
+        return view('userindex',['user'=>User::all()]);
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('usercreate',['role'=>Role::all()]);
     }
 
     /**
@@ -67,7 +67,7 @@ class UserController extends Controller
             $validation = Validator::make($request->all(), [
                 'name' => 'required|min:3',
                 'email' => 'required|email|unique:users',
-                'password' => 'required|min:6|confirmed',
+                'password' => 'required|min:6',
                 'role_id' => 'required|exists:roles,id'
             ]);
             /*checking if admin role is trying to create super admin role*/
@@ -89,7 +89,7 @@ class UserController extends Controller
             $user_input['password'] = bcrypt($user_input['password']);
             $created_user = User::create($user_input);
             $created_user->roles()->attach($request['role_id']);
-            return new  UserResource($created_user);
+            return redirect('/user');
 
         } else {
             $return = ["status" => "error",
@@ -143,25 +143,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $user = Auth::user();
-
         if ($user->hasRole(['admin','super_admin']) || $user->id == $id) {
-
             $user_update = User::findOrFail($id);
-
             $validation = Validator::make($request->all(), [
                 'name' => 'sometimes|min:3',
                 'email' => 'sometimes|email',
                 'role_id' => 'sometimes'
             ]);
-
-
             if ($validation->fails()) {
                 return response()->json($validation->errors(),422);
 
             }
-
             $user_input = $request->all();
             if ($request['password'] != null) {
                 $this->validate($request, [
@@ -177,7 +170,6 @@ class UserController extends Controller
 
                 $user->clearMediaCollection('profile');
                 $user->addMediaFromRequest('image')->toMediaCollection('profile');
-
             }
             $user_update->fill($user_input)->save();
             if ($request['role_id'] != null) {
@@ -191,8 +183,6 @@ class UserController extends Controller
                 $accessToken->revoke();
             }
             return new  UserResource($user_update);
-
-
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -201,8 +191,6 @@ class UserController extends Controller
                 ]];
             return response()->json($return, 403);
         }
-
-
     }
 
     /**
@@ -229,7 +217,7 @@ class UserController extends Controller
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return response()->json($return, 200);
+            return redirect('/user');
         } else {
             $return = ["status" => "error",
                 "error" => [

@@ -18,12 +18,14 @@ class TagController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Tag::query();
-        if ($request->has('title')) {
-            $query->where('title', 'like', '%' . $request->title . '%')
-                    ->orWhere('description', 'like', '%' . $request->title . '%');
-        }
-        return TagResource::collection($query->paginate($request->input('limit')));
+        return view('tagindex',['Tag'=>Tag::all()]);
+
+        // $query = Tag::query();
+        // if ($request->has('title')) {
+        //     $query->where('title', 'like', '%' . $request->title . '%')
+        //             ->orWhere('description', 'like', '%' . $request->title . '%');
+        // }
+        // return TagResource::collection($query->paginate($request->input('limit')));
     }
 
     /**
@@ -33,7 +35,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('tagcreate');
     }
 
     /**
@@ -55,7 +57,7 @@ class TagController extends Controller
             }
             $tag = Tag::create($request->all());
 
-            return new  TagResource($tag);
+            return redirect('/tag');
 
         } else {
             $return = ["status" => "error",
@@ -84,9 +86,9 @@ class TagController extends Controller
      * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit($id)
     {
-        //
+        return view('tagedit',['post'=>Tag::findOrFail($id)]);
     }
 
     /**
@@ -111,8 +113,8 @@ class TagController extends Controller
             $tag = Tag::findOrFail($id);
             $tag->fill($request->all())->save();
 
-            $tag = Tag::findOrFail($id);
-            return new  TagResource($tag);
+           
+            return redirect('/tag');
 
         } else {
             $return = ["status" => "error",
@@ -130,17 +132,17 @@ class TagController extends Controller
      * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy($id)
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            Tag::whereId($tag)->delete();
+            Tag::whereId($id)->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return response()->json($return, 200);
+            return redirect('/tag');
 
         } else {
             $return = ["status" => "error",

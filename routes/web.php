@@ -34,6 +34,20 @@ Route::get('/category/{id}','CategoryController@edit');
 Route::put('/category/{id}','CategoryController@update');
 Route::delete('/categorydel/{id}','CategoryController@destroy');
 
+Route::get('/tag','TagController@index');
+Route::get('/tagcreate','TagController@create');
+Route::post('/tag','TagController@store');
+Route::get('/tag/{id}','TagController@edit');
+Route::put('/tag/{id}','TagController@update');
+Route::delete('/tagdel/{id}','TagController@destroy');
+
+Route::get('/user','UserController@index');
+Route::get('usercreate','UserController@create');
+Route::post('/user','UserController@store');
+Route::get('/user/{id}','UserController@edit');
+Route::put('/user/{id}','UserController@update');
+Route::delete('/userdel/{id}','UserController@destroy');
+
 
 
 Route::middleware('auth')->group(function(){

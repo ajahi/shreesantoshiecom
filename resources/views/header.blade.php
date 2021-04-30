@@ -244,15 +244,56 @@
                                                 
             </ul>
           </li>
+         
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
+              <i class="nav-icon fas fa-copy"></i>
               <p>
-                UI Elements
+                Tag
                 <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right"></span>
               </p>
             </a>
-
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/tag" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Show</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="tagcreate" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>            
+                                                
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                User
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/user" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Show</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/usercreate" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>            
+                                                
+            </ul>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
