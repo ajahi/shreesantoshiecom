@@ -48,6 +48,20 @@ Route::get('/user/{id}','UserController@edit');
 Route::put('/user/{id}','UserController@update');
 Route::delete('/userdel/{id}','UserController@destroy');
 
+Route::get('/slider','SliderController@index');
+Route::post('/slider','SliderController@store');
+Route::get('/slidercreate','SliderController@create');
+Route::get('/slider/{id}','SliderController@edit');
+Route::put('/slider/{id}','SliderController@update');
+Route::delete('sliderdel/{id}','SliderController@destroy');
+
+Route::get('/site','SiteController@index');
+Route::get('/site/{id}','SiteController@edit');
+Route::put('/site/{id}','SiteController@update');
+
+Route::get('/contact','ContactController@index');
+Route::delete('/contactdel/{id}','ContactController@destroy');
+
 
 
 Route::middleware('auth')->group(function(){

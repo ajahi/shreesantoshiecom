@@ -19,6 +19,7 @@ class ContactController extends Controller
      */
     public function index(Request $request)
     {
+        return view('contactindex',['contact'=>Contact::all()]);
         $query = Contact::query();
         if ($request->has('name')) {
             $query->where('name', 'like', '%' . $request->name . '%');
@@ -131,7 +132,7 @@ class ContactController extends Controller
         if ($user->hasRole(['admin','super_admin'])) {
             Contact::whereId($id)->delete();
             $return = ["status" => "Success"];
-            return response()->json($return, 200);
+            return redirect('/contact');
 
         } else {
             $return = ["status" => "error",

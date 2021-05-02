@@ -17,15 +17,17 @@ class SliderController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Slider::query();
-        if ($request->has('title')) {
-            $query->where('title', 'like', '%' . $request->title . '%');
-        }
-        if($request->has('description')) {
-            $query->where('description',$request->description);
-        }
-        $query->orderByDesc('created_at');
-        return SliderResource::collection($query->paginate($request->input('limit')));
+        $query = Slider::all();
+
+        return view('sliderindex',['slider'=>$query]);
+        // if ($request->has('title')) {
+        //     $query->where('title', 'like', '%' . $request->title . '%');
+        // }
+        // if($request->has('description')) {
+        //     $query->where('description',$request->description);
+        // }
+        // $query->orderByDesc('created_at');
+        // return SliderResource::collection($query->paginate($request->input('limit')));
     }
 
     /**
@@ -35,7 +37,7 @@ class SliderController extends Controller
      */
     public function create(Request $request)
     {
-
+        return view('slidercreate');
     }
 
     /**
@@ -62,7 +64,7 @@ class SliderController extends Controller
 
                 $slider->addMediaFromRequest('featured')->toMediaCollection('featured');
             }
-            return new  SliderResource($slider);
+            return redirect('/slider');
 
         } else {
             $return = ["status" => "error",
@@ -92,9 +94,9 @@ class SliderController extends Controller
      * @param  \App\slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function edit(slider $slider)
+    public function edit($id)
     {
-        //
+        return view('slideredit',['post'=>Slider::findOrFail($id)]);
     }
 
     /**
@@ -125,7 +127,7 @@ class SliderController extends Controller
                 $slider->addMediaFromRequest('featured')->toMediaCollection('featured');
             }
             $slid=Slider::findOrFail($id);
-            return new  SliderResource($slid);
+            return redirect('/slider');
 
         } else {
             $return = ["status" => "error",
@@ -153,7 +155,7 @@ class SliderController extends Controller
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return response()->json($return, 200);
+            return redirect('/slider');
 
         } else {
             $return = ["status" => "error",

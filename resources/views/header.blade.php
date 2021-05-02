@@ -291,28 +291,71 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create</p>
                 </a>
-              </li>            
-                                                
+              </li>                                                  
             </ul>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
+              <i class="nav-icon fas fa-copy"></i>
               <p>
-                Forms
+                Slider
                 <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right"></span>
               </p>
             </a>
-          </li>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/slider" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Show</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/slidercreate" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>                                                          
+            </ul>
+          </li>  
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-copy"></i>
               <p>
-                Tables
+                Site
                 <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right"></span>
               </p>
             </a>
-          </li>                        
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/site" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Show</p>
+                </a>
+              </li>
+                                                               
+            </ul>
+          </li>  
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Contact
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right"></span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/contact" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Show</p>
+                </a>
+              </li>
+                                                               
+            </ul>
+          </li>                      
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

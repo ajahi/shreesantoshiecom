@@ -20,6 +20,7 @@ class SiteController extends Controller
      */
     public function index()
     {
+        return view('/siteindex',['site'=>Site::all()]);
         $site = Site::firstOrFail();
         return new SiteResource($site);
     }
@@ -116,7 +117,7 @@ class SiteController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('siteedit',['post'=>Site::findOrFail($id)]);
     }
 
     /**
@@ -128,7 +129,33 @@ class SiteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user->hasRole(['admin','super_admin'])) {
+            $validation = Validator::make($request->all(), [
+                'title' => 'required',
+                'description' => 'required',
+                'slogan'=>'required',
+                'website'=>'required|url',
+                'email'=>'required|email',
+                'location'=>'required',
+                'working_days'=>'required|integer'
+
+            ]);
+            if ($validation->fails()) {
+                return response()->json($validation->errors(), 422);
+            }
+            $site = Site::findOrFail($id);
+            $site->fill($request->all())->save();
+            return redirect('/site');
+
+        } else {
+            $return = ["status" => "error",
+                "error" => [
+                    "code" => 403,
+                    "errors" => 'Forbidden'
+                ]];
+            return response()->json($return, 403);
+        }
     }
 
     /**
