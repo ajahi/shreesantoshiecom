@@ -62,7 +62,12 @@ Route::put('/site/{id}','SiteController@update');
 Route::get('/contact','ContactController@index');
 Route::delete('/contactdel/{id}','ContactController@destroy');
 
-
+Route::get('/productcategory','ProductCategoryController@index');
+Route::get('/productcategorycreate','ProductCategoryController@create');
+Route::post('/productcategory','ProductCategoryController@store');
+Route::get('/productcategory/{id}','ProductCategoryController@edit');
+Route::put('/productcategory/{id}','ProductCategoryController@update');
+Route::delete('/productcategorydel/{id}','ProductCategoryController@destroy');
 
 Route::middleware('auth')->group(function(){
     Route::post('/category','CategoryController@store');
