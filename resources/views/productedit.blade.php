@@ -5,19 +5,20 @@
         <div class="container-fluid">
             <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1>Create a Product.</h1>
+                     <h1>Edit a Product.</h1>
                  </div>
             </div>
         </div>
     </section>
     <section class='mx-'>
-    <form method='POST'action="/product">
+    <form method='POST'action="/product/{{$product->id}}">
     @csrf
+    @method('PUT')
         <div class="form-floating my-3">
-            <input type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the post">
+            <input type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the product" value={{$product->title}}>
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px"></textarea>
+            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$product->description}}</textarea>
         </div>
         <!-- <div class="form-floating my-3">
         <label for="Category_id">ProductCategory</label>
@@ -50,10 +51,10 @@
             </div>
         </div>
         <div class="form-floating my-3">
-            <input type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price">
+            <input type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price" value={{$product->purchase_price}}>
          </div>
          <div class="form-floating my-3">
-            <input type="number" class="form-control col-lg-7" name="quantity" placeholder="quantity">
+            <input type="number" class="form-control col-lg-7" name="quantity" placeholder="quantity" value={{$product->quantity}}>
          </div>
 
         <div class="form-floating">

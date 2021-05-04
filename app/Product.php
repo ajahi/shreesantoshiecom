@@ -14,7 +14,7 @@ class Product extends Model implements HasMedia
     protected $fillable=['title','description','slug','purchase_price','sell_price','user_id','counts','quantity','position','status'];
 
     public function categories() {
-        return $this->belongsToMany('App\ProductCategory','product_product_categories')->withPivot('product_id');
+        return $this->belongsToMany('App\ProductCategory','products_product_categories')->withPivot('product_id');
     }
     public function user() {
         return $this->belongsTo('App\User');
@@ -26,7 +26,7 @@ class Product extends Model implements HasMedia
 
     }
     public function tags(){
-        return $this->belongsToMany('App\Tag');
+        return $this->belongsToMany('App\Tag','product_tag')->withPivot('product_id');
     }
 
 }

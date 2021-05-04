@@ -16,7 +16,8 @@
             <tbody>
                 <tr>
                 <td scope="col">{{$posts->id}}</td>
-                <td scope="col">{{$posts->title}}</td>
+                <td scope="col"><a href="/productshow/{{$posts->id}}">{{$posts->title}}</a></td>
+                
                 <td scope="col">{{$posts->description}}</td>
                 <td scope="col">{{$posts->quantity}}</td>
                 <td scope="col">

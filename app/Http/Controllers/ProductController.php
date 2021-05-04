@@ -137,7 +137,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('productshow',['product'=>Product::findOrFail($id)]);
     }
 
     /**
@@ -148,7 +148,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('productedit',['product'=>Product::findOrFail($id),'productcategory'=>ProductCategory::all(),'tag'=>Tag::all()]);
     }
 
     /**
@@ -160,8 +160,49 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $product = Product::findOrFail($id);
+      
+      
+        if ($user->hasRole(['admin','super_admin']) 
+        ) {
+            $validation = Validator::make($request->all(), [
+                'title' => 'unique:products,title,'.$id,
+                'description'=>'required',
+                'purchase_price' => 'required',
+                'categories_id' => 'required|array|present',
+                'categories_id.*' => 'exists:product_categories,id',
+                'user_id' => 'exists:users,id',
+                'tags.*' => 'exists:tags,id',
+                'quantity' => 'numeric',             
+                'status'=>'required'             
+            ]);          
+            if ($validation->fails()) {
+                return response()->json($validation->errors() , 422);
+            }           
+            $request['slug'] = slug($request->title);
+            $product->fill($request->all())->save();
+            $product->categories()->detach();
+            $product->tags()->detach();
+            $product->categories()->sync($request->categories_id);
+            $product->tags()->sync($request->tags_id);
+            
+            if ($request['image'] != null) {
+                $product->addMediaFromRequest('image')->toMediaCollection('image');
+            }       
+            $product['quantity'] = $request->quantity;
+            $product->save();
+            return redirect('/product');
+        } else {
+            $return = ["status" => "error",
+                "error" => [
+                    "code" => 403,
+                    "errors" => 'Forbidden'
+                ]];
+            return response()->json($return, 403);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -171,6 +212,27 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        $product = Product::findOrFail($id);
+
+        if (($user->hasRole(['vendor','admin','super_admin']) ||
+            ($user->hasRole('merchant') && $user->active =='active'))
+            && $product->user_id == $user->id) {
+            Product::whereId($id)->delete();
+            $return = ["status" => "Success",
+                "error" => [
+                    "code" => 200,
+                    "errors" => 'Deleted'
+                ]];
+            return redirect('/product');
+
+        } else {
+            $return = ["status" => "error",
+                "error" => [
+                    "code" => 403,
+                    "errors" => 'Forbidden'
+                ]];
+            return response()->json($return, 403);
+        }
     }
 }
