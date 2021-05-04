@@ -5,9 +5,9 @@
             <thead>
                 <tr>
                 <th scope='col'>id</th>
-                <th scope='col'>Name</th>
-                <th scope='col'>Email</th>
-                <th scope='col'>Message</th> 
+                <th scope='col'>Title</th>
+                <th scope='col'>Description</th>
+                <th scope='col'>Quantity</th> 
                 <th scope='col'>Action</th>
                 </tr>
             </thead>
@@ -16,11 +16,12 @@
             <tbody>
                 <tr>
                 <td scope="col">{{$posts->id}}</td>
-                <td scope="col">{{$posts->name}}</td>
-                <td scope="col">{{$posts->email}}</td>
-                <td scope="col">{{$posts->message}}</td>
+                <td scope="col">{{$posts->title}}</td>
+                <td scope="col">{{$posts->description}}</td>
+                <td scope="col">{{$posts->quantity}}</td>
                 <td scope="col">
-                <form action="/contactdel/{{$posts->id}}" method='POST'>
+                <a href="/product/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
+                <form action="/productdel/{{$posts->id}}" method='POST'>
                     @csrf
                     @method('DELETE')
                     <button><i class="nav-icon fas fa-trash"></i></button>

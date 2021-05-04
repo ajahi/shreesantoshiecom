@@ -69,6 +69,13 @@ Route::get('/productcategory/{id}','ProductCategoryController@edit');
 Route::put('/productcategory/{id}','ProductCategoryController@update');
 Route::delete('/productcategorydel/{id}','ProductCategoryController@destroy');
 
+Route::get('/product','ProductController@index');
+Route::get('/productcreate','ProductController@create');
+Route::post('/product','ProductController@store');
+Route::get('/product/{id}','ProductController@edit');
+Route::put('/product/{id}','ProductController@update');
+Route::delete('/productdel/{id}','ProductController@del');
+
 Route::middleware('auth')->group(function(){
     Route::post('/category','CategoryController@store');
 
