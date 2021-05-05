@@ -77,6 +77,15 @@ Route::get('/product/{id}','ProductController@edit');
 Route::put('/product/{id}','ProductController@update');
 Route::delete('/productdel/{id}','ProductController@destroy');
 
+Route::get('/menu','MenuController@index');
+Route::get('/menucreate',"MenuController@create");
+Route::post('/menu','MenuController@store');
+Route::get('/menu/{id}','MenuController@edit');
+Route::put('/menu/{id}','MenuController@update');
+Route::delete('/menudel/{id}','MenuController@destroy');
+
+Route::get('/shop','ShopController@index');
+
 Route::middleware('auth')->group(function(){
     Route::post('/category','CategoryController@store');
 

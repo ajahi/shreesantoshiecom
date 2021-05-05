@@ -19,14 +19,15 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Menu::query();
-        if ($request->has('title')) {
-            $query->where('title', 'like', '%' . $request->title . '%');
-        }
-        if ($request->has('parent_id')) {
-            $query->where('parent_id', null);
-        }
-        return MenuResource::collection($query->paginate($request->input('limit')));
+        return view('menuindex',['menu'=>Menu::all()]);
+        // $query = Menu::query();
+        // if ($request->has('title')) {
+        //     $query->where('title', 'like', '%' . $request->title . '%');
+        // }
+        // if ($request->has('parent_id')) {
+        //     $query->where('parent_id', null);
+        // }
+        // return MenuResource::collection($query->paginate($request->input('limit')));
     }
 
     /**
@@ -36,7 +37,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        return view('menucreate',['parent'=>Menu::all()]);
     }
 
     /**
@@ -82,12 +83,11 @@ class MenuController extends Controller
             if ($request['image'] != null) {
                 $menu->clearMediaCollection('photo');
                 $menu->addMediaFromRequest('image')->toMediaCollection('photo');
-
             }
 
 //            return $menu;
 
-            return new  MenuResource($menu);
+            return redirect('/menu');
 
 
         } else {
@@ -130,7 +130,7 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('menuedit',['product'=>Menu::findOrFail($id),'parent'=>Menu::all()]);
     }
 
     /**
@@ -166,7 +166,7 @@ class MenuController extends Controller
             }
             $menu = Menu::findOrFail($id);
 
-            return new MenuResource($menu);
+            return redirect('menu');
 
         } else {
             $return = ["status" => "error",
@@ -194,7 +194,7 @@ class MenuController extends Controller
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return response()->json($return, 200);
+            return redirect('/menu');
 
         } else {
             $return = ["status" => "error",
