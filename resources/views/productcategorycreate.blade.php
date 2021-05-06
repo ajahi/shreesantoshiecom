@@ -22,6 +22,7 @@
         <div class="form-floating my-3">
         <label for="Category_id">ParentCategory</label>
             <select class="form-select" name="parent_id" aria-label="Floating label select example">         
+            <option value=''></option>
                 @foreach($productcategory as $parent)
                 <option value={{$parent->id}}>{{$parent->title}}</option>
                 @endforeach

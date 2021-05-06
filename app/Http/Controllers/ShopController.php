@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\ProductCategory;
 
 class ShopController extends Controller
 {
@@ -13,7 +14,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        return view('shophome');
+        return view('shophome',['sidemenu'=>ProductCategory::where('parent_id',NULL)->get(),'prod'=>ProductCategory::all()]);
     }
 
     /**

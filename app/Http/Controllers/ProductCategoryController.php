@@ -43,7 +43,7 @@ class ProductCategoryController extends Controller
             $validation = Validator::make($request->all(), [
                 'title' => 'required|min:3',
                 'description' => 'required|min:5',
-                'parent_id' => 'exists:product_categories,id'
+                'parent_id' => ['exists:product_categories,id','nullable']
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);

@@ -240,6 +240,10 @@
         font-size: 14px;
         padding: 15px 10px 15px 35px;
     }
+    .cat-head >h3{
+	font-size:1px;
+	    fpadding: 15px 10px 15px 35px;
+    }
     .category-menu-list ul li .category-menu-dropdown {
         padding: 52px 20px;
         width: 700px;
