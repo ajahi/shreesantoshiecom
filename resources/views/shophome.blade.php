@@ -187,8 +187,9 @@
                                <h3> Browse Categories</h3>
                             </div>
                             <div class="category-menu-list">
-                                <ul>
-                                    <li><a href="#"><img alt="" src="images1/icons/thum2.png">{{$sidemenu[0]->title}}<i class="fas fa-angle-right right"></i></a>
+                            
+                                <ul>                                
+                                   <li><a href="#"><img alt="" src="images1/icons/thum2.png">{{$sidemenu[0]->title}}<i class="fas fa-angle-right right"></i></a>
                                         <div class="category-menu-dropdown">
                                             <div class="category-part-1 category-common mb--30">
                                                 <h4 class="categories-subtitle"> Jewelry & Watches</h4>
@@ -209,67 +210,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="#"><img alt="" src="images1/icons/thum3.png"> {{$sidemenu[1]->title}}<i class="fas fa-angle-right right"></i></a>
-                                        <div class="category-menu-dropdown">
-                                            <div class="category-part-1 category-common2 mb--30">
-                                                <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                                <ul>
-                                                    <li><a href="#"> Men’s Clothing</a></li>
-                                                    <li><a href="#"> Computer & Office</a></li>
-                                                    <li><a href="#"> Jewelry & Watches</a></li>
-                                                    <li><a href="#"> Bags & Shoes</a></li>
-                                                    <li><a href="#"> Phones & Accessories</a></li>
-                                                </ul>
-                                            </div>
-                                           
-                                            
-                                            <div class="mega-banner-img">
-                                                <a href="single-product.html">
-                                                    <img src="images1/feature-img/5.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li><a href="#"><img alt="" src="images1/icons/thum4.png"> {{$sidemenu[2]->title}}<i class="fas fa-angle-right right"></i></a>
-                                        <div class="category-menu-dropdown">
-                                            <div class="category-menu-dropdown-top">
-                                                <div class="category-part-1 category-common2 mb--30">
-                                                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                                    <ul>
-                                                        <li><a href="#"> Men’s Clothing</a></li>
-                                                        <li><a href="#"> Computer & Office</a></li>
-                                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                                        <li><a href="#"> Bags & Shoes</a></li>
-                                                        <li><a href="#"> Phones & Accessories</a></li>
-                                                    </ul>
-                                                </div>
-                                                
-                                               
-                                            </div>
-                                            <div class="category-menu-dropdown-bottom">
-                                                <div class="single-category-brand">
-                                                    <a href="#"><img src="images1/brand/6.png" alt=""></a>
-                                                </div>
-                                                <div class="single-category-brand">
-                                                    <a href="#"><img src="images1/brand/7.png" alt=""></a>
-                                                </div>
-                                                <div class="single-category-brand">
-                                                    <a href="#"><img src="images1brand/8.png" alt=""></a>
-                                                </div>
-                                                <div class="single-category-brand">
-                                                    <a href="#"><img src="images1/brand/9.png" alt=""></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    
-                        
-                                    <li><a href="#"><img alt="" src="images1/icons/thum7.png"> {{$sidemenu[3]->title}}</a></li>
-                                    <li><a href="#"><img alt="" src="images1/icons/thum8.png"> {{$sidemenu[4]->title}}</a></li>
-                                    <!-- <li><a href="#"><img alt="" src="images1/icons/thum9.png">  Automobiles </a></li>
-                                    <li><a href="#"><img alt="" src="images1/icons/thum10.png"> Jewelry & Watches</a></li>
-                                    <li><a href="#"><img alt="" src="images1/icons/thum2.png"> Consumer Electronics</a></li>
-                                    <li><a href="#"><img alt="" src="images1/icons/thum3.png"> all Accessories</a></li> -->
+                         
                                 </ul>
                             </div>
                         </div>

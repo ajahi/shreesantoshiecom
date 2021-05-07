@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ProductCategory;
+use Validator;
+use App\Http\Resources\SellDetailResource;
 
-class ShopController extends Controller
+class SellDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +15,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        return view('shophome',[
-            'sidemenu'=>ProductCategory::where('parent_id',NULL)->get(),
-            'prod'=>ProductCategory::all(),
-            'counter'=>ProductCategory::where('parent_id',NULL)->count()
-            ]);
+        //
     }
 
     /**
@@ -39,7 +36,17 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'product_id' => 'required|exists:products,id',
+            'sale_id' => 'required|exists:sales,id',
+            'quantity' => 'required',
+            'price' => 'required',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors() , 422);
+        }
+        $sell=SellDetail::create($request->all());
+        return new SellDetailResource($sell);
     }
 
     /**
