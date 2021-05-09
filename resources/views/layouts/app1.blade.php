@@ -15,26 +15,26 @@
 
     <!-- All css files are included here. -->
     <!-- Bootstrap fremwork main css -->
-    <link rel="stylesheet" href="css1/bootstrap.min.css">
+    <link rel="stylesheet" href="/css1/bootstrap.min.css">
     <!-- Owl Carousel main css -->
-    <link rel="stylesheet" href="css1/owl.carousel.min.css">
-    <link rel="stylesheet" href="css1/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css1/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css1/owl.theme.default.min.css">
     <!-- This core.css file contents all plugings css file. -->
-    <link rel="stylesheet" href="css1/core.css">
+    <link rel="stylesheet" href="/css1/core.css">
     <!-- Theme shortcodes/elements style -->
-    <link rel="stylesheet" href="css1/shortcode/shortcodes.css">
+    <link rel="stylesheet" href="/css1/shortcode/shortcodes.css">
     <!-- Theme main style -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <!-- Responsive css -->
-    <link rel="stylesheet" href="css1/responsive.css">
+    <link rel="stylesheet" href="/css1/responsive.css">
     <!-- User style -->
-    <link rel="stylesheet" href="css1/custom.css">
+    <link rel="stylesheet" href="/css1/custom.css">
 
-    <link rel="stylesheet" href="css1/themify-icons.css">
+    <link rel="stylesheet" href="/css1/themify-icons.css">
 
 
     <!-- Modernizr JS -->
-    <script src="js1/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="/js1/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>

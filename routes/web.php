@@ -77,6 +77,9 @@ Route::get('/product/{id}','ProductController@edit');
 Route::put('/product/{id}','ProductController@update');
 Route::delete('/productdel/{id}','ProductController@destroy');
 
+Route::get('/buy',"ProductController@buy");
+Route::get('/cart/{id}','ShopController@cart');
+
 Route::get('/menu','MenuController@index');
 Route::get('/menucreate',"MenuController@create");
 Route::post('/menu','MenuController@store');
@@ -85,6 +88,7 @@ Route::put('/menu/{id}','MenuController@update');
 Route::delete('/menudel/{id}','MenuController@destroy');
 
 Route::get('/shop','ShopController@index');
+
 
 Route::middleware('auth')->group(function(){
     Route::post('/category','CategoryController@store');

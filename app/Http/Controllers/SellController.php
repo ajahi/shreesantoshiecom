@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\SellResource;
+use App\Product;
+use App\SellDetail;
 
 class SellController extends Controller
 {
@@ -38,6 +40,10 @@ class SellController extends Controller
     public function store(Request $request)
     {
       
+    }
+
+    public function buy(){
+        return view('sellhome');
     }
 
 
@@ -77,7 +83,7 @@ class SellController extends Controller
                 ->select(DB::raw('SUM(quantity * sale_price) as total'))
                 ->where('sale_id', '=', $sale->id)
                 ->get();
-            $sale = Sale::findOrFail($sale->id);
+            $sale = Sell::findOrFail($sale->id);
             $sale->subtotal = $cost[0]->total;
         }
     }

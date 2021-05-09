@@ -235,4 +235,8 @@ class ProductController extends Controller
             return response()->json($return, 403);
         }
     }
+
+    public function buy(Request $request){
+        return view('purchase',['products'=>Product::all()]);
+    }
 }

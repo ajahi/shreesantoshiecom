@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ProductCategory;
+use App\Product;
 
 class ShopController extends Controller
 {
@@ -13,12 +14,22 @@ class ShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   $procat=ProductCategory::where('parent_id',NULL)->get();
+        $children=ProductCategory::query()->whereHas('children',function($q){
+            $q->whereNotNull('parent_id');
+        })->get();
+        $products=Product::take(3)->get();
+        
         return view('shophome',[
-            'sidemenu'=>ProductCategory::where('parent_id',NULL)->get(),
+            'sidemenu'=>$procat,
             'prod'=>ProductCategory::all(),
-            'counter'=>ProductCategory::where('parent_id',NULL)->count()
+           'children'=>$children,
+           'products'=>$products
             ]);
+    }
+    public function cart(Request $request,$id){
+        $pro=Product::findOrFail($id);
+        return view('cart',['pro'=>$pro]);
     }
 
     /**
