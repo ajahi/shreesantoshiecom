@@ -27,10 +27,7 @@ class ShopController extends Controller
            'products'=>$products
             ]);
     }
-    public function cart(Request $request,$id){
-        $pro=Product::findOrFail($id);
-        return view('cart',['pro'=>$pro]);
-    }
+   
 
     /**
      * Show the form for creating a new resource.

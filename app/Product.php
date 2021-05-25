@@ -28,5 +28,6 @@ class Product extends Model implements HasMedia
     public function tags(){
         return $this->belongsToMany('App\Tag','product_tag')->withPivot('product_id');
     }
+   
 
 }

@@ -166,8 +166,7 @@
                             <ul class="menu-extra">
                                 <li class="search search__open hidden-xs"><i class="fas fa-search"></i></li>
                                 <li><a href="login-register.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                <li class="cart__menu"><i class="fas fa-bars"></i></li>
-                                
+                                <li class="cart__menu"><i class="fas fa-bars"></i></li>         
                             </ul>
                         </div>
                     </div>

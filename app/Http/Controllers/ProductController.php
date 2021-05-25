@@ -239,4 +239,11 @@ class ProductController extends Controller
     public function buy(Request $request){
         return view('purchase',['products'=>Product::all()]);
     }
+
+    public function cart($id){
+        $pro=Product::findOrFail($id);
+        return view('cart',['pro'=>$pro]);
+    }
+    public function addToCart($id){
+    }
 }

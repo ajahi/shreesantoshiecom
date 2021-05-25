@@ -20,8 +20,9 @@
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-sluggable": "^2.1",
         "zizaco/entrust": "^1.9",
-      "ext-json": "*"
+        "ext-json": "*"
     },
+  
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
