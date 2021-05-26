@@ -12,10 +12,11 @@
 */
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', 'Api\LoginController@login');
+// Route::get('/', 'Api\LoginController@login');
 
-Route::get('/test',function(){
-    return "this is test";
+Route::get('/','ShopController@index');
+Route::get('/login',function(){
+    return view('auth.login');
 });
 Route::get('/post', 'PostController@page');
 Route::post('/login', 'Api\LoginController@login');
@@ -86,8 +87,6 @@ Route::post('/menu','MenuController@store');
 Route::get('/menu/{id}','MenuController@edit');
 Route::put('/menu/{id}','MenuController@update');
 Route::delete('/menudel/{id}','MenuController@destroy');
-
-Route::get('/shop','ShopController@index');
 
 
 Route::middleware('auth')->group(function(){

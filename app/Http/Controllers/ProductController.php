@@ -20,7 +20,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('productindex',['product'=>Product::all()]);
+        return view('cms.product.productindex',[
+            'product'=>Product::all()
+        ]);
     }
 
     /**
@@ -30,7 +32,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('productcreate',['productcategory'=>ProductCategory::all(),'tag'=>Tag::all()]);
+        return view('cms.product.productcreate',['productcategory'=>ProductCategory::all(),'tag'=>Tag::all()]);
     }
 
     /**
@@ -65,7 +67,7 @@ class ProductController extends Controller
                 'user_id' => 'exists:users,id',
                 'quantity' => 'required|numeric',
                 'tags.*' => 'exists:tags,id',
-                // 'image' => 'required',
+                'image' => 'required',
                 'status'=>'boolean'
             ]);
 
@@ -111,12 +113,12 @@ class ProductController extends Controller
                     $product->tags()->sync(explode(",", $request->tags_id));
                 }
             }
-            if ($request['image'] != null) {
+            if ($request['image']) {
                 /*$product->addMediaFromRequest('image')->toMediaCollection('image');*/
-                foreach ($request->image as $img){
-                    $product->addMedia($img)->toMediaCollection('image');
-                }
+                $product->addMediaFromRequest('image')->toMediaCollection('images');
+                // dd('image is availeble');
             }
+            
             return redirect('/product');
 
         } else {
@@ -136,8 +138,11 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        return view('productshow',['product'=>Product::findOrFail($id)]);
+    {$product=Product::find($id);
+        return view('cms.product.productshow',[
+            'product'=>$product,
+            'image'=>$product->getMedia()
+            ]);
     }
 
     /**
@@ -148,7 +153,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('productedit',['product'=>Product::findOrFail($id),'productcategory'=>ProductCategory::all(),'tag'=>Tag::all()]);
+        return view('cms.product.productedit',['product'=>Product::findOrFail($id),'productcategory'=>ProductCategory::all(),'tag'=>Tag::all()]);
     }
 
     /**

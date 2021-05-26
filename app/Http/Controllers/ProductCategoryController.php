@@ -17,7 +17,7 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        return view('productcategoryindex',['productcategory'=>ProductCategory::all()]);
+        return view('cms.productcategory.productcategoryindex',['productcategory'=>ProductCategory::all()]);
     }
 
     /**
@@ -27,7 +27,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        return view('productcategorycreate',['productcategory'=>ProductCategory::all()]);
+        return view('cms.productcategory.productcategorycreate',['productcategory'=>ProductCategory::all()]);
     }
 
     /**
@@ -75,7 +75,7 @@ class ProductCategoryController extends Controller
      */
     public function show($id)
     {
-        return view('productcategoryshow',['productcategory'=>ProductCategory::findOrFail($id)]);
+        return view('cms.productcategory.productcategoryshow',['productcategory'=>ProductCategory::findOrFail($id)]);
     }
 
     /**
@@ -86,7 +86,7 @@ class ProductCategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('productcategoryedit',['productcategory'=>ProductCategory::findOrFail($id),'parent'=>ProductCategory::all()]);
+        return view('cms.productcategory.productcategoryedit',['productcategory'=>ProductCategory::findOrFail($id),'parent'=>ProductCategory::all()]);
     }
 
     /**

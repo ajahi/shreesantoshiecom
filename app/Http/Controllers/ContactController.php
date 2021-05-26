@@ -19,7 +19,7 @@ class ContactController extends Controller
      */
     public function index(Request $request)
     {
-        return view('contactindex',['contact'=>Contact::all()]);
+        return view('cms.contact.contactindex',['contact'=>Contact::all()]);
         $query = Contact::query();
         if ($request->has('name')) {
             $query->where('name', 'like', '%' . $request->name . '%');

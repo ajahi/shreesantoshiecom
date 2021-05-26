@@ -18,7 +18,7 @@ class TagController extends Controller
      */
     public function index(Request $request)
     {
-        return view('tagindex',['Tag'=>Tag::all()]);
+        return view('cms.tag.tagindex',['Tag'=>Tag::all()]);
 
         // $query = Tag::query();
         // if ($request->has('title')) {
@@ -35,7 +35,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('tagcreate');
+        return view('cms.tag.tagcreate');
     }
 
     /**

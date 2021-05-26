@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('usercreate',['role'=>Role::all()]);
+        return view('user.usercreate',['role'=>Role::all()]);
     }
 
     /**

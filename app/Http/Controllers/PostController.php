@@ -61,7 +61,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post');
+        return view('cms.post.postcreate');
     }
 
     /**
@@ -130,7 +130,7 @@ class PostController extends Controller
      */
     public function show(Request $request)
     {
-        return view('show',[
+        return view('cms.post.postindex',[
             'posts'=>Post::all()
         ]);
         // $post = Post::findOrFail($id);
@@ -157,7 +157,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {   
-        return view('edit',[
+        return view('cms.post.postedit',[
             'post'=>Post::findOrFail($id)       
         ]);
     }

@@ -20,7 +20,7 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return view('/siteindex',['site'=>Site::all()]);
+        return view('cms.site.siteindex',['site'=>Site::all()]);
         $site = Site::firstOrFail();
         return new SiteResource($site);
     }
@@ -117,7 +117,7 @@ class SiteController extends Controller
      */
     public function edit($id)
     {
-        return view('siteedit',['post'=>Site::findOrFail($id)]);
+        return view('cms.site.siteedit',['post'=>Site::findOrFail($id)]);
     }
 
     /**

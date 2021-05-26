@@ -20,7 +20,7 @@ class ShopController extends Controller
         })->get();
         $products=Product::take(3)->get();
         
-        return view('shophome',[
+        return view('shop.shophome',[
             'sidemenu'=>$procat,
             'prod'=>ProductCategory::all(),
            'children'=>$children,

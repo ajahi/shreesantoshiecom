@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
 
-        return view('categoryindex',['category'=>Category::all()]);
+        return view('cms.category.categoryindex',['category'=>Category::all()]);
         // $query = Category::query();
         // if ($request->has('title')) {
         //     $query->where('title', 'like', '%' . $request->title . '%');
@@ -39,7 +39,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categorycreate');
+        return view('cms.category.categorycreate');
     }
 
     /**

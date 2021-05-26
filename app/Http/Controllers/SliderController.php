@@ -19,7 +19,7 @@ class SliderController extends Controller
     {
         $query = Slider::all();
 
-        return view('sliderindex',['slider'=>$query]);
+        return view('cms.slider.sliderindex',['slider'=>$query]);
         // if ($request->has('title')) {
         //     $query->where('title', 'like', '%' . $request->title . '%');
         // }
@@ -37,7 +37,7 @@ class SliderController extends Controller
      */
     public function create(Request $request)
     {
-        return view('slidercreate');
+        return view('cms.slider.slidercreate');
     }
 
     /**
@@ -96,7 +96,7 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        return view('slideredit',['post'=>Slider::findOrFail($id)]);
+        return view('cms.slider.slideredit',['post'=>Slider::findOrFail($id)]);
     }
 
     /**

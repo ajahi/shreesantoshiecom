@@ -70,7 +70,7 @@ class LoginController extends Controller
         $token->expires_at = Carbon::now()->addWeeks(1);
 
         $token->save();
-
+    return redirect('/admin');
         return response()->json([
             'id' => $user->id,
             'access_token' => $tokenResult->accessToken,
