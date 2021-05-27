@@ -115,7 +115,12 @@
                             <ul class="menu-extra">
                                 <li class="user"><i class="fas fa-user"></i></li> 
                                 <li class="search search__open hidden-xs"><i class="fas fa-search"></i></li>   
-                                <li class="cart__menu"><i class="fas fa-shopping-cart"></i></li>         
+                                <li class="cart__menu">
+                                <i class="fas fa-shopping-cart"></i>
+                                @if(Session::has('cart'))
+                                {{Session::get('cart')->totalQuantity}}
+                                @endif
+                                </li>         
                             </ul>
                         </div>
                     </div>

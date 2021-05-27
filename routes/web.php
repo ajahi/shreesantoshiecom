@@ -12,86 +12,85 @@
 */
 use Illuminate\Support\Facades\Auth;
 
-// Route::get('/', 'Api\LoginController@login');
+Route::get('/', 'Api\LoginController@login');
 
-Route::get('/','ShopController@index');
-Route::get('/login',function(){
-    return view('auth.login');
+Route::get('/logout',function(){
+    Auth::logout();
+    return redirect('/login');
 });
-Route::get('/post', 'PostController@page');
+Route::get('/','ShopController@index');
+Route::get('/add-to-cart/{id}','ProductController@addToCart');
+Route::get('/shopingcart','ProductController@getCart');
+Route::get('/buy','ProductController@buy');
+Route::get('/checkout','ProductController@getCheckout');
+
 Route::post('/login', 'Api\LoginController@login');
-Route::post('/posts', 'PostController@store');
-Route::get('/postcreate','PostController@create');
-Route::get('/postshow','PostController@show');
-Route::get('post/{id}','PostController@edit');
-Route::put('post/{id}','PostController@update');
-Route::delete('postdel/{id}','PostController@destroy');
-// Route::post('/logout','Auth\LoginController@logout');
 
-Route::get('/category','CategoryController@index');
-Route::get('/categorycreate','CategoryController@create');
-Route::post('/category','CategoryController@store');
-Route::get('/category/{id}','CategoryController@edit');
-Route::put('/category/{id}','CategoryController@update');
-Route::delete('/categorydel/{id}','CategoryController@destroy');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/post', 'PostController@page');
+    Route::post('/posts', 'PostController@store');
+    Route::get('/postcreate','PostController@create');
+    Route::get('/postshow','PostController@show');
+    Route::get('post/{id}','PostController@edit');
+    Route::put('post/{id}','PostController@update');
+    Route::delete('postdel/{id}','PostController@destroy');
 
-Route::get('/tag','TagController@index');
-Route::get('/tagcreate','TagController@create');
-Route::post('/tag','TagController@store');
-Route::get('/tag/{id}','TagController@edit');
-Route::put('/tag/{id}','TagController@update');
-Route::delete('/tagdel/{id}','TagController@destroy');
-
-Route::get('/user','UserController@index');
-Route::get('usercreate','UserController@create');
-Route::post('/user','UserController@store');
-Route::get('/user/{id}','UserController@edit');
-Route::put('/user/{id}','UserController@update');
-Route::delete('/userdel/{id}','UserController@destroy');
-
-Route::get('/slider','SliderController@index');
-Route::post('/slider','SliderController@store');
-Route::get('/slidercreate','SliderController@create');
-Route::get('/slider/{id}','SliderController@edit');
-Route::put('/slider/{id}','SliderController@update');
-Route::delete('sliderdel/{id}','SliderController@destroy');
-
-Route::get('/site','SiteController@index');
-Route::get('/site/{id}','SiteController@edit');
-Route::put('/site/{id}','SiteController@update');
-
-Route::get('/contact','ContactController@index');
-Route::delete('/contactdel/{id}','ContactController@destroy');
-
-Route::get('/productcategory','ProductCategoryController@index');
-Route::get('/productcategorycreate','ProductCategoryController@create');
-Route::post('/productcategory','ProductCategoryController@store');
-Route::get('/productcategory/{id}','ProductCategoryController@edit');
-Route::put('/productcategory/{id}','ProductCategoryController@update');
-Route::delete('/productcategorydel/{id}','ProductCategoryController@destroy');
-
-Route::get('/product','ProductController@index');
-Route::get('/productcreate','ProductController@create');
-Route::post('/product','ProductController@store');
-Route::get('/productshow/{id}','ProductController@show');
-Route::get('/product/{id}','ProductController@edit');
-Route::put('/product/{id}','ProductController@update');
-Route::delete('/productdel/{id}','ProductController@destroy');
-
-Route::get('/buy',"ProductController@buy");
-Route::get('/cart/{id}','ShopController@cart');
-
-Route::get('/menu','MenuController@index');
-Route::get('/menucreate',"MenuController@create");
-Route::post('/menu','MenuController@store');
-Route::get('/menu/{id}','MenuController@edit');
-Route::put('/menu/{id}','MenuController@update');
-Route::delete('/menudel/{id}','MenuController@destroy');
-
-
-Route::middleware('auth')->group(function(){
+    Route::get('/category','CategoryController@index');
+    Route::get('/categorycreate','CategoryController@create');
     Route::post('/category','CategoryController@store');
+    Route::get('/category/{id}','CategoryController@edit');
+    Route::put('/category/{id}','CategoryController@update');
+    Route::delete('/categorydel/{id}','CategoryController@destroy');
 
+    Route::get('/tag','TagController@index');
+    Route::get('/tagcreate','TagController@create');
+    Route::post('/tag','TagController@store');
+    Route::get('/tag/{id}','TagController@edit');
+    Route::put('/tag/{id}','TagController@update');
+    Route::delete('/tagdel/{id}','TagController@destroy');
+
+    Route::get('/user','UserController@index');
+    Route::get('usercreate','UserController@create');
+    Route::post('/user','UserController@store');
+    Route::get('/user/{id}','UserController@edit');
+    Route::put('/user/{id}','UserController@update');
+    Route::delete('/userdel/{id}','UserController@destroy');
+
+    Route::get('/slider','SliderController@index');
+    Route::post('/slider','SliderController@store');
+    Route::get('/slidercreate','SliderController@create');
+    Route::get('/slider/{id}','SliderController@edit');
+    Route::put('/slider/{id}','SliderController@update');
+    Route::delete('sliderdel/{id}','SliderController@destroy');
+
+    Route::get('/site','SiteController@index');
+    Route::get('/site/{id}','SiteController@edit');
+    Route::put('/site/{id}','SiteController@update');
+
+    Route::get('/contact','ContactController@index');
+    Route::delete('/contactdel/{id}','ContactController@destroy');
+
+    Route::get('/productcategory','ProductCategoryController@index');
+    Route::get('/productcategorycreate','ProductCategoryController@create');
+    Route::post('/productcategory','ProductCategoryController@store');
+    Route::get('/productcategory/{id}','ProductCategoryController@edit');
+    Route::put('/productcategory/{id}','ProductCategoryController@update');
+    Route::delete('/productcategorydel/{id}','ProductCategoryController@destroy');
+
+    Route::get('/product','ProductController@index');
+    Route::get('/productcreate','ProductController@create');
+    Route::post('/product','ProductController@store');
+    Route::get('/productshow/{id}','ProductController@show');
+    Route::get('/product/{id}','ProductController@edit');
+    Route::put('/product/{id}','ProductController@update');
+    Route::delete('/productdel/{id}','ProductController@destroy');
+
+    Route::get('/menu','MenuController@index');
+    Route::get('/menucreate',"MenuController@create");
+    Route::post('/menu','MenuController@store');
+    Route::get('/menu/{id}','MenuController@edit');
+    Route::put('/menu/{id}','MenuController@update');
+    Route::delete('/menudel/{id}','MenuController@destroy');
 });
 // Route::group(['middleware' => ['cors']], function() {
 //     Route::post('/login', 'Api\LoginController@login');

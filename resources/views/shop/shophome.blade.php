@@ -1,9 +1,9 @@
-@extends('layouts.shop')
 
+@extends('layouts.shop')
 @section('title')
     Shree Santoshi Mata Hastakala
 @endsection
-
+      
 @section('sidemenu')
 <div class="body__overlay"></div>
         <!-- Start Offset Wrapper -->
@@ -87,54 +87,64 @@
             </div>
             <!-- End Offset MEnu -->
             <!-- Start Cart Panel -->
+
             <div class="shopping__cart">
+            
                 <div class="shopping__cart__inner">
-                    <div class="offsetmenu__close__btn">
                     
+                    <div class="offsetmenu__close__btn">
+                    <h2 class="offset-title">Cart</h2>
                         <a href="#"><i class="fas fa-angle-left right"></i></a>
                     </div>
+                   
+                    
+                    @if(Session::has('cart'))
+                    
                     <div class="shp__cart__wrap">
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
+                    
+                        <div class="shp__single__product">                     
+                         <ul>
+                            @foreach($items as $item)
+                                <li>
+                                    <div class="shp__pro__thumb">
+                                    <a href="#">
+                                        <img src="images1/product/sm-img/1.jpg" alt="product images">
+                                    </a>
+                                    </div>
                             
-                                <a href="#">
-                               
-                                    <img src="images1/product/sm-img/1.jpg" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="product-details.html">BO&Play Wireless Speaker</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">$105.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="fas fa-close"></i></i></a>
-                            </div>
+                                    <div class="shp__pro__details">
+                                        <h2>Name: <a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
+                                        <span class="quantity">Quantity : {{$item['quantity']}}</span>
+                                        <span class="shp__price">{{$item['item']['purchase_price']}}</span>
+                                        <span class="shp__price"><label><strong>Cost : {{$item['quantity']*$item['item']['purchase_price']}}</strong></label></span>
+                                    </div>
+                                    <div class="remove__btn">
+                                        <a href="#" title="Remove this item"><i class="fas fa-close"></i></i></a>
+                                    </div>
+                                </li>
+                            
+                            @endforeach
+                            </ul>                      
                         </div>
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="images1/product/sm-img/2.jpg" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="product-details.html">Brone Candle</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">$25.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="fas fa-close"></i></a>
-                            </div>
-                        </div>
+                       
+                        <ul class="shoping__total">
+                            <li class="subtotal">Subtotal:</li>
+                            <li class="total__price">{{$totalPrice}}</li>
+                        </ul>
                     </div>
-                    <ul class="shoping__total">
-                        <li class="subtotal">Subtotal:</li>
-                        <li class="total__price">$130.00</li>
-                    </ul>
+                    
+                    @else
+                    <div class="shp__cart__wrap">
+                        <p>No Items in the cart.</p>
+                    </div>
+                    @endif
+
+                   @if(Session::has('cart'))
                     <ul class="shopping__btn">
-                        <li><a href="cart.html">View Cart</a></li>
-                        <li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
+                        
+                        <li class="shp__checkout"><a href="/checkout">Checkout</a></li>
                     </ul>
+                   @endif
                 </div>
             </div>
             <!-- End Cart Panel -->
@@ -296,7 +306,7 @@
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
                                                                 <!-- <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="fas fa-eye"></span></a></li> -->
-                                                                <li><a title="Add TO Cart" href="/cart/{{$product->id}}"><span class="fas fa-shopping-cart"></span></a></li>
+                                                                <li><a title="Add TO Cart" href="/add-to-cart/{{$product->id}}"><span class="fas fa-shopping-cart"></span></a></li>
                                                                 <li><a title="Wishlist" href="wishlist.html"><span class="fas fa-heart"></span></a></li>
                                                             </ul>
                                                         </div>
@@ -1539,3 +1549,4 @@
             </div>
         </section>
 @endsection
+

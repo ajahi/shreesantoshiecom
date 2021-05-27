@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ProductCategory;
 use App\Product;
+use Session;
+use App\Cart;
 
 class ShopController extends Controller
 {
@@ -19,12 +21,18 @@ class ShopController extends Controller
             $q->whereNotNull('parent_id');
         })->get();
         $products=Product::take(3)->get();
+        //cart
+        $oldcart=Session::get('cart');
+        $cart= new Cart($oldcart);
         
         return view('shop.shophome',[
             'sidemenu'=>$procat,
             'prod'=>ProductCategory::all(),
            'children'=>$children,
-           'products'=>$products
+           'products'=>$products,
+                //cart
+           'items'=>$cart->items,
+           'totalPrice'=>$cart->totalPrice
             ]);
     }
    

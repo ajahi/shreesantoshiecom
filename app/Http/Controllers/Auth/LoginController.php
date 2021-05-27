@@ -38,7 +38,6 @@ class LoginController extends Controller
     }
     public function logout(Request $request)
 {
-    return 'this path lofout';
     Auth::logout();
 
     $request->session()->invalidate();

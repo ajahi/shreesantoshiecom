@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Validator;
+use Session;
+use App\Cart;
 
 class ProductController extends Controller
 {
@@ -245,10 +247,32 @@ class ProductController extends Controller
         return view('purchase',['products'=>Product::all()]);
     }
 
-    public function cart($id){
-        $pro=Product::findOrFail($id);
-        return view('cart',['pro'=>$pro]);
+    public function addToCart(Request $request,$id){
+        $product=Product::find($id);
+        $oldcart=Session::has('cart') ? Session::get('cart') : null;
+        $cart=new Cart($oldcart);
+        $cart->add($product,$product->id);
+
+        $request->session()->put('cart',$cart);
+        
+        return redirect('/');
+
     }
-    public function addToCart($id){
+    public function getCheckout(){
+        if(!Session::has('cart')){
+            return redirect('/');
+        }
+        $oldcart=Session::get('cart');
+        $cart=new Cart($oldcart);
+        $totalprice=0;
+        foreach($cart->items as $fart){
+            $quan=$fart['quantity'];
+            $pr=$fart['price'];
+            $price=$quan*$pr;
+            $totalprice+=$price;
+        }
+        return view('shop.checkout',[
+            'cart'=>$cart,'totalprice'=>$totalprice
+        ]);
     }
 }

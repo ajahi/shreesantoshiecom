@@ -43,7 +43,7 @@
     <![endif]-->  
 
     <!-- Body main wrapper start -->
-    <div class="wrapper fixed__footer">
+   
         <!-- Start Header Style -->
         @include('partials.shopheader')
         <!-- End Header Style -->
