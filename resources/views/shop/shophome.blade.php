@@ -114,12 +114,12 @@
                             
                                     <div class="shp__pro__details">
                                         <h2>Name: <a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
-                                        <span class="quantity">Quantity : {{$item['quantity']}}</span>
-                                        <span class="shp__price">{{$item['item']['purchase_price']}}</span>
-                                        <span class="shp__price"><label><strong>Cost : {{$item['quantity']*$item['item']['purchase_price']}}</strong></label></span>
+                                        <span class="quantity">Quantity :{{$item['qty']}}</span>
+                                        <span class="shp__price">RS. {{$item['item']['purchase_price']}}</span>
+                                        
                                     </div>
                                     <div class="remove__btn">
-                                        <a href="#" title="Remove this item"><i class="fas fa-close"></i></i></a>
+                                        <a href="#" title="Remove this item"><i class="fas fa-trash right"></i></i></a>
                                     </div>
                                 </li>
                             
@@ -129,7 +129,7 @@
                        
                         <ul class="shoping__total">
                             <li class="subtotal">Subtotal:</li>
-                            <li class="total__price">{{$totalPrice}}</li>
+                            <li class="total__price">RS. {{$totalPrice}}</li>
                         </ul>
                     </div>
                     
@@ -141,7 +141,7 @@
 
                    @if(Session::has('cart'))
                     <ul class="shopping__btn">
-                        
+                    <li><a href="/newcart">Empty Cart</a></li>
                         <li class="shp__checkout"><a href="/checkout">Checkout</a></li>
                     </ul>
                    @endif
@@ -308,6 +308,7 @@
                                                                 <!-- <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="fas fa-eye"></span></a></li> -->
                                                                 <li><a title="Add TO Cart" href="/add-to-cart/{{$product->id}}"><span class="fas fa-shopping-cart"></span></a></li>
                                                                 <li><a title="Wishlist" href="wishlist.html"><span class="fas fa-heart"></span></a></li>
+                                                                
                                                             </ul>
                                                         </div>
                                                     </div>

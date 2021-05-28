@@ -74,52 +74,7 @@ Shree Santoshi Mata Hastakala
                         <div class="ckeckout-left-sidebar">
                             <!-- Start Checkbox Area -->
                             <div class="checkout-form">
-                                <h2 class="section-title-3">Billing details</h2>
-                                <div class="checkout-form-inner">
-                                    <div class="single-checkout-box">
-                                        <input type="text" placeholder="First Name*">
-                                        <input type="text" placeholder="Last Name*">
-                                    </div>
-                                    <div class="single-checkout-box">
-                                        <input type="email" placeholder="Emil*">
-                                        <input type="text" placeholder="Phone*">
-                                    </div>
-                                    <div class="single-checkout-box">
-                                        <textarea name="message" placeholder="Message*"></textarea>
-                                    </div>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                            <!-- End Checkbox Area -->
-                            <!-- Start Payment Box -->
-                          
-                            <!-- End Payment Box -->
-                            <!-- Start Payment Way -->
-                            <div class="our-payment-sestem">
-                                <h2 class="section-title-3">We  Accept :</h2>
-                                <ul class="payment-menu">
-                                    <li><a href="#"><img src="images1/payment/1.jpg" alt="payment-img"></a></li>
-                                    <li><a href="#"><img src="images1/payment/2.jpg" alt="payment-img"></a></li>
-                                    <li><a href="#"><img src="images1/payment/3.jpg" alt="payment-img"></a></li>
-                                    <li><a href="#"><img src="images1/payment/4.jpg" alt="payment-img"></a></li>
-                                    <li><a href="#"><img src="images1/payment/5.jpg" alt="payment-img"></a></li>
-                                </ul>
-                                <div class="checkout-btn">
-                                    <a class="ts-btn btn-light btn-large hover-theme" href="#">CONFIRM & BUY NOW</a>
-                                </div>    
-                            </div>
-                            <!-- End Payment Way -->
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-4">
-                        <div class="checkout-right-sidebar">
-                            <div class="our-important-note">
-                                <h2 class="section-title-3">Cart:</h2>
-                               
-                                
-
+                                <h2 class="section-title-3">Details</h2>
                                 <div class="table-content table-responsive">
                                 <table>
                                     <thead>
@@ -127,7 +82,7 @@ Shree Santoshi Mata Hastakala
                                             <th class="product-name">Product</th>
                                             <th class="product-price">Price</th>
                                             <th class="product-quantity">Quantity</th>
-                                            <th class="product-subtotal">Total</th>
+                                            <th class="product-subtotal">Sub-total</th>
                                             <th class="product-remove">Remove</th>
                                         </tr>
                                     </thead>
@@ -135,19 +90,57 @@ Shree Santoshi Mata Hastakala
                                     @foreach($cart->items as $cart)
                                     <tbody>                                       
                                         <tr>
-                                            <td class="product-name"><span class='amount'>$cart['item']['title']</span></td>
+                                            <td class="product-name"><span class='amount'>{{$cart['item']['title']}}</span></td>
                                             <td class="product-price"><span class="amount">{{$cart['item']['purchase_price']}}</span></td>
-                                            <td class="product-quantity"><input type="number" value={{$cart['quantity']}} /></td>
-                                            <td class="product-subtotal"></td>
+                                            <td class="product-quantity"><input type="number" value={{$cart['qty']}} /></td>
+                                            <td class="product-subtotal">{{$cart['price']}}</td>
                                             <td class="product-remove"><a href="#">X</a></td>
                                         </tr>
                                     </tbody>
                                     @endforeach
-                                   
+                                    
                                 </table>
+                               
                             </div>
-                                
+                            <div class="section">
+                                <h2 class="section-title-3 ">Subtotal : </h2> <h2 class="section">RS {{Session::get('cart')->totalPrice}}</h2>
                             </div>
+                            
+                                <div class="checkout-form-inner">
+                                    <form action="/order" method="POST">
+                                    @csrf
+                                        <div class="single-checkout-box">
+                                            <input type="text" placeholder="First Name*" name='firstname'>
+                                            <input type="text" placeholder="Last Name*" name='lastname'>
+                                        </div>
+                                        <div class="single-checkout-box">
+                                            <input type="email" placeholder="Eamil*" name='email'>
+                                            <input type="number" placeholder="Phone*" name='phone'>
+                                        </div>
+                                        <div class="single-checkout-box">
+                                            <textarea name="message" placeholder="Message*" name='message'></textarea>
+                                        </div>
+                                        <div class="our-payment-sestem">
+                                            <button class="ts-btn  btn-large hover-theme" type='submit'>CONFIRM THE KILL</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- End Checkbox Area -->
+                            <!-- Start Payment Box -->
+                          
+                            <!-- End Payment Box -->
+                            <!-- Start Payment Way -->
+                            
+                            <!-- End Payment Way -->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="checkout-right-sidebar">
+                            <div class="our-important-note">
+                                <h2 class="section-title-3">Note:</h2>
+                                <p>Direct payment is not available as of right now we will confirm your order with a phone call.Happy shopping.</p>                
+                                    </div>
                             <div class="puick-contact-area mt--60">
                                 <h2 class="section-title-3">Quick Contract</h2>
                                 <a href="phone:+8801722889963">+012 345 678 102 </a>

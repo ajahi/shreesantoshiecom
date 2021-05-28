@@ -19,12 +19,17 @@ Route::get('/logout',function(){
     return redirect('/login');
 });
 Route::get('/','ShopController@index');
-Route::get('/add-to-cart/{id}','ProductController@addToCart');
+Route::get('/add-to-cart/{id}','ProductController@getaddToCart');
 Route::get('/shopingcart','ProductController@getCart');
 Route::get('/buy','ProductController@buy');
 Route::get('/checkout','ProductController@getCheckout');
 
 Route::post('/login', 'Api\LoginController@login');
+Route::get('/newcart',function(){
+    Session::flush();
+    return redirect()->back();
+});
+Route::post('/order','ProductController@order');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/post', 'PostController@page');

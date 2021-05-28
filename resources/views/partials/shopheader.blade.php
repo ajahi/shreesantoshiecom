@@ -118,7 +118,7 @@
                                 <li class="cart__menu">
                                 <i class="fas fa-shopping-cart"></i>
                                 @if(Session::has('cart'))
-                                {{Session::get('cart')->totalQuantity}}
+                                {{Session::get('cart')->totalQty}}
                                 @endif
                                 </li>         
                             </ul>

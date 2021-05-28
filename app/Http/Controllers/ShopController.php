@@ -22,8 +22,8 @@ class ShopController extends Controller
         })->get();
         $products=Product::take(3)->get();
         //cart
-        $oldcart=Session::get('cart');
-        $cart= new Cart($oldcart);
+        $oldCart=Session::get('cart');
+        $cart= new Cart($oldCart);
         
         return view('shop.shophome',[
             'sidemenu'=>$procat,

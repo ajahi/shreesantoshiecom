@@ -12,6 +12,7 @@ use Illuminate\Validation\Rule;
 use Validator;
 use Session;
 use App\Cart;
+use App\Order;
 
 class ProductController extends Controller
 {
@@ -247,32 +248,49 @@ class ProductController extends Controller
         return view('purchase',['products'=>Product::all()]);
     }
 
-    public function addToCart(Request $request,$id){
-        $product=Product::find($id);
-        $oldcart=Session::has('cart') ? Session::get('cart') : null;
-        $cart=new Cart($oldcart);
-        $cart->add($product,$product->id);
+    public function getAddToCart(Request $request, $id) {
+        $product = Product::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->add($product, $product->id);
 
-        $request->session()->put('cart',$cart);
-        
-        return redirect('/');
-
+        $request->session()->put('cart', $cart);
+        return redirect()->back();
     }
+
     public function getCheckout(){
         if(!Session::has('cart')){
             return redirect('/');
         }
-        $oldcart=Session::get('cart');
-        $cart=new Cart($oldcart);
+        $oldCart=Session::get('cart');
+        $cart=new Cart($oldCart);
         $totalprice=0;
-        foreach($cart->items as $fart){
-            $quan=$fart['quantity'];
-            $pr=$fart['price'];
-            $price=$quan*$pr;
-            $totalprice+=$price;
-        }
+        
         return view('shop.checkout',[
             'cart'=>$cart,'totalprice'=>$totalprice
         ]);
     }
+    public function order(Request $request){
+        
+        $validation = Validator::make($request->all(), [
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'phone'=>'required',
+            'email'=>'required|email'
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors() , 422);
+        }
+        $cart=Session::get('cart')->items;
+        $order=new Order();
+        $order->firstname=$request->firstname;
+        $order->lastname=$request->lastname;
+        $order->phone=$request->phone;
+        $order->email=$request->email;
+        $order->cart=serialize($cart);
+        $order->message=$request->message;
+        $order->save();
+        return redirect('/newcart');
+    }
+   
 }
