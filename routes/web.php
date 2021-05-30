@@ -23,6 +23,8 @@ Route::get('/add-to-cart/{id}','ProductController@getaddToCart');
 Route::get('/shopingcart','ProductController@getCart');
 Route::get('/buy','ProductController@buy');
 Route::get('/checkout','ProductController@getCheckout');
+Route::get('/reduce/{id}','ProductController@getreduceByOne');
+Route::get('/remove/{id}','ProductController@remove');
 
 Route::post('/login', 'Api\LoginController@login');
 Route::get('/newcart',function(){

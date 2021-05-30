@@ -1,11 +1,10 @@
-
 @extends('layouts.shop')
 @section('title')
     Shree Santoshi Mata Hastakala
 @endsection
       
 @section('sidemenu')
-<div class="body__overlay"></div>
+
         <!-- Start Offset Wrapper -->
         <div class="offset__wrapper">
             <!-- Start Search Popap -->
@@ -88,20 +87,14 @@
             <!-- End Offset MEnu -->
             <!-- Start Cart Panel -->
 
-            <div class="shopping__cart">
-            
-                <div class="shopping__cart__inner">
-                    
+            <div class="shopping__cart"> 
+                <div class="shopping__cart__inner">          
                     <div class="offsetmenu__close__btn">
                     <h2 class="offset-title">Cart</h2>
                         <a href="#"><i class="fas fa-angle-left right"></i></a>
-                    </div>
-                   
-                    
+                    </div>                   
                     @if(Session::has('cart'))
-                    
-                    <div class="shp__cart__wrap">
-                    
+                    <div class="shp__cart__wrap">        
                         <div class="shp__single__product">                     
                          <ul>
                             @foreach($items as $item)
@@ -110,19 +103,20 @@
                                     <a href="#">
                                         <img src="images1/product/sm-img/1.jpg" alt="product images">
                                     </a>
-                                    </div>
-                            
+                                    </div>  
                                     <div class="shp__pro__details">
                                         <h2>Name: <a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
-                                        <span class="quantity">Quantity :{{$item['qty']}}</span>
-                                        <span class="shp__price">RS. {{$item['item']['purchase_price']}}</span>
+                                        <div style="inline">
+                                            <span class="quantity">Quantity: {{$item['qty']}}</span>
+                                            <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
+                                        </div>
                                         
+                                        <span class="shp__price">RS. {{$item['item']['purchase_price']}}</span>                                     
                                     </div>
                                     <div class="remove__btn">
-                                        <a href="#" title="Remove this item"><i class="fas fa-trash right"></i></i></a>
+                                        <a href="/remove/{{$item['item']['id']}}" title="Remove this item"><i class="fas fa-trash right"></i></i></a>
                                     </div>
                                 </li>
-                            
                             @endforeach
                             </ul>                      
                         </div>
@@ -203,37 +197,25 @@
                                <h3> Browse Categories</h3>
                             </div>
                             <div class="category-menu-list">
-                          
-                            @foreach($sidemenu as $sidemenu)
-                                <ul>                                
-                                   <li><a href="#"><img alt="" src="images1/icons/thum2.png">{{$sidemenu->title}}
-                                   
-                                   @if($sidemenu->children)
+                                <ul>   
+                                @foreach($sidemenu as $sidemenu)                             
+                                   <li><a href="#"><img alt="" src="images1/icons/thum2.png">{{$sidemenu->title}}   
+                                   @if(count($sidemenu->children) > 0)
                                    <i class="fas fa-angle-right right"></i></a>
                                         <div class="category-menu-dropdown">
                                             <div class="category-part-1 category-common mb--30">
-                                                <h4 class="categories-subtitle"> Jewelry & Watches</h4>
+                                                <h4 class="categories-subtitle"> {{$sidemenu->title}}</h4>
                                                 <ul>
-                                                    <li><a href="#"> </a></li>
-                                                    <li><a href="#"> Computer & Office</a></li>
-                                                    <li><a href="#"> Jewelry & Watches</a></li>
-                                                    <li><a href="#"> Bags & Shoes</a></li>
-                                                    <li><a href="#"> Phones & Accessories</a></li>
+                                                    @foreach($sidemenu->children as $children)
+                                                    <li><a href="#"> {{$children->title}}</a></li>
+                                                    @endforeach
                                                 </ul>
-                                            </div>
-                                            
-                                          
-                                            <div class="mega-banner-img">
-                                                <a href="single-product.html">
-                                                    <img src="images1/feature-img/5.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
+                                            </div>                                                                                    
+                                        </div>                                 
                                     @endif
                                     </li>
-                         
-                                </ul>
                                 @endforeach
+                                </ul>
                             </div>
                         </div>
                     </div>

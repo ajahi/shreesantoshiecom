@@ -18,7 +18,7 @@ class ShopController extends Controller
     public function index()
     {   $procat=ProductCategory::where('parent_id',NULL)->get();
         $children=ProductCategory::query()->whereHas('children',function($q){
-            $q->whereNotNull('parent_id');
+            $q->where('parent_id','');
         })->get();
         $products=Product::take(3)->get();
         //cart

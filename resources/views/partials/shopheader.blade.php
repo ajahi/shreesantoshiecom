@@ -18,18 +18,6 @@
                             <nav class="mainmenu__nav hidden-xs hidden-sm">
                                 <ul class="main__menu">
                                     <li class="drop"><a href="index.html">Home</a></li>
-                                    <li class="drop"><a href="portfolio-card-box-2.html">portfolio</a>
-                                        <ul class="dropdown">
-                                            <li><a href="portfolio-card-box-2.html">portfolio</a></li>
-                                            <li><a href="single-portfolio.html">Single portfolio</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="drop"><a href="blog.html">Blog</a>
-                                        <ul class="dropdown">
-                                            <li><a href="blog.html">blog 3 column</a></li>
-                                            <li><a href="blog-details.html">Blog details</a></li>
-                                        </ul>
-                                    </li>
                                     <li class="drop"><a href="shop.html">Shop</a>
                                         <ul class="dropdown mega_dropdown">
                                             <!-- Start Single Mega MEnu -->
