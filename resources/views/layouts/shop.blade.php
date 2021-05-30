@@ -47,7 +47,7 @@
         <!-- Start Header Style -->
         @include('partials.shopheader')
         <!-- End Header Style -->
-        <div class="body__overlay"></div>
+    <div class="body__overlay"></div>
         @yield('sidemenu')
         <!-- End Blog Area -->
         <!-- Start Footer Area -->

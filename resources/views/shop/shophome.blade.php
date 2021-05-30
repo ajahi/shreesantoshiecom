@@ -161,7 +161,7 @@
                                                 <div class="slider__inner">
                                                     <h1>New Product <span class="text--theme">Collection</span></h1>
                                                     <div class="slider__btn">
-                                                        <a class="htc__btn" href="cart.html">shop now</a>
+                                                        <a class="htc__btn" href="#">shop now</a>
                                                     </div>
                                                 </div>
                                             </div>
