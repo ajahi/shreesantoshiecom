@@ -28,6 +28,17 @@ class Product extends Model implements HasMedia
     public function tags(){
         return $this->belongsToMany('App\Tag','product_tag')->withPivot('product_id');
     }
+   public function images(){
+    if (count($this->getMedia('')) > 0) {
+        return $this->getMedia('');
+    }
+    return 0;
+   }
    
-
+   public function photu(){
+       return $this->getMedia('');
+   }
+   public function url(){
+       return $this->getFirstMediaUrl('');
+   }
 }
