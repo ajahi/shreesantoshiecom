@@ -102,7 +102,7 @@
                                 <li>
                                     <div class="shp__pro__thumb">
                                     <a href="#">
-                                        <img src="images1/product/sm-img/1.jpg" alt="product images">
+                                        <img src="{{$item['item']->url()}}" alt="product images">
                                     </a>
                                     </div>  
                                     <div class="shp__pro__details">
