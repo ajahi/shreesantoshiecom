@@ -226,7 +226,9 @@ class ProductController extends Controller
         if (($user->hasRole(['vendor','admin','super_admin']) ||
             ($user->hasRole('merchant') && $user->active =='active'))
             && $product->user_id == $user->id) {
-            Product::whereId($id)->delete();
+            $pro=Product::find($id);
+            $pro->clearMediaCollection();
+            $pro->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,
@@ -316,5 +318,8 @@ class ProductController extends Controller
     }
 
     return redirect()->back();
-}
+    }
+    public function deleteMedia($id){
+
+    }
 }

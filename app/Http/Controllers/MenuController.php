@@ -19,7 +19,7 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        return view('menuindex',['menu'=>Menu::all()]);
+        return view('cms.menu.menuindex',['menu'=>Menu::all()]);
         // $query = Menu::query();
         // if ($request->has('title')) {
         //     $query->where('title', 'like', '%' . $request->title . '%');
@@ -37,7 +37,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('menucreate',['parent'=>Menu::all()]);
+        return view('cms.menu.menucreate',['parent'=>Menu::all()]);
     }
 
     /**
@@ -130,7 +130,7 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        return view('menuedit',['product'=>Menu::findOrFail($id),'parent'=>Menu::all()]);
+        return view('cms.menu.menuedit',['product'=>Menu::findOrFail($id),'parent'=>Menu::all()]);
     }
 
     /**
