@@ -1,3 +1,4 @@
+
 @extends('layouts.mastercms')
 
 @section('content')
@@ -6,10 +7,11 @@
         <table class='table'>
             <thead>
                 <tr>
-                <th scope='col'>id</th>
-                <th scope='col'>title</th>
-                <th scope='col'>description</th>
-                <th scope='col'>parent_id</th> 
+                <th scope='col'>Id</th>
+                <th scope='col'>Title</th>
+                <th scope='col'>Description</th>
+                <th scope='col'>Parent_Category</th> 
+                <th scope='col'>Position</th> 
                 <th scope='col'>Action</th>
                 </tr>
             </thead>
@@ -20,7 +22,8 @@
                 <td scope="col">{{$posts->id}}</td>
                 <td scope="col">{{$posts->title}}</td>
                 <td scope="col">{{$posts->description}}</td>
-                <td scope="col">{{$posts->parent_id}}</td>
+                <td scope="col">{{$posts->parent['title']}}</td>
+                <td scope="col">{{$posts->position}}</td>
                 <td scope="col">
                 <a href="/productcategory/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
                 <form action="/productcategorydel/{{$posts->id}}" method='POST'>

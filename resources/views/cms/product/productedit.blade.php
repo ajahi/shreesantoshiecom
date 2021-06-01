@@ -65,7 +65,25 @@
             <option value=1>Published</option>             
             </select>
         </div>
-        
+        <div class="form-floating my-3">
+            <label for="images">Image</label>
+            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image">
+        </div>
+        <div class="form-floating">
+            <label for="discount">Discount</label>
+            <input type="number" class="form-control col-lg-7" name="discount" placeholder="discount(optional)" value={{$product->discount}}>
+        </div>
+        <div class="form-floating my-3">
+            <label for="status">Featured</label>
+            <select class="form-select" name="featured" aria-label="Floating label select example">          
+            <option value=0>False</option>
+            <option value=1>True</option>             
+            </select>
+        </div>
+        <div class="form-floating my-2">
+            <label for="offer">Offer</label>
+            <input type="text" class="form-control col-lg-7" placeholder="Offer(optional)" name="offer" value={{$product->offer}}>
+        </div>
         <button type='Submit' class="btn btn-info"> Submit</button>
     </form>
     </section>

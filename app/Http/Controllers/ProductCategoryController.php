@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Validation\Rule;
 
+
 class ProductCategoryController extends Controller
 {
     /**
@@ -142,8 +143,10 @@ class ProductCategoryController extends Controller
             if(count($product_category->products)>0){
                 return response()->json(['error'=>'Cannot delete. One or many Products are attached to this category.'], 403);
             }
-            $product_category->products()->detach();
+           $product_category->products()->detach();
+           
             $product_category->delete();
+           
             return redirect('/productcategory');
         }
         else {

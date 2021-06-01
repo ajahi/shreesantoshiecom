@@ -10,9 +10,10 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {   $this->call(TagTableSeeder::class);
         $this->call(UsersPermissionTableSeeder::class);
         $this->call(SitesTableSeeder::class);
         $this->call(CategoryTableSeeder::class);
+        $this->call(PostTableSeeder::class);
     }
 }

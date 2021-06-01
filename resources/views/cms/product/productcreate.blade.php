@@ -54,7 +54,10 @@
             <input type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price">
          </div>
          <div class="form-floating my-3">
-            <input type="number" class="form-control col-lg-7" name="quantity" placeholder="quantity">
+            <input type="number" class="form-control col-lg-7" name="sell_price" placeholder="Sell price">
+         </div>
+         <div class="form-floating my-3">
+            <input type="number" class="form-control col-lg-7" name="quantity" placeholder="Stock">
          </div>
 
         <div class="form-floating my-3">
@@ -68,7 +71,21 @@
             <label for="images">Image</label>
             <input type="file" class="form-control col-lg-7" name="image" placeholder="Image">
         </div>
-        
+        <div class="form-floating">
+            <label for="discount">Discount</label>
+            <input type="number" class="form-control col-lg-7" name="discount" placeholder="discount(optional)">
+        </div>
+        <div class="form-floating my-3">
+            <label for="status">Featured</label>
+            <select class="form-select" name="featured" aria-label="Floating label select example">          
+            <option value=0>False</option>
+            <option value=1>True</option>             
+            </select>
+        </div>
+        <div class="form-floating my-2">
+            <label for="offer">Offer</label>
+            <input type="text" class="form-control col-lg-7" placeholder="Offer(optional)" name="offer">
+        </div>
         <button type='Submit' class="btn btn-info"> Submit</button>
     </form>
     </section>

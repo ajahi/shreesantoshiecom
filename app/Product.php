@@ -11,7 +11,21 @@ use Spatie\MediaLibrary\Models\Media;
 class Product extends Model implements HasMedia
 {
     use HasMediaTrait;
-    protected $fillable=['title','description','slug','purchase_price','sell_price','user_id','counts','quantity','position','status'];
+    protected $fillable=[
+        'title',
+        'description',
+        'slug',
+        'purchase_price',
+        'sell_price',
+        'user_id',
+        'counts',
+        'quantity',
+        'position',
+        'status',
+        'featured',
+        'discount',
+        'offer'
+    ];
 
     public function categories() {
         return $this->belongsToMany('App\ProductCategory','products_product_categories')->withPivot('product_id');

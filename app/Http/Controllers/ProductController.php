@@ -65,13 +65,15 @@ class ProductController extends Controller
                 'title' => 'required|unique:products',
                 'description'=>'required',
                 'purchase_price' => 'required',
+                'sell_price' => 'required',
                 'categories_id' => 'required|array|present',
                 'categories_id.*' => 'required|exists:product_categories,id',
                 'user_id' => 'exists:users,id',
                 'quantity' => 'required|numeric',
                 'tags.*' => 'exists:tags,id',
                 'image' => 'required',
-                'status'=>'boolean'
+                'status'=>'boolean',
+                'featured'=>'boolean'
             ]);
 
             if($request->user_id){
@@ -196,6 +198,7 @@ class ProductController extends Controller
             $product->tags()->sync($request->tags_id);
             
             if ($request['image'] != null) {
+                $product->clearMediaCollection();
                 $product->addMediaFromRequest('image')->toMediaCollection('image');
             }       
             $product['quantity'] = $request->quantity;
