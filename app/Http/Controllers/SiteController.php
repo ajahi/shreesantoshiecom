@@ -106,7 +106,7 @@ class SiteController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('cms.site.siteshow',['product'=>Site::find($id)]);
     }
 
     /**

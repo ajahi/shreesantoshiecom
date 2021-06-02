@@ -18,7 +18,7 @@
             <tbody>
                 <tr>
                 <td scope="col">{{$posts->id}}</td>
-                <td scope="col">{{$posts->title}}</td>
+                <td scope="col"><a href="/site/{{$posts->id}}">{{$posts->title}}</a></td>
                 <td scope="col">{{$posts->description}}</td>
                 <td scope="col">{{$posts->website}}</td>
                 <td scope="col">

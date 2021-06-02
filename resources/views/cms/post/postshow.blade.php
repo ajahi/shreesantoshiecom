@@ -24,12 +24,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-4">
-                <img src="{{$product->getFirstMediaUrl('')}}" >
+                <img src="{{$product->getFirstMediaUrl('')}}" alt="">
                 </div>
             </div>
         </div>
     </section>
-    
+
+
     
 </div>
 @endsection

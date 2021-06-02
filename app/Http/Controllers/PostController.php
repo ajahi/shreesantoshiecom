@@ -8,6 +8,7 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 
 use App\Post;
+
 use App\Http\Resource\PostResource;
 use App\Http\Resources\MediaResource;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,11 @@ class PostController extends Controller
             }
         }
 
+        return view('cms.post.postindex',[
+            'posts'=>Post::all()
+        ]);
+
+
         $post = $query->orderByDesc('created_at')->paginate(request('limit'));
         return PostResource::collection($post);
     }
@@ -61,7 +67,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('cms.post.postcreate');
+        return view('cms.post.postcreate',['category'=>Category::all()]);
     }
 
     /**
@@ -71,7 +77,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-     { //return 'this path for post';
+     { 
         $user = Auth::user();
 
         if ($user->hasRole(['admin','super_admin'])) {
@@ -93,22 +99,19 @@ class PostController extends Controller
             $request['user_id'] = Auth::user()->id;
             /*converting slug*/
             $request['slug'] = slug($request->title);
-
-            $post = Post::create($request->all());
+            $post=Post::create($request->all());
 
             if(empty($request->tags_id)){
                 $post->tags()->detach();
             }else {
                 $post->tags()->sync(explode(",", $request->tags_id));
             }
-
-            if ($request['featured'] != null) {
-                $post->clearMediaCollection('featured');
-                $post->addMediaFromRequest('featured')->toMediaCollection('featured');
+            if ($request->has('image')) {
+                /*$product->addMediaFromRequest('image')->toMediaCollection('image');*/
+                $post->addMediaFromRequest('image')->toMediaCollection('images');
+                // dd('image is availeble');
             }
-
-            return redirect('/postshow');
-
+            return redirect('/post');
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -118,21 +121,16 @@ class PostController extends Controller
             return response()->json($return, 403);
         }
     }
-    public function page(){
-        return view('admin');
-    }
-
+    
     /**
      * Display the specified resource.
      *
      * @param  int $id
      * @return PostResource
      */
-    public function show(Request $request)
-    {
-        return view('cms.post.postindex',[
-            'posts'=>Post::all()
-        ]);
+    public function show($id)
+    {   return view('cms.post.postshow',['product'=>Post::find($id)]);
+        
         // $post = Post::findOrFail($id);
         // $post->increment('counts');
         // return new PostResource($post);
@@ -172,7 +170,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
 
@@ -235,13 +233,15 @@ class PostController extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            Post::whereId($id)->delete();
+            $post=Post::find($id);
+            $post->clearMediaCollection();
+            $post->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return redirect('/postshow');
+            return redirect('/post');
 
         } else {
             $return = ["status" => "error",

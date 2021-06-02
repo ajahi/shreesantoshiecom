@@ -170,8 +170,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
         $user = Auth::user();
         $product = Product::findOrFail($id);
+        
       
       
         if ($user->hasRole(['admin','super_admin']) 
@@ -197,9 +199,9 @@ class ProductController extends Controller
             $product->categories()->sync($request->categories_id);
             $product->tags()->sync($request->tags_id);
             
-            if ($request['image'] != null) {
+            if ($request->has('image')) {
                 $product->clearMediaCollection();
-                $product->addMediaFromRequest('image')->toMediaCollection('image');
+                $product->save();
             }       
             $product['quantity'] = $request->quantity;
             $product->save();
@@ -255,6 +257,7 @@ class ProductController extends Controller
 
     public function getAddToCart(Request $request, $id) {
         $product = Product::find($id);
+        $product->increment('counts');
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($product, $product->id);

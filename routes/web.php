@@ -34,10 +34,10 @@ Route::get('/newcart',function(){
 Route::post('/order','ProductController@order');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/post', 'PostController@page');
+    Route::get('/post', 'PostController@index');
     Route::post('/posts', 'PostController@store');
     Route::get('/postcreate','PostController@create');
-    Route::get('/postshow','PostController@show');
+    Route::get('/postshow/{id}','PostController@show');
     Route::get('post/{id}','PostController@edit');
     Route::put('post/{id}','PostController@update');
     Route::delete('postdel/{id}','PostController@destroy');
@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/site','SiteController@index');
     Route::get('/site/{id}','SiteController@edit');
     Route::put('/site/{id}','SiteController@update');
+    Route::get('/site/{id}','SiteController@show');
 
     Route::get('/contact','ContactController@index');
     Route::delete('/contactdel/{id}','ContactController@destroy');

@@ -6,9 +6,10 @@
         <table class='table'>
             <thead>
                 <tr>
-                <th scope='col'>id</th>
-                <th scope='col'>title</th>
-                <th scope='col'>desc</th>
+                <th scope='col'>Id</th>
+                <th scope='col'>Title</th>
+                <th scope='col'>Description</th>
+                <th scope='col'>Status</th>
                 <th scope='col'>Action</th>
                 </tr>
             </thead>
@@ -17,8 +18,9 @@
             <tbody>
                 <tr>
                 <td scope="col">{{$posts->id}}</td>
-                <td scope="col">{{$posts->title}}</td>
+                <td scope="col"><a href="/postshow/{{$posts->id}}">{{$posts->title}}</a></td>
                 <td scope="col">{{$posts->description}}</td>
+                <td scope="col">{{$posts->status}}</td>
                 <td scope="col">
                 <a href="/post/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
                 <form action="/postdel/{{$posts->id}}" method='POST'>

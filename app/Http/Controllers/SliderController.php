@@ -64,6 +64,9 @@ class SliderController extends Controller
 
                 $slider->addMediaFromRequest('featured')->toMediaCollection('featured');
             }
+            if($request['image']){
+                $slider->addMediaFromRequest('image')->toMediaCollection('images');
+            }
             return redirect('/slider');
 
         } else {
@@ -149,7 +152,9 @@ class SliderController extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
-            Slider::whereId($id)->delete();
+            $slider=Slider::find($id);
+            $slider->clearMediaCollection();
+            $slider->delete();
             $return = ["status" => "Success",
                 "error" => [
                     "code" => 200,

@@ -12,7 +12,7 @@
         </div>
     </section>
     <section class='mx-'>
-    <form method='POST'action="/product/{{$product->id}}">
+    <form method='POST'action="/product/{{$product->id}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
@@ -67,7 +67,8 @@
         </div>
         <div class="form-floating my-3">
             <label for="images">Image</label>
-            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image">
+            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image" >
+           
         </div>
         <div class="form-floating">
             <label for="discount">Discount</label>

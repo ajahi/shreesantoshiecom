@@ -31,7 +31,7 @@ class UserController extends Controller
             if ($request->has('status')) {
                 $query->where('active', $request->status);
             }
-        return view('userindex',['user'=>User::all()]);
+        return view('cms.user.userindex',['user'=>User::all()]);
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.usercreate',['role'=>Role::all()]);
+        return view('cms.user.usercreate',['role'=>Role::all()]);
     }
 
     /**
