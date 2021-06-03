@@ -45,7 +45,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         
         $user = Auth::user();
 
@@ -73,7 +73,8 @@ class ProductController extends Controller
                 'tags.*' => 'exists:tags,id',
                 'image' => 'required',
                 'status'=>'boolean',
-                'featured'=>'boolean'
+                'featured'=>'boolean',
+                'offer'=>'boolean'
             ]);
 
             if($request->user_id){
@@ -94,6 +95,9 @@ class ProductController extends Controller
                 $input_product['user_id'] = $request->user_id;
             }else {
                 $input_product['user_id'] = $user->id;
+            }
+            if($request->quantity==0){
+                $input_product['InStock']=0;
             }
             /*for slug generating from backend*/
             $input_product['slug'] = strtolower(slug($request->title));
@@ -198,12 +202,18 @@ class ProductController extends Controller
             $product->tags()->detach();
             $product->categories()->sync($request->categories_id);
             $product->tags()->sync($request->tags_id);
+            if($request['quantity']==0){
+                $product->InStock=0;
+            }
             
             if ($request->has('image')) {
-                $product->clearMediaCollection();
-                $product->save();
+                $product->clearMediaCollection('images');
+                $product->addMediaFromRequest('image')->toMediaCollection('images');
             }       
             $product['quantity'] = $request->quantity;
+            $product['offer']=$request->offer;
+            $product['featured']=$request->featured;
+            $product['sell_price']=$request->sell_price;
             $product->save();
             return redirect('/product');
         } else {

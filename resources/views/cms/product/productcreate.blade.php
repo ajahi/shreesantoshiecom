@@ -75,17 +75,33 @@
             <label for="discount">Discount</label>
             <input type="number" class="form-control col-lg-7" name="discount" placeholder="discount(optional)">
         </div>
-        <div class="form-floating my-3">
-            <label for="status">Featured</label>
-            <select class="form-select" name="featured" aria-label="Floating label select example">          
-            <option value=0>False</option>
-            <option value=1>True</option>             
-            </select>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1" id="flexCheckIndeterminate" name='featured'>
+            <label class="form-check-label" for="flexCheckIndeterminate">
+                <strong>Featured</strong> 
+            </label>
         </div>
-        <div class="form-floating my-2">
-            <label for="offer">Offer</label>
-            <input type="text" class="form-control col-lg-7" placeholder="Offer(optional)" name="offer">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1" id="flexCheckIndeterminate" name="offer">
+            <label class="form-check-label" for="Offer">
+                <Strong>Offer</Strong>
+            </label>
         </div>
+        <!-- <div class="form-floating">
+            <label for="InStock">Stock</label>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" id="flexRadioDefault1" checked name="InStock" value=1>
+                <label class="form-check-label" for="InStock">
+                    InStock
+                </label>
+                <br>
+                <input class="form-check-input" type="radio" id="flexRadioDefault2" name="InStock" value=0>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Out of Stock
+                </label>
+            </div>  
+        </div>
+         -->
         <button type='Submit' class="btn btn-info"> Submit</button>
     </form>
     </section>

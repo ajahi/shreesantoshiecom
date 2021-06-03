@@ -1,3 +1,4 @@
+
 @extends('layouts.mastercms')
 
 @section('content')
@@ -34,8 +35,16 @@
         <label for="Category_id">ProductCategory</label>
             <div class="form-check" >
             @foreach($productcategory as $parent)
-                <input class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} >
-                <label class="form-check-label" for="defaultCheck1" >{{$parent->title}}</label>   
+                <input class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} 
+                @foreach($product->categories as $procat)
+                @if($procat->id==$parent->id)
+                    checked 
+                @endif
+               @endforeach
+                
+                >
+                <!-- checks input which was checked when creating product -->
+                <label class="form-check-label"  >{{$parent->title}}</label>   
                 <br>
             @endforeach
             </div>
@@ -44,15 +53,24 @@
         <div class="form-floating my-3">
         <label for="Category_id">ProductTag</label>
             <div class="form-check" >
-            @foreach($tag as $protag)
-                <input class="form-check-input" type="checkbox" name="tags_id[]" value={{$protag->id}} >
-                <label class="form-check-label" for="defaultCheck1" >{{$protag->title}}</label>   
+            @foreach($tag as $tag)
+                <input class="form-check-input" type="checkbox" name="tags_id[]" value={{$tag->id}} 
+                @foreach($product->tags as $protag)
+                @if($protag->id==$tag->id)
+                checked
+                @endif
+                @endforeach
+                >
+                <label class="form-check-label" for="defaultCheck1" >{{$tag->title}}</label>   
                 <br>
             @endforeach
             </div>
         </div>
         <div class="form-floating my-3">
             <input type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price" value={{$product->purchase_price}}>
+         </div>
+         <div class="form-floating my-3">
+            <input type="number" class="form-control col-lg-7" name="sell_price" placeholder="Sell price" value={{$product->sell_price}}>
          </div>
          <div class="form-floating my-3">
             <input type="number" class="form-control col-lg-7" name="quantity" placeholder="quantity" value={{$product->quantity}}>
@@ -74,17 +92,19 @@
             <label for="discount">Discount</label>
             <input type="number" class="form-control col-lg-7" name="discount" placeholder="discount(optional)" value={{$product->discount}}>
         </div>
-        <div class="form-floating my-3">
-            <label for="status">Featured</label>
-            <select class="form-select" name="featured" aria-label="Floating label select example">          
-            <option value=0>False</option>
-            <option value=1>True</option>             
-            </select>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1"  name='featured'>
+            <label class="form-check-label" for="flexCheckIndeterminate">
+                <strong>Featured</strong> 
+            </label>
         </div>
-        <div class="form-floating my-2">
-            <label for="offer">Offer</label>
-            <input type="text" class="form-control col-lg-7" placeholder="Offer(optional)" name="offer" value={{$product->offer}}>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1" name="offer">
+            <label class="form-check-label" for="Offer">
+                <Strong>Offer</Strong>
+            </label>
         </div>
+        
         <button type='Submit' class="btn btn-info"> Submit</button>
     </form>
     </section>

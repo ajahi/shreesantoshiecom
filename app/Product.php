@@ -24,7 +24,8 @@ class Product extends Model implements HasMedia
         'status',
         'featured',
         'discount',
-        'offer'
+        'offer',
+        'InStock'
     ];
 
     public function categories() {

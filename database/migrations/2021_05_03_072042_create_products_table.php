@@ -22,12 +22,13 @@ class CreateProductsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('quantity');
             $table->integer('position')->unsigned();
-            $table->boolean('status');
+            $table->boolean('status');//draft/pubished
             $table->unsignedInteger('discount')->nullable();
             $table->decimal('sell_price',10,2);
             $table->boolean('featured')->default(0);
-            $table->string('offer')->nullable();
+            $table->boolean('offer')->nullable();
             $table->integer('counts')->unsigned()->default(0);
+            $table->boolean('InStock')->default(1);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
