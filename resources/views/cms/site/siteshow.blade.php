@@ -40,7 +40,7 @@
             <div class="row mb-2">
                 <div class="col-sm-4">
                 <h2>Logo</h2>
-                <p>{{$product->logo}}</p>
+                <img src="{{$product->logu()}}" alt="">
                 </div>
             </div>
         </div>

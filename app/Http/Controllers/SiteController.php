@@ -129,6 +129,7 @@ class SiteController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             $validation = Validator::make($request->all(), [
@@ -139,14 +140,35 @@ class SiteController extends Controller
                 'email'=>'required|email',
                 'location'=>'required',
                 'working_days'=>'required|integer'
-
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
             }
+            
             $site = Site::findOrFail($id);
-            $site->fill($request->all())->save();
-            return redirect('/site');
+            
+            
+            $site->title=$request->title;
+            $site->slogan=$request->slogan;
+            $site->description=$request->description;
+            $site->website=$request->website;
+            $site->email=$request->email;
+            $site->location=$request->location;
+            $site->working_days=$request->working_days;
+            if ($request->has('logo')) {             
+                $site->clearMediaCollection('logos');  
+                $site->addMediaFromRequest('logo')->toMediaCollection('logos');
+            } 
+            $site->telephone=$request->telephone;
+            $site->facebook=$request->facebook;
+            $site->twitter=$request->twitter;
+            $site->linkedin=$request->linkedin;
+            $site->instagram=$request->instagram;
+            $site->skype=$request->skype;
+            $site->google=$request->google;
+            $site->attributes=$request->attributes;
+            $site->save();
+            return redirect('site');
 
         } else {
             $return = ["status" => "error",

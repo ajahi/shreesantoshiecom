@@ -107,7 +107,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('/categoryedit',['post'=>Category::findOrFail($id)]);
+        return view('cms.category.categoryedit',['post'=>Category::findOrFail($id)]);
     }
 
     /**

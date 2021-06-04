@@ -211,7 +211,7 @@ class PostController extends Controller
 
             $post = Post::findOrFail($id);
 
-            return redirect('/postshow');
+            return redirect('/post');
 
         } else {
             $return = ["status" => "error",

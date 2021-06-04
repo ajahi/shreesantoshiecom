@@ -23,8 +23,11 @@
     <section class='content'>
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-4">
-                <img src="{{$product->getFirstMediaUrl('')}}" >
+                <div class="col-sm-4 flex">
+                
+                @foreach($product->getMedia('') as $img)
+                <img src="/storage/{{$img->id}}/{{$img->file_name}}" >
+                @endforeach
                 </div>
             </div>
         </div>

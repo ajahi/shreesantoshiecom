@@ -177,9 +177,6 @@ class ProductController extends Controller
        
         $user = Auth::user();
         $product = Product::findOrFail($id);
-        
-      
-      
         if ($user->hasRole(['admin','super_admin']) 
         ) {
             $validation = Validator::make($request->all(), [
@@ -204,16 +201,19 @@ class ProductController extends Controller
             $product->tags()->sync($request->tags_id);
             if($request['quantity']==0){
                 $product->InStock=0;
-            }
-            
-            if ($request->has('image')) {
-                $product->clearMediaCollection('images');
-                $product->addMediaFromRequest('image')->toMediaCollection('images');
-            }       
+            }     
             $product['quantity'] = $request->quantity;
             $product['offer']=$request->offer;
             $product['featured']=$request->featured;
             $product['sell_price']=$request->sell_price;
+            if ($request->has('image')) {
+                
+                $product->clearMediaCollection('images');  
+                $product->addMediaFromRequest('image')->toMediaCollection('images');
+            }  
+            if($request->has('addition-image')){
+                $product->addMediaFromRequest('addition-image')->toMediaCollection('images');
+            }
             $product->save();
             return redirect('/product');
         } else {

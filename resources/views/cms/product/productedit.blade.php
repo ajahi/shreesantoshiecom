@@ -41,10 +41,9 @@
                     checked 
                 @endif
                @endforeach
-                
                 >
                 <!-- checks input which was checked when creating product -->
-                <label class="form-check-label"  >{{$parent->title}}</label>   
+                <label class="form-check-label">{{$parent->title}}</label>   
                 <br>
             @endforeach
             </div>
@@ -86,20 +85,35 @@
         <div class="form-floating my-3">
             <label for="images">Image</label>
             <input type="file" class="form-control col-lg-7" name="image" placeholder="Image" >
-           
+        </div>
+        <div class="form-floating my-3">
+            <img src="{{$product->getFirstMediaUrl('')}}" alt="">
+            <p>Note:If you add a new image the older image will be replaced with the new one.</p>
+        </div>
+        <div class="form-floating my-3">
+            <label for="images">Addition-Image</label>
+            <input type="file" class="form-control col-lg-7" name="addition-image" placeholder="Image" >
         </div>
         <div class="form-floating">
             <label for="discount">Discount</label>
             <input type="number" class="form-control col-lg-7" name="discount" placeholder="discount(optional)" value={{$product->discount}}>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="1"  name='featured'>
+            <input class="form-check-input" type="checkbox" value="1"  name='featured'
+            @if($product->featured==1)
+            checked
+            @endif
+            >
             <label class="form-check-label" for="flexCheckIndeterminate">
                 <strong>Featured</strong> 
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="1" name="offer">
+            <input class="form-check-input" type="checkbox" value="1" name="offer"
+            @if($product->offer==1)
+            checked
+            @endif
+            >
             <label class="form-check-label" for="Offer">
                 <Strong>Offer</Strong>
             </label>

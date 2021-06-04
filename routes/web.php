@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('sliderdel/{id}','SliderController@destroy');
 
     Route::get('/site','SiteController@index');
-    Route::get('/site/{id}','SiteController@edit');
+    Route::get('/siteedit/{id}','SiteController@edit');
     Route::put('/site/{id}','SiteController@update');
     Route::get('/site/{id}','SiteController@show');
 

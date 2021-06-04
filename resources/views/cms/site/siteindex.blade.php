@@ -22,7 +22,7 @@
                 <td scope="col">{{$posts->description}}</td>
                 <td scope="col">{{$posts->website}}</td>
                 <td scope="col">
-                <a href="/site/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
+                <a href="/siteedit/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
                
                 </td>
                 </tr>

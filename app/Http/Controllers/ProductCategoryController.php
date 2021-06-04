@@ -104,7 +104,7 @@ class ProductCategoryController extends Controller
             $validation = Validator::make($request->all(), [
                 'title' => 'required',
                 'description'=>'required|min:5',
-                'parent_id' => 'exists:product_categories,id',
+                'parent_id' => 'exists:product_categories,id|nullable',
                 
             ]);
             if ($validation->fails()) {
@@ -115,6 +115,7 @@ class ProductCategoryController extends Controller
             $product_category->slug = slug(strtolower($request->title));
             $product_category->description = $request->description;
             $product_category->parent_id = $request->parent_id;
+            $product_category->position=$request->position;
           
             $product_category->save();
             if ($request->has('image')) {

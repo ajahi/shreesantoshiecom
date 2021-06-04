@@ -14,6 +14,9 @@ class Site extends Model implements HasMedia {
         'title', 'slogan', 'description', 'logo', 'website', 'email', 'location', 'telephone', 'working_days',
         'facebook', 'google', 'twitter', 'instagram', 'linkedin', 'skype', 'attributes'
     ];
+    public function logu(){
+        return $this->getFirstMediaUrl('logos');
+    }
 
 
 }

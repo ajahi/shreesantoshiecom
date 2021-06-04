@@ -1,5 +1,6 @@
 @extends('layouts.mastercms')
 
+
 @section('content')
 <div class="content-wrapper container">
     <div class="section">
