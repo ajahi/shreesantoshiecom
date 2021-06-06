@@ -34,8 +34,11 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('cms.product.productcreate',['productcategory'=>ProductCategory::all(),'tag'=>Tag::all()]);
+    {   $procat=ProductCategory::where('parent_id','!=',null)->get();
+        return view('cms.product.productcreate',
+        ['productcategory'=>$procat,
+        'tag'=>Tag::all(),
+        'count'=>count($procat)]);
     }
 
     /**
@@ -162,7 +165,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('cms.product.productedit',['product'=>Product::findOrFail($id),'productcategory'=>ProductCategory::all(),'tag'=>Tag::all()]);
+        return view('cms.product.productedit',
+        [
+        'product'=>Product::findOrFail($id),
+        'productcategory'=>ProductCategory::where('parent_id','!=',null)->get(),
+        'tag'=>Tag::all()
+        ]);
     }
 
     /**

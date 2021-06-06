@@ -129,6 +129,10 @@ class SliderController extends Controller
 
                 $slider->addMediaFromRequest('featured')->toMediaCollection('featured');
             }
+            if($request->has('image')){
+                $slider->clearMediaCollection('images');
+                $slider->addMediaFromRequest('image')->toMediaCollection('images');
+            }
             $slid=Slider::findOrFail($id);
             return redirect('/slider');
 

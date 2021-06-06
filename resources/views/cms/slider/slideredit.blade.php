@@ -12,7 +12,7 @@
         </div>
     </section>
     <section class='mx-'>
-    <form method='POST' action="/slider/{{$post->id}}">
+    <form method='POST' action="/slider/{{$post->id}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
@@ -21,7 +21,10 @@
         <div class="form-floating my-3">
             <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$post->description}}</textarea>
         </div>
-       
+        <div class="form-floating my-3">
+            <label for="images">Image</label>
+            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image" >
+        </div>
         <button type='Submit' class="btn btn-info"> Submit</button>
     </form>
     </section>

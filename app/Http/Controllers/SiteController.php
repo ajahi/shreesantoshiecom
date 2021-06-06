@@ -155,18 +155,19 @@ class SiteController extends Controller
             $site->email=$request->email;
             $site->location=$request->location;
             $site->working_days=$request->working_days;
-            if ($request->has('logo')) {             
-                $site->clearMediaCollection('logos');  
-                $site->addMediaFromRequest('logo')->toMediaCollection('logos');
-            } 
-            $site->telephone=$request->telephone;
+          $site->telephone=$request->telephone;
             $site->facebook=$request->facebook;
             $site->twitter=$request->twitter;
             $site->linkedin=$request->linkedin;
             $site->instagram=$request->instagram;
             $site->skype=$request->skype;
             $site->google=$request->google;
-            $site->attributes=$request->attributes;
+            
+            if ($request->has('logo')) {             
+                $site->clearMediaCollection('logos');  
+                $site->addMediaFromRequest('logo')->toMediaCollection('logos');
+            } 
+           
             $site->save();
             return redirect('site');
 

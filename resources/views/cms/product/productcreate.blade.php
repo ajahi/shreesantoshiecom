@@ -1,3 +1,4 @@
+
 @extends('layouts.mastercms')
 
 @section('content')
@@ -32,11 +33,16 @@
         <div class="form-floating my-3">
         <label for="Category_id">ProductCategory</label>
             <div class="form-check" >
-            @foreach($productcategory as $parent)
-                <input class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} >
-                <label class="form-check-label" for="defaultCheck1" >{{$parent->title}}</label>   
-                <br>
-            @endforeach
+            @if($count>0)
+                @foreach($productcategory as $parent)
+                    <input class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} >
+                    <label class="form-check-label" for="defaultCheck1" >{{$parent->title}}</label>   
+                    <br>
+                @endforeach
+            @else
+                <i>no prodcut categories available.</i>
+            @endif
+            
             </div>
         </div>
 

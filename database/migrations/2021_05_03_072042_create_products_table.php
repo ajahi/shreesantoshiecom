@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration
             $table->boolean('status');//draft/pubished
             $table->unsignedInteger('discount')->nullable();
             $table->decimal('sell_price',10,2);
-            $table->boolean('featured')->nullable();
+            $table->boolean('featured')->nullable()->default(null);
             $table->boolean('offer')->nullable();
             $table->integer('counts')->unsigned()->default(0);
             $table->boolean('InStock')->default(1);

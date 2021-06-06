@@ -34,18 +34,22 @@
         <div class="form-floating my-3">
         <label for="Category_id">ProductCategory</label>
             <div class="form-check" >
-            @foreach($productcategory as $parent)
-                <input class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} 
-                @foreach($product->categories as $procat)
-                @if($procat->id==$parent->id)
-                    checked 
-                @endif
-               @endforeach
-                >
-                <!-- checks input which was checked when creating product -->
-                <label class="form-check-label">{{$parent->title}}</label>   
-                <br>
-            @endforeach
+            @if(count($productcategory)>0)
+                @foreach($productcategory as $parent)
+                    <input class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} 
+                    @foreach($product->categories as $procat)
+                        @if($procat->id==$parent->id)
+                            checked 
+                        @endif
+                     @endforeach
+                    >
+                    <!-- checks input which was checked when creating product -->
+                    <label class="form-check-label">{{$parent->title}}</label>   
+                    <br>
+                @endforeach
+            @else
+                <i>no product categories avaiable right now.</i>    
+            @endif
             </div>
         </div>
 

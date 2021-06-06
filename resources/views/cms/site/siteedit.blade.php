@@ -54,7 +54,7 @@
          </div>
          <div class="form-floating my-3">
          <label for="">Telephone</label>
-            <input type="text" class="form-control col-lg-7" name="telephone" placeholder="Telephone" value='{{$post->telephone}}'>
+            <input type="number" class="form-control col-lg-7" name="telephone" placeholder="Telephone" value='{{$post->telephone}}'>
          </div>
          <div class="form-floating my-3">
          <label for="">Facebook</label>
@@ -75,6 +75,10 @@
          <div class="form-floating my-3">
          <label for="">LinkedIn</label>
             <input type="text" class="form-control col-lg-7" name="linkedin" placeholder="linkedin" value='{{$post->linkedin}}'>
+         </div>
+         <div class="form-floating my-3">
+         <label for="">Google</label>
+            <input type="text" class="form-control col-lg-7" name="google" placeholder="Google" value='{{$post->google}}'>
          </div>
         <button type='Submit' class="btn btn-info"> Submit</button>
     </form>
