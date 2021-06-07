@@ -13,13 +13,14 @@
         </div>
     </section>
     <section class='mx-'>
-    <form method='POST'action="/product" enctype="multipart/form-data">
+    <form method='POST' action="/product" enctype="multipart/form-data">
     @csrf
         <div class="form-floating my-3">
-            <input type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the post">
+            <input type="text" class="col-lg-7 form-control" name="title" placeholder="Title of the post" required>
+           
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px"></textarea>
+            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px" required></textarea>
         </div>
         <!-- <div class="form-floating my-3">
         <label for="Category_id">ProductCategory</label>
@@ -35,12 +36,12 @@
             <div class="form-check" >
             @if($count>0)
                 @foreach($productcategory as $parent)
-                    <input class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} >
+                    <input required class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}}>
                     <label class="form-check-label" for="defaultCheck1" >{{$parent->title}}</label>   
                     <br>
                 @endforeach
             @else
-                <i>no prodcut categories available.</i>
+                <i>no product categories available.</i>
             @endif
             
             </div>
@@ -57,13 +58,13 @@
             </div>
         </div>
         <div class="form-floating my-3">
-            <input type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price">
+            <input type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price" required>
          </div>
          <div class="form-floating my-3">
-            <input type="number" class="form-control col-lg-7" name="sell_price" placeholder="Sell price">
+            <input type="number" class="form-control col-lg-7" name="sell_price" placeholder="Sell price" required>
          </div>
          <div class="form-floating my-3">
-            <input type="number" class="form-control col-lg-7" name="quantity" placeholder="Stock">
+            <input type="number" class="form-control col-lg-7" name="quantity" placeholder="Stock" required>
          </div>
 
         <div class="form-floating my-3">
@@ -75,7 +76,7 @@
         </div>
         <div class="form-floating my-3">
             <label for="images">Image</label>
-            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image">
+            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image" required>
         </div>
         <div class="form-floating">
             <label for="discount">Discount</label>

@@ -156,7 +156,8 @@ class PostController extends Controller
     public function edit($id)
     {   
         return view('cms.post.postedit',[
-            'post'=>Post::findOrFail($id)       
+            'post'=>Post::findOrFail($id),
+            'category'=>Category::all()  
         ]);
     }
 

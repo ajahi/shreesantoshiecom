@@ -2,6 +2,7 @@
 @extends('layouts.mastercms')
 
 @section('content')
+
 <div class="content-wrapper container">
     <section class="content-header">
         <div class="container-fluid">
@@ -17,10 +18,10 @@
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
-            <input type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the product" value={{$product->title}}>
+            <input type="text" required class="form-control col-lg-7" name="title" placeholder="Title of the product" value={{$product->title}} >
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$product->description}}</textarea>
+            <textarea class="form-control col-lg-7" placeholder="Description" name="Description" style="height: 100px" required>{{$product->description}}</textarea>
         </div>
         <!-- <div class="form-floating my-3">
         <label for="Category_id">ProductCategory</label>
@@ -36,12 +37,13 @@
             <div class="form-check" >
             @if(count($productcategory)>0)
                 @foreach($productcategory as $parent)
-                    <input class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} 
+                    <input required class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} 
                     @foreach($product->categories as $procat)
                         @if($procat->id==$parent->id)
                             checked 
                         @endif
                      @endforeach
+                     
                     >
                     <!-- checks input which was checked when creating product -->
                     <label class="form-check-label">{{$parent->title}}</label>   
@@ -57,7 +59,7 @@
         <label for="Category_id">ProductTag</label>
             <div class="form-check" >
             @foreach($tag as $tag)
-                <input class="form-check-input" type="checkbox" name="tags_id[]" value={{$tag->id}} 
+                <input required class="form-check-input" type="checkbox" name="tags_id[]" value={{$tag->id}} 
                 @foreach($product->tags as $protag)
                 @if($protag->id==$tag->id)
                 checked
@@ -70,13 +72,13 @@
             </div>
         </div>
         <div class="form-floating my-3">
-            <input type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price" value={{$product->purchase_price}}>
+            <input required type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price" value={{$product->purchase_price}} >
          </div>
          <div class="form-floating my-3">
-            <input type="number" class="form-control col-lg-7" name="sell_price" placeholder="Sell price" value={{$product->sell_price}}>
+            <input  required type="number" class="form-control col-lg-7" name="sell_price" placeholder="Sell price" value={{$product->sell_price}}>
          </div>
          <div class="form-floating my-3">
-            <input type="number" class="form-control col-lg-7" name="quantity" placeholder="quantity" value={{$product->quantity}}>
+            <input required type="number" class="form-control col-lg-7" name="quantity" placeholder="quantity" value={{$product->quantity}}>
          </div>
 
         <div class="form-floating">
@@ -88,7 +90,7 @@
         </div>
         <div class="form-floating my-3">
             <label for="images">Image</label>
-            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image" >
+            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image">
         </div>
         <div class="form-floating my-3">
             <img src="{{$product->getFirstMediaUrl('')}}" alt="">

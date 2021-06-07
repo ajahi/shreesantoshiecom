@@ -13,6 +13,7 @@ use Validator;
 use Session;
 use App\Cart;
 use App\Order;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class ProductController extends Controller
 {
@@ -131,7 +132,7 @@ class ProductController extends Controller
                 // dd('image is availeble');
             }
             
-            return redirect('/product');
+            return redirect()->next();
 
         } else {
             $return = ["status" => "success",

@@ -16,10 +16,10 @@
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
-            <input type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the product" value={{$product->title}}>
+            <input required type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the product" value={{$product->title}}>
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$product->description}}</textarea>
+            <textarea required class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$product->description}}</textarea>
         </div>
         <div class="form-floating my-3">
         <label for="Category_id">ParentCategory</label>
@@ -31,7 +31,7 @@
             </select>
         </div>
         <div class="form-floating my-3">
-            <input type="text" class="form-control col-lg-7" name="url" placeholder="URL" value={{$product->url}}>
+            <input required type="text" class="form-control col-lg-7" name="url" placeholder="URL" value={{$product->url}}>
          </div>
         <button type='Submit' class="btn btn-info"> Submit</button>
     </form>

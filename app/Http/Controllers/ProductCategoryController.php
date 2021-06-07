@@ -87,7 +87,7 @@ class ProductCategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('cms.productcategory.productcategoryedit',['productcategory'=>ProductCategory::findOrFail($id),'parent'=>ProductCategory::all()]);
+        return view('cms.productcategory.productcategoryedit',['productcategory'=>ProductCategory::findOrFail($id),'parent'=>ProductCategory::where('parent_id',null)->get()]);
     }
 
     /**

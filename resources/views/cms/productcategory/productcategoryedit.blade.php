@@ -1,3 +1,4 @@
+
 @extends('layouts.mastercms')
 
 @section('content')
@@ -26,11 +27,19 @@
             <select class="form-select" name="parent_id" aria-label="Floating label select example">      
             <option value=""></option>   
                 @foreach($parent as $parent)
-                <option value={{$parent->id}}>{{$parent->title}}</option>
+                <option value={{$parent->id}}
+                @if($productcategory->parent)
+                        @if($parent->id==$productcategory->parent->id)
+                        selected
+                        
+                        @endif
+                @endif        
+                >{{$parent->title}}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-floating">
+        <label for="">Position</label>
             <input type="number" class="form-control col-lg-7" name="position" placeholder="Position" value="{{$productcategory->position}}">
         </div>
        

@@ -15,10 +15,10 @@
     <form method='POST'action="/productcategory">
     @csrf
         <div class="form-floating my-3">
-            <input type="text" class="form-control col-lg-7" name="title" placeholder="Title of the post">
+            <input type="text" required class="form-control col-lg-7" name="title" placeholder="Title of the post">
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px"></textarea>
+            <textarea class="form-control col-lg-7" required placeholder="Description" name="description" style="height: 100px"></textarea>
         </div>
         <div class="form-floating my-3">
         <label for="Category_id">ParentCategory</label>

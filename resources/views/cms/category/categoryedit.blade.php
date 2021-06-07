@@ -17,10 +17,10 @@
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
-            <input type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the post" value='{{$post->title}}'>
+            <input required type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the post" value='{{$post->title}}'>
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$post->description}}</textarea>
+            <textarea  required class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$post->description}}</textarea>
         </div>
        
         <button type='Submit' class="btn btn-info"> Submit</button>

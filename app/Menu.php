@@ -16,9 +16,9 @@ class Menu extends Model implements HasMedia
     public function children() {
         return $this->hasMany('App\Menu','parent_id');
     }
-    public function parent() {
-        return $this->belongsTo('App\Menu','parent_id');
+    
+    public function productcat(){
+        return $this->belongsTo('App\ProductCategory','parent_id');
     }
-
 
 }

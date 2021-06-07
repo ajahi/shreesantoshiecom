@@ -15,10 +15,10 @@
     <form method='POST'action="/menu">
     @csrf
         <div class="form-floating my-3">
-            <input type="text" class="form-control col-lg-7" name="title" placeholder="Title of the menu">
+            <input required type="text" class="form-control col-lg-7" name="title" placeholder="Title of the menu">
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px"></textarea>
+            <textarea required class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px"></textarea>
         </div>
         <div class="form-floating my-3">
         <label for="Category_id">ParentCategory</label>

@@ -1,3 +1,4 @@
+
 @extends('layouts.mastercms')
 
 @section('content')
@@ -16,17 +17,26 @@
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
-            <input type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the post" value='{{$post->title}}'>
+            <input type="text" class="form-control col-lg-7" name="title" placeholder="Ttile of the post" value='{{$post->title}}' required>
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$post->description}}</textarea>
+            <textarea required class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$post->description}}</textarea>
         </div>
         <div class="form-floating my-3">
         <label for="Category_id">Category</label>
-            <select class="form-select" name="category_id" aria-label="Floating label select example">         
-                <option value="1">one</option>
-                <option value="2">Two</option>
-            </select>
+            <div class="form-check" >
+            @foreach($category as $categories)
+                <input required class="form-check-input" type="radio" name="category_id" value={{$categories->id}} 
+              @foreach($categories->posts as $catpost)
+                    @if($catpost->id==$post->id)
+                        checked
+                    @endif
+              @endforeach
+                >
+                <label class="form-check-label" for="defaultCheck1" >{{$categories->title}}</label>   
+                <br>
+            @endforeach
+            </div>
         </div>
         <div class="form-floating my-3">
         <label for="Category_id">Status</label>

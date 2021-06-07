@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Menu;
 use App\Http\Resource\MenuResource;
 use Illuminate\Support\Facades\Auth;
+use App\ProductCategory;
 
 class MenuController extends Controller
 {
@@ -37,7 +38,11 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('cms.menu.menucreate',['parent'=>Menu::all()]);
+        return view('cms.menu.menucreate',
+        [
+            'parent'=>ProductCategory::where('parent_id',null)->get()
+            
+        ]);
     }
 
     /**
@@ -49,44 +54,29 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-
         if ($user->hasRole(['admin','super_admin'])) {
-
-
             $validation = Validator::make($request->all(), [
                 'title' => 'required|unique:menus',
                 'description' => 'required',
                 'parent_id' => 'numeric',
                 'url'=>'required'
             ]);
-
             if ($validation->fails()) {
                 return response()->json($validation->errors() , 422);
-
             }
-
             $data  = collect($request->all());
-
             $data = $data->toArray();
-
-
             if($request->parent_id){
                 $position = Menu::where('parent_id','=',$request->parent_id)->count();
             }else{
                 $position = Menu::count();
             }
             $data['position'] = $position +1 ;
-
-
             $menu = Menu::create($data);
-
             if ($request['image'] != null) {
                 $menu->clearMediaCollection('photo');
                 $menu->addMediaFromRequest('image')->toMediaCollection('photo');
             }
-
-//            return $menu;
-
             return redirect('/menu');
 
 

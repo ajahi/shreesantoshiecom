@@ -20,4 +20,7 @@ class ProductCategory extends Model
     public function products(){
         return $this->belongsToMany('App\Product','products_product_categories')->withPivot('product_category_id');
     }
+    public function menu(){
+        return $this->has('App\Menu');
+    }
 }

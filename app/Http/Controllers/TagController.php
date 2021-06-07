@@ -88,7 +88,7 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        return view('tagedit',['post'=>Tag::findOrFail($id)]);
+        return view('cms.tag.tagedit',['post'=>Tag::findOrFail($id)]);
     }
 
     /**
