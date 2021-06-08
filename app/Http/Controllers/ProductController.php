@@ -14,6 +14,7 @@ use Session;
 use App\Cart;
 use App\Order;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\SellDetail;
 
 class ProductController extends Controller
 {
@@ -309,14 +310,26 @@ class ProductController extends Controller
             return response()->json($validation->errors() , 422);
         }
         $cart=Session::get('cart')->items;
+        
+      
         $order=new Order();
         $order->firstname=$request->firstname;
         $order->lastname=$request->lastname;
         $order->phone=$request->phone;
         $order->email=$request->email;
-        $order->cart=serialize($cart);
+        $order->status='ordered';
         $order->message=$request->message;
         $order->save();
+        foreach($cart as $cart){
+            $selldetail['product_id']=$cart['item']['id'];
+            $selldetail['order_id']=$order->id;
+            $selldetail['price']=$cart['price'];
+            $selldetail['quantity']=$cart['qty'];
+            $product=Product::find($cart['item']['id']);
+            $product->quantity=$product->quantity-$cart['qty'];
+            $product->save();
+            SellDetail::create($selldetail);
+        }
         return redirect('/newcart');
     }
    public function getReduceByOne($id){

@@ -25,7 +25,7 @@ class CreateSellsTable extends Migration
         Schema::create('sell_details', function (Blueprint $table) {
             $table->increments('id');
             $table->Integer('product_id')->unsigned();
-            $table->bigInteger('sell_id')->unsigned();
+            $table->bigInteger('order_id')->unsigned();
             $table->integer('quantity');
             $table->decimal('price');
             $table->timestamps();

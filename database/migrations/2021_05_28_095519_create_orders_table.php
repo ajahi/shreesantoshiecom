@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('email');
             $table->bigInteger('phone')->unsigned()->unique();
             $table->text('message');
-            $table->text('cart');
+            $table->text('status');
             $table->string('address')->nullable();
         });
     }

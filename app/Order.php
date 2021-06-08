@@ -9,4 +9,7 @@ class Order extends Model
     protected $fillable = [
         'firstname','lastname','email','phone_number','address','message'
     ];
+    public function selldetails(){
+        return $this->hasMany('App\SellDetail');
+    }
 }
