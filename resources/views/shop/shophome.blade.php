@@ -282,7 +282,7 @@
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="#">
+                                                            <a href="/product-detail/{{$product->id}}">
                                                                
                                                                 <p></p>
                                                                 <img src="{{$product->url()}}" alt="product images">

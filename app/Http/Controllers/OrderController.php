@@ -3,45 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ProductCategory;
-use App\Product;
-use Session;
-use App\Cart;
-
-class ShopController extends Controller
+use App\Order;
+use Illuminate\Support\Facades\Auth;
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   $procat=ProductCategory::where('parent_id',NULL)->get();
-        $children=ProductCategory::query()->whereHas('children',function($q){
-            $q->where('parent_id','');
-        })->get();
-        $products=Product::take(3)->get();
-        //cart
-        $oldCart=Session::get('cart');
-        $cart= new Cart($oldCart);
-        
-        return view('shop.shophome',[
-            'sidemenu'=>$procat,
-            'prod'=>ProductCategory::all(),
-           'children'=>$children,
-           'products'=>$products,
-                //cart
-           'items'=>$cart->items,
-           'totalPrice'=>$cart->totalPrice
-            ]);
-    }
-   
-    public function details($id){
-        return view ('shop.product-detail',
-        [
-            'product'=>Product::findOrFail($id)
+    public function index(){
+        return view('cms.order.orderindex',[
+            'posts' => Order::orderBy('id', 'DESC')->get()
         ]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -71,7 +47,8 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('cms.order.ordershow',
+        ['product'=>Order::find($id)->selldetails]);
     }
 
     /**
@@ -80,9 +57,24 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function addedit($id,Request $request){
+        $user = Auth::user();
+        if ($user->hasRole(['admin','super_admin'])) {
+            $add=Order::find($id);
+            $add->address=$request->address;
+            $add->save();
+            return redirect()->back();
+        }
+        $return = ["status" => "error",
+                "error" => [
+                    "code" => 403,
+                    "errors" => 'Forbidden'
+                ]];
+            return response()->json($return, 403);
+    }
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -105,6 +97,17 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        if ($user->hasRole(['admin','super_admin'])) {
+            $order=Order::findOrFail($id);
+            $order->delete();
+            return redirect()->back();
+        }
+        $return = ["status" => "error",
+                "error" => [
+                    "code" => 403,
+                    "errors" => 'Forbidden'
+                ]];
+            return response()->json($return, 403);
     }
 }

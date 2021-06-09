@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image1/x-icon" href="images1/favicon.ico">
+    <link rel="shortcut icon" type="image1/x-icon" href="/images1/favicon.ico">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- purano font nachalera fontaweosmoe ko chalako cdn-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

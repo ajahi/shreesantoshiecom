@@ -25,6 +25,7 @@ Route::get('/buy','ProductController@buy');
 Route::get('/checkout','ProductController@getCheckout');
 Route::get('/reduce/{id}','ProductController@getreduceByOne');
 Route::get('/remove/{id}','ProductController@remove');
+Route::get('/product-detail/{id}','ShopController@details');
 
 Route::post('/login', 'Api\LoginController@login');
 Route::get('/newcart',function(){
@@ -41,6 +42,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('post/{id}','PostController@edit');
     Route::put('post/{id}','PostController@update');
     Route::delete('postdel/{id}','PostController@destroy');
+
+    Route::get('order','OrderController@index');
+    Route::get('order/{id}','OrderController@show');
+    Route::delete('orderdel/{id}','OrderController@destroy');
+    Route::put('orderadd/{id}','OrderController@addedit');
 
     Route::get('/category','CategoryController@index');
     Route::get('/categorycreate','CategoryController@create');

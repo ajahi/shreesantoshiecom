@@ -26,9 +26,11 @@ class ProductController extends Controller
     public function index()
     {
         return view('cms.product.productindex',[
-            'product'=>Product::all()
+            'product'=>Product::orderBy('id', 'DESC')->get()
         ]);
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -354,10 +356,10 @@ class ProductController extends Controller
     } else {
         Session::forget('cart');
     }
-
     return redirect()->back();
     }
-    public function deleteMedia($id){
-
-    }
+    
+    // public function buyNow(Request $request,$id){
+    //     $this->getAddToCart()
+    // }
 }
