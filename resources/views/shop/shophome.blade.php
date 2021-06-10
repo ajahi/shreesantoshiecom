@@ -110,6 +110,7 @@
                                         <div style="inline">
                                             <span class="quantity">Quantity: {{$item['qty']}}</span>
                                             <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
+                                            <span class='quantity'><a href="/increase/{{$item['item']['id']}}" title="Increase this item"><i class="fas fa-plus-square"></i></a></span>
                                         </div>
                                         
                                         <span class="shp__price">RS. {{$item['item']['purchase_price']}}</span>                                     
@@ -290,8 +291,13 @@
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <!-- <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="fas fa-eye"></span></a></li> -->
+                                                                <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->id}}"><span class="fas fa-eye"></span></a></li>
+                                                                @if($product->quantity < 0)
+
+                                                                @else
                                                                 <li><a title="Add TO Cart" href="/add-to-cart/{{$product->id}}"><span class="fas fa-shopping-cart"></span></a></li>
+                                                                @endif
+                                                               
                                                                 <li><a title="Wishlist" href="wishlist.html"><span class="fas fa-heart"></span></a></li>
                                                                 
                                                             </ul>
@@ -300,8 +306,8 @@
                                                     <div class="product__details">
                                                         <h2><a href="product-details.html">{{$product->title}}</a></h2>
                                                         <ul class="product__price">
-                                                            <li class="old__price">$16.00</li>
-                                                            <li class="new__price">{{$product->purchase_price}}</li>
+                                                            <li class="old__price">Rs {{$product->sell_price*0.9}}</li>
+                                                            <li class="new__price">Rs {{$product->sell_price}}</li>
                                                         </ul>
                                                     </div>
                                                 </div>

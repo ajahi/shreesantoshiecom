@@ -37,6 +37,7 @@
                     </td>
                     <td scope="col">{{$posts->status}}</td>
                     <td scope="col">
+                    <a href="/orderedit/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
                         <form action="/orderdel/{{$posts->id}}" method='POST'>
                             @csrf
                             @method('DELETE')

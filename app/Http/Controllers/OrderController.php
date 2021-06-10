@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use Illuminate\Support\Facades\Auth;
+use Validator;
+
 class OrderController extends Controller
 {
     /**
@@ -74,7 +76,16 @@ class OrderController extends Controller
     }
     public function edit($id)
     {
-
+        $user = Auth::user();
+        if ($user->hasRole(['admin','super_admin'])) {
+            return view('cms.order.orderedit',['order'=>Order::findOrFail($id)]);
+        }
+        $return = ["status" => "error",
+                "error" => [
+                    "code" => 403,
+                    "errors" => 'Forbidden'
+                ]];
+            return response()->json($return, 403);
     }
 
     /**
@@ -85,8 +96,29 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        $user = Auth::user();
+        if ($user->hasRole(['admin','super_admin'])) {
+            $validation = Validator::make($request->all(), [
+                'address'=>['required'],
+                'status'=>['required','in:ordered,delivered,completed']
+            ]);
+            if ($validation->fails()) {
+                return response()->json($validation->errors() , 422);
+            } 
+            $order=Order::findOrFail($id);
+            $order->address=$request->address;
+            $order->message=$request->message;
+            $order->status=$request->status;
+            $order->save();
+            return redirect('/order');
+        }$return = ["status" => "error",
+                "error" => [
+                    "code" => 403,
+                    "errors" => 'Forbidden'
+                ]];
+            return response()->json($return, 403);
+
     }
 
     /**

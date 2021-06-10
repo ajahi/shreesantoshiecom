@@ -92,9 +92,13 @@ Shree Santoshi Mata Hastakala
                                         <tr>
                                             <td class="product-name"><span class='amount'>{{$cart['item']['title']}}</span></td>
                                             <td class="product-price"><span class="amount">{{$cart['item']['purchase_price']}}</span></td>
-                                            <td class="product-quantity"><input type="number" value={{$cart['qty']}} /></td>
+                                            <td class="product-quantity"><span class="amount" >
+                                            {{$cart['qty']}}
+                                            <a href="/reduce/{{$cart['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a>
+                                            <a href="/increase/{{$cart['item']['id']}}" title="Increase this item"><i class="fas fa-plus-square"></i></a>
+                                            </span></td>
                                             <td class="product-subtotal">{{$cart['price']}}</td>
-                                            <td class="product-remove"><a href="#">X</a></td>
+                                            <td class="product-remove"><a href="remove/{{$cart['item']['id']}}">X</a></td>
                                         </tr>
                                     </tbody>
                                     @endforeach
@@ -114,14 +118,14 @@ Shree Santoshi Mata Hastakala
                                             <input type="text" placeholder="Last Name*" name='lastname'>
                                         </div>
                                         <div class="single-checkout-box">
-                                            <input type="email" placeholder="Eamil*" name='email'>
+                                            <input type="email" placeholder="Email*" name='email'>
                                             <input type="number" placeholder="Phone*" name='phone'>
                                         </div>
                                         <div class="single-checkout-box">
                                             <textarea name="message" placeholder="Message*" name='message'></textarea>
                                         </div>
                                         <div class="our-payment-sestem">
-                                            <button class="ts-btn  btn-large hover-theme" type='submit'>CONFIRM THE KILL</button>
+                                            <button class="ts-btn  btn-large hover-theme" type='submit'> CONFIRM </button>
                                         </div>
                                     </form>
                                 </div>

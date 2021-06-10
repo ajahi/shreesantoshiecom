@@ -119,7 +119,7 @@ Shree Santoshi Mata Hastakala
                                 </div>
                             </div>
                             <ul class="pro__dtl__btn">
-                                <li class="buy__now__btn"><a href="#">buy now</a></li>
+                                <li class="buy__now__btn"><a href="/buynow/{{$product->id}}">buy now</a></li>
                                 
                             </ul>
                             <div class="pro__social__share">

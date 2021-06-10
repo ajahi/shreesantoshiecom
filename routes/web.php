@@ -23,9 +23,11 @@ Route::get('/add-to-cart/{id}','ProductController@getaddToCart');
 Route::get('/shopingcart','ProductController@getCart');
 Route::get('/buy','ProductController@buy');
 Route::get('/checkout','ProductController@getCheckout');
-Route::get('/reduce/{id}','ProductController@getreduceByOne');
+Route::get('/reduce/{id}','ProductController@getReduceByOne');
+Route::get('/increase/{id}','ProductController@IncreaseByOne');
 Route::get('/remove/{id}','ProductController@remove');
 Route::get('/product-detail/{id}','ShopController@details');
+Route::get('buynow/{id}','ProductController@buyNow');
 
 Route::post('/login', 'Api\LoginController@login');
 Route::get('/newcart',function(){
@@ -47,6 +49,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('order/{id}','OrderController@show');
     Route::delete('orderdel/{id}','OrderController@destroy');
     Route::put('orderadd/{id}','OrderController@addedit');
+    Route::get('orderedit/{id}','OrderController@edit');
+    Route::put('orderedit/{id}','OrderController@update');
 
     Route::get('/category','CategoryController@index');
     Route::get('/categorycreate','CategoryController@create');

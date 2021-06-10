@@ -273,9 +273,7 @@ class ProductController extends Controller
         }
     }
 
-    public function buy(Request $request){
-        return view('purchase',['products'=>Product::all()]);
-    }
+    
 
     public function getAddToCart(Request $request, $id) {
         $product = Product::find($id);
@@ -346,6 +344,7 @@ class ProductController extends Controller
         }
         return redirect()->back();
    }
+   
    public function remove($id) {
     $oldCart = Session::has('cart') ? Session::get('cart') : null;
     $cart = new Cart($oldCart);
@@ -358,8 +357,15 @@ class ProductController extends Controller
     }
     return redirect()->back();
     }
+   
     
-    // public function buyNow(Request $request,$id){
-    //     $this->getAddToCart()
-    // }
+    public function buyNow(Request $request,$id){
+        $product=Product::findOrFail($id);
+       $this->getAddToCart($request,$id);
+       return redirect('/checkout');
+    }
+    public function IncreaseByOne(Request $request,$id){
+        $this->getAddToCart($request,$id);
+        return redirect()->back();
+    }
 }

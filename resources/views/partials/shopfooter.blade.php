@@ -6,7 +6,7 @@
                         <div class="col-md-3 col-lg-3 col-sm-6">
                             <div class="ft__widget">
                                 <div class="ft__logo">
-                                    <a href="index.html">
+                                    <a href="/">
                                         <img src="/images1/logo/logo1.png" alt="footer logo">
                                     </a>
                                 </div>
