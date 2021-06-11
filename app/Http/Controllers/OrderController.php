@@ -100,7 +100,7 @@ class OrderController extends Controller
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             $validation = Validator::make($request->all(), [
-                'status'=>['required','in:ordered,delivered,completed']
+                'status'=>['required','in:ordered,confirmed,cancelled']
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors() , 422);

@@ -19,9 +19,8 @@
         <div class="form-floating my-3">
         <label for="Category_id">Status</label>
             <select class="form-select" name="status" aria-label="Floating label select example"> 
-                <option value="ordered">Ordered</option>  
-                <option value="delivered">Delivered</option>
-                <option value="complete">Complete</option>
+                <option value="confirmed">Confirmed</option>  
+                <option value="cancelled">Cancelled</option>
             </select>
         </div>
         <button type='Submit' class="btn btn-info"> Submit</button>
