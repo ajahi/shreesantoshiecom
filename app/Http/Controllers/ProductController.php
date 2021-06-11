@@ -135,7 +135,7 @@ class ProductController extends Controller
                 // dd('image is availeble');
             }
             
-            return redirect()->next();
+            return redirect('/product');
 
         } else {
             $return = ["status" => "success",
@@ -304,21 +304,20 @@ class ProductController extends Controller
             'firstname'=>'required',
             'lastname'=>'required',
             'phone'=>'required',
-            'email'=>'required|email'
+            'email'=>'required|email',
+            'address'=>'required'
         ]);
         if ($validation->fails()) {
             return response()->json($validation->errors() , 422);
         }
         $cart=Session::get('cart')->items;
-        
-      
         $order=new Order();
         $order->firstname=$request->firstname;
         $order->lastname=$request->lastname;
         $order->phone=$request->phone;
         $order->email=$request->email;
+        $order->address=$request->address;
         $order->status='ordered';
-        $order->message=$request->message;
         $order->save();
         foreach($cart as $cart){
             $selldetail['product_id']=$cart['item']['id'];

@@ -17,15 +17,6 @@
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
-        <label for="">Address</label>
-            <input  class="form-control col-lg-7" name="address" placeholder="Adress of the order" value='{{$order->address}}' required>
-         </div>
-        <div class="form-floating my-3">
-        <label for="">Message</label>
-            <textarea required class="form-control col-lg-7" placeholder="Message" name="message" style="height: 100px">{{$order->message}}</textarea>
-        </div>
-        
-        <div class="form-floating my-3">
         <label for="Category_id">Status</label>
             <select class="form-select" name="status" aria-label="Floating label select example"> 
                 <option value="ordered">Ordered</option>  

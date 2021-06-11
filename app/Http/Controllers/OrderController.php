@@ -100,15 +100,12 @@ class OrderController extends Controller
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
             $validation = Validator::make($request->all(), [
-                'address'=>['required'],
                 'status'=>['required','in:ordered,delivered,completed']
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors() , 422);
             } 
             $order=Order::findOrFail($id);
-            $order->address=$request->address;
-            $order->message=$request->message;
             $order->status=$request->status;
             $order->save();
             return redirect('/order');

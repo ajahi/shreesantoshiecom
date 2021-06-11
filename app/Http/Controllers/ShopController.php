@@ -20,7 +20,7 @@ class ShopController extends Controller
         $children=ProductCategory::query()->whereHas('children',function($q){
             $q->where('parent_id','');
         })->get();
-        $products=Product::take(3)->get();
+        $products=Product::all();
         //cart
         $oldCart=Session::get('cart');
         $cart= new Cart($oldCart);

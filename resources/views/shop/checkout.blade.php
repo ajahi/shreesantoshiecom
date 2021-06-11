@@ -91,7 +91,7 @@ Shree Santoshi Mata Hastakala
                                     <tbody>                                       
                                         <tr>
                                             <td class="product-name"><span class='amount'>{{$cart['item']['title']}}</span></td>
-                                            <td class="product-price"><span class="amount">{{$cart['item']['purchase_price']}}</span></td>
+                                            <td class="product-price"><span class="amount">{{$cart['item']['sell_price']}}</span></td>
                                             <td class="product-quantity"><span class="amount" >
                                             {{$cart['qty']}}
                                             <a href="/reduce/{{$cart['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a>
@@ -122,7 +122,8 @@ Shree Santoshi Mata Hastakala
                                             <input type="number" placeholder="Phone*" name='phone'>
                                         </div>
                                         <div class="single-checkout-box">
-                                            <textarea name="message" placeholder="Message*" name='message'></textarea>
+                                            <input type="text" placeholder="Address" name='address'>
+                                            
                                         </div>
                                         <div class="our-payment-sestem">
                                             <button class="ts-btn  btn-large hover-theme" type='submit'> CONFIRM </button>

@@ -84,8 +84,13 @@ Shree Santoshi Mata Hastakala
                                 <p>{{$product->description}} </p>
                             </div>
                             <ul class="pro__dtl__prize">
-                                <li class="old__prize">$15.21</li>
-                                <li>RS.{{$product->sell_price}}</li>
+                            @if($product->discount)
+                                <li class="old__prize">Rs. {{$product->sell_price}}</li>
+                                <li>Rs.{{$product->sell_price*(1-$product->discount/100)}}</li>
+                            @else
+                                <li>Rs. {{$product->sell_price}}</li>
+                            @endif
+                                
                             </ul>
                             <!-- <div class="pro__dtl__color">
                                 <h2 class="title__5">Choose Colour</h2>
@@ -112,16 +117,24 @@ Shree Santoshi Mata Hastakala
                                     <form id='myform' method='POST' action='#'>
                                         <div class="product-quantity">
                                             <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="02">
+                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="01">
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
+                            
+                            @if($product->quantity < 0)
+                            <div class="pro__details">
+                                <p>Currently the stock are empty of this product.</p>
+                            </div>
+                            @else
                             <ul class="pro__dtl__btn">
-                                <li class="buy__now__btn"><a href="/buynow/{{$product->id}}">buy now</a></li>
-                                
+                                <li class="buy__now__btn"><a href="/buynow/{{$product->id}}">Buy now</a></li>
+                                <li class="buy__now__btn"><a href="/add-to-cart/{{$product->id}}">Add To Cart</a></li>
                             </ul>
+                            @endif
+                            
                             <div class="pro__social__share">
                                 <h2>Share :</h2>
                                 <ul class="pro__soaial__link">

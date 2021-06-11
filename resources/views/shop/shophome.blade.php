@@ -295,7 +295,7 @@
                                                                 @if($product->quantity < 0)
 
                                                                 @else
-                                                                <li><a title="Add TO Cart" href="/add-to-cart/{{$product->id}}"><span class="fas fa-shopping-cart"></span></a></li>
+                                                                <li><a title="Add To Cart" href="/add-to-cart/{{$product->id}}"><span class="fas fa-shopping-cart"></span></a></li>
                                                                 @endif
                                                                
                                                                 <li><a title="Wishlist" href="wishlist.html"><span class="fas fa-heart"></span></a></li>
@@ -304,11 +304,15 @@
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="product-details.html">{{$product->title}}</a></h2>
+                                                        <h2><a href="/product-detail/{{$product->id}}">{{$product->title}}</a></h2>
                                                         <ul class="product__price">
-                                                            <li class="old__price">Rs {{$product->sell_price*0.9}}</li>
-                                                            <li class="new__price">Rs {{$product->sell_price}}</li>
-                                                        </ul>
+                                                            @if($product->discount)
+                                                                <li class="old__price">Rs.{{$product->sell_price}}</li>
+                                                                <li class="new__price">Rs.{{$product->sell_price*(1-$product->discount/100)}}</li>
+                                                            @else
+                                                            <li class="new__price">Rs.{{$product->sell_price}}</li>
+                                                            @endif
+                                                        </ul>    
                                                     </div>
                                                 </div>
                                             </div>   
@@ -339,8 +343,12 @@
                                                     <div class="product__details">
                                                         <h2><a href="product-details.html">{{$products->title}}</a></h2>
                                                         <ul class="product__price">
-                                                            <li class="old__price">$16.00</li>
-                                                            <li class="new__price">RS.{{$products->purchase_price}}</li>
+                                                        @if($products->discount)
+                                                            <li class="old__price">Rs.{{$products->purchase_price}}</li>
+                                                            <li class="new__price">Rs.{{$products->purchase_price*$products->discount/100}}</li>
+                                                        @else
+                                                            
+                                                        @endif
                                                         </ul>
                                                     </div>
                                                 </div>

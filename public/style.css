@@ -54,6 +54,16 @@
 /*---------------------------------------
   02. Scroll To Top
 ----------------------------------------*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 #scrollUp {
     border: 3px solid rgba(0, 0, 0, 0.1);
