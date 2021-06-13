@@ -5,6 +5,14 @@
 @endsection
       
 @section('sidemenu')
+<script>
+$(document).ready(function(){
+    $('#cartButton').click(function(){
+        alert('clicked');
+    });
+});
+</script>
+
 
         <!-- Start Offset Wrapper -->
         <div class="offset__wrapper">
@@ -231,7 +239,7 @@
         <div class="only-banner ptb--100 bg__white">
             <div class="container">
                 <div class="only-banner-img">
-                    <a href="shop-sidebar.html"><img src="images1/new-product/Tmart-banner-03.png" alt="new product"></a>
+                    <a href="shop-sidebar.html"><img src="/images1/new-product/Tmart-banner-03.png" alt="new product"></a>
                 </div>
             </div>
         </div>
@@ -244,34 +252,15 @@
                             <div class="product-tab-list">
                                 <!-- Nav tabs -->
                                 <ul class="tab-style" role="tablist">
-                                    <li class="active">
-                                        <a href="#home1" data-toggle="tab">
+                                @foreach($parentcat as $sidemenu)
+                                    <li class="">
+                                        <a href="home{{$sidemenu->id}}" data-toggle="tab">
                                             <div class="tab-menu-text">
-                                                <h4>latest </h4>
+                                                <h4>{{$sidemenu->title}} </h4>
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#home2" data-toggle="tab">
-                                            <div class="tab-menu-text">
-                                                <h4>best sale </h4>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#home3" data-toggle="tab">
-                                            <div class="tab-menu-text">
-                                                <h4>top rated</h4>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#home4" data-toggle="tab">
-                                            <div class="tab-menu-text">
-                                                <h4>on sale</h4>
-                                            </div>
-                                        </a>
-                                    </li>
+                                @endforeach
                                 </ul>
                             </div>
                             <div class="tab-content another-product-style jump">
@@ -292,12 +281,11 @@
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
                                                                 <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->id}}"><span class="fas fa-eye"></span></a></li>
-                                                                @if($product->quantity < 0)
+                                                             @if($product->quantity > 0 )
+                                                                <li><a title="Add To Cart" id="cartButton" ><span class="fas fa-shopping-cart"></span></a></li>
+                                                            @else
 
-                                                                @else
-                                                                <li><a title="Add To Cart" href="/add-to-cart/{{$product->id}}"><span class="fas fa-shopping-cart"></span></a></li>
-                                                                @endif
-                                                               
+                                                            @endif       
                                                                 <li><a title="Wishlist" href="wishlist.html"><span class="fas fa-heart"></span></a></li>
                                                                 
                                                             </ul>
@@ -1040,7 +1028,7 @@
         <div class="only-banner bg__white">
             <div class="container">
                 <div class="only-banner-img">
-                    <a href="shop-sidebar.html"><img src="image1s/new-product/7.jpg" alt="new product"></a>
+                    <a href="shop-sidebar.html"><img src="/images1/new-product/7.jpg" alt="new product"></a>
                 </div>
             </div>
         </div>
@@ -1444,16 +1432,19 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="section__title section__title--2 text-center">
-                            <h2 class="title__line">Latest News</h2>
+                            <h2 class="title__line">Latest Post</h2>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod temp incididunt ut labore et dolore magna aliqua. </p>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="blog__wrap clearfix mt--60 xmt-30">
                         <!-- Start Single Blog -->
                         <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                             <div class="blog foo">
+                            <ul>
+                            @foreach($posts as $post)
+                            <li>
                                 <div class="blog__inner">
                                     <div class="blog__thumb">
                                         <a href="blog-details.html">
@@ -1461,7 +1452,7 @@
                                         </a>
                                         <div class="blog__post__time">
                                             <div class="post__time--inner">
-                                                <span class="date">14</span>
+                                                <span class="date">{{$post}}</span>
                                                 <span class="month">sep</span>
                                             </div>
                                         </div>
@@ -1479,73 +1470,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                </li>
+                                @endforeach
+                            </ul>
                             </div>
                         </div>
                         <!-- End Single Blog -->
                         <!-- Start Single Blog -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="blog foo">
-                                <div class="blog__inner">
-                                    <div class="blog__thumb">
-                                        <a href="blog-details.html">
-                                            <img src="images1/blog/blog-img/2.jpg" alt="blog images">
-                                        </a>
-                                        <div class="blog__post__time">
-                                            <div class="post__time--inner">
-                                                <span class="date">14</span>
-                                                <span class="month">sep</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="blog__hover__info">
-                                        <div class="blog__hover__action">
-                                            <p class="blog__des"><a href="blog-details.html">Lorem ipsum dolor sit consectetu.</a></p>
-                                            <ul class="bl__meta">
-                                                <li>By :<a href="#">Admin</a></li>
-                                                <li>Product</li>
-                                            </ul>
-                                            <div class="blog__btn">
-                                                <a class="read__more__btn" href="blog-details.html">read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <!-- End Single Blog -->
                         <!-- Start Single Blog -->
-                        <div class="col-md-4 col-lg-4 hidden-sm col-xs-12">
-                            <div class="blog foo">
-                                <div class="blog__inner">
-                                    <div class="blog__thumb">
-                                        <a href="blog-details.html">
-                                            <img src="images1/blog/blog-img/3.jpg" alt="blog images">
-                                        </a>
-                                        <div class="blog__post__time">
-                                            <div class="post__time--inner">
-                                                <span class="date">14</span>
-                                                <span class="month">sep</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="blog__hover__info">
-                                        <div class="blog__hover__action">
-                                            <p class="blog__des"><a href="blog-details.html">Lorem ipsum dolor sit consectetu.</a></p>
-                                            <ul class="bl__meta">
-                                                <li>By :<a href="#">Admin</a></li>
-                                                <li>Product</li>
-                                            </ul>
-                                            <div class="blog__btn">
-                                                <a class="read__more__btn" href="blog-details.html">read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                      
                         <!-- End Single Blog -->
                     </div>
-                </div>
+                </div> -->
             </div>
         </section>
 @endsection

@@ -18,6 +18,7 @@ Route::get('/logout',function(){
     Auth::logout();
     return redirect('/login');
 });
+
 Route::get('/','ShopController@index');
 Route::get('/add-to-cart/{id}','ProductController@getaddToCart');
 Route::get('/shopingcart','ProductController@getCart');
@@ -109,6 +110,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/menu/{id}','MenuController@edit');
     Route::put('/menu/{id}','MenuController@update');
     Route::delete('/menudel/{id}','MenuController@destroy');
+
+    Route::get('/cms',function(){
+        return redirect('/order');
+    });
 });
 // Route::group(['middleware' => ['cors']], function() {
 //     Route::post('/login', 'Api\LoginController@login');

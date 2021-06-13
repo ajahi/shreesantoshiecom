@@ -7,6 +7,7 @@ use App\ProductCategory;
 use App\Product;
 use Session;
 use App\Cart;
+use App\Post;
 
 class ShopController extends Controller
 {
@@ -16,7 +17,7 @@ class ShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   $procat=ProductCategory::where('parent_id',NULL)->get();
+    {   
         $children=ProductCategory::query()->whereHas('children',function($q){
             $q->where('parent_id','');
         })->get();
@@ -26,7 +27,9 @@ class ShopController extends Controller
         $cart= new Cart($oldCart);
         
         return view('shop.shophome',[
-            'sidemenu'=>$procat,
+            'sidemenu'=>ProductCategory::where('parent_id',NULL)->get(),
+            'parentcat'=>ProductCategory::where('parent_id',NULL)->get(),
+            'posts'=>Post::orderBy('id', 'DESC')->get(),
             'prod'=>ProductCategory::all(),
            'children'=>$children,
            'products'=>$products,
