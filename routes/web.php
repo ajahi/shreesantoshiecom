@@ -35,6 +35,8 @@ Route::get('/newcart',function(){
     Session::flush();
     return redirect()->back();
 });
+Route::get('ajaxrequest','HomeController@ajax');
+Route::post('ajaxRequest','HomeController@ajaxpost');
 Route::post('/order','ProductController@order');
 
 Route::group(['middleware' => 'auth'], function() {

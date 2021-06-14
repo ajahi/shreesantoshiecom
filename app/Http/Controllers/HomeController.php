@@ -25,4 +25,12 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function ajax(){
+        return view('ajax');
+    }
+    public function ajaxpost(Request $request){
+        $input = $request->all();
+
+        return response()->json(['success'=>'Got Simple Ajax Request.']);
+    }
 }

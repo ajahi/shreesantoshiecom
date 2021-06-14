@@ -5,16 +5,41 @@
 @endsection
       
 @section('sidemenu')
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script>
+
+function getcart(){
+    $.ajax({
+        type:'get',
+        url:'<?php echo url('/shopingcart');?>',
+        success:function(){
+            alert('cart available');
+        }
+    });
+}
 $(document).ready(function(){
-    $('#cartButton').click(function(){
-        alert('clicked');
+    $('.button').click(function(){
+        var pro_Id = $(this).attr('value');
+            $.ajax({
+            type:'get',
+            url:'<?php echo url('/add-to-cart');?>/'+ pro_Id,
+            success:function(){
+               alert('done adding');
+            }
+        },
+        {
+        type:'get',
+        url:'<?php echo url('/shopingcart');?>',
+        success:function(){
+            alert('cart available');
+        }
+    });
+       ;
     });
 });
+
 </script>
-
-
-        <!-- Start Offset Wrapper -->
+      <!-- Start Offset Wrapper -->
         <div class="offset__wrapper">
             <!-- Start Search Popap -->
             <div class="search__area">
@@ -281,13 +306,13 @@ $(document).ready(function(){
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
                                                                 <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->id}}"><span class="fas fa-eye"></span></a></li>
-                                                             @if($product->quantity > 0 )
-                                                                <li><a title="Add To Cart" id="cartButton" ><span class="fas fa-shopping-cart"></span></a></li>
-                                                            @else
+                                                  
+                                                                <li><a title="Add To Cart" value='{{$product->id}}' class='button' id="cartButton"><span class="fas fa-shopping-cart"></span></a></li>
+                                                         
 
-                                                            @endif       
+                                                             
                                                                 <li><a title="Wishlist" href="wishlist.html"><span class="fas fa-heart"></span></a></li>
-                                                                
+                    
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -1440,7 +1465,7 @@ $(document).ready(function(){
                 <!-- <div class="row">
                     <div class="blog__wrap clearfix mt--60 xmt-30">
                         <!-- Start Single Blog -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                        <!-- <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                             <div class="blog foo">
                             <ul>
                             @foreach($posts as $post)
@@ -1474,7 +1499,7 @@ $(document).ready(function(){
                                 @endforeach
                             </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End Single Blog -->
                         <!-- Start Single Blog -->
                         
