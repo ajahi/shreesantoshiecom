@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="content-wrapper container">
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">

@@ -111,7 +111,7 @@ class PostController extends Controller
                 $post->addMediaFromRequest('image')->toMediaCollection('images');
                 // dd('image is availeble');
             }
-            return redirect('/post');
+            return redirect('/post')->with('success','You have successfully created a post.');
         } else {
             $return = ["status" => "error",
                 "error" => [
@@ -212,7 +212,7 @@ class PostController extends Controller
 
             $post = Post::findOrFail($id);
 
-            return redirect('/post');
+            return redirect('/post')->with('success','You have successfully edited a post.');
 
         } else {
             $return = ["status" => "error",
@@ -242,7 +242,7 @@ class PostController extends Controller
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return redirect('/post');
+            return redirect('/post')->with('error','You have deleted a post.');
 
         } else {
             $return = ["status" => "error",

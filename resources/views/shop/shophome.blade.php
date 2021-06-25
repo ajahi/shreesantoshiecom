@@ -5,6 +5,11 @@
 @endsection
       
 @section('sidemenu')
+<div class="container">
+    @include('flash') 
+</div>
+
+
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script>
 
@@ -104,14 +109,14 @@ $(document).ready(function(){
                                     </a>
                                     </div>  
                                     <div class="shp__pro__details">
-                                        <h2 id='itemName'>Name: <a href="product-details.html"><strong><script>var duta;</script></strong></a></h2>
+                                        <h2 id='itemName'><a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
                                         <div style="inline">
-                                            <span class="quantity">Quantity: {{$item['qty']}}</span>
-                                            <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
-                                            <span class='quantity'><a href="/increase/{{$item['item']['id']}}" title="Increase this item"><i class="fas fa-plus-square"></i></a></span>
+                                            <span class="quantity">X {{$item['qty']}}</span>
+                                            <!-- <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
+                                            <span class='quantity'><a href="/increase/{{$item['item']['id']}}" title="Increase this item"><i class="fas fa-plus-square"></i></a></span> -->
                                         </div>
                                         
-                                        <span class="shp__price">RS. {{$item['item']['purchase_price']}}</span>                                     
+                                        <span class="shp__price">Rs. {{$item['item']['purchase_price']}}</span>                                     
                                     </div>
                                     <div class="remove__btn">
                                         <a href="/remove/{{$item['item']['id']}}" title="Remove this item"><i class="fas fa-trash right"></i></i></a>
@@ -272,7 +277,7 @@ $(document).ready(function(){
                                                             <ul class="product__action">
                                                                 <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->id}}"><span class="fas fa-eye"></span></a></li>
                                                   
-                                                                <li><a title="Add To Cart" value='{{$product->id}}' class='button' id="cartButton" ><span class="fas fa-shopping-cart"></span></a></li>
+                                                                <li><a title="Add To Cart" value='{{$product->id}}' href='add-to-cart/{{$product->id}}' ><span class="fas fa-shopping-cart"></span></a></li>
                                                          
 
                                                              

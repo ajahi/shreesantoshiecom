@@ -286,8 +286,8 @@ class ProductController extends Controller
         $cart->add($product, $product->id);
         $request->session()->put('cart', $cart);
        
-        
-        return response()->json($cart=Session::get('cart'));
+        return back()->with('success','items added to cart successfully');
+        // return response()->json($cart=Session::get('cart'));
         
 
     }
@@ -331,12 +331,10 @@ class ProductController extends Controller
             $selldetail['order_id']=$order->id;
             $selldetail['price']=$cart['price'];
             $selldetail['quantity']=$cart['qty'];
-            $product=Product::find($cart['item']['id']);
-            $product->quantity=$product->quantity-$cart['qty'];
-            $product->save();
             SellDetail::create($selldetail);
         }
-        return redirect('/newcart');
+        Session::flush();
+        return redirect('/')->with('success','You have successfully made an order.');
     }
    public function getReduceByOne($id){
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
@@ -361,7 +359,7 @@ class ProductController extends Controller
     } else {
         Session::forget('cart');
     }
-    return redirect()->back();
+    return redirect()->back()->with('warning','You have removed item from cart.');
     }
    
     

@@ -29,10 +29,10 @@
   <!-- Navbar -->
   @include('partials.cmsheader')
   <!-- /.navbar -->
-
+  
       <!-- Main Sidebar Container -->
     @include('partials.cmssidebar')
-
+    
     @yield('content')
 
 @include('partials.cmsfooter')
