@@ -8,37 +8,33 @@
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script>
 
-function getcart(){
-    $.ajax({
-        type:'get',
-        url:'<?php echo url('/shopingcart');?>',
-        success:function(){
-            alert('cart available');
-        }
-    });
-}
 $(document).ready(function(){
     $('.button').click(function(){
         var pro_Id = $(this).attr('value');
             $.ajax({
             type:'get',
+            cache:false,
             url:'<?php echo url('/add-to-cart');?>/'+ pro_Id,
-            success:function(){
-               alert('done adding');
-            }
-        },
-        {
-        type:'get',
-        url:'<?php echo url('/shopingcart');?>',
-        success:function(){
-            alert('cart available');
-        }
+            success:function(response){
+               var resp=response;
+                alert('item added');
+                
+               loaditems(resp);
+              }
+        });
+        
     });
-       ;
-    });
+   
+    function loaditems(data){
+        var name=document.getElementById('itemName');
+        var duta=data.items[3].item.title;
+        console.log(duta);
+    }
 });
 
 </script>
+
+
       <!-- Start Offset Wrapper -->
         <div class="offset__wrapper">
             <!-- Start Search Popap -->
@@ -84,38 +80,7 @@ $(document).ready(function(){
                         <li><a href="#"><img src="images1/sidebar-img/7.jpg" alt="sidebar images"></a></li>
                         <li><a href="#"><img src="images1/sidebar-img/8.jpg" alt="sidebar images"></a></li>
                     </ul>
-                    <div class="offset__widget">
-                        <div class="offset__single">
-                            <h4 class="offset__title">Language</h4>
-                            <ul>
-                                <li><a href="#"> Engish </a></li>
-                                <li><a href="#"> French </a></li>
-                                <li><a href="#"> German </a></li>
-                            </ul>
-                        </div>
-                        <div class="offset__single">
-                            <h4 class="offset__title">Currencies</h4>
-                            <ul>
-                                <li><a href="#"> USD : Dollar </a></li>
-                                <li><a href="#"> EUR : Euro </a></li>
-                                <li><a href="#"> POU : Pound </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="offset__sosial__share">
-                        <h4 class="offset__title">Follow Us On Social</h4>
-                        <ul class="off__soaial__link">
-                            <li><a class="bg--twitter" href="#"  title="Twitter"><i class="fas fa-twitter"></i></a></li>
-                            
-                            <li><a class="bg--instagram" href="#" title="Instagram"><i class="fas fa-instagram"></i></a></li>
-
-                            <li><a class="bg--facebook" href="#" title="Facebook"><i class="fas fa-facebook"></i></a></li>
-
-                            <li><a class="bg--googleplus" href="#" title="Google Plus"><i class="fas fa-google-plus"></i></a></li>
-
-                            <li><a class="bg--google" href="#" title="Google"><i class="fas fa-google"></i></a></li>
-                        </ul>
-                    </div>
+                   
                 </div>
             </div>
             <!-- End Offset MEnu -->
@@ -139,7 +104,7 @@ $(document).ready(function(){
                                     </a>
                                     </div>  
                                     <div class="shp__pro__details">
-                                        <h2>Name: <a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
+                                        <h2 id='itemName'>Name: <a href="product-details.html"><strong><script>var duta;</script></strong></a></h2>
                                         <div style="inline">
                                             <span class="quantity">Quantity: {{$item['qty']}}</span>
                                             <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
@@ -307,7 +272,7 @@ $(document).ready(function(){
                                                             <ul class="product__action">
                                                                 <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->id}}"><span class="fas fa-eye"></span></a></li>
                                                   
-                                                                <li><a title="Add To Cart" value='{{$product->id}}' class='button' id="cartButton"><span class="fas fa-shopping-cart"></span></a></li>
+                                                                <li><a title="Add To Cart" value='{{$product->id}}' class='button' id="cartButton" ><span class="fas fa-shopping-cart"></span></a></li>
                                                          
 
                                                              

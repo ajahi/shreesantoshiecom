@@ -21,7 +21,7 @@ Route::get('/logout',function(){
 
 Route::get('/','ShopController@index');
 Route::get('/add-to-cart/{id}','ProductController@getaddToCart');
-Route::get('/shopingcart','ProductController@getCart');
+Route::get('/shopingcart','ShopController@getCart');
 Route::get('/buy','ProductController@buy');
 Route::get('/checkout','ProductController@getCheckout');
 Route::get('/reduce/{id}','ProductController@getReduceByOne');

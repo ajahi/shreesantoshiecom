@@ -237,6 +237,9 @@ class ProductController extends Controller
             return response()->json($return, 403);
         }
     }
+    public function getcart(){
+       return 'ol';
+    }
 
 
     /**
@@ -281,10 +284,14 @@ class ProductController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($product, $product->id);
-
         $request->session()->put('cart', $cart);
-        return redirect()->back();
+       
+        
+        return response()->json($cart=Session::get('cart'));
+        
+
     }
+    
 
     public function getCheckout(){
         if(!Session::has('cart')){

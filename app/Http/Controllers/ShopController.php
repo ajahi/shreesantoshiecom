@@ -45,6 +45,12 @@ class ShopController extends Controller
             'product'=>Product::findOrFail($id)
         ]);
     }
+
+    public function getCart(){
+        $oldCart=Session::get('cart');
+        $cart= new Cart($oldCart);
+        return response()->json($cart);
+    }
     /**
      * Show the form for creating a new resource.
      *

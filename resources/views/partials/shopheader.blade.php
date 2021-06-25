@@ -1,6 +1,5 @@
 
 
-
 <header id="header" class="htc-header header--3 bg__white">
 
 
@@ -17,7 +16,7 @@
                         </div>
                         <!-- Start MAinmenu Ares -->
                         <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
-                            <nav class="mainmenu__nav hidden-xs hidden-sm">
+                          <nav class="mainmenu__nav hidden-xs hidden-sm">
                                 <ul class="main__menu">
                                     <li class="drop"><a href="/">Home</a></li>
                                     <li class="drop"><a href="shop.html">Shop</a>
@@ -42,7 +41,7 @@
                                                     <li>
                                                         <div class="mega-item-img">
                                                             <a href="shop.html">
-                                                                <img src="images1/feature-img/3.png" alt="">
+                                                                <img src="/images1/feature-img/3.png" alt="">
                                                             </a>
                                                         </div>
                                                     </li>
@@ -106,10 +105,10 @@
                                 <li class="user"><i class="fas fa-user"></i></li> 
                                 <li class="search search__open hidden-xs"><i class="fas fa-search"></i></li>   
                                 <li class="cart__menu">
-                                <i class="fas fa-shopping-cart"></i>
+                                <i class="fas fa-shopping-cart"></i>                             
                                 @if(Session::has('cart'))
-                                {{Session::get('cart')->totalQty}}
-                                @endif
+                                    {{Session::get('cart')->totalQty}}
+                                @endif                              
                                 </li>         
                             </ul>
                         </div>
