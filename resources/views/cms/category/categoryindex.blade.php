@@ -3,13 +3,14 @@
 
 @section('content')
 <div class="content-wrapper container">
+@include('flash')
     <div class="section">
         <table class='table'>
             <thead>
                 <tr>
-                <th scope='col'>id</th>
-                <th scope='col'>title</th>
-                <th scope='col'>desc</th>
+                <th scope='col'>Id</th>
+                <th scope='col'>Title</th>
+                <th scope='col'>Desc</th>
                 <th scope='col'>Action</th>
                 </tr>
             </thead>

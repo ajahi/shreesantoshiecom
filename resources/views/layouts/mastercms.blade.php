@@ -32,7 +32,7 @@
   
       <!-- Main Sidebar Container -->
     @include('partials.cmssidebar')
-    
+  
     @yield('content')
 
 @include('partials.cmsfooter')

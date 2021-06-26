@@ -19,7 +19,7 @@
                           <nav class="mainmenu__nav hidden-xs hidden-sm">
                                 <ul class="main__menu">
                                     <li class="drop"><a href="/">Home</a></li>
-                                    <li class="drop"><a href="shop.html">Shop</a>
+                                    <li class="drop"><a href="/shop">Shop</a>
                                         <ul class="dropdown mega_dropdown">
                                             <!-- Start Single Mega MEnu -->
                                             <li><a class="mega__title" href="shop.html">shop layout</a>
@@ -50,7 +50,7 @@
                                             <!-- End Single Mega MEnu -->
                                         </ul>
                                     </li>
-                                    <li class="drop"><a href="#">pages</a>
+                                    <!-- <li class="drop"><a href="#">pages</a>
                                         <ul class="dropdown">
                                             <li><a href="about.html">about</a></li>
                                             <li><a href="#">testimonials <span><i class="fas fa-angle-left right"></i></span></a>
@@ -67,8 +67,8 @@
                                             <li><a href="team.html">team</a></li>
                                             <li><a href="login-register.html">login & register</a></li>
                                         </ul>
-                                    </li>
-                                    <li><a href="contact.html">contact</a></li>
+                                    </li> -->
+                                    <li><a href="/contactpage">contact</a></li>
                                 </ul>
                             </nav>
                             <div class="mobile-menu clearfix visible-xs visible-sm">
@@ -102,10 +102,10 @@
                         <!-- End MAinmenu Ares -->
                         <div class="col-md-2 col-sm-4 col-xs-3">  
                             <ul class="menu-extra">
-                                <li class="user"><i class="fas fa-user"></i></li> 
-                                <li class="search search__open hidden-xs"><i class="fas fa-search"></i></li>   
+                                <li class="user"><i class="ti-user"></i></li> 
+                                <li class="search search__open hidden-xs"><i class="ti-search"></i></li>   
                                 <li class="cart__menu">
-                                <i class="fas fa-shopping-cart"></i>                             
+                                <i class="ti-shopping-cart"></i>                             
                                 @if(Session::has('cart'))
                                     {{Session::get('cart')->totalQty}}
                                 @endif                              

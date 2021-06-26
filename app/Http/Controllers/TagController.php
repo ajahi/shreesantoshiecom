@@ -57,7 +57,7 @@ class TagController extends Controller
             }
             $tag = Tag::create($request->all());
 
-            return redirect('/tag');
+            return redirect('/tag')->with('success','You have successfully created a tag.');
 
         } else {
             $return = ["status" => "error",
@@ -114,7 +114,7 @@ class TagController extends Controller
             $tag->fill($request->all())->save();
 
            
-            return redirect('/tag');
+            return redirect('/tag')->with('info','You have succcessfully edited a tag.');
 
         } else {
             $return = ["status" => "error",
@@ -122,7 +122,7 @@ class TagController extends Controller
                     "code" => 403,
                     "errors" => 'Forbidden'
                 ]];
-            return response()->json($return, 403);
+            return redirect('/tag')->with('warning','Only admin and superadmin are allowed to edit a tag.');
         }
     }
 
@@ -142,7 +142,7 @@ class TagController extends Controller
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return redirect('/tag');
+            return redirect('/tag')->with('error','You have successfully deleted a tag.');
 
         } else {
             $return = ["status" => "error",
@@ -150,7 +150,7 @@ class TagController extends Controller
                     "code" => 403,
                     "errors" => 'Forbidden'
                 ]];
-            return response()->json($return, 403);
+            return redirect('/tag')->with('warning','Only admin and superadmin are allowed to delete tag.');
         }
     }
 }

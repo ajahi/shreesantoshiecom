@@ -61,10 +61,10 @@ class ProductCategoryController extends Controller
             
             $product_category->save();
             
-            return redirect('/productcategory');
+            return redirect('/productcategory')->with('success','You have successfully created a product category.');
             // return new  ProductCategoryResource($product_category);
         }else{
-            return response()->json(['error'=>'Forbidden request'], 403);
+            return redirect('/productcategory')->with('info','Only admin and superadmin can create product category');
         }
     }
 
@@ -122,11 +122,10 @@ class ProductCategoryController extends Controller
                 $product_category->clearMediaCollection('image');
                 $product_category->addMediaFromRequest('image')->toMediaCollection('image');
             }
-            return redirect('/productcategory');
-            return new  ProductCategoryResource($product_category);
-
+            return redirect('/productcategory')->with('success','You have successfully edited a productcategory.');
+            
         } else {
-            return response()->json(['error'=>'Forbidden request'], 403);
+            return redirect('/productcategory')->with('info','admin and superadmin can only edit a productcategory');
         }
     }
 
@@ -148,10 +147,10 @@ class ProductCategoryController extends Controller
            
             $product_category->delete();
            
-            return redirect('/productcategory');
+            return redirect('/productcategory')->with('error','You have successfully deleted a productcategory.');
         }
         else {
-            return response()->json(['error'=>'Forbidden request'], 403);
+            return redirect('/productcategory')->with('warning','admin and superadmin are allowed to delet a productcategory.');
         }
     }
 }

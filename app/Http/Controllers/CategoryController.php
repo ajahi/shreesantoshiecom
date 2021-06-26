@@ -74,7 +74,7 @@ class CategoryController extends Controller
                 $category->clearMediaCollection('featured');
                 $category->addMediaFromRequest('featured')->toMediaCollection('featured');
             }
-            return redirect('/category');
+            return redirect('/category')->with('success','You have successfully created a category.');
 
         } else {
             $return = ["status" => "error",
@@ -138,7 +138,7 @@ class CategoryController extends Controller
             }
             $category = Category::findOrFail($id);
 
-            return redirect('/category');
+            return redirect('/category')->with('success','You have successfully edited a post.');
 
         } else {
             $return = ["status" => "error",
@@ -166,7 +166,7 @@ class CategoryController extends Controller
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return redirect('/category');
+            return redirect('/category')->with('error','You have successfully deleted a category.');
 
         } else {
             $return = ["status" => "error",
@@ -174,7 +174,7 @@ class CategoryController extends Controller
                     "code" => 403,
                     "errors" => 'Forbidden'
                 ]];
-            return redirect('/category');
+            return redirect('/category')->with('warning','only Admin and Superadmin are allowed to delete.');
         }
     }
 

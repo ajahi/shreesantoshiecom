@@ -51,6 +51,51 @@ class ShopController extends Controller
         $cart= new Cart($oldCart);
         return response()->json($cart);
     }
+
+    public function shop(Request $request){
+        //cart
+        $oldCart=Session::get('cart');
+        $cart= new Cart($oldCart);
+        //product        
+        $procat=ProductCategory::where('parent_id',null)->take(3)->get();
+        if($request->has('productcategory')){
+            $pro=ProductCategory::has('products',$request->productcategory)->get();          
+        }else{
+            $pro=Product::orderBy('id','DESC')->get();
+        }
+        return view('shop.shopshop',[
+            //cart
+            'items'=>$cart->items,
+           'totalPrice'=>$cart->totalPrice,
+           //products
+           'pro'=>$pro,
+           'procat'=>$procat
+        ]);
+    }
+    public function shopcat($id){
+        $procat=ProductCategory::find($id);
+         //cart
+         $oldCart=Session::get('cart');
+         $cart= new Cart($oldCart);
+        return view('shop.shopcategory',[
+            'pro'=>$procat->products,
+            'procat'=>$procat,
+            'count'=>count($procat->products),
+            //cart
+            'items'=>$cart->items,
+           'totalPrice'=>$cart->totalPrice
+        ]);
+    }
+    public function contact(){
+         //cart
+         $oldCart=Session::get('cart');
+         $cart= new Cart($oldCart);
+        return view('shop.contact',[
+            //cart
+            'items'=>$cart->items,
+           'totalPrice'=>$cart->totalPrice
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="content-wrapper container">
+@include('flash')
     <div class="section">
         <table class='table'>
             <thead>

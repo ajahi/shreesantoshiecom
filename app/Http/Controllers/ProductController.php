@@ -135,7 +135,7 @@ class ProductController extends Controller
                 // dd('image is availeble');
             }
             
-            return redirect('/product');
+            return redirect('/product')->with('success','You have successfully created a product.');
 
         } else {
             $return = ["status" => "success",
@@ -143,7 +143,7 @@ class ProductController extends Controller
                     "code" => 403,
                     "errors" => 'Forbidden'
                 ]];
-            return response()->json($return, 403);
+            return redirect('/product')->with('info','Only admin and superadmin can create product category');
         }
     }
 
@@ -227,14 +227,14 @@ class ProductController extends Controller
                 $product->addMediaFromRequest('addition-image')->toMediaCollection('images');
             }
             $product->save();
-            return redirect('/product');
+            return redirect('/product')->with('success','You have successfully edited a product.');;
         } else {
             $return = ["status" => "error",
                 "error" => [
                     "code" => 403,
                     "errors" => 'Forbidden'
                 ]];
-            return response()->json($return, 403);
+            return redirect('/product')->with('info','admin and superadmin can only edit a product');
         }
     }
     public function getcart(){
@@ -264,7 +264,7 @@ class ProductController extends Controller
                     "code" => 200,
                     "errors" => 'Deleted'
                 ]];
-            return redirect('/product');
+            return redirect('/product')->with('error','You have successfully deleted a product.');
 
         } else {
             $return = ["status" => "error",
@@ -272,7 +272,7 @@ class ProductController extends Controller
                     "code" => 403,
                     "errors" => 'Forbidden'
                 ]];
-            return response()->json($return, 403);
+            return redirect('/product')->with('warning','admin and superadmin are allowed to delet a product.');
         }
     }
 

@@ -169,7 +169,7 @@ class SiteController extends Controller
             } 
            
             $site->save();
-            return redirect('site');
+            return redirect('site')->with('success','You have successfully edited a site.');
 
         } else {
             $return = ["status" => "error",
@@ -177,7 +177,7 @@ class SiteController extends Controller
                     "code" => 403,
                     "errors" => 'Forbidden'
                 ]];
-            return response()->json($return, 403);
+            return redirect('/site')->with('info','Only Admin and Superadmin are allowed to edit site');
         }
     }
 

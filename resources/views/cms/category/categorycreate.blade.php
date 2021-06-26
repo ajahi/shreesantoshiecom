@@ -16,7 +16,7 @@
     <form method='POST'action="/category">
     @csrf
         <div class="form-floating my-3">
-            <input type="text" required class="form-control col-lg-7" name="title" placeholder="Ttile of the post">
+            <input type="text" required class="form-control col-lg-7" name="title" placeholder="Title of the category">
          </div>
         <div class="form-floating my-3">
             <textarea required class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px"></textarea>

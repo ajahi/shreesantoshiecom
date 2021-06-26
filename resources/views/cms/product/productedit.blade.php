@@ -21,7 +21,7 @@
             <input type="text" required class="form-control col-lg-7" name="title" placeholder="Title of the product" value={{$product->title}} >
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="Description" style="height: 100px" required>{{$product->description}}</textarea>
+            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px" required>{{$product->description}}</textarea>
         </div>
         <!-- <div class="form-floating my-3">
         <label for="Category_id">ProductCategory</label>
@@ -37,7 +37,7 @@
             <div class="form-check" >
             @if(count($productcategory)>0)
                 @foreach($productcategory as $parent)
-                    <input required class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} 
+                    <input class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}} 
                     @foreach($product->categories as $procat)
                         @if($procat->id==$parent->id)
                             checked 
@@ -59,7 +59,7 @@
         <label for="Category_id">ProductTag</label>
             <div class="form-check" >
             @foreach($tag as $tag)
-                <input required class="form-check-input" type="checkbox" name="tags_id[]" value={{$tag->id}} 
+                <input  class="form-check-input" type="checkbox" name="tags_id[]" value={{$tag->id}} 
                 @foreach($product->tags as $protag)
                 @if($protag->id==$tag->id)
                 checked
