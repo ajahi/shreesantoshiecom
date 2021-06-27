@@ -1,3 +1,4 @@
+
 <footer class="htc__foooter__area gray-bg">
             <div class="container">
                 <div class="row">
@@ -47,12 +48,12 @@
                             <div class="ft__widget">
                                 <h2 class="ft__title">Categories</h2>
                                 <ul class="footer-categories">
-                                    <li><a href="shop-sidebar.html">Men</a></li>
-                                    <li><a href="shop-sidebar.html">Women</a></li>
-                                    <li><a href="shop-sidebar.html">Accessories</a></li>
-                                    <li><a href="shop-sidebar.html">Shoes</a></li>
-                                    <li><a href="shop-sidebar.html">Dress</a></li>
-                                    <li><a href="shop-sidebar.html">Denim</a></li>
+                               @foreach($categories as $cat)
+                                    @foreach($cat as $cat)
+                                    <li><a href="/shopshop/{{$cat->id}}">{{ucwords($cat->title)}}</a></li>
+                                    
+                                    @endforeach
+                                @endforeach
                                 </ul>
                             </div>
                         </div>

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\ProductCategory;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+       
+        View::composer(['partials.shopfooter'],function($view){
+            $view->with('categories',['categories'=>ProductCategory::all()]);
+        });
     }
 
     /**
