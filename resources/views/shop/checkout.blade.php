@@ -6,6 +6,31 @@ Shree Santoshi Mata Hastakala
 
 @section('sidemenu')
 <body> 
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+$(document).ready(function(){
+    $('.reduce').click(function(){
+        var pro_id=$(this).attr('value');
+        $.ajax({
+            type:'get',
+            url:'<?php echo url('/reduce');?>/'+ pro_id,
+            success:function(){
+                alert('reduced by one');
+            }
+        });
+    });
+    $('.increase').click(function(){
+        var pro_id=$(this).attr('value');
+        $.ajax({
+            type:'get',
+            url:'<?php echo url('/increase');?>/'+ pro_id,
+            success:function(){
+                alert('increased by one ');
+            }
+        })
+    });
+});
+</script>
 <div class="body__overlay"></div>
         <!-- Start Offset Wrapper -->
         <div class="offset__wrapper">
@@ -94,8 +119,8 @@ Shree Santoshi Mata Hastakala
                                             <td class="product-price"><span class="amount">{{$cart['item']['sell_price']}}</span></td>
                                             <td class="product-quantity"><span class="amount" >
                                             {{$cart['qty']}}
-                                            <a href="/reduce/{{$cart['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a>
-                                            <a href="/increase/{{$cart['item']['id']}}" title="Increase this item"><i class="fas fa-plus-square"></i></a>
+                                            <a title="Reduce this item" value="{{$cart['item']['id']}}" class='reduce'><i class="fas fa-minus-square"></i></a>
+                                            <a title="Increase this item" value="{{$cart['item']['id']}}" class='increase'><i class="fas fa-plus-square"></i></a>
                                             </span></td>
                                             <td class="product-subtotal">{{$cart['price']}}</td>
                                             <td class="product-remove"><a href="remove/{{$cart['item']['id']}}">X</a></td>

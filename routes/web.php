@@ -37,7 +37,7 @@ Route::get('/contactpage','ShopController@contact');
 Route::post('/login', 'Api\LoginController@login');
 Route::get('/newcart',function(){
     Session::flush();
-    return redirect()->back();
+    refresh();
 });
 Route::get('ajaxrequest','HomeController@ajax');
 Route::post('ajaxRequest','HomeController@ajaxpost');

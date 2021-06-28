@@ -28,7 +28,18 @@ $(document).ready(function(){
               }
         });
         
+    }); 
+    $('.removebtn').click(function(){
+        
+        $.ajax({
+            type:'get',
+            url:'<?php echo url('/newcart');?>',
+            success:function(response){
+                alert('clicked');
+            }
+        });
     });
+   
    
     function loaditems(data){
         var name=document.getElementById('itemName');
@@ -119,7 +130,14 @@ $(document).ready(function(){
                                         <span class="shp__price">Rs. {{$item['item']['purchase_price']}}</span>                                     
                                     </div>
                                     <div class="remove__btn">
-                                        <a href="/remove/{{$item['item']['id']}}" title="Remove this item"><i class="fas fa-trash right"></i></i></a>
+                                        <form 
+                                        method="get"
+                                        action="/remove/{{$item['item']['id']}}" 
+                                        title="Remove this item" >
+                                        <button class='btn btn-outline-light btn-lg'><i class="ti-trash right"></i></button>
+                                        
+                                        </form>
+                                        <!-- <a href="/remove/{{$item['item']['id']}}" title="Remove this item"><i class="ti-trash right"></i></a> -->
                                     </div>
                                 </li>
                             @endforeach
@@ -128,7 +146,7 @@ $(document).ready(function(){
                        
                         <ul class="shoping__total">
                             <li class="subtotal">Subtotal:</li>
-                            <li class="total__price">RS. {{$totalPrice}}</li>
+                            <li class="total__price">Rs. {{$totalPrice}}</li>
                         </ul>
                     </div>
                     
@@ -140,8 +158,10 @@ $(document).ready(function(){
 
                    @if(Session::has('cart'))
                     <ul class="shopping__btn">
-                    <li><a href="/newcart">Empty Cart</a></li>
+                    
+                        <li><a class='removebtn'>Empty Cart</a></li>
                         <li class="shp__checkout"><a href="/checkout">Checkout</a></li>
+                    
                     </ul>
                    @endif
                 </div>
@@ -159,12 +179,13 @@ $(document).ready(function(){
                         <div class="slider__container slider--one">
                             <div class="slider__activation__wrap owl-carousel owl-theme">
                                 <!-- Start Single Slide -->
-                                <div class="slide slider__full--screen slider-height-inherit slider-text-right" style="background: rgba(0, 0, 0, 0) url(images1/slider/bg/1.jpg) no-repeat scroll center center / cover ;">
+                                @foreach($slider as $slider)
+                                <div class="slide slider__full--screen slider-height-inherit slider-text-right" style="background: rgba(0, 0, 0, 0) url({{$slider->url()}}) no-repeat scroll center center / cover ;">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-10 col-lg-8 col-md-offset-2 col-lg-offset-4 col-sm-12 col-xs-12">
                                                 <div class="slider__inner">
-                                                    <h1>New Product <span class="text--theme">Collection</span></h1>
+                                                    <h1>New Product <span class="text--theme">{{$slider->title}}</span></h1>
                                                     <div class="slider__btn">
                                                         <a class="htc__btn" href="#">shop now</a>
                                                     </div>
@@ -173,22 +194,11 @@ $(document).ready(function(){
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                                 <!-- End Single Slide -->
                                 <!-- Start Single Slide -->
-                                <div class="slide slider__full--screen slider-height-inherit  slider-text-left" style="background: rgba(0, 0, 0, 0) url(images1/slider/bg/wall.jpg) no-repeat scroll center center / cover ;">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
-                                                <div class="slider__inner">
-                                                    <h1>New Product <span class="text--theme">Collection</span></h1>
-                                                    <div class="slider__btn">
-                                                        <a class="htc__btn" href="cart.html">shop now</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                               
                                 <!-- End Single Slide -->
                             </div>
                         </div>
@@ -279,7 +289,7 @@ $(document).ready(function(){
                                                                 @if($product->quantity < 0)
 
                                                                 @else
-                                                                <li><a title="Add To Cart" value='{{$product->id}}' href='add-to-cart/{{$product->id}}' ><span class="ti-shopping-cart"></span></a></li>
+                                                                <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
                                                                 @endif
                                                                 <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
                     

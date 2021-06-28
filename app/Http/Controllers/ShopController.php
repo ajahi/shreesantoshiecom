@@ -8,6 +8,7 @@ use App\Product;
 use Session;
 use App\Cart;
 use App\Post;
+use App\Slider;
 
 class ShopController extends Controller
 {
@@ -33,6 +34,7 @@ class ShopController extends Controller
             'prod'=>ProductCategory::all(),
            'children'=>$children,
            'products'=>$products,
+           'slider'=>Slider::all(),
                 //cart
            'items'=>$cart->items,
            'totalPrice'=>$cart->totalPrice

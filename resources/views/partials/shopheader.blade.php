@@ -102,7 +102,7 @@
                         <!-- End MAinmenu Ares -->
                         <div class="col-md-2 col-sm-4 col-xs-3">  
                             <ul class="menu-extra">
-                                <li class="user"><i class="ti-user"></i></li> 
+                               
                                 <li class="search search__open hidden-xs"><i class="ti-search"></i></li>   
                                 <li class="cart__menu">
                                 <i class="ti-shopping-cart"></i>                             

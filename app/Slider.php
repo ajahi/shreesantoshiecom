@@ -15,5 +15,8 @@ class Slider extends Model implements HasMedia
         'title','description'
     ];
     protected $appends = ['featured'];
+    public function url(){
+        return $this->getFirstMediaUrl('');
+    }
 
 }

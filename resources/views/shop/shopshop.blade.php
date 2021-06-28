@@ -189,16 +189,20 @@
                                 <div class="product foo">
                                     <div class="product__inner">
                                         <div class="pro__thumb">
-                                            <a href="#">
+                                            <a href="/product-detail/{{$pro->id}}">
                                                 <img src="{{$pro->url()}}" alt="product images">
                                             </a>
                                         </div>
                                         <div class="product__hover__info">
-                                            <ul class="product__action">
-                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                                <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                            </ul>
+                                                <ul class="product__action">
+                                                    <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$pro->id}}"><span class="ti-eye"></span></a></li>
+                                                    @if($pro->quantity < 0)
+
+                                                    @else
+                                                    <li><a title="Add To Cart" value='{{$pro->id}}' href='add-to-cart/{{$pro->id}}' ><span class="ti-shopping-cart"></span></a></li>
+                                                    @endif
+                                                    <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>                
+                                                </ul>
                                         </div>
                                     </div>
                                     <div class="product__details">

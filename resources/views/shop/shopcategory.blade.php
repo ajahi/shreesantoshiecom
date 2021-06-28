@@ -29,32 +29,7 @@
             </div>
             <!-- End Search Popap -->
             <!-- Start Offset MEnu -->
-            <div class="offsetmenu">
-                <div class="offsetmenu__inner">
-                    <div class="offsetmenu__close__btn">
-                        <a href="#"><i class="fas fa-times"></i></a>
-                    </div>
-                    <div class="off__contact">
-                        <div class="logo">
-                            <a href="index.html">
-                                <img src="/images1/logo/logo1.png" alt="logo">
-                            </a>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet consectetu adipisicing elit sed do eiusmod tempor incididunt ut labore.</p>
-                    </div>
-                    <ul class="sidebar__thumd">
-                        <li><a href="#"><img src="images1/sidebar-img/1.jpg" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="images1/sidebar-img/2.jpg" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="images1/sidebar-img/3.jpg" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="images1/sidebar-img/4.jpg" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="images1/sidebar-img/5.jpg" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="images1/sidebar-img/6.jpg" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="images1/sidebar-img/7.jpg" alt="sidebar images"></a></li>
-                        <li><a href="#"><img src="images1/sidebar-img/8.jpg" alt="sidebar images"></a></li>
-                    </ul>
-                   
-                </div>
-            </div>
+            
             <!-- End Offset MEnu -->
             <!-- Start Cart Panel -->
 
@@ -130,32 +105,50 @@
         </div>
          <!-- End Bradcaump area -->
          @if($count > 0)
-         <div class="portfolio-grid-area bg__white pt--130 pb--100">
-		    <div class="container">
-		        
-                <div class="portfolio-style">
-                    <div class="row grid">
+         <div class="container">
+         <div class="row">
+                <div class="product__list another-product-style">
                     @foreach($pro as $pro)
-                    <a href="/product-detail/{{$pro->id}}">
-                        <div class="col-md-4 col-sm-4 col-xs-12 grid-item cat2 cat3">  
-                            <div class="single-portfolio-card mb--30">
-                                <div class="portfolio-img">
-                                    <a href="/product-detail/{{$pro->id}}">
-                                        <img src="{{$pro->url()}}" alt="" />
-                                    </a>
+                   
+                            <div class="col-md-3 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
+                                <div class="product foo">
+                                    <div class="product__inner">
+                                        <div class="pro__thumb">
+                                            <a href="/product-detail/{{$pro->id}}">
+                                                <img src="{{$pro->url()}}" alt="product images">
+                                            </a>
+                                        </div>
+                                        <div class="product__hover__info">
+                                                <ul class="product__action">
+                                                    <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$pro->id}}"><span class="ti-eye"></span></a></li>
+                                                    @if($pro->quantity < 0)
+
+                                                    @else
+                                                    <li><a title="Add To Cart" value='{{$pro->id}}' href='add-to-cart/{{$pro->id}}' ><span class="ti-shopping-cart"></span></a></li>
+                                                    @endif
+                                                    <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>                
+                                                </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product__details portfolio-title text-center">
+                                        <h2><a href="product-details.html">{{ucwords($pro->title)}}</a></h2>
+                                        <div class='product__price mx-2' >
+                                        <ul class="product__price ">
+                                                @if($pro->discount)
+                                                    <li class="old__price ">Rs.{{$pro->sell_price}}</li>
+                                                    <li class="new__price ">Rs.{{$pro->sell_price*(1-$pro->discount/100)}}</li>
+                                                @else
+                                                    <li class="new__price ">Rs.{{$pro->sell_price}}</li>
+                                                @endif
+                                            </ul> 
+                                        </div>  
+                                    </div>
                                 </div>
-                                <div class="portfolio-title portfolio-card-title text-center">
-                                    <h3><a href="/product-detail/{{$pro->id}}"><strong>{{ucwords($pro->title)}}</strong></a></h3>
-                                    <span>{{ucwords($procat->title)}}</span>
-                                </div>				
-                            </div>			
-                        </div> 
-                    </a> 
-                        @endforeach	                       
+                            </div>
+                    @endforeach	                       
                     </div>		
                 </div>
-		    </div>
-		</div>
+         </div>
         @else
         <div class="ht__bradcaump__wrap">
                 <div class="container">
