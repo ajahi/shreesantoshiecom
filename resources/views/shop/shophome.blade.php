@@ -22,8 +22,8 @@ $(document).ready(function(){
             url:'<?php echo url('/add-to-cart');?>/'+ pro_Id,
             success:function(response){
                var resp=response;
-                alert('item added');
                 
+                location.reload(true);
                loaditems(resp);
               }
         });
@@ -35,7 +35,8 @@ $(document).ready(function(){
             type:'get',
             url:'<?php echo url('/newcart');?>',
             success:function(response){
-                alert('clicked');
+              
+                location.reload(true);
             }
         });
     });

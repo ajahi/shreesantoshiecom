@@ -16,6 +16,7 @@ $(document).ready(function(){
             url:'<?php echo url('/reduce');?>/'+ pro_id,
             success:function(){
                 alert('reduced by one');
+                location.reload(true);
             }
         });
     });
@@ -26,6 +27,7 @@ $(document).ready(function(){
             url:'<?php echo url('/increase');?>/'+ pro_id,
             success:function(){
                 alert('increased by one ');
+                location.reload(true);
             }
         })
     });
