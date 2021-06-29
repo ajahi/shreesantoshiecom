@@ -4,6 +4,48 @@
 @endsection
       
 @section('sidemenu')
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+
+$(document).ready(function(){
+    $('.button').click(function(){
+        var pro_Id = $(this).attr('value');
+            $.ajax({
+            type:'get',
+            cache:false,
+            url:'<?php echo url('/add-to-cart');?>/'+ pro_Id,
+            success:function(response){
+               var resp=response;
+                
+                location.reload(true);
+               loaditems(resp);
+              }
+        });
+        
+    }); 
+    $('.removebtn').click(function(){
+        
+        $.ajax({
+            type:'get',
+            url:'<?php echo url('/newcart');?>',
+            success:function(response){
+              
+                location.reload(true);
+            }
+        });
+    });
+   
+   
+    function loaditems(data){
+        var name=document.getElementById('itemName');
+        var duta=data.items[3].item.title;
+        console.log(duta);
+    }
+});
+
+</script>
+
+
 <div class="container">
     @include('flash') 
 </div>
