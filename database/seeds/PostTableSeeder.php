@@ -35,6 +35,28 @@ class PostTableSeeder extends Seeder
             ]);
 
         }
+        $about=Post::create([
+            'title'=>'about-us',
+            'slug' => 'about-us',
+            'category_id' => 1,
+            'status' => 'published',
+            'icon' => 'fa-none',
+            'description' => $faker->paragraph,
+            'attributes' => '{}',
+            'user_id'=>1
+        ]);
+        $about->save();
+        $blogs=Post::create([
+            'title'=>'blogs',
+            'slug' => 'blogs',
+            'category_id' => 2,
+            'status' => 'published',
+            'icon' => 'fa-none',
+            'description' => $faker->paragraph,
+            'attributes' => '{}',
+            'user_id'=>1
+        ]);
+        $blogs->save();
 
     }
 }

@@ -52,7 +52,7 @@ class PostController extends Controller
         }
 
         return view('cms.post.postindex',[
-            'posts'=>Post::all()
+            'posts'=>Post::orderBy('id','DESC')->get()
         ]);
 
 

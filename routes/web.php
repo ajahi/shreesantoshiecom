@@ -30,7 +30,7 @@ Route::get('/remove/{id}','ProductController@remove');
 Route::get('/product-detail/{id}','ShopController@details');
 Route::get('buynow/{id}','ProductController@buyNow');
 Route::get('/shop','ShopController@shop');
-Route::get('/shopshop/{id}','ShopController@shop');
+
 Route::get('/shopcategory/{id}','ShopController@shopcat');
 Route::get('/contactpage','ShopController@contact');
 

@@ -280,7 +280,7 @@ class ProductController extends Controller
 
     public function getAddToCart(Request $request, $id) {
         $product = Product::find($id);
-        $product->increment('counts');
+        
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($product, $product->id);
@@ -327,6 +327,9 @@ class ProductController extends Controller
         $order->status='ordered';
         $order->save();
         foreach($cart as $cart){
+            $pro=Product::find($cart['item']['id']);
+            $pro->increment('counts');
+            $pro->save();
             $selldetail['product_id']=$cart['item']['id'];
             $selldetail['order_id']=$order->id;
             $selldetail['price']=$cart['price'];

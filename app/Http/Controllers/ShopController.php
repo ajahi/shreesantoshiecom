@@ -17,24 +17,26 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
         $children=ProductCategory::query()->whereHas('children',function($q){
             $q->where('parent_id','');
         })->get();
-        $products=Product::orderBy('id','DESC')->get();
+        
+        $procat=ProductCategory::where('parent_id',NULL)->get();
         //cart
         $oldCart=Session::get('cart');
         $cart= new Cart($oldCart);
-        
         return view('shop.shophome',[
-            'sidemenu'=>ProductCategory::where('parent_id',NULL)->get(),
-            'parentcat'=>ProductCategory::where('parent_id',NULL)->get(),
+            'sidemenu'=>$procat,
             'posts'=>Post::orderBy('id', 'DESC')->get(),
             'prod'=>ProductCategory::all(),
            'children'=>$children,
-           'products'=>$products,
+           'latest'=>Product::orderBy('id','DESC')->get(),
+           'bestsale'=>Product::orderBy('counts','DESC')->get(),
+           'onsale'=>Product::where('discount','!=',null)->get(),
            'slider'=>Slider::all(),
+           'procat'=>$procat,
                 //cart
            'items'=>$cart->items,
            'totalPrice'=>$cart->totalPrice
@@ -71,7 +73,9 @@ class ShopController extends Controller
            'totalPrice'=>$cart->totalPrice,
            //products
            'pro'=>$pro,
-           'procat'=>$procat
+           'procat'=>$procat,
+           'procat2'=>$procat
+           
         ]);
     }
     public function shopcat($id){
