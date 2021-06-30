@@ -234,13 +234,14 @@
             </div>
         </section>
         <!-- End Feature Product -->
-        <div class="only-banner ptb--100 bg__white">
+        <!-- <div class="only-banner ptb--100 bg__white">
             <div class="container">
                 <div class="only-banner-img">
                     <a href="shop-sidebar.html"><img src="images1/new-product/3.jpg" alt="new product"></a>
                 </div>
             </div>
-        </div>
+        </div> -->
+        
         <!-- Start Our Product Area -->
         <section class="htc__product__area bg__white">
             <div class="container">
