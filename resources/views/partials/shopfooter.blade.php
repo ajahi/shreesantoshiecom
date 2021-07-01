@@ -14,31 +14,37 @@
                                 <div class="footer-address">
                                     <ul>
                                         <li>
-                                            <div class="address-icon">
-                                                <i class="fas fa-pin"></i>
-                                            </div>
-                                            <div class="address-text">
-                                                <p>Shamsan gali Bhot bangla ke samne <br> 99999999</p>
-                                            </div>
+                                        <div class="address-icon">
+                                            <i class="zmdi zmdi-pin"></i>
+                                        </div>
+                                        <div class="address-text">
+                                            <p>Your address or
+                                             <br> location goes here</p>
+                                        </div>
                                         </li>
                                         <li>
-                                            <div class="address-icon">
-                                                <i class="fas fa-email"></i>
-                                            </div>
-                                            <div class="address-text">
-                                                <a href="#"> info@example.com</a>
-                                            </div>
+                                        <div class="address-icon">
+                                            <i class="zmdi zmdi-email"></i>
+                                        </div>
+                                        <div class="address-text">
+                                            <p>info@example.com</p>
+                                        </div>
                                         </li>
                                         <li>
-                                            <div class="address-icon">
-                                                <i class="fas fa-phone-in-talk"></i>
-                                            </div>
-                                            <div class="address-text">
-                                                <p>+012 345 678 102 </p>
-                                            </div>
+                                        <div class="address-icon">
+                                            <i class="zmdi zmdi-phone-in-talk"></i>
+                                        </div>
+                                        <div class="address-text">
+                                            <p>+012 345 678 102</p>
+                                        </div>
                                         </li>
                                     </ul>
                                 </div>
+                                <ul class="social__icon">
+                                    <li><a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="zmdi zmdi-facebook"></i></a></li>
+                                    <li><a href="https://twitter.com/" target="_blank" title="Twitter"><i class="zmdi zmdi-twitter"></i></a></li>
+                                    <li><a href="https://www.instagram.com/" target="_blank" title="Instagram"><i class="zmdi zmdi-instagram"></i></a></li>
+                                </ul>
                                 
                             </div>
                         </div>
@@ -62,11 +68,9 @@
                             <div class="ft__widget">
                                 <h2 class="ft__title">Infomation</h2>
                                 <ul class="footer-categories">
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a href="/about-us">About Us</a></li>
+                                    <li><a href="/contact-us">Contact Us</a></li>
                                     <li><a href="#">Terms & Conditions</a></li>
-                                    <li><a href="#">Returns & Exchanges</a></li>
-                                    <li><a href="#">Shipping & Delivery</a></li>
                                     <li><a href="#">Privacy Policy</a></li>
                                 </ul>
                             </div>
@@ -100,6 +104,30 @@
                     </div>
                 </div>
                 <!-- Start Copyright Area -->
+
+                <div class="htc__copyright__area">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <div class="copyright__inner">
+                        <div class="copyright ">
+                        <p>© Copyright <a href="/">Shantosihandicraft</a> All Rights Reserved. &nbsp;&nbsp;Powered by:<a style="color:#ff4136;" href="https://dreamsys.com.np">Dreamsys</a></p>
+                        </div>
+                        
+                        <ul class="footer__menu">                      
+                        
+                        <li><a href="/">Home</a></li>
+                        
+                        <li><a href="/shop">Product</a></li>
+                        
+                        <li><a href="/contact-us">Contact Us</a></li>
+                        
+                        </ul>
+                        
+                    </div>
+                    </div>
+                </div>
+                </div>
+
                
                 <!-- End Copyright Area -->
             </div>

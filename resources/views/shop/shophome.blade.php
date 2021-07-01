@@ -219,7 +219,7 @@ $(document).ready(function(){
                             <div class="category-menu-list">
                                 <ul>   
                                 @foreach($sidemenu as $sidemenu)                             
-                                   <li><a href="/shop-category/{{$sidemenu->slug}}"><img alt="" src="images1/icons/thum2.png">{{$sidemenu->title}}   
+                                   <li><a href="/shopcategory/{{$sidemenu->id}}"><img alt="" src="images1/icons/thum2.png">{{$sidemenu->title}}   
                                    @if(count($sidemenu->children) > 0)
                                    <i class="fas fa-angle-right right"></i></a>
                                         <div class="category-menu-dropdown">
@@ -227,7 +227,7 @@ $(document).ready(function(){
                                                 <h4 class="categories-subtitle"> {{$sidemenu->title}}</h4>
                                                 <ul>
                                                     @foreach($sidemenu->children as $children)
-                                                    <li><a href="/shopc-ategory/{{$sidemenu->slug}}"> {{$children->title}}</a></li>
+                                                    <li><a href="/shopcategory/{{$sidemenu->id}}"> {{$children->title}}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>                                                                                    
@@ -258,51 +258,57 @@ $(document).ready(function(){
         <section class="featured_products">
             <div class="container">
                 <div class="row">
-                <h2>Featured Products</h2>
+                <h2 class="heading">Featured Products <span><a href="/products/featured">View more</a></span></h2>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="ftproduct">
-                        <img src="https://web.archive.org/web/20181120080429im_/http://shantoshihandicraft.com/wp-content/uploads/2018/07/136A6020-300x300.jpg" alt="">
-                        <h3>Product Title</h3>                            
-                        </div>                        
-                    </div>
-                    <div class="col-md-3">
-                        <div class="ftproduct">
-                        <img src="https://web.archive.org/web/20180902213942im_/http://shantoshihandicraft.com/wp-content/uploads/2018/06/DSC_2955-300x300.jpg" alt="">
-                        <h3>Product Title</h3>                            
-                        </div>                        
-                    </div>
-                    <div class="col-md-3">
-                        <div class="ftproduct">
-                        <img src="https://web.archive.org/web/20180902214332im_/http://shantoshihandicraft.com/wp-content/uploads/2018/06/DSC_26201-300x300.jpg" alt="">
-                        <h3>Product Title</h3>                            
-                        </div>                        
-                    </div>
-                    <div class="col-md-3">
-                        <div class="ftproduct">
-                        <img src="https://web.archive.org/web/20180902222801im_/http://shantoshihandicraft.com/wp-content/uploads/2018/06/brownieIMG_0114-01-300x300.jpg" alt="">
-                        <h3>Product Title</h3>                            
-                        </div>                        
-                    </div>
-                    <div class="col-md-3">
-                        <div class="ftproduct">
-                        <img src="https://web.archive.org/web/20181120080429im_/http://shantoshihandicraft.com/wp-content/uploads/2018/07/136A6020-300x300.jpg" alt="">
-                        <h3>Product Title</h3>                            
-                        </div>                        
-                    </div>
-                    <div class="col-md-3">
-                        <div class="ftproduct">
-                        <img src="https://web.archive.org/web/20181120080429im_/http://shantoshihandicraft.com/wp-content/uploads/2018/07/136A6020-300x300.jpg" alt="">
-                        <h3>Product Title</h3>                            
-                        </div>                        
-                    </div>
-                    <var><div class="col-md-3">
-                        <div class="ftproduct">
-                        <img src="https://web.archive.org/web/20181120080429im_/http://shantoshihandicraft.com/wp-content/uploads/2018/07/136A6020-300x300.jpg" alt="">
-                        <h3>Product Title</h3>                            
-                        </div>                        
-                    </div></var>
+                @forelse($latest as $product)
+                                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
+                                                <div class="product">
+                                                    <div class="product__inner">
+                                                        <div class="pro__thumb">
+                                                            <a href="/product-detail/{{$product->id}}">
+                                                               
+                                                                <p></p>
+                                                                <img src="{{$product->url()}}" alt="product images">
+                                                            </a>
+                                                        </div>
+                                                        <div class="product__hover__info">
+                                                            <ul class="product__action">
+                                                                <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->id}}"><span class="ti-eye"></span></a></li>
+                                                                @if($product->quantity < 0)
+
+                                                                @else
+                                                                <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
+                                                                @endif
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product__details">
+                                                        <h2><a href="/product-detail/{{$product->id}}">{{ucwords($product->title)}}</a></h2>
+                                                        <ul class="product__price">
+                                                            @if($product->discount)
+                                                                <li class="old__price">Rs.{{$product->sell_price}}</li>
+                                                                <li class="new__price">Rs.{{$product->sell_price*(1-$product->discount/100)}}</li>
+                                                            @else
+                                                            <li class="new__price">Rs.{{$product->sell_price}}</li>
+                                                            @endif
+                                                        </ul>    
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                            @empty
+                                                <div class="row">
+                                                    <div class="product">
+                                                        <div class="col-md-12">
+                                                            <div class="product">
+                                                                <p>No items .</p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        @endforelse        
                     
                 </div>
             </div>            
@@ -334,7 +340,7 @@ $(document).ready(function(){
                                     <li>
                                         <a href="#home3" data-toggle="tab">
                                             <div class="tab-menu-text">
-                                                <h4>Discount sale</h4>
+                                                <h4>Top Rated</h4>
                                             </div>
                                         </a>
                                     </li>
@@ -345,11 +351,11 @@ $(document).ready(function(){
                                     <div class="row">
                                         <div class="product-slider-active owl-carousel">
                                         @forelse($latest as $product)
-                                            <div class="col-md-3 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
+                                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="/product/{{$product->slug}}">
+                                                            <a href="/product-detail/{{$product->id}}">
                                                                
                                                                 <p></p>
                                                                 <img src="{{$product->url()}}" alt="product images">
@@ -357,7 +363,7 @@ $(document).ready(function(){
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product/{{$product->slug}}"><span class="ti-eye"></span></a></li>
+                                                                <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->id}}"><span class="ti-eye"></span></a></li>
                                                                 @if($product->quantity < 0)
 
                                                                 @else
@@ -368,7 +374,7 @@ $(document).ready(function(){
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="/product/{{$product->slug}}">{{ucwords($product->title)}}</a></h2>
+                                                        <h2><a href="/product-detail/{{$product->id}}">{{ucwords($product->title)}}</a></h2>
                                                         <ul class="product__price">
                                                             @if($product->discount)
                                                                 <li class="old__price">Rs.{{$product->sell_price}}</li>
@@ -385,7 +391,7 @@ $(document).ready(function(){
                                                     <div class="product">
                                                         <div class="col-md-12">
                                                             <div class="product">
-                                                                <p>No item .</p>
+                                                                <p>No items .</p>
                                                             </div>
                                                             
                                                         </div>
@@ -399,24 +405,24 @@ $(document).ready(function(){
                                     <div class="row">
                                         <div class="product-slider-active owl-carousel">
                                         @forelse($bestsale as $products)
-                                            <div class="col-md-3 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
+                                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="product/{{$products->slug}}">
+                                                            <a href="#">
                                                                 <img src='{{$products->url()}}' alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product/{{$products->slug}}"><span class="ti-eye"></span></a></li>
+                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product-details/{{$products->id}}"><span class="ti-eye"></span></a></li>
                                                                 <li><a title="Add TO Cart" href="/add-to-cart/{{$products->id}}"><span class="ti-shopping-cart"></span></a></li>
                                                                
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="/product/{{$products->slug}}">{{ucwords($products->title)}}</a></h2>
+                                                        <h2><a href="/product-detail/{{$products->id}}">{{ucwords($products->title)}}</a></h2>
                                                         <ul class="product__price">
                                                             @if($products->discount)
                                                                 <li class="old__price">Rs.{{$products->sell_price}}</li>
@@ -447,24 +453,24 @@ $(document).ready(function(){
                                     <div class="row">
                                         <div class="product-slider-active owl-carousel">
                                         @forelse($onsale as $products)
-                                            <div class="col-md-3 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
+                                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="product/{{$products->slug}}">
+                                                            <a href="#">
                                                                 <img src='{{$products->url()}}' alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product/{{$products->slug}}"><span class="ti-eye"></span></a></li>
+                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product-details/{{$products->id}}"><span class="ti-eye"></span></a></li>
                                                                 <li><a title="Add TO Cart" href="/add-to-cart/{{$products->id}}"><span class="ti-shopping-cart"></span></a></li>
                                             
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="/product/{{$products->slug}}">{{ucwords($products->title)}}</a></h2>
+                                                        <h2><a href="/product-detail/{{$products->id}}">{{ucwords($products->title)}}</a></h2>
                                                         <ul class="product__price">
                                                             @if($products->discount)
                                                                 <li class="old__price">Rs.{{$products->sell_price}}</li>

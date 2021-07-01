@@ -9,23 +9,29 @@
 /* ----------------------------------------------------
 	You can put your custom css code here: 
 -------------------------------------------------------*/
-.featured-product{
-  
+.featured_products{
+  margin-bottom: 4em;
 }
-.featured-product h2{
-  margin-bottom: 2rem;
+.featured_products .heading span{
+  float: right;
+  font-size: 14px;
 }
-.ftproduct{
-  margin-bottom: 20px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  padding-bottom: 10px;
-  
+featured_products .heading span a{
+  color: #ff4136;
+  text-decoration: none;
 }
-.ftproduct h3{
-  margin-bottom: 0px;
+.featured_products .product{
+  text-align: center;
 }
-.featured_products .ftproduct img{
+.featured_products .product__price {
+  display: flex;
+  margin-top: 9px;
+  -webkit-justify-content: center;
+-ms-flex-pack: distribute;
+justify-content: center;
+}
+.pro__thumb img{
   width: 100%;
-  height: 150px;
+  height: 270px;
   object-fit: cover;
 }
