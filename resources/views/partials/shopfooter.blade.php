@@ -50,7 +50,7 @@
                                 <ul class="footer-categories">
                                @foreach($categories as $cat)
                                     @foreach($cat as $cat)
-                                    <li><a href="/shopshop/{{$cat->id}}">{{ucwords($cat->title)}}</a></li>
+                                    <li><a href="/shop-category/{{$cat->slug}}">{{ucwords($cat->title)}}</a></li>
                                     
                                     @endforeach
                                 @endforeach

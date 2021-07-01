@@ -5,6 +5,106 @@ Shree Santoshi Mata Hastakala
 @endsection
 
 @section('sidemenu')
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+
+$(document).ready(function(){
+    $('.button').click(function(){
+        var pro_Id = $(this).attr('value');
+            $.ajax({
+            type:'get',
+            cache:false,
+            url:'<?php echo url('/add-to-cart');?>/'+ pro_Id,
+            success:function(response){
+               var resp=response;
+                
+                location.reload(true);
+            
+              }
+        });
+        
+    }); 
+   
+   
+   
+   
+});
+
+</script>
+
+
+<div class="container">
+    @include('flash') 
+</div>
+
+
+<div class="shopping__cart"> 
+                <div class="shopping__cart__inner">          
+                    <div class="offsetmenu__close__btn">
+                    <h2 class="offset-title">Cart</h2>
+                        <a href="#"><i class="fas fa-angle-left right"></i></a>
+                    </div>                   
+                    @if(Session::has('cart'))
+                    <div class="shp__cart__wrap">        
+                        <div class="shp__single__product">                     
+                         <ul>
+                            @foreach($items as $item)
+                                <li>
+                                    <div class="shp__pro__thumb">
+                                    <a href="#">
+                                        <img src="{{$item['item']->url()}}" alt="product images">
+                                    </a>
+                                    </div>  
+                                    <div class="shp__pro__details">
+                                        <h2 id='itemName'><a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
+                                        <div style="inline">
+                                            <span class="quantity">X {{$item['qty']}}</span>
+                                            <!-- <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
+                                            <span class='quantity'><a href="/increase/{{$item['item']['id']}}" title="Increase this item"><i class="fas fa-plus-square"></i></a></span> -->
+                                        </div>
+                                        
+                                        <span class="shp__price">Rs. {{$item['item']['purchase_price']}}</span>                                     
+                                    </div>
+                                    <div class="remove__btn">
+                                        <form 
+                                        method="get"
+                                        action="/remove/{{$item['item']['id']}}" 
+                                        title="Remove this item" >
+                                        <button class='btn btn-outline-light btn-lg'><i class="ti-trash right"></i></button>
+                                        
+                                        </form>
+                                        <!-- <a href="/remove/{{$item['item']['id']}}" title="Remove this item"><i class="ti-trash right"></i></a> -->
+                                    </div>
+                                </li>
+                            @endforeach
+                            </ul>                      
+                        </div>
+                       
+                        <ul class="shoping__total">
+                            <li class="subtotal">Subtotal:</li>
+                            <li class="total__price">Rs. {{$totalPrice}}</li>
+                        </ul>
+                    </div>
+                    
+                    @else
+                    <div class="shp__cart__wrap">
+                        <p>No Items in the cart.</p>
+                    </div>
+                    @endif
+
+                   @if(Session::has('cart'))
+                    <ul class="shopping__btn">
+                    
+                        <li><a class='removebtn'>Empty Cart</a></li>
+                        <li class="shp__checkout"><a href="/checkout">Checkout</a></li>
+                    
+                    </ul>
+                   @endif
+                </div>
+            </div>
+
+
+
 
      <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(/images1/bg/2.jpg) no-repeat scroll center center / cover ;">
             <div class="ht__bradcaump__wrap">
@@ -29,31 +129,22 @@ Shree Santoshi Mata Hastakala
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                    
                         <div class="product__details__container">
                             <!-- Start Small images -->
+                            @if(count($product->getMedia('images')) > 1)
                             <ul class="product__small__images" role="tablist">
+
+                            @foreach($product->getMedia('images') as $media)
                                 <li role="presentation" class="pot-small-img active">
                                     <a href="#img-tab-1" role="tab" data-toggle="tab">
-                                        <img src="/images1/product-details/small-img/1.jpg" alt="small-image">
+                                        <img src="{{$media->geturl()}}" alt="small-image">
                                     </a>
                                 </li>
-                                <li role="presentation" class="pot-small-img">
-                                    <a href="#img-tab-2" role="tab" data-toggle="tab">
-                                        <img src="/images1/product-details/small-img/2.jpg" alt="small-image">
-                                    </a>
-                                </li>
-                                <li role="presentation" class="pot-small-img hidden-xs">
-                                    <a href="#img-tab-3" role="tab" data-toggle="tab">
-                                        <img src="/images1/product-details/small-img/3.jpg" alt="small-image">
-                                    </a>
-                                </li>
-                                <li role="presentation" class="pot-small-img hidden-xs hidden-sm">
-                                    <a href="#img-tab-4" role="tab" data-toggle="tab">
-                                        <img src="/images1/product-details/small-img/2.jpg" alt="small-image">
-                                    </a>
-                                </li>
+                            @endforeach
                             </ul>
                             <!-- End Small images -->
+                            @else
                             <div class="product__big__images">
                                 <div class="portfolio-full-image tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-1">
@@ -63,7 +154,9 @@ Shree Santoshi Mata Hastakala
                                     
                                 </div>
                             </div>
+                            @endif
                         </div>
+                        
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
                         <div class="htc__product__details__inner">
@@ -131,7 +224,7 @@ Shree Santoshi Mata Hastakala
                             @else
                             <ul class="pro__dtl__btn">
                                 <li class="buy__now__btn"><a href="/buynow/{{$product->id}}">Buy now</a></li>
-                                <li class="buy__now__btn"><a href="/add-to-cart/{{$product->id}}">Add To Cart</a></li>
+                                <li class="buy__now__btn"><a class='button' value='{{$product->id}}'>Add To Cart</a></li>
                             </ul>
                             @endif
                             

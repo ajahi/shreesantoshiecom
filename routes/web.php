@@ -27,11 +27,12 @@ Route::get('/checkout','ProductController@getCheckout');
 Route::get('/reduce/{id}','ProductController@getReduceByOne');
 Route::get('/increase/{id}','ProductController@IncreaseByOne');
 Route::get('/remove/{id}','ProductController@remove');
-Route::get('/product-detail/{id}','ShopController@details');
+Route::get('/product/{slug}','ShopController@details');
 Route::get('buynow/{id}','ProductController@buyNow');
 Route::get('/shop','ShopController@shop');
+Route::post('mails','MailController@store');
 
-Route::get('/shopcategory/{id}','ShopController@shopcat');
+Route::get('/shop-category/{slug}','ShopController@shopcat');
 Route::get('/contactpage','ShopController@contact');
 
 Route::post('/login', 'Api\LoginController@login');

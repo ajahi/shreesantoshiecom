@@ -4,7 +4,10 @@ Shree Santoshi Mata Hastakala
 @endsection
 
 @section('sidemenu')
+<div class='container'>
 @include('flash')
+</div>
+
             <div class="offsetmenu">
                 <div class="offsetmenu__inner">
                     <div class="offsetmenu__close__btn">
@@ -121,11 +124,12 @@ Shree Santoshi Mata Hastakala
                             <div class="contact-title">
                                 <h2 class="contact__title">Get In Touch</h2>
                             </div>
-                            <form id="contact-form" action="mail.php" method="post">
+                            <form method="post"  action="/mails" >
+                            @csrf
                                 <div class="single-contact-form">
                                     <div class="contact-box name">
-                                        <input type="text" name="name" placeholder="Your Nme*">
-                                        <input type="email" name="email" placeholder="Mail*">
+                                        <input type="text" name="name" placeholder="Your Name*">
+                                        <input type="email" name="email" placeholder="E-Mail*">
                                     </div>
                                 </div>
                                 <div class="single-contact-form">
@@ -135,7 +139,7 @@ Shree Santoshi Mata Hastakala
                                 </div>
                                 <div class="single-contact-form">
                                     <div class="contact-box message">
-                                        <textarea name="message"  placeholder="Massage*"></textarea>
+                                        <textarea name="message"  placeholder="Message*"></textarea>
                                     </div>
                                 </div>
                                 <div class="contact-btn">

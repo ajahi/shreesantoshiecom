@@ -219,7 +219,7 @@ $(document).ready(function(){
                             <div class="category-menu-list">
                                 <ul>   
                                 @foreach($sidemenu as $sidemenu)                             
-                                   <li><a href="/shopcategory/{{$sidemenu->id}}"><img alt="" src="images1/icons/thum2.png">{{$sidemenu->title}}   
+                                   <li><a href="/shop-category/{{$sidemenu->slug}}"><img alt="" src="images1/icons/thum2.png">{{$sidemenu->title}}   
                                    @if(count($sidemenu->children) > 0)
                                    <i class="fas fa-angle-right right"></i></a>
                                         <div class="category-menu-dropdown">
@@ -227,7 +227,7 @@ $(document).ready(function(){
                                                 <h4 class="categories-subtitle"> {{$sidemenu->title}}</h4>
                                                 <ul>
                                                     @foreach($sidemenu->children as $children)
-                                                    <li><a href="/shopcategory/{{$sidemenu->id}}"> {{$children->title}}</a></li>
+                                                    <li><a href="/shopc-ategory/{{$sidemenu->slug}}"> {{$children->title}}</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>                                                                                    
@@ -334,7 +334,7 @@ $(document).ready(function(){
                                     <li>
                                         <a href="#home3" data-toggle="tab">
                                             <div class="tab-menu-text">
-                                                <h4>Top Rated</h4>
+                                                <h4>Discount sale</h4>
                                             </div>
                                         </a>
                                     </li>
@@ -349,7 +349,7 @@ $(document).ready(function(){
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="/product-detail/{{$product->id}}">
+                                                            <a href="/product/{{$product->slug}}">
                                                                
                                                                 <p></p>
                                                                 <img src="{{$product->url()}}" alt="product images">
@@ -357,7 +357,7 @@ $(document).ready(function(){
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->id}}"><span class="ti-eye"></span></a></li>
+                                                                <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product/{{$product->slug}}"><span class="ti-eye"></span></a></li>
                                                                 @if($product->quantity < 0)
 
                                                                 @else
@@ -368,7 +368,7 @@ $(document).ready(function(){
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="/product-detail/{{$product->id}}">{{ucwords($product->title)}}</a></h2>
+                                                        <h2><a href="/product/{{$product->slug}}">{{ucwords($product->title)}}</a></h2>
                                                         <ul class="product__price">
                                                             @if($product->discount)
                                                                 <li class="old__price">Rs.{{$product->sell_price}}</li>
@@ -403,20 +403,20 @@ $(document).ready(function(){
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="#">
+                                                            <a href="product/{{$products->slug}}">
                                                                 <img src='{{$products->url()}}' alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product-details/{{$products->id}}"><span class="ti-eye"></span></a></li>
+                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product/{{$products->slug}}"><span class="ti-eye"></span></a></li>
                                                                 <li><a title="Add TO Cart" href="/add-to-cart/{{$products->id}}"><span class="ti-shopping-cart"></span></a></li>
                                                                
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="/product-detail/{{$products->id}}">{{ucwords($products->title)}}</a></h2>
+                                                        <h2><a href="/product/{{$products->slug}}">{{ucwords($products->title)}}</a></h2>
                                                         <ul class="product__price">
                                                             @if($products->discount)
                                                                 <li class="old__price">Rs.{{$products->sell_price}}</li>
@@ -451,20 +451,20 @@ $(document).ready(function(){
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="#">
+                                                            <a href="product/{{$products->slug}}">
                                                                 <img src='{{$products->url()}}' alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product-details/{{$products->id}}"><span class="ti-eye"></span></a></li>
+                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product/{{$products->slug}}"><span class="ti-eye"></span></a></li>
                                                                 <li><a title="Add TO Cart" href="/add-to-cart/{{$products->id}}"><span class="ti-shopping-cart"></span></a></li>
                                             
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="/product-detail/{{$products->id}}">{{ucwords($products->title)}}</a></h2>
+                                                        <h2><a href="/product/{{$products->slug}}">{{ucwords($products->title)}}</a></h2>
                                                         <ul class="product__price">
                                                             @if($products->discount)
                                                                 <li class="old__price">Rs.{{$products->sell_price}}</li>

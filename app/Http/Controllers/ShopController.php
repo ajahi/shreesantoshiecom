@@ -43,10 +43,16 @@ class ShopController extends Controller
             ]);
     }
    
-    public function details($id){
+    public function details($slug){
+        //cart
+        $oldCart=Session::get('cart');
+        $cart= new Cart($oldCart);
         return view ('shop.product-detail',
         [
-            'product'=>Product::findOrFail($id)
+            'product'=>Product::where('slug',$slug)->firstOrFail(),
+                //cart
+           'items'=>$cart->items,
+           'totalPrice'=>$cart->totalPrice
         ]);
     }
 
@@ -78,8 +84,8 @@ class ShopController extends Controller
            
         ]);
     }
-    public function shopcat($id){
-        $procat=ProductCategory::find($id);
+    public function shopcat($slug){
+        $procat=ProductCategory::where('slug',$slug)->firstOrFail();
          //cart
          $oldCart=Session::get('cart');
          $cart= new Cart($oldCart);

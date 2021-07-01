@@ -57,4 +57,5 @@ class Product extends Model implements HasMedia
        return $this->getFirstMediaUrl('');
    }
    
+   
 }

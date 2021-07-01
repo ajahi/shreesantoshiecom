@@ -77,7 +77,7 @@ class MenuController extends Controller
                 $menu->clearMediaCollection('photo');
                 $menu->addMediaFromRequest('image')->toMediaCollection('photo');
             }
-            return redirect('/menu');
+            return redirect('/menu')->with('success','You have successfully created a menu');
 
 
         } else {

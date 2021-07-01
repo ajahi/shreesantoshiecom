@@ -19,11 +19,11 @@
                           <nav class="mainmenu__nav hidden-xs hidden-sm">
                                 <ul class="main__menu">
                                     <li class="drop"><a href="/">Home</a></li>
-                                    <li class="drop"><a href="/about-us">About US</a></li>
                                     <li class="drop"><a href="/shop">Shop</a></li>
+                                    <li class="drop"><a href="/about-us">About Us</a></li>
                                     <li class="drop"><a href="/our-gallery">Gallery</a></li>
                                     <li><a href="/our-blogs">Blogs</a></li>
-                                    <li><a href="/conact-us">Contact US</a></li>
+                                    <li><a href="/contactpage">Contact Us</a></li>
                                        
                                 </ul>
                             </nav>
