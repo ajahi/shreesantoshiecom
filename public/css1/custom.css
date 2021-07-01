@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------
-  Template Name: Tmart-Minimalist eCommerce HTML5 Template.
+  Template Name: Dreamsys eCommerce HTML5 Template.
   Template URI: #
   Description: Tmart is a unique website template designed in HTML with a simple & beautiful look. There is an excellent solution for creating clean, wonderful and trending material design corporate, corporate any other purposes websites.
   Author: Theme365
@@ -9,3 +9,23 @@
 /* ----------------------------------------------------
 	You can put your custom css code here: 
 -------------------------------------------------------*/
+.featured-product{
+  
+}
+.featured-product h2{
+  margin-bottom: 2rem;
+}
+.ftproduct{
+  margin-bottom: 20px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding-bottom: 10px;
+  
+}
+.ftproduct h3{
+  margin-bottom: 0px;
+}
+.featured_products .ftproduct img{
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}

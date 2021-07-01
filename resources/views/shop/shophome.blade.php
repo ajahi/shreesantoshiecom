@@ -246,28 +246,6 @@ $(document).ready(function(){
             </div>
         </section>
         <!-- End Feature Product -->
-        <!-- About us section -->
-        <section class="about-us">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="about_img">
-                        <img src="https://web.archive.org/web/20180902224039im_/http://shantoshihandicraft.com/wp-content/uploads/2018/01/banner-300x150.jpg" alt="">
-                    
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="about_text">
-                        <h2>WelcomeTo Santoshi Mata Hastakala</h2>
-                        <p>SHREE SHANTOSHI MATA HASTKALA SHREE SHANTOSHI MATA HASTKALA "HANDICRAFT" was established on April 2017 at hallan chowk , pokhara lakeside.It was established to provide socio- economic empowerment to the local.
-                        </p>
-                        <button class="btn btn-more">Read more</button>                            
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </section><!-- end about us section -->
         <!-- Focus ad -->
         <div class="only-banner ptb--100 bg__white">
             <div class="container">
@@ -280,44 +258,47 @@ $(document).ready(function(){
         <section class="featured_products">
             <div class="container">
                 <div class="row">
+                <h2>Featured Products</h2>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
-                        <div class="product">
+                        <div class="ftproduct">
                         <img src="https://web.archive.org/web/20181120080429im_/http://shantoshihandicraft.com/wp-content/uploads/2018/07/136A6020-300x300.jpg" alt="">
                         <h3>Product Title</h3>                            
                         </div>                        
                     </div>
                     <div class="col-md-3">
-                        <div class="product">
+                        <div class="ftproduct">
                         <img src="https://web.archive.org/web/20180902213942im_/http://shantoshihandicraft.com/wp-content/uploads/2018/06/DSC_2955-300x300.jpg" alt="">
                         <h3>Product Title</h3>                            
                         </div>                        
                     </div>
                     <div class="col-md-3">
-                        <div class="product">
+                        <div class="ftproduct">
                         <img src="https://web.archive.org/web/20180902214332im_/http://shantoshihandicraft.com/wp-content/uploads/2018/06/DSC_26201-300x300.jpg" alt="">
                         <h3>Product Title</h3>                            
                         </div>                        
                     </div>
                     <div class="col-md-3">
-                        <div class="product">
+                        <div class="ftproduct">
                         <img src="https://web.archive.org/web/20180902222801im_/http://shantoshihandicraft.com/wp-content/uploads/2018/06/brownieIMG_0114-01-300x300.jpg" alt="">
                         <h3>Product Title</h3>                            
                         </div>                        
                     </div>
                     <div class="col-md-3">
-                        <div class="product">
+                        <div class="ftproduct">
                         <img src="https://web.archive.org/web/20181120080429im_/http://shantoshihandicraft.com/wp-content/uploads/2018/07/136A6020-300x300.jpg" alt="">
                         <h3>Product Title</h3>                            
                         </div>                        
                     </div>
                     <div class="col-md-3">
-                        <div class="product">
+                        <div class="ftproduct">
                         <img src="https://web.archive.org/web/20181120080429im_/http://shantoshihandicraft.com/wp-content/uploads/2018/07/136A6020-300x300.jpg" alt="">
                         <h3>Product Title</h3>                            
                         </div>                        
                     </div>
                     <var><div class="col-md-3">
-                        <div class="product">
+                        <div class="ftproduct">
                         <img src="https://web.archive.org/web/20181120080429im_/http://shantoshihandicraft.com/wp-content/uploads/2018/07/136A6020-300x300.jpg" alt="">
                         <h3>Product Title</h3>                            
                         </div>                        
@@ -327,25 +308,10 @@ $(document).ready(function(){
             </div>            
         </section><!-- end featured products-->
         <!-- Start Our Product Area -->
-        <section class="htc__product__area bg__white">
+        <section class="htc__product__area bg__white mt-4">
             <div class="container">
                 <div class="row">
-                <div class="col-md-3">
-                        <div class="product-categories-all">
-                            <div class="product-categories-title">
-                                <h3>Jewelry & watches</h3>
-                            </div>
-                            <div class="product-categories-menu">
-                                <ul>
-                                    @foreach($procat as $procat)
-                                    <li><a href="/shopcategory/{{$procat->id}}">{{$procat->title}}</a></li>
-                                    
-                                @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <div class="product-style-tab">
                             <div class="product-tab-list">
                                 <!-- Nav tabs -->
@@ -353,7 +319,7 @@ $(document).ready(function(){
                                     <li class="active">
                                         <a href="#home1" data-toggle="tab">
                                             <div class="tab-menu-text">
-                                                <h4>latest </h4>
+                                                <h4>Latest </h4>
                                             </div>
                                         </a>
                                     </li>
@@ -368,7 +334,7 @@ $(document).ready(function(){
                                     <li>
                                         <a href="#home3" data-toggle="tab">
                                             <div class="tab-menu-text">
-                                                <h4>on sale</h4>
+                                                <h4>Top Rated</h4>
                                             </div>
                                         </a>
                                     </li>
@@ -379,7 +345,7 @@ $(document).ready(function(){
                                     <div class="row">
                                         <div class="product-slider-active owl-carousel">
                                         @forelse($latest as $product)
-                                            <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
+                                            <div class="col-md-3 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
@@ -397,8 +363,7 @@ $(document).ready(function(){
                                                                 @else
                                                                 <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
                                                                 @endif
-                                                                <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                    
+                                                                
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -434,7 +399,7 @@ $(document).ready(function(){
                                     <div class="row">
                                         <div class="product-slider-active owl-carousel">
                                         @forelse($bestsale as $products)
-                                            <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
+                                            <div class="col-md-3 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
@@ -446,7 +411,7 @@ $(document).ready(function(){
                                                             <ul class="product__action">
                                                                 <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product-details/{{$products->id}}"><span class="ti-eye"></span></a></li>
                                                                 <li><a title="Add TO Cart" href="/add-to-cart/{{$products->id}}"><span class="ti-shopping-cart"></span></a></li>
-                                                                <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
+                                                               
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -482,7 +447,7 @@ $(document).ready(function(){
                                     <div class="row">
                                         <div class="product-slider-active owl-carousel">
                                         @forelse($onsale as $products)
-                                            <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
+                                            <div class="col-md-3 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
@@ -494,7 +459,7 @@ $(document).ready(function(){
                                                             <ul class="product__action">
                                                                 <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product-details/{{$products->id}}"><span class="ti-eye"></span></a></li>
                                                                 <li><a title="Add TO Cart" href="/add-to-cart/{{$products->id}}"><span class="ti-shopping-cart"></span></a></li>
-                                                                <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
+                                            
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -545,7 +510,7 @@ $(document).ready(function(){
                 </div>
             </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="testimonial">
                             
                         </div>
@@ -558,8 +523,44 @@ $(document).ready(function(){
         <section class="blogs">
             <div class="container">
             <div class="row">
-                <div class="col-md-12">Our Herp</div>
+                <div class="col-md-12">
+                <h2>Our Blogs</h2>
+                </div>
             </div>
-        </section>
+            <div class="row">
+                <div class="col-sm-12 col-md-3">
+                    <div class="blog">
+                        <img src="" alt="blog-title">
+                        <span>Created date</span>
+                        <h4>Blog Title</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3">
+                    <div class="blog">
+                        <img src="" alt="blog-title">
+                        <span>Created date</span>
+                        <h4>Blog Title</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3">
+                    <div class="blog">
+                        <img src="" alt="blog-title">
+                        <span>Created date</span>
+                        <h4>Blog Title</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3">
+                    <div class="blog">
+                        <img src="" alt="blog-title">
+                        <span>Created date</span>
+                        <h4>Blog Title</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                    </div>
+                </div>
+            </div>
+        </section><!-- end blogs section -->
 @endsection
 
