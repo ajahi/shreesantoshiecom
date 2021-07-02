@@ -172,17 +172,11 @@ $(document).ready(function(){
                             <div class="htc__shop__cat">    
                                 <h4 class="section-title-4">Categories</h4>    
                                 <ul class="sidebar__list">      
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category title<span>11</span></a></li>                                       
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category title1<span>12</span></a></li>                                       
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category title2<span>11</span></a></li>                                       
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category title3<span>12</span></a></li>                                       
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category four<span>11</span></a></li>                                       
-                                
+                                @foreach($procat as $cat)
+                                <li class=""><a href="/shop-category/{{$cat->slug}}">{{$cat->title}}<span>{{count($cat->products)}}</span></a></li> 
+                                                                     
+                                                                 
+                                @endforeach
                                 </ul>
                             </div> 
                         </div> 
@@ -202,13 +196,13 @@ $(document).ready(function(){
                                         </div>
                                         <div class="product__hover__info">
                                                 <ul class="product__action">
-                                                    <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$pro->id}}"><span class="ti-eye"></span></a></li>
+                                                    <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$pro->slug}}"><span class="ti-eye"></span></a></li>
                                                     @if($pro->quantity < 0)
 
                                                     @else
-                                                    <li><a title="Add To Cart" value='{{$pro->id}}' href='add-to-cart/{{$pro->id}}' ><span class="ti-shopping-cart"></span></a></li>
+                                                    <li><a title="Add To Cart" value='{{$pro->id}}' class='button'  ><span class="ti-shopping-cart"></span></a></li>
                                                     @endif
-                                                    <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>                
+                                                                    
                                                 </ul>
                                         </div>
                                     </div>
@@ -250,7 +244,7 @@ $(document).ready(function(){
                                 <li>
                                     <a href="/shop/all?page=2" title="">2</a>
                                 </li>                             
-                                <li class="next"><a href="/shop/all?page=2" title="Next »"><span aria-hidden="true"><i class="zmdi zmdi-chevron-right"></i></span></a></li>
+                                <li class="next"><a href="#" title="Next »"><span aria-hidden="true"><i class="zmdi zmdi-chevron-right"></i></span></a></li>
                                 </ul>
                             </nav>
                             </div>

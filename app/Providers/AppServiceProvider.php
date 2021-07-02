@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\ProductCategory;
 use View;
+use App\Site;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
        
         View::composer(['partials.shopfooter'],function($view){
-            $view->with('categories',['categories'=>ProductCategory::all()]);
+            $view->with('categories',['categories'=>ProductCategory::where('parent_id',null)->get(),'site'=>Site::find(1)->get()]);
         });
     }
 

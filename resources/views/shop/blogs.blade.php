@@ -168,50 +168,27 @@ $(document).ready(function(){
         <section class="htc__product__area shop__page ptb--130 bg__white site_blogs blogs-page">
             <div class="container">
             <div class="row">
-               
-                <div class="col-md-9 col-sm-12">
+            
+            <div class="col-md-9 col-sm-12">
+            
                     <div class="row">
+                    <ul>
+                @foreach($blogs as $blogs)
                         <div class="col-sm-12 col-md-4">
                             <div class="blog">
                                 <a href="/blog/post-slug">
                                     <img src="https://cdn.pixabay.com/photo/2016/08/23/13/12/knitting-1614283__340.jpg" alt="blog-title">
-                                    <span>Created date</span>
-                                    <h4>Blog Title</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                                    <span>Created date : {{$blogs->created_at}}</span>
+                                    <h4>{{$blogs->title}}</h4>
+                                    <p>{{$blogs->description}} </p>
                                 </a>
                             </div>
-                        </div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="blog">
-                                <a href="/blog/post-slug">
-                                    <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
-                                    <span>Created date</span>
-                                    <h4>Blog Title</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
-                                </a>    
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="blog">
-                            <a href="/blog/post-slug">
-                                <img src="https://cdn.pixabay.com/photo/2018/01/23/13/20/easter-3101446__340.jpg" alt="blog-title">
-                                <span>Created date</span>
-                                <h4>Blog Title</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
-                            </a>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="blog">
-                            <a href="/blog/post-slug">
-                                <img src="https://cdn.pixabay.com/photo/2018/11/16/19/42/wool-3820135__340.jpg" alt="blog-title">
-                                <span>Created date</span>
-                                <h4>Blog Title</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
-                            </a>
-                            </div>
-                        </div>
+                        </div>   
+                        @endforeach
+            </ul>  
                     </div>
+               
+                
                 <!-- Start Load More BTn -->
                 <div class="row mt--60">
                         <div class="col-md-12">            
@@ -241,37 +218,19 @@ $(document).ready(function(){
                             <!-- Start popular blogs -->                            
                             <div class="htc__shop__cat">    
                                 <h4 class="section-title-4">Most Popular Blogs</h4>    
-                                <ul class="sidebar__list">      
+                                <ul class="sidebar__list">  
+                                @foreach($popular as $popular)    
                                 <li class="most_pop">
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
                                         </div>
                                         <div class="col-sm-8">
-                                            <h3><a href="">Blog Title</a></h3>
+                                            <h3><a href="">{{$popular->title}}</a></h3>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="most_pop">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <img src="https://cdn.pixabay.com/photo/2016/08/23/13/12/knitting-1614283__340.jpg" alt="blog-title">
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <h3><a href="">Blog Title</a></h3>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="most_pop">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <h3><a href="">Blog Title</a></h3>
-                                        </div>
-                                    </div>
-                                </li>        
+                               @endforeach       
                                 </ul>
                             </div> 
                 </div> 

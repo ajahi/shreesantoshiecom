@@ -2,9 +2,14 @@
 @extends('layouts.mastercms')
 
 @section('content')
+
+
 <div class="content-wrapper container">
     <section class="content-header">
         <div class="container-fluid">
+            <div class="container">
+               @include('flash')
+            </div>
             <div class="row mb-2">
                  <div class="col-sm-6">
                      <h1>Create a Product.</h1>
@@ -36,7 +41,7 @@
             <div class="form-check" >
             @if($count>0)
                 @foreach($productcategory as $parent)
-                    <input required class="form-check-input" type="checkbox" name="categories_id[]" value={{$parent->id}}>
+                    <input  class="form-check-input" type="checkbox" name="categories_id[]" value='{{$parent->id}}' >
                     <label class="form-check-label" for="defaultCheck1" >{{$parent->title}}</label>   
                     <br>
                 @endforeach

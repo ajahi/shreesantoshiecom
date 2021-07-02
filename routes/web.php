@@ -27,16 +27,16 @@ Route::get('/checkout','ProductController@getCheckout');
 Route::get('/reduce/{id}','ProductController@getReduceByOne');
 Route::get('/increase/{id}','ProductController@IncreaseByOne');
 Route::get('/remove/{id}','ProductController@remove');
-Route::get('/product/{slug}','ShopController@details');
+Route::get('/product-detail/{slug}','ShopController@details');
 Route::get('buynow/{id}','ProductController@buyNow');
 Route::get('/shop','ShopController@shop');
 Route::post('mails','MailController@store');
 
 Route::get('/shop-category/{slug}','ShopController@shopcat');
-Route::get('/about-us','AboutController@about');
+Route::get('/about-us','ShopController@aboutus');
 Route::get('/our-gallery','GalleryController@show');
 Route::get('/contact-us','ShopController@contact');
-Route::get('/our-blogs','BlogController@show');
+Route::get('/our-blogs','ShopController@blogs');
 
 Route::post('/login', 'Api\LoginController@login');
 Route::get('/newcart',function(){

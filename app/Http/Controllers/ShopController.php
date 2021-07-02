@@ -36,6 +36,7 @@ class ShopController extends Controller
            'bestsale'=>Product::orderBy('counts','DESC')->get(),
            'onsale'=>Product::where('discount','!=',null)->get(),
            'slider'=>Slider::all(),
+           'featured'=>Product::where('featured',true)->get(),
            'procat'=>$procat,
                 //cart
            'items'=>$cart->items,
@@ -67,12 +68,8 @@ class ShopController extends Controller
         $oldCart=Session::get('cart');
         $cart= new Cart($oldCart);
         //product        
-        $procat=ProductCategory::where('parent_id',null)->take(3)->get();
-        if($request->has('productcategory')){
-            $pro=ProductCategory::has('products',$request->productcategory)->get();          
-        }else{
-            $pro=Product::orderBy('id','DESC')->get();
-        }
+        $procat=ProductCategory::where('parent_id','!=',null)->get();
+        $pro=Product::where('quantity','>',1)->paginate(20);
         return view('shop.shopshop',[
             //cart
             'items'=>$cart->items,
@@ -107,6 +104,31 @@ class ShopController extends Controller
             'items'=>$cart->items,
            'totalPrice'=>$cart->totalPrice
         ]);
+    }
+    public function aboutus(){
+         //cart
+         $oldCart=Session::get('cart');
+         $cart= new Cart($oldCart);
+        return view('shop.aboutus',[
+            //cart
+            'items'=>$cart->items,
+           'totalPrice'=>$cart->totalPrice
+        ]);
+    }
+    public function blogs(){
+         //cart
+         $oldCart=Session::get('cart');
+         $cart= new Cart($oldCart);
+         
+
+         return view('shop.blogs',[
+             'blogs'=>Post::where('category_id',2)->paginate(20),
+             'popular'=>Post::orderBy('counts','DESC')->take(5)->get(),
+
+             //cart
+                 'items'=>$cart->items,
+                'totalPrice'=>$cart->totalPrice
+         ]);
     }
     /**
      * Show the form for creating a new resource.

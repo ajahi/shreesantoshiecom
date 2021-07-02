@@ -13,13 +13,14 @@
                                 </div>
                                 <div class="footer-address">
                                     <ul>
+                                    
                                         <li>
                                         <div class="address-icon">
                                             <i class="zmdi zmdi-pin"></i>
                                         </div>
                                         <div class="address-text">
-                                            <p>Your address or
-                                             <br> location goes here</p>
+                                            <p>
+                                             <br> {{$categories['site'][0]->location}}</p>
                                         </div>
                                         </li>
                                         <li>
@@ -27,7 +28,7 @@
                                             <i class="zmdi zmdi-email"></i>
                                         </div>
                                         <div class="address-text">
-                                            <p>info@example.com</p>
+                                            <p>{{$categories['site'][0]->website}}</p>
                                         </div>
                                         </li>
                                         <li>
@@ -35,15 +36,15 @@
                                             <i class="zmdi zmdi-phone-in-talk"></i>
                                         </div>
                                         <div class="address-text">
-                                            <p>+012 345 678 102</p>
+                                            <p>{{$categories['site'][0]->telephone}}</p>
                                         </div>
                                         </li>
                                     </ul>
                                 </div>
                                 <ul class="social__icon">
-                                    <li><a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="zmdi zmdi-facebook"></i></a></li>
-                                    <li><a href="https://twitter.com/" target="_blank" title="Twitter"><i class="zmdi zmdi-twitter"></i></a></li>
-                                    <li><a href="https://www.instagram.com/" target="_blank" title="Instagram"><i class="zmdi zmdi-instagram"></i></a></li>
+                                    <li><a href="{{$categories['site'][0]->facebook}}" target="_blank" title="Facebook"><i class="zmdi zmdi-facebook"></i></a></li>
+                                    <li><a href="{{$categories['site'][0]->twitter}}" target="_blank" title="Twitter"><i class="zmdi zmdi-twitter"></i></a></li>
+                                    <li><a href="{{$categories['site'][0]->instagram}}" target="_blank" title="Instagram"><i class="zmdi zmdi-instagram"></i></a></li>
                                 </ul>
                                 
                             </div>
@@ -54,11 +55,11 @@
                             <div class="ft__widget">
                                 <h2 class="ft__title">Categories</h2>
                                 <ul class="footer-categories">
-                               @foreach($categories as $cat)
-                                    @foreach($cat as $cat)
+                               @foreach($categories['categories'] as $cat)
+                                    
                                     <li><a href="/shop-category/{{$cat->slug}}">{{ucwords($cat->title)}}</a></li>
                                     
-                                    @endforeach
+                                   
                                 @endforeach
                                 </ul>
                             </div>

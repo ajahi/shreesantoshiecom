@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
+use App\Cart;
 
 class BlogController extends Controller
 {
@@ -22,7 +24,13 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show()
-    {
-        return view('shop.blogs');
+    {    //cart
+        $oldCart=Session::get('cart');
+        $cart= new Cart($oldCart);
+        return view('shop.blogs',[
+                //cart
+                'items'=>$cart->items,
+               'totalPrice'=>$cart->totalPrice
+        ]);
     }
 }

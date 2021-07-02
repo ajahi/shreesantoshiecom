@@ -92,7 +92,7 @@ class ProductController extends Controller
             }
 
             if ($validation->fails()) {
-                return response()->json($validation->errors() , 422);
+                return back()->with('warning','please check all the required property *.');
             }
             // if($user->hasRole('city_manager') && !(count($request->cities_id) == 1 && in_array($user->city_id,$request->cities_id))){
             //     return response()->json(['error'=>'Invalid city entry'], 422);

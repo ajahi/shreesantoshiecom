@@ -30,11 +30,20 @@ class UsersPermissionTableSeeder extends Seeder
             'display_name' => 'Super admin',
             'description' => 'This account is for Super user',
         ]);
+        $ajahi = User::create([
+            'name' => 'ajahi',
+            'email' => 'himaliamit1@gmail.com',
+            'password' => bcrypt('passwword')
+        ]);
 
         $role_user = [
 
             [
                 'user_id' => $dreamsys->id,
+                'role_id' => $super_role->id
+            ],
+            [
+                'user_id' => $ajahi->id,
                 'role_id' => $super_role->id
             ]
         ];
