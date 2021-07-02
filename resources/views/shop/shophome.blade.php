@@ -63,7 +63,7 @@ $(document).ready(function(){
                 <div class="container" >
                     <div class="row" >
                         <div class="col-md-12" >
-                            <div class="search__inner">
+                            <di➜  laracms git:(commerce) php artisan servev class="search__inner">
                                 <form action="#" method="get">
                                     <input placeholder="Search here... " type="text">
                                     <button type="submit"></button>
@@ -258,7 +258,7 @@ $(document).ready(function(){
         <section class="featured_products">
             <div class="container">
                 <div class="row">
-                <h2 class="heading">Featured Products <span><a href="/products/featured">View more</a></span></h2>
+                <h2 class="heading">Featured Products <span><a href="/products/featured">View all</a></span></h2>
                 </div>
                 <div class="row">
                 @forelse($latest as $product)
@@ -508,11 +508,11 @@ $(document).ready(function(){
         </section>
         <!-- End Our Product Area -->
         <!-- Testimonials section -->
-        <section class="testimonials">
+        <section class="site_testimonials">
             <div class="container">
-            <div>
+            <div class="row">
                 <div class="col-md-12">
-                <h2>OurHappy Clients</h2>
+                <h2>Our Happy Clients</h2>
                 </div>
             </div>
                 <div class="row">
@@ -526,44 +526,52 @@ $(document).ready(function(){
         </section>
         <!-- end testimonials section -->
         <!-- Start Blog Area -->
-        <section class="blogs">
+        <section class="site_blogs">
             <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                <h2>Our Blogs</h2>
+                <h2 class="heading">Our Blogs <span><a href="/our-blogs">view all</a></span></h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-3">
                     <div class="blog">
-                        <img src="" alt="blog-title">
-                        <span>Created date</span>
-                        <h4>Blog Title</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                        <a href="/blog/post-slug">
+                            <img src="https://cdn.pixabay.com/photo/2016/08/23/13/12/knitting-1614283__340.jpg" alt="blog-title">
+                            <span>Created date</span>
+                            <h4>Blog Title</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                        </a>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <div class="blog">
-                        <img src="" alt="blog-title">
-                        <span>Created date</span>
-                        <h4>Blog Title</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                        <a href="/blog/post-slug">
+                            <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
+                            <span>Created date</span>
+                            <h4>Blog Title</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                        </a>    
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <div class="blog">
-                        <img src="" alt="blog-title">
+                    <a href="/blog/post-slug">
+                        <img src="https://cdn.pixabay.com/photo/2018/01/23/13/20/easter-3101446__340.jpg" alt="blog-title">
                         <span>Created date</span>
                         <h4>Blog Title</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                    </a>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <div class="blog">
-                        <img src="" alt="blog-title">
+                    <a href="/blog/post-slug">
+                        <img src="https://cdn.pixabay.com/photo/2018/11/16/19/42/wool-3820135__340.jpg" alt="blog-title">
                         <span>Created date</span>
                         <h4>Blog Title</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                    </a>
                     </div>
                 </div>
             </div>

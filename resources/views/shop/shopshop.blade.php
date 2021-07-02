@@ -270,12 +270,26 @@ $(document).ready(function(){
                     </div>
                     <!-- Start Load More BTn -->
                     <div class="row mt--60">
-                        <div class="col-md-12">
-                            <div class="htc__loadmore__btn">
-                                <a href="#">load more</a>
+                        <div class="col-md-12">            
+                            <div class="page-pagination text-center col-xs-12 fix">
+                            <nav class="pagination">
+                                <ul class="">
+                                <li>                                    
+                                </li><li class="disabled prev">
+                                    <a href="">
+                                    <span><i class="zmdi zmdi-chevron-left"></i></span>
+                                    </a>
+                                </li>                              
+                                <li class="active"><a href="">1</a></li>
+                                <li>
+                                    <a href="/shop/all?page=2" title="">2</a>
+                                </li>                             
+                                <li class="next"><a href="/shop/all?page=2" title="Next »"><span aria-hidden="true"><i class="zmdi zmdi-chevron-right"></i></span></a></li>
+                                </ul>
+                            </nav>
                             </div>
                         </div>
-                    </div>
+                     </div>
                     <!-- End Load More BTn -->
                 </div>
             </div>

@@ -12,11 +12,11 @@
 .featured_products{
   margin-bottom: 4em;
 }
-.featured_products .heading span{
+.featured_products .heading span, .site_blogs .heading span{
   float: right;
   font-size: 14px;
 }
-featured_products .heading span a{
+.featured_products .heading span a, .site_blogs .heading span a{
   color: #ff4136;
   text-decoration: none;
 }
@@ -34,4 +34,77 @@ justify-content: center;
   width: 100%;
   height: 270px;
   object-fit: cover;
+}
+.site_testimonials{
+  margin: 4em 0em;
+}
+.site_blogs{
+  margin-bottom: 4em;
+}
+.site_blogs img{
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.site_blogs .blog span{
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #666;
+}
+.site_blogs .blog h4{
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 5px;
+}
+.site_blogs .blog a h4{
+  color: #333;
+  text-decoration: none;
+}
+.site_blogs .blog:hover h4{
+  color: #ff4136;
+  text-decoration: underline;
+}
+.site_testimonials h2,.site_blogs h2{
+  margin-bottom: 2em;
+}
+.page-pagination ul li {
+  display: block;
+  float: left;
+  margin: 0 3px;
+}
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+.pagination {
+  text-align: center;
+}
+.page-pagination ul li.active a {
+  background-color: #ff4136;
+}
+.page-pagination ul li.active a {
+  background-color: #ff4136;
+  color: #fff;
+}
+.page-pagination ul li.disabled {
+  display: none;
+}
+.page-pagination ul li {
+  display: block;
+  float: left;
+  margin: 0 3px;
+}
+.page-pagination ul li a {
+  display: block;
+  height: 36px;
+  line-height: 20px;
+  width: 36px;
+}
+.pagination .page.current, .pagination a {
+  padding: 8px;
+}
+.fix {
+  overflow: hidden;
 }
