@@ -142,15 +142,15 @@ $(document).ready(function(){
                                     <form action="/order" method="POST">
                                     @csrf
                                         <div class="single-checkout-box">
-                                            <input type="text" placeholder="First Name*" name='firstname'>
-                                            <input type="text" placeholder="Last Name*" name='lastname'>
+                                            <input type="text" placeholder="First Name*" name='firstname' required>
+                                            <input type="text" placeholder="Last Name*" name='lastname' required>
                                         </div>
                                         <div class="single-checkout-box">
-                                            <input type="email" placeholder="Email*" name='email'>
-                                            <input type="number" placeholder="Phone*" name='phone'>
+                                            <input type="email" placeholder="Email*" name='email' required>
+                                            <input type="number" placeholder="Phone*" name='phone' required>
                                         </div>
                                         <div class="single-checkout-box">
-                                            <input type="text" placeholder="Address" name='address'>
+                                            <input type="text" placeholder="Address *" name='address' required>
                                             
                                         </div>
                                         <div class="our-payment-sestem">
@@ -172,7 +172,7 @@ $(document).ready(function(){
                         <div class="checkout-right-sidebar">
                             <div class="our-important-note">
                                 <h2 class="section-title-3">Note:</h2>
-                                <p>Direct payment is not available as of right now we will confirm your order with a phone call.Happy shopping.</p>                
+                                <p>We accept cash on delivery.Happy shopping.</p>                
                                     </div>
                             <div class="puick-contact-area mt--60">
                                 <h2 class="section-title-3">Quick Contract</h2>

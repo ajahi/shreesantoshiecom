@@ -181,3 +181,16 @@ span .amount{
   background-color: #333;
   color: #fff;
 }
+.single-checkout-box input[type="text"], .single-checkout-box input[type="email"],
+ .single-checkout-box input[type="password"], .single-checkout-box input[type="number"] {
+  background: transparent none repeat scroll 0 0;
+  border: 1px solid #c1c1c1;
+  border-radius: 0;
+  color: #767676;
+  font-size: 12px;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 20px;
+  width: 47.5%;
+  margin-bottom: 40px;
+}
