@@ -134,103 +134,65 @@ $(document).ready(function(){
             </div>
         <!-- End Cart Panel -->
         </div>
+        <!-- Breadcrumb sectio  -->
+        <div class="ht__bradcaump__area">
+            <div class="ht__bradcaump__wrap">
+                <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                    <div class="bradcaump__inner text-center">
+                        <h2 class="bradcaump-title">Products</h2>
+                        <nav class="bradcaump-inner">              
+                            <nav class="" role="navigation" aria-label="breadcrumbs">
+                                <ul class="breadcrumb-list">
+                                    <li>
+                                    <a href="/" title="Back to the home page">Home</a>
+                                    </li>
+                                    <li> 
+                                        <span>All Products</span>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </nav>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        <!-- end breadcrumb section -->
      
         <section class="htc__product__area shop__page ptb--130 bg__white">
             <div class="container">
                 <div class="htc__product__container">
-                    <!-- Start Product MEnu -->
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="filter__menu__container">
-                                <div class="product__menu">
-                                    <button data-filter="*"  class="is-checked">All</button>
-                                    @foreach($procat as $procat)
-                                    <button data-filter=".cat--1"><a href="/shopshop/{{$procat->id}}"></a>{{$procat->title}}</button>
-                                    @endforeach
-                                </div>
-                                <!-- <div class="filter__box">
-                                    <a class="filter__menu" href="#">filter</a>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Start Filter Menu -->
-                    <!-- <div class="filter__wrap">
-                        <div class="filter__cart">
-                            <div class="filter__cart__inner">
-                                <div class="filter__menu__close__btn">
-                                    <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                </div>
-                                <div class="filter__content">
-                                     Start Single Content 
-                                    <div class="fiter__content__inner">
-                                        <div class="single__filter">
-                                            <h2>Sort By</h2>
-                                            <ul class="filter__list">
-                                                <li><a href="#default">Default</a></li>
-                                                <li><a href="#accessories">Accessories</a></li>
-                                                <li><a href="#bags">Bags</a></li>
-                                                <li><a href="#chair">Chair</a></li>
-                                                <li><a href="#decoration">Decoration</a></li>
-                                                <li><a href="#fashion">Fashion</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="single__filter">
-                                            <h2>Size</h2>
-                                            <ul class="filter__list">
-                                                <li><a href="#xxl">XXL</a></li>
-                                                <li><a href="#xl">XL</a></li>
-                                                <li><a href="#x">X</a></li>
-                                                <li><a href="#l">L</a></li>
-                                                <li><a href="#m">M</a></li>
-                                                <li><a href="#s">S</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="single__filter">
-                                            <h2>Tags</h2>
-                                            <ul class="filter__list">
-                                                <li><a href="#">All</a></li>
-                                                <li><a href="#">Accessories</a></li>
-                                                <li><a href="#">Bags</a></li>
-                                                <li><a href="#">Chair</a></li>
-                                                <li><a href="#">Decoration</a></li>
-                                                <li><a href="#">Fashion</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="single__filter">
-                                            <h2>Price</h2>
-                                            <ul class="filter__list">
-                                                <li><a href="#">$0.00 - $50.00</a></li>
-                                                <li><a href="#">$50.00 - $100.00</a></li>
-                                                <li><a href="#">$100.00 - $150.00</a></li>
-                                                <li><a href="#">$150.00 - $200.00</a></li>
-                                                <li><a href="#">$300.00 - $500.00</a></li>
-                                                <li><a href="#">$500.00 - $700.00</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="single__filter">
-                                            <h2>Color</h2>
-                                            <ul class="filter__list sidebar__list">
-                                                <li class="black"><a href="#"><i class="zmdi zmdi-circle"></i>Black</a></li>
-                                                <li class="blue"><a href="#"><i class="zmdi zmdi-circle"></i>Blue</a></li>
-                                                <li class="brown"><a href="#"><i class="zmdi zmdi-circle"></i>Brown</a></li>
-                                                <li class="red"><a href="#"><i class="zmdi zmdi-circle"></i>Red</a></li>
-                                                <li class="orange"><a href="#"><i class="zmdi zmdi-circle"></i>Orange</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Content 
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- End Filter Menu -->
-                    <!-- End Product MEnu -->
-                    <div class="row">
+                        <!-- Side bar categories -->
+                        <div class="col-md-3">  
+                            <!-- Start Product Cat -->                            
+                            <div class="htc__shop__cat">    
+                                <h4 class="section-title-4">Categories</h4>    
+                                <ul class="sidebar__list">      
+                                
+                                <li class=""><a href="/shop-category/cat-slug">Category title<span>11</span></a></li>                                       
+                                
+                                <li class=""><a href="/shop-category/cat-slug">Category title1<span>12</span></a></li>                                       
+                                
+                                <li class=""><a href="/shop-category/cat-slug">Category title2<span>11</span></a></li>                                       
+                                
+                                <li class=""><a href="/shop-category/cat-slug">Category title3<span>12</span></a></li>                                       
+                                
+                                <li class=""><a href="/shop-category/cat-slug">Category four<span>11</span></a></li>                                       
+                                
+                                </ul>
+                            </div> 
+                        </div> 
+                        <!-- end sidebar categories -->
+                        <div class="col-md-9 col-sm-12">
+                        <div class="row">
                         <div class="product__list another-product-style">
                             <!-- Start Single Product -->
                             @foreach($pro as $pro)
-                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
+                            <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
                                 <div class="product foo">
                                     <div class="product__inner">
                                         <div class="pro__thumb">
@@ -268,6 +230,10 @@ $(document).ready(function(){
   
                         </div>
                     </div>
+                        </div>
+                    </div>                                
+                    
+                    
                     <!-- Start Load More BTn -->
                     <div class="row mt--60">
                         <div class="col-md-12">            

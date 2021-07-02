@@ -108,3 +108,37 @@ justify-content: center;
 .fix {
   overflow: hidden;
 }
+.bradcaump-title {
+  line-height: 40px;
+}
+.ht__bradcaump__area {
+  background: #f6f6f6;
+}
+.bradcaump-title {
+  color: #343434;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 40px;
+  text-transform: capitalize;
+}
+.bradcaump-inner {
+  margin-top: 23px;
+}
+.breadcrumb-list > li {
+  color: #343434;
+}
+.breadcrumb-list > li {
+  color: #343434;
+  display: inline-block;
+  font-size: 18px;
+  margin-right: 10px;
+  text-transform: capitalize;
+}
+
+.breadcrumb-list > li > a::after {
+  color: #343434;
+  content: "/";
+  font-size: 14px;
+  margin-left: 10px;
+
+}
