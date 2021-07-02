@@ -153,3 +153,6 @@ justify-content: center;
   height: 60px;
   object-fit: cover;
 }
+.section__title.section__title--2 p {
+  width: 80%;
+}

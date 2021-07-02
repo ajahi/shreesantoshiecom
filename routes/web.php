@@ -33,7 +33,8 @@ Route::get('/shop','ShopController@shop');
 Route::post('mails','MailController@store');
 
 Route::get('/shop-category/{slug}','ShopController@shopcat');
-Route::get('/about-us','AboutController@show');
+Route::get('/about-us','AboutController@about');
+Route::get('/our-gallery','GalleryController@show');
 Route::get('/contact-us','ShopController@contact');
 Route::get('/our-blogs','BlogController@show');
 

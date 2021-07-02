@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AboutController extends Controller
+class GalleryController extends Controller
 {
+    
      /**
      * Create a new controller instance.
      *
@@ -21,9 +22,8 @@ class AboutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function about()
+    public function show()
     {
-        return view('shop.aboutus');
+        return view('shop.gallery');
     }
-     
 }
