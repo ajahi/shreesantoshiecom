@@ -156,3 +156,28 @@ justify-content: center;
 .section__title.section__title--2 p {
   width: 80%;
 }
+span .amount{
+  font-size: 14px;
+  padding-bottom: 4px;
+}
+.amount a{
+  display: inline-block;
+  font-size: 25px;
+  width: 30px;
+}
+.amount a:first-child{
+  margin-right: 5px;
+}
+.section-title-3 .subtotal{
+  color: #ff4136;
+}
+.btn-checkout{
+  background-color: #ff4136;
+  color: #fff;
+  width: 200px;
+  padding: 8px 15px;
+}
+.btn-checkout:hover{
+  background-color: #333;
+  color: #fff;
+}

@@ -134,7 +134,8 @@ $(document).ready(function(){
                                
                             </div>
                             <div class="section">
-                                <h2 class="section-title-3 ">Subtotal : </h2> <h2 class="section">RS {{Session::get('cart')->totalPrice}}</h2>
+                                <h2 class="section-title-3 ">Subtotal : <span class="subtotal">RS {{Session::get('cart')->totalPrice}}</span> </h2> 
+                                <!-- <h2 class="section"></h2> -->
                             </div>
                             
                                 <div class="checkout-form-inner">
@@ -153,7 +154,7 @@ $(document).ready(function(){
                                             
                                         </div>
                                         <div class="our-payment-sestem">
-                                            <button class="ts-btn  btn-large hover-theme" type='submit'> CONFIRM </button>
+                                            <button class="ts-btn  btn-large btn btn-checkout" type='submit'> CONFIRM </button>
                                         </div>
                                     </form>
                                 </div>
