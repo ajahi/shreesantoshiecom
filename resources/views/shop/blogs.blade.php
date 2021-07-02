@@ -141,7 +141,7 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-xs-12">
                     <div class="bradcaump__inner text-center">
-                        <h2 class="bradcaump-title">Products</h2>
+                        <h2 class="bradcaump-title">Blogs</h2>
                         <nav class="bradcaump-inner">              
                             <nav class="" role="navigation" aria-label="breadcrumbs">
                                 <ul class="breadcrumb-list">
@@ -149,7 +149,7 @@ $(document).ready(function(){
                                     <a href="/" title="Back to the home page">Home</a>
                                     </li>
                                     <li> 
-                                        <span>All Products</span>
+                                        <span>Our Blogs</span>
                                     </li>
                                 </ul>
                             </nav>
@@ -167,11 +167,6 @@ $(document).ready(function(){
                     <!-- Start Blog Area -->
         <section class="htc__product__area shop__page ptb--130 bg__white site_blogs blogs-page">
             <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                <h2 class="heading">Our Blogs </span></h2>
-                </div>
-            </div>
             <div class="row">
                
                 <div class="col-md-9 col-sm-12">
@@ -241,27 +236,46 @@ $(document).ready(function(){
                  </div>
                  <!-- End Load More BTn -->
                 </div>
-                 <!-- Side bar categories -->
+                 <!-- Most popular blogs top 5 -->
                  <div class="col-md-3">  
-                            <!-- Start Product Cat -->                            
+                            <!-- Start popular blogs -->                            
                             <div class="htc__shop__cat">    
-                                <h4 class="section-title-4">Categories</h4>    
+                                <h4 class="section-title-4">Most Popular Blogs</h4>    
                                 <ul class="sidebar__list">      
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category title<span>11</span></a></li>                                       
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category title1<span>12</span></a></li>                                       
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category title2<span>11</span></a></li>                                       
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category title3<span>12</span></a></li>                                       
-                                
-                                <li class=""><a href="/shop-category/cat-slug">Category four<span>11</span></a></li>                                       
-                                
+                                <li class="most_pop">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <h3><a href="">Blog Title</a></h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="most_pop">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <img src="https://cdn.pixabay.com/photo/2016/08/23/13/12/knitting-1614283__340.jpg" alt="blog-title">
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <h3><a href="">Blog Title</a></h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="most_pop">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <h3><a href="">Blog Title</a></h3>
+                                        </div>
+                                    </div>
+                                </li>        
                                 </ul>
                             </div> 
                 </div> 
-                <!-- end sidebar categories -->
+                <!-- end sidebar populars -->
             </div>
             
         </section><!-- end blogs section -->

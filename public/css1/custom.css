@@ -145,3 +145,11 @@ justify-content: center;
 .blogs-page .blog{
   margin-bottom: 3em;
 }
+.blogs-page .most_pop{
+  margin-bottom: 1.5em;
+}
+.blogs-page .most_pop img{
+  width: 100%;
+  height: 60px;
+  object-fit: cover;
+}
