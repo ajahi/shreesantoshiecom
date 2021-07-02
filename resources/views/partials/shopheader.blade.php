@@ -23,7 +23,7 @@
                                     <li class="drop"><a href="/about-us">About Us</a></li>
                                     <li class="drop"><a href="/our-gallery">Gallery</a></li>
                                     <li><a href="/our-blogs">Blogs</a></li>
-                                    <li><a href="/contactpage">Contact Us</a></li>
+                                    <li><a href="/contact-us">Contact Us</a></li>
                                        
                                 </ul>
                             </nav>
