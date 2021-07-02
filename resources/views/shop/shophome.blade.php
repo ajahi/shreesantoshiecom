@@ -258,7 +258,7 @@ $(document).ready(function(){
         <section class="featured_products">
             <div class="container">
                 <div class="row">
-                <h2 class="heading">Featured Products <span><a href="/products/featured">View all</a></span></h2>
+                <h2 class="heading">Featured Products</h2>
                 </div>
                 <div class="row">
                 @forelse($latest as $product)
