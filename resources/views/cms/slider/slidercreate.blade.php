@@ -15,17 +15,19 @@
     <form method='POST'action="/slider" enctype="multipart/form-data">
     @csrf
         <div class="form-floating my-3">
-            <input required type="text" class="form-control col-lg-7" name="title" placeholder="Slider Title.">
+        <label for="title" class="text-secondary">Title <span class="font-normal text-danger">*</span></label>
+            <input required type="text" class="form-control col-lg-7" name="title" placeholder="Slider title" required>
          </div>
          <div class="form-floating my-3">
-            <textarea required class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px"></textarea>
+         <label for="description" class="text-secondary">Description <span class="font-normal text-danger">*</span></label>
+            <textarea required class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px" required></textarea>
         </div>
         <div class="form-floating my-3">
-            <label for="images">Image</label>
+            <label for="images" class="text-secondary">Slider Image <span class="font-normal text-danger">*</span></label>
             <input required type="file" class="form-control col-lg-7" name="image" placeholder="Image">
         </div>
        
-        <button type='Submit' class="btn btn-info"> Submit</button>
+        <button type='Submit' class="btn btn-success px-4">Create</button>
     </form>
     </section>
     

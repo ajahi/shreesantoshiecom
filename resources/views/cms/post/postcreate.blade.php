@@ -3,7 +3,7 @@
 @section('content')
 <div class="content-wrapper container">
 
-    <section class="content-header">
+    <section class="content-header ml-2">
         <div class="container-fluid">
             <div class="row mb-2">
                  <div class="col-sm-6">
@@ -12,17 +12,19 @@
             </div>
         </div>
     </section>
-    <section class='mx-'>
+    <section class="mx-4">
     <form method='POST'action="/posts" enctype="multipart/form-data">
     @csrf
         <div class="form-floating my-3">
+        <label for="title" class="text-secondary">Title <span class="font-normal text-danger">*</span></label>
             <input type="text" class="form-control col-lg-7" name="title" placeholder="Title of the post" required>
          </div>
         <div class="form-floating my-3">
+        <label for="description" class="text-secondary">Description <span class="font-normal text-danger">*</span></label>
             <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px" required></textarea>
         </div>
         <div class="form-floating my-3">
-        <label for="Category_id">Category</label>
+        <label for="Category_id" class="text-secondary">Category <span class="font-normal text-danger">*</span></label>
             <div class="form-check" >
             @foreach($category as $category)
                 <input required class="form-check-input" type="radio" name="category_id" value={{$category->id}} >
@@ -32,17 +34,17 @@
             </div>
         </div>
         <div class="form-floating my-3">
-        <label for="Category_id">Status</label>
-            <select class="form-select" name="status" aria-label="Floating label select example"> 
+        <label for="Category_id" class="text-secondary">Status</label><br/>
+            <select class="form-select custom-select w-50" name="status" aria-label="Floating label select example"> 
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
             </select>
         </div>
         <div class="form-floating my-3" >
-            <label for="images">Image</label>
+            <label for="images" class="text-secondary">Image</label>
             <input required type="file" class="form-control col-lg-7" name="image" placeholder="Image">
         </div>
-        <button type='Submit' class="btn btn-info"> Submit</button>
+        <button type='Submit' class="btn btn-success px-4 mb-4">Create</button>
     </form>
     </section>
     
