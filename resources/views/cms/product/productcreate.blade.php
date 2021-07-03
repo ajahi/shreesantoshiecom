@@ -39,7 +39,7 @@
         </div> -->
 
         <div class="form-floating my-3">
-        <label for="Category_id" class="text-secondary">Product Category</label>
+        <label for="Category_id" class="text-secondary">Product Category <span class="font-normal text-danger">*</span></label>
             <div class="form-check" >
             @if($count>0)
                 @foreach($productcategory as $parent)
@@ -110,7 +110,7 @@
          </div>
          <div class="col-md-6">
          <div class="form-floating mt-2">
-            <label for="status" class="text-secondary">Status</label><br/>
+            <label for="status" class="text-secondary">Status <span class="font-normal text-danger">*</span></label><br/>
             <select class="form-select custom-select col-lg-7" name="status" aria-label="Floating label select example">          
             <option value=0>Draft</option>
             <option value=1>Published</option>             
@@ -123,7 +123,7 @@
         <div class="row">
         <div class="col-md-6">
         <div class="form-floating mt-2 mb-4">
-            <label for="images" class="text-secondary">Product Image</label>
+            <label for="images" class="text-secondary">Product Image <span class="font-normal text-danger">*</span></label>
             <input type="file" class="form-control col-md-7" name="image" placeholder="Image" required>
         </div>
         </div>

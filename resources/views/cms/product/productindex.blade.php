@@ -26,7 +26,7 @@
                 <td scope="col">{{$posts->quantity}}</td>
                 <td scope="col">
                 <a href="/product/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
-                <form action="/productdel/{{$posts->id}}" method='POST'>
+                <form action="/productdel/{{$posts->id}}" class="d-inline" method='POST'>
                     @csrf
                     @method('DELETE')
                     <button class="btn"><i class="fas fa-trash text-danger"></i></button>

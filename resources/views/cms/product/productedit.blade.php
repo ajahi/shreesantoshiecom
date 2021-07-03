@@ -13,14 +13,16 @@
             </div>
         </div>
     </section>
-    <section class='mx-'>
+    <section class='mx-4'>
     <form method='POST'action="/product/{{$product->id}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
+        <label for="title" class="text-secondary">Title <span class="font-normal text-danger">*</span></label>
             <input type="text" required class="form-control col-lg-7" name="title" placeholder="Product title" value={{$product->title}} >
          </div>
         <div class="form-floating my-3">
+        <label for="secription" class="text-secondary">Description <span class="font-normal text-danger">*</span></label>
             <textarea class="form-control col-lg-7" placeholder="Product description" name="description" style="height: 100px" required>{{$product->description}}</textarea>
         </div>
         <!-- <div class="form-floating my-3">
@@ -33,7 +35,7 @@
         </div> -->
 
         <div class="form-floating my-3">
-        <label for="Category_id">Product Category</label>
+        <label for="Category_id" class="text-secondary">Product Category <span class="font-normal text-danger">*</span></label>
             <div class="form-check" >
             @if(count($productcategory)>0)
                 @foreach($productcategory as $parent)
@@ -50,13 +52,13 @@
                     <br>
                 @endforeach
             @else
-                <i>no product categories avaiable right now.</i>    
+                <i>No product categories created. <a href="/productcategorycreate">create one</a></i>    
             @endif
             </div>
         </div>
 
         <div class="form-floating my-3">
-        <label for="Category_id">Product Tag</label>
+        <label for="Category_id" class="text-secondary">Product Tag</label>
             <div class="form-check" >
             @foreach($tag as $tag)
                 <input  class="form-check-input" type="checkbox" name="tags_id[]" value={{$tag->id}} 
@@ -71,22 +73,39 @@
             @endforeach
             </div>
         </div>
+        <div class="row">
+        <div class="col-sm-6 col-md-6">
         <div class="form-floating my-3">
-        <label for="purchase_price">Purchase price <span class="font-normal text-danger">*</span></label>
+        <label for="purchase_price" class="text-secondary">Purchase price <span class="font-normal text-danger">*</span></label>
             <input required type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price" value={{$product->purchase_price}} >
          </div>
-         <div class="form-floating my-3">
-         <label for="sell_price">Selling price <span class="font-normal text-danger">*</span></label>
+        </div>
+        <div class="col-sm-6 col-md-6">
+        <div class="form-floating my-3">
+         <label for="sell_price" class="text-secondary">Selling price <span class="font-normal text-danger">*</span></label>
             <input  required type="number" class="form-control col-lg-7" name="sell_price" placeholder="Sell price" value={{$product->sell_price}}>
          </div>
-         <div class="form-floating my-3">
-         <label for="quantity">Stock quantity <span class="font-normal text-danger">*</span></label>
+        </div>
+        </div>
+
+        <!-- ----->
+        <div class="row">
+        <div class="col-sm-6 col-md-6">
+        <div class="form-floating my-3">
+         <label for="quantity" class="text-secondary">Stock quantity <span class="font-normal text-danger">*</span></label>
             <input required type="number" class="form-control col-lg-7" name="quantity" placeholder="quantity" value={{$product->quantity}}>
          </div>
-         <div class="form-floating">
-            <label for="discount">Discount</label>
+        </div>
+        <div class="col-sm-6 col-md-6">
+        <div class="form-floating">
+            <label for="discount" class="text-secondary">Discount</label>
             <input type="number" class="form-control col-lg-7" name="discount" placeholder="discount(optional)" value={{$product->discount}}>
         </div>
+        </div>
+        </div>
+        <!--- ---->
+        <div class="row">
+        <div class="col-sm-6 col-md-6">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="1"  name='featured'
             @if($product->featured==1)
@@ -94,7 +113,7 @@
             @endif
             >
             <label class="form-check-label" for="flexCheckIndeterminate">
-                <strong>Featured</strong> 
+                Featured
             </label>
         </div>
         <div class="form-check">
@@ -104,33 +123,39 @@
             @endif
             >
             <label class="form-check-label" for="Offer">
-                <Strong>Offer</Strong>
+                Offer
             </label>
         </div>
-
+        </div>
+        <div class="col-sm-6 col-md-6">
         <div class="form-floating">
-            <label for="status">Status</label>
-            <select class="form-select" name="status" aria-label="Floating label select example">          
+            <label for="status" class="text-secondary">Status <span class="font-normal text-danger">*</span></label><br/>
+            <select class="form-select custom-select col-lg-7" name="status" aria-label="Floating label select example">          
             <option value=0>Draft</option>
             <option value=1>Published</option>             
             </select>
         </div>
-        <div class="form-floating my-3">
+        </div>
+        </div> 
+         
+         
+        <div class="form-floating pt-4 my-3">
             <img src="{{$product->getFirstMediaUrl('')}}" width="50%" height="130px" alt="">
             <p>Note: Old image will be replace by new one</p>
         </div>
         <div class="form-floating my-3">
-            <label for="images">Product Image</label>
+        <label for="image" class="text-secondary">Product Image <span class="font-normal text-danger">*</span></label>
             <input type="file" class="form-control col-lg-7" name="image" placeholder="Image">
         </div>
         
         <div class="form-floating my-3">
-            <label for="images">Additional Image</label>
+            <label for="additional-image" class="text-secondary">Additional Image</label>
             <input type="file" class="form-control col-lg-7" name="addition-image" placeholder="Image" >
         </div>
         
-        
-        <button type='Submit' class="btn btn-info"> Submit</button>
+        <div class="py-4">
+        <a href="/product" class="btn btn-danger mb-2 px-4 mr-4">Cancel</a><button type='Submit' class="btn btn-success px-4 mb-2">Update</button>
+        </div>
     </form>
     </section>
     
