@@ -10,7 +10,7 @@
                 <tr>
                 <th scope='col'>Id</th>
                 <th scope='col'>Title</th>
-                <th scope='col'>Description</th>
+                <!-- <th scope='col'>Description</th> -->
                 <th scope='col'>Image</th>
                 <th scope='col'>Status</th>
                 <th scope='col'>Action</th>
@@ -22,15 +22,15 @@
                 <tr>
                 <td scope="col">{{$posts->id}}</td>
                 <td scope="col"><a href="/post/{{$posts->id}}">{{$posts->title}}</a></td>
-                <td scope="col">{{$posts->description}}</td>
+                <!-- <td scope="col">{{substr($posts->description,150)}}...</td> -->
                 <td scope='col'><img src="{{$posts->getFirstMediaUrl('')}}" width="80" height="80" alt=""></td>
                 <td scope="col">{{$posts->status}}</td>
                 <td scope="col">
                 <a href="/post/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
-                <form action="/postdel/{{$posts->id}}" method='POST'>
+                <form action="/postdel/{{$posts->id}}" method='POST' class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button><i class="nav-icon fas fa-trash"></i></button>
+                    <button class="btn"><i class="fas fa-trash text-danger"></i></button>
                 </form>
                 </td>
                 </tr>

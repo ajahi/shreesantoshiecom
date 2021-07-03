@@ -21,10 +21,10 @@
                 <td scope="col">{{$posts->email}}</td>
                 <td scope="col">
                 <!-- <a href="/user/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a> -->
-                <form action="/userdel/{{$posts->id}}" method='POST'>
+                <form action="/userdel/{{$posts->id}}" method='POST' class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button><i class="nav-icon fas fa-trash"></i></button>
+                    <button class="btn"><i class="fas fa-trash text-danger"></i></button>
                 </form>
                 </td>
                 </tr>

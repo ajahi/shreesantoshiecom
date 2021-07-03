@@ -24,11 +24,11 @@
                     <td scope="col">{{$posts->address}}</td>
                     <td scope="col">{{$posts->status}}</td>
                     <td scope="col">
-                    <a href="/orderedit/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
-                        <form action="/orderdel/{{$posts->id}}" method='POST'>
+                    <a href="/orderedit/{{$posts->id}}">Manage Order</a>
+                        <form action="/orderdel/{{$posts->id}}" method='POST' class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button><i class="nav-icon fas fa-trash"></i></button>
+                            <button class="btn"><i class="fas fa-trash text-danger"></i></button>
                         </form>
                     </td>
                 </tr>

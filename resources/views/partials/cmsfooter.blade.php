@@ -1,6 +1,6 @@
-<footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">Dreamsys</a>.-Ajahi</strong>
-    All rights reserved.
+<footer class="main-footer mt-4">
+    <strong>Copyright &copy; 2019-2021&nbsp;&nbsp;</strong>
+    All rights reserved. <a href="https://dreamsys.com.np" class="ml-4">Dreamsys</a>
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.1.0
     </div>

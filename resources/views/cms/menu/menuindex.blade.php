@@ -3,6 +3,7 @@
 @section('content')
 <div class="content-wrapper container">
     <div class="section">
+    <a href="menucreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
         <table class='table'>
             <thead>
                 <tr>

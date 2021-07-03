@@ -22,10 +22,10 @@
                 <td scope="col">{{$posts->email}}</td>
                 <td scope="col">{{$posts->message}}</td>
                 <td scope="col">
-                <form action="/contactdel/{{$posts->id}}" method='POST'>
+                <form action="/contactdel/{{$posts->id}}" method='POST' class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button><i class="nav-icon fas fa-trash"></i></button>
+                    <button class="btn"><i class="fas fa-trash text-danger"></i></button>
                 </form>
                
                 </td>

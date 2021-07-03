@@ -21,11 +21,11 @@
     <form method='POST' action="/product" enctype="multipart/form-data">
     @csrf
         <div class="form-floating my-3">
-            <input type="text" class="col-lg-7 form-control" name="title" placeholder="Title of the post" required>
+            <input type="text" class="col-lg-7 form-control" name="title" placeholder="Product Title" required>
            
          </div>
         <div class="form-floating my-3">
-            <textarea class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px" required></textarea>
+            <textarea class="form-control col-lg-7" placeholder="Product description" name="description" style="height: 100px" required></textarea>
         </div>
         <!-- <div class="form-floating my-3">
         <label for="Category_id">ProductCategory</label>
@@ -37,7 +37,7 @@
         </div> -->
 
         <div class="form-floating my-3">
-        <label for="Category_id">ProductCategory</label>
+        <label for="Category_id">Product Category</label>
             <div class="form-check" >
             @if($count>0)
                 @foreach($productcategory as $parent)
@@ -53,7 +53,7 @@
         </div>
 
         <div class="form-floating my-3">
-        <label for="Category_id">ProductTag</label>
+        <label for="Category_id">Product Tag</label>
             <div class="form-check" >
             @foreach($tag as $protag)
                 <input class="form-check-input" type="checkbox" name="tags_id[]" value={{$protag->id}} >
@@ -63,31 +63,22 @@
             </div>
         </div>
         <div class="form-floating my-3">
+        <label for="purchase_price">Purchase price <span class="font-normal text-danger">*</span></label>
             <input type="number" class="form-control col-lg-7" name="purchase_price" placeholder="Purchase price" required>
          </div>
          <div class="form-floating my-3">
+         <label for="sell_price">Selling price <span class="font-normal text-danger">*</span></label>
             <input type="number" class="form-control col-lg-7" name="sell_price" placeholder="Sell price" required>
          </div>
          <div class="form-floating my-3">
+         <label for="quantity">Stock quantity <span class="font-normal text-danger">*</span></label>
             <input type="number" class="form-control col-lg-7" name="quantity" placeholder="Stock" required>
          </div>
-
-        <div class="form-floating my-3">
-            <label for="status">Status</label>
-            <select class="form-select" name="status" aria-label="Floating label select example">          
-            <option value=0>Draft</option>
-            <option value=1>Published</option>             
-            </select>
-        </div>
-        <div class="form-floating my-3">
-            <label for="images">Image</label>
-            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image" required>
-        </div>
-        <div class="form-floating">
-            <label for="discount">Discount</label>
+         <div class="form-floating">
+            <label for="discount">Discount %</label>
             <input type="number" class="form-control col-lg-7" name="discount" placeholder="discount(optional)">
         </div>
-        <div class="form-check">
+        <div class="form-check" style="margin-top:15px;">
             <input class="form-check-input" type="checkbox" value="1" id="flexCheckIndeterminate" name='featured'>
             <label class="form-check-label" for="flexCheckIndeterminate">
                 <strong>Featured</strong> 
@@ -99,6 +90,19 @@
                 <Strong>Offer</Strong>
             </label>
         </div>
+
+        <div class="form-floating my-3">
+            <label for="status">Status</label>
+            <select class="form-select" name="status" aria-label="Floating label select example" style="width:200px;">          
+            <option value=0>Draft</option>
+            <option value=1>Published</option>             
+            </select>
+        </div>
+        <div class="form-floating my-3">
+            <label for="images">Product Image</label>
+            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image" required>
+        </div>
+        
         <!-- <div class="form-floating">
             <label for="InStock">Stock</label>
             <div class="form-check">

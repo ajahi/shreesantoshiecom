@@ -15,13 +15,13 @@
             <!-- Notifications Dropdown Menu -->
       
       <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+        <a class="nav-link d-inline-block mr-4" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
       <li class='nav-item'>
-        <a href="/logout">
-          <p type="submit" class="btn btn-info">Logout</p>
+        <a href="/logout" class=" pt-2 d-inline-block text-danger">
+        <i class="fas fa-sign-out-alt mr-2"></i>Logout
         </a>
       </li>
      
