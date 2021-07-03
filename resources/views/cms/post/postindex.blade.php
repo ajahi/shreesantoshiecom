@@ -4,12 +4,14 @@
 <div class="content-wrapper container">
 @include('flash')
     <div class="section">
+    <a href="postcreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
         <table class='table'>
             <thead>
                 <tr>
                 <th scope='col'>Id</th>
                 <th scope='col'>Title</th>
                 <th scope='col'>Description</th>
+                <th scope='col'>Image</th>
                 <th scope='col'>Status</th>
                 <th scope='col'>Action</th>
                 </tr>
@@ -19,8 +21,9 @@
             <tbody>
                 <tr>
                 <td scope="col">{{$posts->id}}</td>
-                <td scope="col"><a href="/postshow/{{$posts->id}}">{{$posts->title}}</a></td>
+                <td scope="col"><a href="/post/{{$posts->id}}">{{$posts->title}}</a></td>
                 <td scope="col">{{$posts->description}}</td>
+                <td scope='col'><img src="{{$posts->getFirstMediaUrl('')}}" width="80" height="80" alt=""></td>
                 <td scope="col">{{$posts->status}}</td>
                 <td scope="col">
                 <a href="/post/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>

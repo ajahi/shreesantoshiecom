@@ -11165,6 +11165,7 @@ html,
 body,
 .wrapper {
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 .wrapper {

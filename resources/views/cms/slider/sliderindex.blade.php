@@ -20,7 +20,7 @@
                 <td scope="col">{{$posts->id}}</td>
                 <td scope="col">{{$posts->title}}</td>
                 <td scope="col">{{$posts->description}}</td>
-                <th scope='col'><img src="{{$posts->getFirstMediaUrl('')}}" alt=""></th>
+                <th scope='col'><img src="{{$posts->getFirstMediaUrl('')}}" width="80" height="80" alt=""></th>
                 <td scope="col">
                 <a href="/slider/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>
                 <form action="/sliderdel/{{$posts->id}}" method='POST'>
