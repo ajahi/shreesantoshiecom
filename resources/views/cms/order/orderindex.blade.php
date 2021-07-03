@@ -22,7 +22,12 @@
                     <td scope="col"><a href="/order/{{$posts->id}}">{{$posts->firstname}}</a></td>
                     <td scope="col">{{$posts->phone}}</td>
                     <td scope="col">{{$posts->address}}</td>
-                    <td scope="col">{{$posts->status}}</td>
+                    <td scope="col">
+                    <p>
+                    @if($posts->status=='confirmed')<span class="text-success">Confirmed</span>@endif
+                    @if($posts->status=='cancelled')<span class="text-danger">Cancelled</span>@endif
+                    </p>
+                    </td>
                     <td scope="col">
                     <a href="/orderedit/{{$posts->id}}">Manage Order</a>
                         <form action="/orderdel/{{$posts->id}}" method='POST' class="d-inline">

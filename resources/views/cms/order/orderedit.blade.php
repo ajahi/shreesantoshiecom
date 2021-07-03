@@ -17,8 +17,8 @@
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
-        <label for="Category_id">Status </label>
-            <select class="form-select" name="status" aria-label="Floating label select example" style="width:200px;"> 
+        <label for="Category_id" class="text-secondary">Status <span class="font-normal text-danger">*</span></label><br/>
+            <select class="form-select custom-select" name="status" aria-label="Floating label select example" style="width:200px;"> 
                 <option value="confirmed">Confirmed</option>  
                 <option value="cancelled">Cancelled</option>
             </select>
