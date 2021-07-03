@@ -511,18 +511,55 @@ $(document).ready(function(){
             <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                <h2>Our Happy Clients</h2>
+                    <h2>Our Happy Clients</h2>
                 </div>
             </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="testimonial">
-                            
+            <!-- testimonials div -->
+            <div id="testim" class="testim">
+                <div class="testim-cover">
+                    <div class="wrap">
+
+                        <span id="right-arrow" class="arrow right fa fa-chevron-right"></span>
+                        <span id="left-arrow" class="arrow left fa fa-chevron-left "></span>
+                        <ul id="testim-dots" class="dots">
+                            <li class="dot active"></li><!--
+                            --><li class="dot"></li><!--
+                            --><li class="dot"></li><!--
+                            --><li class="dot"></li>
+                        </ul>
+                        <div id="testim-content" class="cont">
+                            <!-- testimonials -->
+                            <div class="active">
+                                <div class="img"><img src="https://in.bmscdn.com/iedb/artist/images/website/poster/large/kartik-aaryan-1045198-08-12-2017-06-34-11.jpg" alt=""></div>
+                                <h2>Lorem P. Ipsum1</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>                    
+                            </div>
+
+                            <div>
+                                <div class="img"><img src="https://p16.muscdn.com/img/musically-maliva-obj/1627333501517830~c5_720x720.jpeg" alt=""></div>
+                                <h2>Lorem Ipsum3</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>                    
+                            </div>
+                            <div>
+                                <div class="img"><img src="https://p16-sg-default.akamaized.net/aweme/1080x1080/tiktok-obj/1666413671597057.jpeg" alt=""></div>
+                                <h2>Lorem De Ipsum4</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>                    
+                            </div>
+                            <div>
+                                <div class="img"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSKLJe1Lrz2N3ufVSwQokSJ79jGBbIptXuVnsdxMmNUlE14ohwp&usqp=CAU" alt=""></div>
+                                <h2>Ms. Lorem R. Ipsum</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>                    
+                            </div>
+                            <!-- end testimonials -->
+
                         </div>
+
                     </div>
                 </div>
+            </div><!-- end testimonials div -->
             </div>
         </section>
+        
         <!-- end testimonials section -->
         <!-- Start Blog Area -->
         <section class="site_blogs">
