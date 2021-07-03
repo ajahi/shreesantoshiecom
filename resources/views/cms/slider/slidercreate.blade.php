@@ -11,7 +11,7 @@
             </div>
         </div>
     </section>
-    <section class='mx-'>
+    <section class='mx-4'>
     <form method='POST'action="/slider" enctype="multipart/form-data">
     @csrf
         <div class="form-floating my-3">
