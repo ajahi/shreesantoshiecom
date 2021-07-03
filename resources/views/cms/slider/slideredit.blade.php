@@ -25,9 +25,10 @@
         </div>
         <div class="form-floating my-3">
             <label for="image" class="text-secondary">Slider Image</label>
-            <input required type="file" class="form-control col-lg-7" name="image" placeholder="Image" >
+            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image" >
         </div>
-        <button type='Submit' class="btn btn-success mb-4 px-4">Update</button>
+        <div class="py-4">
+        <a href="/slider" class="btn btn-danger mb-2 px-4 mr-4">Cancel</a><button type='Submit' class="btn btn-success mb-2 px-4">Update</button></div>
     </form>
     </section>
     

@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1>Edit a Post.</h1>
+                     <h1>Edit Post</h1>
                  </div>
             </div>
         </div>
@@ -47,7 +47,9 @@
                 <option value="draft">Draft</option>
             </select>
         </div>
-        <button type='Submit' class="btn btn-success mb-4 px-4">Update</button>
+        <div class="py-4">
+        <a href="/post" class="btn btn-danger mb-2 px-4 mr-4">Cancel</a><button type='Submit' class="btn btn-success mb-2 px-4">Update</button>
+        </div>
     </form>
     </section>
     

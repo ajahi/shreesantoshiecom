@@ -15,11 +15,11 @@
     <form method='POST'action="/user">
     @csrf
         <div class="form-floating my-3">
-        <abel for="name" class="text-secondary">Name <span class="font-normal text-danger">*</span></label>
+        <label for="name" class="text-secondary">Name <span class="font-normal text-danger">*</span></label>
             <input type="text" class="form-control col-lg-7" name="name" placeholder="Your Name.">
          </div>
         <div class="form-floating my-3">
-        <abel for="email" class="text-secondary">Email <span class="font-normal text-danger">*</span></label>
+        <label for="email" class="text-secondary">Email <span class="font-normal text-danger">*</span></label>
             <input type="email" class="form-control col-lg-7" name="email" placeholder="Your email.">
         </div>
         <div class="form-floating my-3">
