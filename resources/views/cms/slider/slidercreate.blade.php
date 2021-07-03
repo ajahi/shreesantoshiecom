@@ -15,7 +15,7 @@
     <form method='POST'action="/slider" enctype="multipart/form-data">
     @csrf
         <div class="form-floating my-3">
-        <label for="title" class="text-secondary">Title <span class="font-normal text-danger">*</span></label>
+        <label for="title" class="text-muted">Title <span class="font-normal text-danger">*</span></label>
             <input required type="text" class="form-control col-lg-7" name="title" placeholder="Slider title" required>
          </div>
          <div class="form-floating my-3">

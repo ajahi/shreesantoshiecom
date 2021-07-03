@@ -111,7 +111,7 @@
          <div class="col-md-6">
          <div class="form-floating mt-2">
             <label for="status" class="text-secondary">Status</label><br/>
-            <select class="form-select custom-select w-50" name="status" aria-label="Floating label select example">          
+            <select class="form-select custom-select col-lg-7" name="status" aria-label="Floating label select example">          
             <option value=0>Draft</option>
             <option value=1>Published</option>             
             </select>

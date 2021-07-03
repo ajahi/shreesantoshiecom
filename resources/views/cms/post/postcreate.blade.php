@@ -35,13 +35,13 @@
         </div>
         <div class="form-floating my-3">
         <label for="Category_id" class="text-secondary">Status</label><br/>
-            <select class="form-select custom-select w-50" name="status" aria-label="Floating label select example"> 
+            <select class="form-select custom-select col-lg-7" name="status" aria-label="Floating label select example"> 
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
             </select>
         </div>
         <div class="form-floating my-3" >
-            <label for="images" class="text-secondary">Image</label>
+            <label for="images" class="text-secondary">Image <span class="font-normal text-danger">*</span></label>
             <input required type="file" class="form-control col-lg-7" name="image" placeholder="Image">
         </div>
         <button type='Submit' class="btn btn-success px-4 mb-4">Create</button>
