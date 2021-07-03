@@ -42,7 +42,7 @@
             <tbody>
                 <tr>
                 <td scope="col">{{$posts->id}}</td>
-                <td scope="col"><a href="/product/{{$posts->id}}">{{$posts->title}}</a></td>
+                <td scope="col"><a href="/product-detail/{{$posts->slug}}" target="_blank">{{$posts->title}}</a></td>
                 
                 <td scope="col">Rs. {{$posts->purchase_price}}
                 <div class="py-1">
