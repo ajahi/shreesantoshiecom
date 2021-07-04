@@ -90,7 +90,8 @@ class PostController extends Controller
                 'description' => 'required',
                 'status' => 'required|in:published,draft',
                 'category_id' => 'required',
-                'tags.*' => 'exists:tags,id'
+                'tags.*' => 'exists:tags,id',
+                'image'=>'required'
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
@@ -171,6 +172,16 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validation = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'status' => 'required|in:published,draft',
+            'category_id' => 'required',
+            'tags.*' => 'exists:tags,id'
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
         
         $user = Auth::user();
         if ($user->hasRole(['admin','super_admin'])) {
@@ -193,6 +204,11 @@ class PostController extends Controller
             $request['user_id'] = Auth::user()->id;
             /*converting slug*/
             $request['slug'] = slug($request->title);
+            if ($request->has('image')) {
+                
+                $post->clearMediaCollection('images');  
+                $post->addMediaFromRequest('image')->toMediaCollection('images');
+            }  
 
             $post->fill($request->all())->save();
 

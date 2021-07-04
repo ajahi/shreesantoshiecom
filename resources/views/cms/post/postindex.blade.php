@@ -21,9 +21,16 @@
             <tbody>
                 <tr>
                 <td scope="col">{{$posts->id}}</td>
-                <td scope="col"><a href="/post/{{$posts->id}}">{{$posts->title}}</a></td>
+                <td scope="col"><a href="/postshow/{{$posts->id}}">{{$posts->title}}</a></td>
                 <!-- <td scope="col">{{substr($posts->description,150)}}...</td> -->
-                <td scope='col'><img src="{{$posts->getFirstMediaUrl('')}}" width="80" height="80" alt=""></td>
+                @if($posts->url())
+                    <td scope='col'><img src="{{$posts->url()}}" width="80" height="80" alt="">
+                @else
+                    <td>
+                    <p>No-image</p>
+                    </td>
+                </td>
+                @endif
                 <td scope="col">{{$posts->status}}</td>
                 <td scope="col">
                 <a href="/post/{{$posts->id}}"><i class="nav-icon fas fa-pen pr-5"></i></a>

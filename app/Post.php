@@ -29,6 +29,10 @@ class Post extends Model implements HasMedia {
     public function tags() {
         return $this->belongsToMany('App\Tag');
     }
+    public function url(){
+        return $this->getFirstMediaUrl('');
+    }
+    
 
     /**
      * Return the sluggable configuration array for this model.

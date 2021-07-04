@@ -177,7 +177,7 @@ $(document).ready(function(){
                         <div class="col-sm-12 col-md-4">
                             <div class="blog">
                                 <a href="/blog/post-slug">
-                                    <img src="https://cdn.pixabay.com/photo/2016/08/23/13/12/knitting-1614283__340.jpg" alt="blog-title">
+                                    <img src="{{$blogs->url()}}" alt="blog-title">
                                     <span>Created date : {{$blogs->created_at}}</span>
                                     <h4>{{$blogs->title}}</h4>
                                     <p>{{$blogs->description}} </p>
@@ -223,7 +223,7 @@ $(document).ready(function(){
                                 <li class="most_pop">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
+                                            <img src="{{$popular->url()}}" alt="blog-title">
                                         </div>
                                         <div class="col-sm-8">
                                             <h3><a href="">{{$popular->title}}</a></h3>

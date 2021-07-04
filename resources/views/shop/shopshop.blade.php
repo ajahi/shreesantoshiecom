@@ -23,6 +23,10 @@ $(document).ready(function(){
         });
         
     }); 
+    $('.detail-pro').click(function(){
+        var pro_Id = $(this).attr('value');
+       $(location).attr('href','<?php echo url('/product-detail');?>/'+ pro_Id);
+    });
     $('.removebtn').click(function(){
         
         $.ajax({
@@ -90,12 +94,12 @@ $(document).ready(function(){
                             @foreach($items as $item)
                                 <li>
                                     <div class="shp__pro__thumb">
-                                    <a href="#">
+                                    <a class='detail-pro' value="{{$item['item']['slug']}}">
                                         <img src="{{$item['item']->url()}}" alt="product images">
                                     </a>
                                     </div>  
                                     <div class="shp__pro__details">
-                                        <h2 id='itemName'><a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
+                                        <h2 id='itemName'><a id='detail-pro' value="{{$item['item']['slug']}}"><strong>{{$item['item']['title']}}</strong></a></h2>
                                         <div style="inline">
                                             <span class="quantity">X {{$item['qty']}}</span>
                                             <!-- <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
@@ -190,13 +194,13 @@ $(document).ready(function(){
                                 <div class="product foo">
                                     <div class="product__inner">
                                         <div class="pro__thumb">
-                                            <a href="/product-detail/{{$pro->id}}">
+                                            <a class='detail-pro' value='{{$pro->slug}}'>
                                                 <img src="{{$pro->url()}}" alt="product images">
                                             </a>
                                         </div>
                                         <div class="product__hover__info">
                                                 <ul class="product__action">
-                                                    <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$pro->slug}}"><span class="ti-eye"></span></a></li>
+                                                    <li><a title="Quick View" class="quick-view modal-view detail-link detail-pro"  value='{{$pro->slug}}'><span class="ti-eye"></span></a></li>
                                                     @if($pro->quantity < 0)
 
                                                     @else
@@ -207,7 +211,7 @@ $(document).ready(function(){
                                         </div>
                                     </div>
                                     <div class="product__details">
-                                        <h2><a href="product-details.html">{{$pro->title}}</a></h2>
+                                        <h2><a class='detail-pro' value='{{$pro->slug}}'>{{$pro->title}}</a></h2>
                                             <ul class="product__price">
                                                 @if($pro->discount)
                                                     <li class="old__price">Rs.{{$pro->sell_price}}</li>

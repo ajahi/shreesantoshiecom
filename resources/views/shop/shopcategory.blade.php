@@ -23,6 +23,10 @@ $(document).ready(function(){
         });
         
     }); 
+    $('.detail-product').click(function(){
+        var pro_Id = $(this).attr('value');
+       $(location).attr('href','<?php echo url('/product-detail');?>/'+ pro_Id);
+    });
     $('.removebtn').click(function(){
         
         $.ajax({
@@ -156,24 +160,24 @@ $(document).ready(function(){
                                 <div class="product foo">
                                     <div class="product__inner">
                                         <div class="pro__thumb">
-                                            <a href="/product-detail/{{$pro->id}}">
+                                            <a class='detail-product' value='{{$pro->slug}}'>
                                                 <img src="{{$pro->url()}}" alt="product images">
                                             </a>
                                         </div>
                                         <div class="product__hover__info">
                                                 <ul class="product__action">
-                                                    <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$pro->id}}"><span class="ti-eye"></span></a></li>
+                                                    <li><a title="Quick View" class="quick-view modal-view detail-link detail-product" value='{{$pro->slug}}' ><span class="ti-eye"></span></a></li>
                                                     @if($pro->quantity < 0)
 
                                                     @else
-                                                    <li><a title="Add To Cart" value='{{$pro->id}}' href='add-to-cart/{{$pro->id}}' ><span class="ti-shopping-cart"></span></a></li>
+                                                    <li><a title="Add To Cart" value='{{$pro->id}}'  ><span class="ti-shopping-cart"></span></a></li>
                                                     @endif
-                                                    <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>                
+                                                         
                                                 </ul>
                                         </div>
                                     </div>
                                     <div class="product__details portfolio-title text-center">
-                                        <h2><a href="product-details.html">{{ucwords($pro->title)}}</a></h2>
+                                        <h2><a class='detail-product' value='{{$pro->slug}}'>{{ucwords($pro->title)}}</a></h2>
                                         <div class='product__price mx-2' >
                                         <ul class="product__price ">
                                                 @if($pro->discount)

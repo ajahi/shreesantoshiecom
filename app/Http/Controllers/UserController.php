@@ -130,8 +130,20 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   $user = Auth::user();
+        if ($user->hasRole(['admin','super_admin']) || $user->id == $id) {
+            return view('cms.user.useredit',[
+                'post'=>User::findOrFail($id)
+            ]);
+        }else {
+            $return = ["status" => "error",
+                "error" => [
+                    "code" => 403,
+                    "errors" => 'Forbidden'
+                ]];
+            return response()->json($return, 403);
+        }
+
     }
 
     /**
@@ -149,40 +161,25 @@ class UserController extends Controller
             $validation = Validator::make($request->all(), [
                 'name' => 'sometimes|min:3',
                 'email' => 'sometimes|email',
-                'role_id' => 'sometimes'
+                'role_id' => 'sometimes',
+                'password'=>['string','required','confirmed']
             ]);
             if ($validation->fails()) {
                 return response()->json($validation->errors(),422);
 
             }
             $user_input = $request->all();
-            if ($request['password'] != null) {
-                $this->validate($request, [
-                    'password' => 'required|confirmed|min:6',
-                ]);
-                $user_input['password'] = bcrypt($user_input['password']);
-
-            } else {
-                unset($user_input['password']);
-
-            }
-            if ($request['image'] != null) {
-
-                $user->clearMediaCollection('profile');
-                $user->addMediaFromRequest('image')->toMediaCollection('profile');
-            }
-            $user_update->fill($user_input)->save();
+            
+            $user_update->name=$request->name;
+            $user_update->email=$request->email;
+            $user_update->password=bcrypt($request->password);
+            $user_update->save();
+            
             if ($request['role_id'] != null) {
                 $user_update->roles()->sync($request['role_id']);
             }
-            if ($user_update->token()) {
-                $accessToken = $user_update->token();
-                DB::table('oauth_refresh_tokens')
-                    ->where('access_token_id', $accessToken->id)
-                    ->update(['revoked' => true]);
-                $accessToken->revoke();
-            }
-            return new  UserResource($user_update);
+            
+            return back()->with('success','You have successfully schanged your user detail.');
         } else {
             $return = ["status" => "error",
                 "error" => [

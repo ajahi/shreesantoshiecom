@@ -27,6 +27,10 @@ $(document).ready(function(){
         });
         
     }); 
+    $('.detail-product').click(function(){
+        var pro_Id = $(this).attr('value');
+       $(location).attr('href','<?php echo url('/product-detail');?>/'+ pro_Id);
+    });
     $('.removebtn').click(function(){
         
         $.ajax({
@@ -125,7 +129,7 @@ $(document).ready(function(){
                                     </a>
                                     </div>  
                                     <div class="shp__pro__details">
-                                        <h2 id='itemName'><a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
+                                        <h2 id='itemName'><a class='detail-product' value='{{$item['item']['slug']}}'><strong>{{$item['item']['title']}}</strong></a></h2>
                                         <div style="inline">
                                             <span class="quantity">X {{$item['qty']}}</span>
                                             <!-- <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
@@ -192,7 +196,7 @@ $(document).ready(function(){
                                                 <div class="slider__inner">
                                                     <h1>New Product <span class="text--theme">{{$slider->title}}</span></h1>
                                                     <div class="slider__btn">
-                                                        <a class="htc__btn" href="#">shop now</a>
+                                                        <a class="htc__btn" href="/shop">shop now</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -266,7 +270,7 @@ $(document).ready(function(){
                         <div class="product">
                             <div class="product__inner">
                                 <div class="pro__thumb">
-                                    <a href="/product-detail/{{$product->slug}}">
+                                    <a class='detail-product' value='{{$product->slug}}'>
                                                                
                                      <p></p>
                                     <img src="{{$product->url()}}" alt="product images">
@@ -274,7 +278,7 @@ $(document).ready(function(){
                                 </div>
                             <div class="product__hover__info">
                              <ul class="product__action">
-                                <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->slug}}"><span class="ti-eye"></span></a></li>
+                                <li><a title="Quick View" class="quick-view modal-view detail-link detail-product"   value='{{$product->slug}}'><span class="ti-eye"></span></a></li>
                                 @if($product->quantity < 0)
 
                                 @else
@@ -284,7 +288,7 @@ $(document).ready(function(){
                         </div>
                     </div>
                     <div class="product__details">
-                    <h2><a href="/product-detail/{{$product->slug}}">{{ucwords($product->title)}}</a></h2>
+                    <h2><a class='detail-product' value='{{$product->slug}}'>{{ucwords($product->title)}}</a></h2>
                     <ul class="product__price">
                     @if($product->discount)
                         <li class="old__price">Rs.{{$product->sell_price}}</li>
@@ -354,7 +358,7 @@ $(document).ready(function(){
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="/product-detail/{{$product->slug}}">
+                                                            <a class='detail-product' value='{{$product->slug}}'>
                                                                
                                                                 <p></p>
                                                                 <img src="{{$product->url()}}" alt="product images">
@@ -362,18 +366,18 @@ $(document).ready(function(){
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <li><a title="Quick View" class="quick-view modal-view detail-link" href="/product-detail/{{$product->slug}}"><span class="ti-eye"></span></a></li>
-                                                                @if($product->quantity < 0)
+                                                            <li><a title="Quick View" class="quick-view modal-view detail-link detail-product"   value='{{$product->slug}}'><span class="ti-eye"></span></a></li>
+                                                            @if($product->quantity < 0)
 
-                                                                @else
-                                                                <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
-                                                                @endif
+                                                             @else
+                                                             <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
+                                                            @endif 
                                                                 
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="/product-detail/{{$product->slug}}">{{ucwords($product->title)}}</a></h2>
+                                                        <h2><a class='detail-product' value='{{$product->slug}}'>{{ucwords($product->title)}}</a></h2>
                                                         <ul class="product__price">
                                                             @if($product->discount)
                                                                 <li class="old__price">Rs.{{$product->sell_price}}</li>
@@ -403,47 +407,53 @@ $(document).ready(function(){
                                 <div class="tab-pane" id="home2">
                                     <div class="row">
                                         <div class="product-slider-active owl-carousel">
-                                        @forelse($bestsale as $products)
+                                        @forelse($bestsale as $product)
                                             <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="product-detail/{{$products->slug}}">
-                                                                <img src='{{$products->url()}}' alt="product images">
+                                                            <a class='detail-product' value='{{$product->slug}}'>
+                                                               
+                                                                <p></p>
+                                                                <img src="{{$product->url()}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product-detail/{{$products->slug}}"><span class="ti-eye"></span></a></li>
-                                                                <li><a title="Add TO Cart" class='button'><span class="ti-shopping-cart"></span></a></li>
-                                                               
+                                                            <li><a title="Quick View" class="quick-view modal-view detail-link detail-product"   value='{{$product->slug}}'><span class="ti-eye"></span></a></li>
+                                                            @if($product->quantity < 0)
+
+                                                             @else
+                                                             <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
+                                                            @endif 
+                                                                
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="/product-detail/{{$products->slug}}">{{ucwords($products->title)}}</a></h2>
+                                                        <h2><a class='detail-product' value='{{$product->slug}}'>{{ucwords($product->title)}}</a></h2>
                                                         <ul class="product__price">
-                                                            @if($products->discount)
-                                                                <li class="old__price">Rs.{{$products->sell_price}}</li>
-                                                                <li class="new__price">Rs.{{$products->sell_price*(1-$products->discount/100)}}</li>
+                                                            @if($product->discount)
+                                                                <li class="old__price">Rs.{{$product->sell_price}}</li>
+                                                                <li class="new__price">Rs.{{$product->sell_price*(1-$product->discount/100)}}</li>
                                                             @else
-                                                            <li class="new__price">Rs.{{$products->sell_price}}</li>
+                                                            <li class="new__price">Rs.{{$product->sell_price}}</li>
                                                             @endif
                                                         </ul>    
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>   
                                             @empty
-                                            <div class="row">
-                                                <div class="product">
-                                                    <div class="col-md-12">
-                                                        <div class="product">
-                                                            <p>No item on best sale.</p>
+                                                <div class="row">
+                                                    <div class="product">
+                                                        <div class="col-md-12">
+                                                            <div class="product">
+                                                                <p>No items .</p>
+                                                            </div>
+                                                            
                                                         </div>
-                                                        
                                                     </div>
                                                 </div>
-                                            </div>
                                         @endforelse                                                                                                                       
                                         </div>
                                     </div>
@@ -451,49 +461,53 @@ $(document).ready(function(){
                                 <div class="tab-pane" id="home3">
                                     <div class="row">
                                         <div class="product-slider-active owl-carousel">
-                                        @forelse($onsale as $products)
+                                        @forelse($onsale as $product)
                                             <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
                                                 <div class="product">
                                                     <div class="product__inner">
                                                         <div class="pro__thumb">
-                                                            <a href="product-detail/{{$products->slug}}">
-                                                                <img src='{{$products->url()}}' alt="product images">
+                                                            <a class='detail-product' value='{{$product->slug}}'>
+                                                               
+                                                                <p></p>
+                                                                <img src="{{$product->url()}}" alt="product images">
                                                             </a>
                                                         </div>
                                                         <div class="product__hover__info">
                                                             <ul class="product__action">
-                                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="product-details/{{$products->slug}}"><span class="ti-eye"></span></a></li>
-                                                                <li><a title="Add TO Cart" class='button'><span class="ti-shopping-cart"></span></a></li>
-                                            
+                                                            <li><a title="Quick View" class="quick-view modal-view detail-link detail-product"   value='{{$product->slug}}'><span class="ti-eye"></span></a></li>
+                                                            @if($product->quantity < 0)
+
+                                                             @else
+                                                             <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
+                                                            @endif 
+                                                                
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     <div class="product__details">
-                                                        <h2><a href="/product-detail/{{$products->slug}}">{{ucwords($products->title)}}</a></h2>
+                                                        <h2><a class='detail-product' value='{{$product->slug}}'>{{ucwords($product->title)}}</a></h2>
                                                         <ul class="product__price">
-                                                            @if($products->discount)
-                                                                <li class="old__price">Rs.{{$products->sell_price}}</li>
-                                                                <li class="new__price">Rs.{{$products->sell_price*(1-$products->discount/100)}}</li>
+                                                            @if($product->discount)
+                                                                <li class="old__price">Rs.{{$product->sell_price}}</li>
+                                                                <li class="new__price">Rs.{{$product->sell_price*(1-$product->discount/100)}}</li>
                                                             @else
-                                                            <li class="new__price">Rs.{{$products->sell_price}}</li>
+                                                            <li class="new__price">Rs.{{$product->sell_price}}</li>
                                                             @endif
                                                         </ul>    
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @empty
-                                        <div class="row">
-                                            <div class="product">
-                                                <div class="col-md-12">
+                                            </div>   
+                                            @empty
+                                                <div class="row">
                                                     <div class="product">
-                                                        <p>No item on sale</p>
+                                                        <div class="col-md-12">
+                                                            <div class="product">
+                                                                <p>No items .</p>
+                                                            </div>
+                                                            
+                                                        </div>
                                                     </div>
-                                                    
                                                 </div>
-                                            </div>
-                                        </div>
-                                        
-                                            
                                         @endforelse   
                                                                        
                                         </div>
@@ -569,47 +583,22 @@ $(document).ready(function(){
                 <h2 class="heading">Our Blogs <span><a href="/our-blogs">view all</a></span></h2>
                 </div>
             </div>
+           
             <div class="row">
+            @foreach($blogs as $blogs)
                 <div class="col-sm-12 col-md-3">
                     <div class="blog">
-                        <a href="/blog/post-slug">
-                            <img src="https://cdn.pixabay.com/photo/2016/08/23/13/12/knitting-1614283__340.jpg" alt="blog-title">
-                            <span>Created date</span>
-                            <h4>Blog Title</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                        <a href='/our-blogs'>
+                            <img src="{{$blogs->url()}}" alt="blog-title">
+                            <span>Created date:{{$blogs->created_at}}</span>
+                            <h4>{{$blogs->title}}</h4>
+                            <p>{{$blogs->description}}</p>
                         </a>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-3">
-                    <div class="blog">
-                        <a href="/blog/post-slug">
-                            <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
-                            <span>Created date</span>
-                            <h4>Blog Title</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
-                        </a>    
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-3">
-                    <div class="blog">
-                    <a href="/blog/post-slug">
-                        <img src="https://cdn.pixabay.com/photo/2018/01/23/13/20/easter-3101446__340.jpg" alt="blog-title">
-                        <span>Created date</span>
-                        <h4>Blog Title</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
-                    </a>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-3">
-                    <div class="blog">
-                    <a href="/blog/post-slug">
-                        <img src="https://cdn.pixabay.com/photo/2018/11/16/19/42/wool-3820135__340.jpg" alt="blog-title">
-                        <span>Created date</span>
-                        <h4>Blog Title</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
-                    </a>
-                    </div>
-                </div>
+                
+                @endforeach
+                
             </div>
         </section><!-- end blogs section -->
 @endsection

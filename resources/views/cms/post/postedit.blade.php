@@ -24,6 +24,14 @@
         <label for="description" class="text-secondary">Description <span class="font-normal text-danger">*</span></label>
             <textarea required class="form-control col-lg-7" placeholder="Description" name="description" style="height: 100px">{{$post->description}}</textarea>
         </div>
+        <div class="form-floating pt-4 my-3">
+            <img src="{{$post->url()}}" width="50%" height="130px" alt="">
+            <p>Note: Old image will be replace by new one</p>
+        </div>
+        <div class="form-floating my-3">
+        <label for="image" class="text-secondary">Product Image <span class="font-normal text-danger">*</span></label>
+            <input type="file" class="form-control col-lg-7" name="image" placeholder="Image">
+        </div>
         <div class="form-floating my-3">
         <label for="Category_id" class="text-secondary">Category <span class="font-normal text-danger">*</span></label>
             <div class="form-check" >

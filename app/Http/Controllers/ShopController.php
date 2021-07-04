@@ -38,6 +38,11 @@ class ShopController extends Controller
            'slider'=>Slider::all(),
            'featured'=>Product::where('featured',true)->get(),
            'procat'=>$procat,
+           'blogs'=>Post::where(function($q){
+               $q->where('Status','published');
+               $q->where('category_id',2);
+           })->limit(4)->get(),
+           
                 //cart
            'items'=>$cart->items,
            'totalPrice'=>$cart->totalPrice
@@ -122,8 +127,14 @@ class ShopController extends Controller
          
 
          return view('shop.blogs',[
-             'blogs'=>Post::where('category_id',2)->paginate(20),
-             'popular'=>Post::orderBy('counts','DESC')->take(5)->get(),
+             'blogs'=>Post::where(function($q){
+                 $q->where('category_id',2);
+                 $q->where('status','published');
+             })->paginate(20),
+             'popular'=>Post::orderBy('counts','DESC')->where(function($q){
+                 $q->where('status','published');
+             })->limit(5)->get(),
+             
 
              //cart
                  'items'=>$cart->items,
