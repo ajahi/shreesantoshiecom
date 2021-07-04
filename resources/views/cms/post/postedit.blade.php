@@ -13,7 +13,7 @@
         </div>
     </section>
     <section class='mx-4'>
-    <form method='POST'action="/post/{{$post->id}}">
+    <form method='POST'action="/post/{{$post->id}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
         <div class="form-floating my-3">
@@ -29,7 +29,7 @@
             <p>Note: Old image will be replace by new one</p>
         </div>
         <div class="form-floating my-3">
-        <label for="image" class="text-secondary">Product Image <span class="font-normal text-danger">*</span></label>
+        <label for="images" class="text-secondary">Product Image <span class="font-normal text-danger">*</span></label>
             <input type="file" class="form-control col-lg-7" name="image" placeholder="Image">
         </div>
         <div class="form-floating my-3">

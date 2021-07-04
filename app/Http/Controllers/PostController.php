@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Post;
 
 use App\Http\Resource\PostResource;
-use App\Http\Resources\MediaResource;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -199,11 +199,12 @@ class PostController extends Controller
             if ($validation->fails()) {
                 return response()->json($validation->errors(), 422);
             }
-
+           
             $post = Post::findOrFail($id);
             $request['user_id'] = Auth::user()->id;
             /*converting slug*/
             $request['slug'] = slug($request->title);
+           
             if ($request->has('image')) {
                 
                 $post->clearMediaCollection('images');  
