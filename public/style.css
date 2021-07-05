@@ -165,6 +165,7 @@ input[type=number] {
     position: relative;
     width: 100%;
     z-index: 2;
+    cursor: pointer;
 }
 .product__action::before {
     background: #fff none repeat scroll 0 0;
@@ -266,9 +267,11 @@ input[type=number] {
     color: #444444;
     font-size: 14px;
     font-weight: 500;
+    cursor: pointer;
 }
 .product__details {
     padding-top: 27px;
+    
 }
 .product__price {
     display: flex;
@@ -2642,7 +2645,7 @@ select.select-color {
     color: #fff;
 }
 .pro__dtl__btn li.buy__now__btn a {
-    color: #4b4b4b;
+    /* color: #4b4b4b; */
     font-size: 14px;
     text-transform: uppercase;
     width: 175px;

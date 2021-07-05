@@ -194,6 +194,39 @@ span .amount{
   width: 47.5%;
   margin-bottom: 40px;
 }
+.cart-plus-minus-box{
+  max-width: 90px;
+  width: 90px;
+}
+.qtybutton{
+  background: #333;
+  border-radius: 2px;
+  color: #fff;
+  padding: 0px 6px;
+  max-height: 22px;
+  margin-right: 7px;
+}
+.qtybutton:hover{
+  background-color: #ff4136;
+  cursor: pointer;
+}
+.dec.qtybutton,.inc.qtybutton{
+  color: #fff;
+}
+.buy__now__btn:first-child{
+  background-color: #ff4136;
+  color: #fff;
+}
+.buy__now__btn:first-child a{
+  color: #fff;
+}
+.buy__now__btn:first-child:hover{
+  background-color: #333;
+  color: #fff;
+}
+.buy__now__btn:hover{
+  cursor: pointer;
+}
 /* testimonials css */
 .testim {
   width: 100%;

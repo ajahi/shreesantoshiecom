@@ -590,7 +590,7 @@ $(document).ready(function(){
                     <div class="blog">
                         <a href='/our-blogs'>
                             <img src="{{$blogs->url()}}" alt="blog-title">
-                            <span>Created date:{{$blogs->created_at}}</span>
+                            <span><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>{{$blogs->created_at}}</span>
                             <h4>{{$blogs->title}}</h4>
                             <p>{{$blogs->description}}</p>
                         </a>

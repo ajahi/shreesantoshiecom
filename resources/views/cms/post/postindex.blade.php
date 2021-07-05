@@ -5,6 +5,18 @@
 @include('flash')
     <div class="section">
     <a href="postcreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
+    <span class=" d-inline-block my-2">
+     <select class="form-select custom-select" name="category" aria-label="filter by category" placeholder="Filter by category">          
+        <option value=0>Category title1</option>
+        <option value=1>Category title2</option>             
+     </select>
+   </span>
+   <span class=" d-inline-block my-2">
+     <select class="form-select custom-select" name="category" aria-label="filter by category" placeholder="Filter by status">          
+        <option value=0>Draft</option>
+        <option value=1>Published</option>             
+     </select>
+   </span>
         <table class='table'>
             <thead>
                 <tr>
