@@ -37,6 +37,7 @@ Route::get('/about-us','ShopController@aboutus');
 Route::get('/our-gallery','GalleryController@show');
 Route::get('/contact-us','ShopController@contact');
 Route::get('/our-blogs','ShopController@blogs');
+Route::get('blog/{slug}','ShopController@singleblog');
 
 Route::post('/login', 'Api\LoginController@login');
 Route::get('/newcart',function(){

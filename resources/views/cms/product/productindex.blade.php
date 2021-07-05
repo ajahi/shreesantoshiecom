@@ -3,14 +3,44 @@
 @section('content')
 <div class="content-wrapper container">
 @include('flash')
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+
+$(document).ready(function(){
+    $('.filter').click(function(){
+        var pro_Id = $(this).attr('value');
+            $.ajax({
+            type:'get',
+            data:{request:pro_Id},
+            cache:false,
+            url:'<?php echo url('/product');?>',
+            beforeSend: function (xhr) {
+            var token = $('meta[name="csrf_token"]').attr('content');
+            if (token) {
+                return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+              }
+            },
+            success:function(response){
+               var resp=response;
+                alert('vayo');
+                location.reload(true);
+           
+              }
+        });
+        
+    }); 
+  });
+</script>
+
     <div class="section">
    <div class="row">
    <div class="col-md-12">
    <a href="productcreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
    <span class=" d-inline-block my-2">
-     <select class="form-select custom-select" name="category" aria-label="filter by category" placeholder="Filter by category">          
-        <option value=0>Category title1</option>
-        <option value=1>Category title2</option>             
+     <select class="form-select custom-select filter" name="category" aria-label="filter by category" placeholder="Filter by category">          
+        @foreach($procat as $procat)
+        <option value='{{$procat->id}}'>{{$procat->title}}</option>             
+        @endforeach
      </select>
    </span>
    <span class=" d-inline-block my-2">

@@ -536,38 +536,20 @@ $(document).ready(function(){
                         <span id="right-arrow" class="arrow right fa fa-chevron-right"></span>
                         <span id="left-arrow" class="arrow left fa fa-chevron-left "></span>
                         <ul id="testim-dots" class="dots">
-                            <li class="dot active"></li><!--
-                            --><li class="dot"></li><!--
-                            --><li class="dot"></li><!--
-                            --><li class="dot"></li>
+                        @foreach($testimonial as $count)
+                            <li class="dot active"></li>
+                        @endforeach
                         </ul>
                         <div id="testim-content" class="cont">
                             <!-- testimonials -->
+                            @foreach($testimonial as $testy)
                             <div class="active">
-                                <div class="img"><img src="https://in.bmscdn.com/iedb/artist/images/website/poster/large/kartik-aaryan-1045198-08-12-2017-06-34-11.jpg" alt=""></div>
-                                <h2>Lorem P. Ipsum1</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>                    
+                                <div class="img"><img src='{{$testy->url()}}' alt=""></div>
+                                <h2>{{$testy->title}}</h2>
+                                <p>{{$testy->description}}</p>                    
                             </div>
-
-                            <div>
-                                <div class="img"><img src="https://p16.muscdn.com/img/musically-maliva-obj/1627333501517830~c5_720x720.jpeg" alt=""></div>
-                                <h2>Lorem Ipsum3</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>                    
-                            </div>
-                            <div>
-                                <div class="img"><img src="https://p16-sg-default.akamaized.net/aweme/1080x1080/tiktok-obj/1666413671597057.jpeg" alt=""></div>
-                                <h2>Lorem De Ipsum4</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>                    
-                            </div>
-                            <div>
-                                <div class="img"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSKLJe1Lrz2N3ufVSwQokSJ79jGBbIptXuVnsdxMmNUlE14ohwp&usqp=CAU" alt=""></div>
-                                <h2>Ms. Lorem R. Ipsum</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>                    
-                            </div>
-                            <!-- end testimonials -->
-
+                            @endforeach
                         </div>
-
                     </div>
                 </div>
             </div><!-- end testimonials div -->
@@ -588,8 +570,8 @@ $(document).ready(function(){
             @foreach($blogs as $blogs)
                 <div class="col-sm-12 col-md-3">
                     <div class="blog">
-                        <a href='/our-blogs'>
-                            <img src="{{$blogs->url()}}" alt="blog-title">
+                        <a href='blog/{{$blogs->slug}}'>
+                            <img src="{{$blogs->url()}}" alt="image">
                             <span><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>{{$blogs->created_at}}</span>
                             <h4>{{$blogs->title}}</h4>
                             <p>{{$blogs->description}}</p>

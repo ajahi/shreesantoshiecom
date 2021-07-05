@@ -23,10 +23,14 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request){
+        if($request->has('category')){
+            $product=Product::where('category_id',$request->category)->orderBy('id', 'DESC')->get();
+        }
+        $product=Product::orderBy('id', 'DESC')->get();
         return view('cms.product.productindex',[
-            'product'=>Product::orderBy('id', 'DESC')->get()
+            'product'=>$product,
+            'procat'=>ProductCategory::where('parent_id','!=',null)->orderBy('id','DESC')->get()
         ]);
     }
 

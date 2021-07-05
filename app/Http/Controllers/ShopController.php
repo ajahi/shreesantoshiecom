@@ -41,7 +41,11 @@ class ShopController extends Controller
            'blogs'=>Post::where(function($q){
                $q->where('Status','published');
                $q->where('category_id',2);
-           })->limit(4)->get(),
+           })->orderBy('id','DESC')->limit(4)->get(),
+           'testimonial'=>Post::where(function($q){
+            $q->where('status','published');
+            $q->where('category_id',3);
+        })->limit(4)->get(),
            
                 //cart
            'items'=>$cart->items,
@@ -115,6 +119,10 @@ class ShopController extends Controller
          $oldCart=Session::get('cart');
          $cart= new Cart($oldCart);
         return view('shop.aboutus',[
+            'about'=>Post::where(function($q){
+                $q->where('status','published');
+                $q->where('category_id',1);
+            })->orderBy('counts','DESC')->value('description'),
             //cart
             'items'=>$cart->items,
            'totalPrice'=>$cart->totalPrice
@@ -140,6 +148,22 @@ class ShopController extends Controller
                  'items'=>$cart->items,
                 'totalPrice'=>$cart->totalPrice
          ]);
+    }
+    public function singleblog($slug){
+        $blog=Post::where('slug',$slug)->firstOrFail();
+        $popular=Post::where(function($q){
+            $q->where('status','published');
+        })->orderBy('counts','DESC')->limit(3)->get();
+         //cart
+         $oldCart=Session::get('cart');
+         $cart= new Cart($oldCart);
+        return view('shop.singleblog',[
+            'blog'=>$blog,
+            'popular'=>$popular,
+            //cart
+            'items'=>$cart->items,
+            'totalPrice'=>$cart->totalPrice
+        ]);
     }
     /**
      * Show the form for creating a new resource.

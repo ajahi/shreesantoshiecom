@@ -35,5 +35,15 @@ class CategoryTableSeeder extends Seeder
 
         ]);
 
+        DB::table('categories')->insert([
+            'title' => 'Testimonial',
+            'slug' => slug(strtolower('Testimonial')),
+            'description' => 'This store the information of testimonials',
+            'position'=>5,
+            'attributes'=>
+                json_encode([])
+
+        ]);
+
     }
 }

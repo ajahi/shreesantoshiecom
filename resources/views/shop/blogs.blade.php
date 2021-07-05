@@ -95,7 +95,7 @@ $(document).ready(function(){
                                     </a>
                                     </div>  
                                     <div class="shp__pro__details">
-                                        <h2 id='itemName'><a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
+                                        <h2 id='itemName'><a ><strong>{{$item['item']['title']}}</strong></a></h2>
                                         <div style="inline">
                                             <span class="quantity">X {{$item['qty']}}</span>
                                             <!-- <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
@@ -176,8 +176,12 @@ $(document).ready(function(){
                 @foreach($blogs as $blogs)
                         <div class="col-sm-12 col-md-4">
                             <div class="blog">
-                                <a href="/blog/post-slug">
+                                <a href="/blog/{{$blogs->slug}}">
+                                @if(!($blogs->url()))
+                                    <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
+                                @else
                                     <img src="{{$blogs->url()}}" alt="blog-title">
+                                @endif
                                     <span>Created date : {{$blogs->created_at}}</span>
                                     <h4>{{$blogs->title}}</h4>
                                     <p>{{$blogs->description}} </p>
@@ -223,10 +227,14 @@ $(document).ready(function(){
                                 <li class="most_pop">
                                     <div class="row">
                                         <div class="col-sm-4">
+                                        @if(!($popular->url()))
+                                            <img src="https://cdn.pixabay.com/photo/2017/08/02/01/29/lifestyle-2569543__340.jpg" alt="blog-title">
+                                        @else
                                             <img src="{{$popular->url()}}" alt="blog-title">
+                                        @endif
                                         </div>
                                         <div class="col-sm-8">
-                                            <h3><a href="">{{$popular->title}}</a></h3>
+                                            <h3><a href="blog/{{$popular->slug}}">{{$popular->title}}</a></h3>
                                         </div>
                                     </div>
                                 </li>
