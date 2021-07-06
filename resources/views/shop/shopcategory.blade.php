@@ -18,7 +18,7 @@ $(document).ready(function(){
                var resp=response;
                 
                 location.reload(true);
-               loaditems(resp);
+              
               }
         });
         
@@ -40,11 +40,7 @@ $(document).ready(function(){
     });
    
    
-    function loaditems(data){
-        var name=document.getElementById('itemName');
-        var duta=data.items[3].item.title;
-        console.log(duta);
-    }
+
 });
 
 </script>
@@ -97,17 +93,24 @@ $(document).ready(function(){
                                     </a>
                                     </div>  
                                     <div class="shp__pro__details">
-                                        <h2 id='itemName'><a href="product-details.html"><strong>{{$item['item']['title']}}</strong></a></h2>
+                                        <h2 id='itemName'><a class='detail-product' value='{{$item['item']['slug']}}'><strong>{{$item['item']['title']}}</strong></a></h2>
                                         <div style="inline">
                                             <span class="quantity">X {{$item['qty']}}</span>
                                             <!-- <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
                                             <span class='quantity'><a href="/increase/{{$item['item']['id']}}" title="Increase this item"><i class="fas fa-plus-square"></i></a></span> -->
                                         </div>
                                         
-                                        <span class="shp__price">Rs. {{$item['item']['purchase_price']}}</span>                                     
+                                        <span class="shp__price">Rs. {{$item['item']->price()}}</span>                                     
                                     </div>
                                     <div class="remove__btn">
-                                        <a href="/remove/{{$item['item']['id']}}" title="Remove this item"><i class="fas fa-trash right"></i></i></a>
+                                        <form 
+                                        method="get"
+                                        action="/remove/{{$item['item']['id']}}" 
+                                        title="Remove this item" >
+                                        <button class='btn btn-outline-light btn-lg'><i class="ti-trash right"></i></button>
+                                        
+                                        </form>
+                                        <!-- <a href="/remove/{{$item['item']['id']}}" title="Remove this item"><i class="ti-trash right"></i></a> -->
                                     </div>
                                 </li>
                             @endforeach
@@ -116,7 +119,7 @@ $(document).ready(function(){
                        
                         <ul class="shoping__total">
                             <li class="subtotal">Subtotal:</li>
-                            <li class="total__price">RS. {{$totalPrice}}</li>
+                            <li class="total__price">Rs. {{$totalPrice}}</li>
                         </ul>
                     </div>
                     
@@ -128,8 +131,10 @@ $(document).ready(function(){
 
                    @if(Session::has('cart'))
                     <ul class="shopping__btn">
-                    <li><a href="/newcart">Empty Cart</a></li>
+                    
+                        <li><a class='removebtn'>Empty Cart</a></li>
                         <li class="shp__checkout"><a href="/checkout">Checkout</a></li>
+                    
                     </ul>
                    @endif
                 </div>
@@ -170,7 +175,7 @@ $(document).ready(function(){
                                                     @if($pro->quantity < 0)
 
                                                     @else
-                                                    <li><a title="Add To Cart" value='{{$pro->id}}'  ><span class="ti-shopping-cart"></span></a></li>
+                                                    <li><a title="Add To Cart" value='{{$pro->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
                                                     @endif
                                                          
                                                 </ul>

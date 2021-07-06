@@ -17,9 +17,9 @@ class PostTableSeeder extends Seeder
     public function run()
     {
         // $faker = Factory::create();
-        // $category = Category::pluck('id')->toArray();;
+        // $category = Category::pluck('id')->toArray();
 
-        // for ($i = 0; $i < 50; $i++) {
+        // for ($i = 0; $i < 5; $i++) {
         //     $title = $faker->unique()->sentence;
         //     $slug = Str::slug($title);
 

@@ -94,22 +94,29 @@ $(document).ready(function(){
                             @foreach($items as $item)
                                 <li>
                                     <div class="shp__pro__thumb">
-                                    <a class='detail-pro' value="{{$item['item']['slug']}}">
+                                    <a href="#">
                                         <img src="{{$item['item']->url()}}" alt="product images">
                                     </a>
                                     </div>  
                                     <div class="shp__pro__details">
-                                        <h2 id='itemName'><a id='detail-pro' value="{{$item['item']['slug']}}"><strong>{{$item['item']['title']}}</strong></a></h2>
+                                        <h2 id='itemName'><a class='detail-product' value='{{$item['item']['slug']}}'><strong>{{$item['item']['title']}}</strong></a></h2>
                                         <div style="inline">
                                             <span class="quantity">X {{$item['qty']}}</span>
                                             <!-- <span class='quantity'><a href="/reduce/{{$item['item']['id']}}" title="Reduce this item"><i class="fas fa-minus-square"></i></a></span>
                                             <span class='quantity'><a href="/increase/{{$item['item']['id']}}" title="Increase this item"><i class="fas fa-plus-square"></i></a></span> -->
                                         </div>
                                         
-                                        <span class="shp__price">Rs. {{$item['item']['purchase_price']}}</span>                                     
+                                        <span class="shp__price">Rs. {{$item['item']->price()}}</span>                                     
                                     </div>
                                     <div class="remove__btn">
-                                        <a href="/remove/{{$item['item']['id']}}" title="Remove this item"><i class="fas fa-trash right"></i></i></a>
+                                        <form 
+                                        method="get"
+                                        action="/remove/{{$item['item']['id']}}" 
+                                        title="Remove this item" >
+                                        <button class='btn btn-outline-light btn-lg'><i class="ti-trash right"></i></button>
+                                        
+                                        </form>
+                                        <!-- <a href="/remove/{{$item['item']['id']}}" title="Remove this item"><i class="ti-trash right"></i></a> -->
                                     </div>
                                 </li>
                             @endforeach
@@ -118,7 +125,7 @@ $(document).ready(function(){
                        
                         <ul class="shoping__total">
                             <li class="subtotal">Subtotal:</li>
-                            <li class="total__price">RS. {{$totalPrice}}</li>
+                            <li class="total__price">Rs. {{$totalPrice}}</li>
                         </ul>
                     </div>
                     
@@ -130,8 +137,10 @@ $(document).ready(function(){
 
                    @if(Session::has('cart'))
                     <ul class="shopping__btn">
-                    <li><a href="/newcart">Empty Cart</a></li>
+                    
+                        <li><a class='removebtn'>Empty Cart</a></li>
                         <li class="shp__checkout"><a href="/checkout">Checkout</a></li>
+                    
                     </ul>
                    @endif
                 </div>

@@ -70,7 +70,7 @@ $(document).ready(function(){
                                             <span class='quantity'><a href="/increase/{{$item['item']['id']}}" title="Increase this item"><i class="fas fa-plus-square"></i></a></span> -->
                                         </div>
                                         
-                                        <span class="shp__price">Rs. {{$item['item']['purchase_price']}}</span>                                     
+                                        <span class="shp__price">Rs. {{$item['item']->price()}}</span>                                     
                                     </div>
                                     <div class="remove__btn">
                                         <form 

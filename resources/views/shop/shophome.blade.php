@@ -22,7 +22,7 @@ $(document).ready(function(){
                var resp=response;
                 
                 location.reload(true);
-               loaditems(resp);
+               
               }
         });
         
@@ -43,12 +43,6 @@ $(document).ready(function(){
         });
     });
    
-   
-    function loaditems(data){
-        var name=document.getElementById('itemName');
-        var duta=data.items[3].item.title;
-        console.log(duta);
-    }
 });
 
 </script>

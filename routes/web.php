@@ -34,7 +34,7 @@ Route::post('mails','MailController@store');
 
 Route::get('/shop-category/{slug}','ShopController@shopcat');
 Route::get('/about-us','ShopController@aboutus');
-Route::get('/our-gallery','GalleryController@show');
+Route::get('/our-gallery','ShopController@gallery');
 Route::get('/contact-us','ShopController@contact');
 Route::get('/our-blogs','ShopController@blogs');
 Route::get('blog/{slug}','ShopController@singleblog');

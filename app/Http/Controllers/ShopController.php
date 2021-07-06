@@ -40,11 +40,11 @@ class ShopController extends Controller
            'procat'=>$procat,
            'blogs'=>Post::where(function($q){
                $q->where('Status','published');
-               $q->where('category_id',2);
+               $q->where('category_id',3);
            })->orderBy('id','DESC')->limit(4)->get(),
            'testimonial'=>Post::where(function($q){
             $q->where('status','published');
-            $q->where('category_id',3);
+            $q->where('category_id',4);
         })->limit(4)->get(),
            
                 //cart
@@ -78,7 +78,7 @@ class ShopController extends Controller
         $cart= new Cart($oldCart);
         //product        
         $procat=ProductCategory::where('parent_id','!=',null)->get();
-        $pro=Product::where('quantity','>',1)->paginate(20);
+        $pro=Product::where('quantity','>',0)->paginate(20);
         return view('shop.shopshop',[
             //cart
             'items'=>$cart->items,
@@ -132,19 +132,16 @@ class ShopController extends Controller
          //cart
          $oldCart=Session::get('cart');
          $cart= new Cart($oldCart);
-         
-
          return view('shop.blogs',[
              'blogs'=>Post::where(function($q){
-                 $q->where('category_id',2);
+                 $q->where('category_id',3);
                  $q->where('status','published');
              })->paginate(20),
-             'popular'=>Post::orderBy('counts','DESC')->where(function($q){
+             'popular'=>Post::where(function($q){
                  $q->where('status','published');
-             })->limit(5)->get(),
-             
-
-             //cart
+                 $q->where('category_id',3);
+             })->orderBy('counts','DESC')->limit(5)->get(),
+                //cart
                  'items'=>$cart->items,
                 'totalPrice'=>$cart->totalPrice
          ]);
@@ -153,6 +150,7 @@ class ShopController extends Controller
         $blog=Post::where('slug',$slug)->firstOrFail();
         $popular=Post::where(function($q){
             $q->where('status','published');
+            $q->where('category_id',3);
         })->orderBy('counts','DESC')->limit(3)->get();
          //cart
          $oldCart=Session::get('cart');
@@ -163,6 +161,16 @@ class ShopController extends Controller
             //cart
             'items'=>$cart->items,
             'totalPrice'=>$cart->totalPrice
+        ]);
+    }
+    public function gallery(){
+        //cart
+        $oldCart=Session::get('cart');
+        $cart= new Cart($oldCart);
+        return view('shop.gallery',[
+                //cart
+                'items'=>$cart->items,
+                'totalPrice'=>$cart->totalPrice
         ]);
     }
     /**
