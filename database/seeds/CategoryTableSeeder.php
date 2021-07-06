@@ -34,6 +34,27 @@ class CategoryTableSeeder extends Seeder
                 json_encode([])
 
         ]);
+        DB::table('categories')->insert([
+            'title' => 'Videos',
+            'slug' => slug(strtolower('Videos')),
+            'description' => 'This store the information of videos',
+            'position'=>3,
+            'attributes'=>
+                json_encode([])
+
+        ]);
+
+        DB::table('categories')->insert([
+            'title' => 'Galery',
+            'slug' => slug(strtolower('Gallery')),
+            'description' => 'This store the information of gallery',
+            'position'=>6,
+            'attributes'=>
+                json_encode([])
+
+        ]);
+
+
 
         DB::table('categories')->insert([
             'title' => 'Testimonial',
