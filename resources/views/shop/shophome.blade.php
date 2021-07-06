@@ -256,7 +256,7 @@ $(document).ready(function(){
         <section class="featured_products">
             <div class="container">
                 <div class="row">
-                <h2 class="heading">Featured Products</h2>
+                <h2 class="heading"><span>Featured</span> Products</h2>
                 </div>
                 <div class="row">
                 @forelse($featured as $product)
@@ -519,7 +519,7 @@ $(document).ready(function(){
             <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Our Happy Clients</h2>
+                    <h2 class="heading"><span>Our Happy</span> Clients</h2>
                 </div>
             </div>
             <!-- testimonials div -->
@@ -556,7 +556,7 @@ $(document).ready(function(){
             <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                <h2 class="heading">Our Blogs <span><a href="/our-blogs">view all</a></span></h2>
+                <h2 class="heading"><span>Our</span> Blogs <span><a href="/our-blogs">view all</a></span></h2>
                 </div>
             </div>
            

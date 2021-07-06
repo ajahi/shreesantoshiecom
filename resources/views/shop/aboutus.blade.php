@@ -174,12 +174,12 @@ $(document).ready(function(){
        
                     
                     <!-- Start Blog Area -->
-        <section class="htc__product__area shop__page ptb--130 bg__white site_blogs single-page">
+        <section class="htc__product__area shop__page ptb--130 bg__white site_blogs single-page about-page">
             <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="section__title section__title--2 text-center">                    
-                    <h2 class="title__line">Welcome To Shantosi Store</h2>                   
+                    <h2 class="title__line"><span>Welcome To</span> Santoshi Mata Hastakala</h2>                   
                     
                     <p>{{$about}}
            </p>
@@ -193,7 +193,7 @@ $(document).ready(function(){
         </section><!-- end welcome section -->
 
         <!-- why us section -->
-        <section data-section="AboutInfo" class="htc__choose__us__ares bg__white pb--120 ">
+        <section data-section="AboutInfo" class="htc__choose__us__ares bg__white pb--80 ">
             <div class="container-fluid">
                 <div class="row">
                 
@@ -221,8 +221,8 @@ $(document).ready(function(){
                             <span class="ti-heart"></span>
                             </div>
                             <div class="choose__details">
-                            <h4>Free Gift Box</h4>
-                            <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                            <h4>Quality Work</h4></h4>
+                            <p>We Believe In Quality Work & 100% Satisfaction Of Our Customers.</p>
                             </div>
                         </div>
                         
@@ -233,7 +233,7 @@ $(document).ready(function(){
                             </div>
                             <div class="choose__details">
                             <h4>Free Delevery</h4>
-                            <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                            <p>We Have The Service Of Free Delivery Of Our Products. </p>
                             </div>
                         </div>
                         
@@ -245,8 +245,8 @@ $(document).ready(function(){
                             <span class="ti-reload"></span>
                             </div>
                             <div class="choose__details">
-                            <h4>Money Back</h4>
-                            <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                            <h4>M24 Hour Support</h4>
+                            <p>Our Staffs Are 24hrs Available For Customers Support. </p>
                             </div>
                         </div>
                         
@@ -256,7 +256,7 @@ $(document).ready(function(){
                             <span class="ti-time"></span>
                             </div>
                             <div class="choose__details">
-                            <h4>Support 24/7</h4>
+                            <h4>100% Money Back</h4>
                             <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
                             </div>
                         </div>
@@ -265,11 +265,39 @@ $(document).ready(function(){
                     </div>
                     </div>
                 </div>
-                
+
+                             
                 </div>
             </div>
             </section>
         <!-- end why us section -->
+        <!-- Our mission section  -->
+        <section class="ourmis">
+            <div class="container">
+            <div class="row">
+                    <div class="col-md-12">
+                        <div class="mission">
+                            <h2><span>Our</span> Mission</h2>
+                            <ul class="unstyled-list">
+                                <li><i class="fas fa-arrow-right"></i>Share necessary skills and employment to The exploited and poor women 
+                                    of Nepal to become self sufficient.
+                                </li>
+                                <li><i class="fas fa-arrow-right"></i>To promote the exportation of Nepalese handicrafts.
+                                </li>
+                                <li><i class="fas fa-arrow-right"></i>to promote locally made goods with in the country.
+                                </li>
+                                <li><i class="fas fa-arrow-right"></i>Provide the finest handmade products using high quality raw materials.
+                                </li>
+                                <li><i class="fas fa-arrow-right"></i>Preserve Traditional skills art and design of Nepali Handicraft.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        <!-- end our mission -->
                     
                     
                 

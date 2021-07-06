@@ -12,11 +12,14 @@
 .featured_products{
   margin-bottom: 4em;
 }
-.featured_products .heading span, .site_blogs .heading span{
+h2.heading span{
+  color: #ff4136;
+}
+.site_blogs .heading span:last-child{
   float: right;
   font-size: 14px;
 }
-.featured_products .heading span a, .site_blogs .heading span a{
+.site_blogs .heading span:last-child a{
   color: #ff4136;
   text-decoration: none;
 }
@@ -815,4 +818,32 @@ body {
   line-height: 25px;
 }
 
+}
+.breadcrumb-list li a{
+  color: #ff4136;
+}
+.breadcrumb-list li span{
+  color: #333;
+}
+.about-page .title__line span{
+  color: #ff4136;
+}
+.ourmis{
+  padding-bottom: 5em;
+}
+.ourmis .mission{
+  text-align: center;
+}
+.ourmis .mission h2{
+  margin-bottom: 1em;
+}
+.ourmis .mission h2 span{
+  color: #ff4136;
+}
+.mission li{
+  height: 40px;
+}
+.mission li .fas{
+  color: #ff4136;
+  margin-right: 8px;
 }
