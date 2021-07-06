@@ -11,22 +11,21 @@ $(document).ready(function(){
         var selectedcategory = $('.catfilter').val(); 
         console.log(selectedcategory);
             $.ajax({
-            type:'get',
+            url:'<?php echo url('/product');?>',
             data:{request:selectedcategory},
             cache:false,
-            url:'<?php echo url('/product');?>',
-          
             success:function(response){
-               var resp=response;
-                alert('clicked');
-                location.reload(true);
-           
+              
+              alert(selectedcategory);
+              location.reload(true);
               }
         });
         
     }); 
   });
+  
 </script>
+
 
     <div class="section">
    <div class="row">
@@ -53,6 +52,7 @@ $(document).ready(function(){
    </span>
    </div>
    </div>
+
         <table class='table'>
             <thead>
                 <tr>
@@ -105,6 +105,7 @@ $(document).ready(function(){
             </tbody>
             @endforeach
         </table>
+       
     </div>
 </div>
 @endsection
