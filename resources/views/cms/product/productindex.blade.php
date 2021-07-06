@@ -67,11 +67,18 @@ $(document).ready(function(){
             <tbody>
                 <tr>
                 <td scope="col">{{$posts->id}}</td>
-                <td scope="col"><a href="/product-detail/{{$posts->slug}}" target="_blank">{{$posts->title}}</a></td>
+                <td scope="col">
+                  <img src="{{$posts->url()}}" height="60" width="60"><br/>
+                  <a href="/product-detail/{{$posts->slug}}" target="_blank">{{$posts->title}}</a>
+                  <p class="text-secondary">Categories:<span class="text-dark mr-2"></p> 
+                </td>
                 
-                <td scope="col">Rs. {{$posts->purchase_price}}
+                <td scope="col"><span class="text-secondary mr-2">Purchase Price:</span>Rs. {{$posts->purchase_price}}
                 <div class="py-1">
                 <p class="mb-0"><span class="text-secondary mr-2">Selling Price:</span>Rs. {{$posts->sell_price}}</p>
+                @if($posts->discount && $posts->discount !='')
+                <p class="mb-0"><span class="text-secondary mr-2">Discout: {{$posts->discount}}%</span>
+                </p>@endif
                 <p><span class="text-secondary mr-2">Status:</span>
                 @if($posts->status==1)<span class="text-success">Published</span>@endif
                 @if($posts->status==0)<span class="text-danger">Draft</span>@endif
