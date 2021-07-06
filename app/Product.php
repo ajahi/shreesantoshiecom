@@ -56,6 +56,11 @@ class Product extends Model implements HasMedia
    public function url(){
        return $this->getFirstMediaUrl('');
    }
-   
+   public function price(){
+       if(($this->discount)==null){
+           return $this->sell_price;
+       }
+       return (1 - $this->discount/100)*$this->sell_price;
+   }
    
 }

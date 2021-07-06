@@ -14,15 +14,10 @@ $(document).ready(function(){
             data:{request:pro_Id},
             cache:false,
             url:'<?php echo url('/product');?>',
-            beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-            if (token) {
-                return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-              }
-            },
+          
             success:function(response){
                var resp=response;
-                alert('vayo');
+                alert('clicked');
                 location.reload(true);
            
               }

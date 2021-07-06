@@ -105,7 +105,7 @@ $(document).ready(function(){
                                     <tbody>                                       
                                         <tr>
                                             <td class="product-name"><span class='amount'>{{$cart['item']['title']}}</span></td>
-                                            <td class="product-price"><span class="amount">{{$cart['item']['sell_price']}}</span></td>
+                                            <td class="product-price"><span class="amount">{{$cart['item']->price()}}</span></td>
                                             <td class="product-quantity"><span class="amount" >
                                             {{$cart['qty']}}
                                             <a title="Reduce this item" value="{{$cart['item']['id']}}" class='reduce'><i class="fas fa-minus-square"></i></a>
