@@ -23,17 +23,7 @@ class CategoryTableSeeder extends Seeder
             'attributes'=>
                 json_encode([])
         ]);
-
-
-        DB::table('categories')->insert([
-            'title' => 'Blogs',
-            'slug' => slug(strtolower('Blogs')),
-            'description' => 'This store the information of blog category',
-            'position'=>4,
-            'attributes'=>
-                json_encode([])
-
-        ]);
+        
         DB::table('categories')->insert([
             'title' => 'Videos',
             'slug' => slug(strtolower('Videos')),
@@ -45,7 +35,27 @@ class CategoryTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'title' => 'Galery',
+            'title' => 'Blogs',
+            'slug' => slug(strtolower('Blogs')),
+            'description' => 'This store the information of blog category',
+            'position'=>4,
+            'attributes'=>
+                json_encode([])
+
+        ]);
+        
+        DB::table('categories')->insert([
+            'title' => 'Testimonial',
+            'slug' => slug(strtolower('Testimonial')),
+            'description' => 'This store the information of testimonials',
+            'position'=>5,
+            'attributes'=>
+                json_encode([])
+
+        ]);
+
+        DB::table('categories')->insert([
+            'title' => 'Gallery',
             'slug' => slug(strtolower('Gallery')),
             'description' => 'This store the information of gallery',
             'position'=>6,
@@ -56,15 +66,7 @@ class CategoryTableSeeder extends Seeder
 
 
 
-        DB::table('categories')->insert([
-            'title' => 'Testimonial',
-            'slug' => slug(strtolower('Testimonial')),
-            'description' => 'This store the information of testimonials',
-            'position'=>5,
-            'attributes'=>
-                json_encode([])
-
-        ]);
+        
 
     }
 }
