@@ -7,19 +7,15 @@
 <script>
 
 $(document).ready(function(){
-    $('.filter').click(function(){
-        var pro_Id = $(this).attr('value');
-            $.ajax({
-            type:'get',
-            data:{request:pro_Id},
-            cache:false,
+    $('.filter').change(function(){
+        var pro_Id = $('.filter').val();
+            $.ajax({              
             url:'<?php echo url('/product');?>',
-          
+            data:{pro_Id:pro_Id},
             success:function(response){
-               var resp=response;
-                alert('clicked');
-                location.reload(true);
-           
+              
+              alert(pro_Id);
+              location.reload(true);
               }
         });
         
@@ -27,31 +23,32 @@ $(document).ready(function(){
   });
 </script>
 
-    <div class="section">
-   <div class="row">
-   <div class="col-md-12">
-   <a href="productcreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
-   <span class=" d-inline-block my-2">
-     <select class="form-select custom-select filter" name="category" aria-label="filter by category" placeholder="Filter by category">          
-        @foreach($procat as $procat)
-        <option value='{{$procat->id}}'>{{$procat->title}}</option>             
-        @endforeach
-     </select>
-   </span>
-   <span class=" d-inline-block my-2">
-     <select class="form-select custom-select" name="category" aria-label="filter by category" placeholder="Filter by status">          
-        <option value=0>Draft</option>
-        <option value=1>Published</option>             
-     </select>
-   </span>
-   <span class=" d-inline-block my-2">
-     <select class="form-select custom-select" name="category" aria-label="filter by category" placeholder="Filter by status">          
-        <option value=1>In Stock</option>
-        <option value=0>Out Of Stock</option>             
-     </select>
-   </span>
-   </div>
-   </div>
+
+<div class="section">
+  <div class="row">
+    <div class="col-md-12">
+      <a href="productcreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
+        <span class=" d-inline-block my-2">
+          <select class="form-select custom-select filter" name="category" aria-label="filter by category" placeholder="Filter by category">          
+              @foreach($procat as $procat)
+              <option  value="{{$procat->id}}">{{$procat->title}}</option>             
+              @endforeach
+          </select>
+        </span>
+        <span class=" d-inline-block my-2">
+          <select class="form-select custom-select" name="category" aria-label="filter by category" placeholder="Filter by status">          
+              <option value=0>Draft</option>
+              <option value=1>Published</option>             
+          </select>
+        </span>
+    <span class=" d-inline-block my-2">
+      <select class="form-select custom-select" name="category" aria-label="filter by category" placeholder="Filter by status">          
+          <option value=1>In Stock</option>
+          <option value=0>Out Of Stock</option>             
+      </select>
+    </span>
+  </div>
+  </div>
         <table class='table'>
             <thead>
                 <tr>
@@ -104,6 +101,208 @@ $(document).ready(function(){
             </tbody>
             @endforeach
         </table>
+        <section class="htc__product__area bg__white mt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product-style-tab">
+                            <div class="product-tab-list">
+                                <!-- Nav tabs -->
+                                <ul class="tab-style" role="tablist">
+                                    <li class="active">
+                                        <a href="#home1" data-toggle="tab">
+                                            <div class="tab-menu-text">
+                                                <h4>Latest </h4>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#home2" data-toggle="tab">
+                                            <div class="tab-menu-text">
+                                                <h4>Best sale</h4>
+                                            </div>
+                                        </a>
+                                    </li>
+                                 
+                                    <li>
+                                        <a href="#home3" data-toggle="tab">
+                                            <div class="tab-menu-text">
+                                                <h4>Discount Sale</h4>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content another-product-style jump">
+                                <div class="tab-pane active" id="home1">
+                                    <div class="row">
+                                        <div class="product-slider-active owl-carousel">
+                                        @forelse($published as $product)
+                                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
+                                                <div class="product">
+                                                    <div class="product__inner">
+                                                        <div class="pro__thumb">
+                                                            <a class='detail-product' value='{{$product->slug}}'>
+                                                               
+                                                                <p></p>
+                                                                <img src="{{$product->url()}}" alt="product images">
+                                                            </a>
+                                                        </div>
+                                                        <div class="product__hover__info">
+                                                            <ul class="product__action">
+                                                            <li><a title="Quick View" class="quick-view modal-view detail-link detail-product"   value='{{$product->slug}}'><span class="ti-eye"></span></a></li>
+                                                            @if($product->quantity < 0)
+
+                                                             @else
+                                                             <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
+                                                            @endif 
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product__details">
+                                                        <h2><a class='detail-product' value='{{$product->slug}}'>{{ucwords($product->title)}}</a></h2>
+                                                        <ul class="product__price">
+                                                            @if($product->discount)
+                                                                <li class="old__price">Rs.{{$product->sell_price}}</li>
+                                                                <li class="new__price">Rs.{{$product->sell_price*(1-$product->discount/100)}}</li>
+                                                            @else
+                                                            <li class="new__price">Rs.{{$product->sell_price}}</li>
+                                                            @endif
+                                                        </ul>    
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                            @empty
+                                                <div class="row">
+                                                    <div class="product">
+                                                        <div class="col-md-12">
+                                                            <div class="product">
+                                                                <p>No items .</p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        @endforelse                                                                                                                                                             
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="home2">
+                                    <div class="row">
+                                        <div class="product-slider-active owl-carousel">
+                                        @forelse($InStock as $product)
+                                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
+                                                <div class="product">
+                                                    <div class="product__inner">
+                                                        <div class="pro__thumb">
+                                                            <a class='detail-product' value='{{$product->slug}}'>
+                                                               
+                                                                <p></p>
+                                                                <img src="{{$product->url()}}" alt="product images">
+                                                            </a>
+                                                        </div>
+                                                        <div class="product__hover__info">
+                                                            <ul class="product__action">
+                                                            <li><a title="Quick View" class="quick-view modal-view detail-link detail-product"   value='{{$product->slug}}'><span class="ti-eye"></span></a></li>
+                                                            @if($product->quantity < 0)
+
+                                                             @else
+                                                             <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
+                                                            @endif 
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product__details">
+                                                        <h2><a class='detail-product' value='{{$product->slug}}'>{{ucwords($product->title)}}</a></h2>
+                                                        <ul class="product__price">
+                                                            @if($product->discount)
+                                                                <li class="old__price">Rs.{{$product->sell_price}}</li>
+                                                                <li class="new__price">Rs.{{$product->sell_price*(1-$product->discount/100)}}</li>
+                                                            @else
+                                                            <li class="new__price">Rs.{{$product->sell_price}}</li>
+                                                            @endif
+                                                        </ul>    
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                            @empty
+                                                <div class="row">
+                                                    <div class="product">
+                                                        <div class="col-md-12">
+                                                            <div class="product">
+                                                                <p>No items .</p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        @endforelse                                                                                                                       
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="tab-pane" id="home3">
+                                    <div class="row">
+                                        <div class="product-slider-active owl-carousel">
+                                        @forelse($OutStock as $product)
+                                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
+                                                <div class="product">
+                                                    <div class="product__inner">
+                                                        <div class="pro__thumb">
+                                                            <a class='detail-product' value='{{$product->slug}}'>
+                                                               
+                                                                <p></p>
+                                                                <img src="{{$product->url()}}" alt="product images">
+                                                            </a>
+                                                        </div>
+                                                        <div class="product__hover__info">
+                                                            <ul class="product__action">
+                                                            <li><a title="Quick View" class="quick-view modal-view detail-link detail-product"   value='{{$product->slug}}'><span class="ti-eye"></span></a></li>
+                                                            @if($product->quantity < 0)
+
+                                                             @else
+                                                             <li><a title="Add To Cart" value='{{$product->id}}' class='button' ><span class="ti-shopping-cart"></span></a></li>
+                                                            @endif 
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product__details">
+                                                        <h2><a class='detail-product' value='{{$product->slug}}'>{{ucwords($product->title)}}</a></h2>
+                                                        <ul class="product__price">
+                                                            @if($product->discount)
+                                                                <li class="old__price">Rs.{{$product->sell_price}}</li>
+                                                                <li class="new__price">Rs.{{$product->sell_price*(1-$product->discount/100)}}</li>
+                                                            @else
+                                                            <li class="new__price">Rs.{{$product->sell_price}}</li>
+                                                            @endif
+                                                        </ul>    
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                            @empty
+                                                <div class="row">
+                                                    <div class="product">
+                                                        <div class="col-md-12">
+                                                            <div class="product">
+                                                                <p>No items .</p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        @endforelse   
+                                                                       
+                                        </div>
+                                    </div>
+                                </div>                                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 @endsection

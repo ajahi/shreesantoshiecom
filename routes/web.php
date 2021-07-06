@@ -106,6 +106,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/productcategory/{id}','ProductCategoryController@edit');
     Route::put('/productcategory/{id}','ProductCategoryController@update');
     Route::delete('/productcategorydel/{id}','ProductCategoryController@destroy');
+    
 
     Route::get('/product','ProductController@index');
     Route::get('/productcreate','ProductController@create');
@@ -114,6 +115,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/product/{id}','ProductController@edit');
     Route::put('/product/{id}','ProductController@update');
     Route::delete('/productdel/{id}','ProductController@destroy');
+    Route::get('/indexajax','ProductController@indexajax');
 
     Route::get('/menu','MenuController@index');
     Route::get('/menucreate',"MenuController@create");

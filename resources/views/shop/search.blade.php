@@ -39,12 +39,6 @@ $(document).ready(function(){
         });
     });
    
-   
-    function loaditems(data){
-        var name=document.getElementById('itemName');
-        var duta=data.items[3].item.title;
-        console.log(duta);
-    }
 });
 
 </script>
