@@ -7,11 +7,12 @@
 <script>
 
 $(document).ready(function(){
-    $('.filter').click(function(){
-        var pro_Id = $(this).attr('value');
+    $('.catfilter').change(function(){
+        var selectedcategory = $('.catfilter').val(); 
+        console.log(selectedcategory);
             $.ajax({
             type:'get',
-            data:{request:pro_Id},
+            data:{request:selectedcategory},
             cache:false,
             url:'<?php echo url('/product');?>',
           
@@ -32,7 +33,7 @@ $(document).ready(function(){
    <div class="col-md-12">
    <a href="productcreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
    <span class=" d-inline-block my-2">
-     <select class="form-select custom-select filter" name="category" aria-label="filter by category" placeholder="Filter by category">          
+     <select class="form-select custom-select catfilter" name="category" aria-label="filter by category" placeholder="Filter by category">          
         @foreach($procat as $procat)
         <option value='{{$procat->id}}'>{{$procat->title}}</option>             
         @endforeach
