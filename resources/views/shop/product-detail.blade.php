@@ -52,7 +52,7 @@ $(document).ready(function(){
                                 <li>
                                     <div class="shp__pro__thumb">
                                     <a href="#">
-                                        <img src="{{$item['item']->url()}}" alt="product images">
+                                        <img src="{{$item['item']->url()}}" alt="{{$item['item']['title']}}">
                                     </a>
                                     </div>  
                                     <div class="shp__pro__details">
