@@ -65,7 +65,7 @@ justify-content: center;
   text-decoration: underline;
 }
 .site_testimonials h2,.site_blogs h2{
-  margin-bottom: 0em;
+  margin-bottom: 2em;
 }
 .page-pagination ul li {
   display: block;
