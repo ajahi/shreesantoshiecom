@@ -173,6 +173,16 @@ class ShopController extends Controller
                 'totalPrice'=>$cart->totalPrice
         ]);
     }
+    public function ourservices(){
+        //cart
+        $oldCart=Session::get('cart');
+        $cart= new Cart($oldCart);
+        return view('shop.services',[
+                //cart
+                'items'=>$cart->items,
+                'totalPrice'=>$cart->totalPrice
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *

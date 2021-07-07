@@ -70,7 +70,8 @@
                                 <h2 class="ft__title">Infomation</h2>
                                 <ul class="footer-categories">
                                     <li><a href="/about-us">About Us</a></li>
-                                    <li><a href="/contact-us">Contact Us</a></li>
+                                    <li class="drop"><a href="/our-gallery">Gallery</a></li>
+                                    <li><a href="/our-blogs">Blogs</a></li>
                                     <li><a href="#">Terms & Conditions</a></li>
                                     <li><a href="#">Privacy Policy</a></li>
                                 </ul>
