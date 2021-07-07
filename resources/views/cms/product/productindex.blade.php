@@ -23,6 +23,27 @@ $(document).ready(function(){
         });
         
     }); 
+    function fill_data(filter_procat='',filter_status=''){
+      var dataTable=$('#product_data').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:{
+          url:"<?php echo url('/product')?>",
+          data:{filter_procat:filter_procat,filter_status:filter_status}
+        },
+        columns:[
+          {
+            data:'procatId',
+            name:'procatId'
+          },
+          {
+            data:'title',
+            name:'title'
+          }
+        ]
+      });
+      
+    }
   });
   
 </script>
@@ -54,7 +75,7 @@ $(document).ready(function(){
    </div>
    </div>
 
-        <table class='table'>
+        <table class='table' id='product_data'>
             <thead>
                 <tr>
                 <th scope='col'>ID</th>
@@ -64,6 +85,7 @@ $(document).ready(function(){
                 <th scope='col'>Action</th>
                 </tr>
             </thead>
+            <p class='response'></p>
             
             @foreach($product as $posts)
             <tbody>

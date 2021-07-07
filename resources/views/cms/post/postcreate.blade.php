@@ -27,7 +27,7 @@
         <label for="Category_id" class="text-secondary">Category <span class="font-normal text-danger">*</span></label>
             <div class="form-check" >
             @foreach($category as $category)
-                <input required class="form-check-input" type="radio" name="category_id" value={{$category->id}} >
+                <input class="form-check-input" type="checkbox" name="category_id" value={{$category->id}} >
                 <label class="form-check-label" for="defaultCheck1" >{{$category->title}}</label>   
                 <br>
             @endforeach

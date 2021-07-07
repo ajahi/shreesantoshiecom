@@ -24,24 +24,23 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        // if($request->ajax()){
-        //     $product=Product::find($request->pro_Id);
-        // }
+        if(request()->ajax()){
+            $procat=ProductCategory::findOrFail($request->category_id)->products;
+            
+        }
         if($request->has('category_id')){
-            $product=Product::where('category_id',$request->category_id)->orderBy('id', 'DESC')->get();
+            $procat=ProductCategory::findOrFail($request->category_id);
+            $product=$procat->products;
             return $product;
         }
         $product=Product::orderBy('id', 'DESC')->get();
         return view('cms.product.productindex',[
             'product'=>$product,
             'procat'=>ProductCategory::where('parent_id','!=',null)->orderBy('id','DESC')->get(),
-            'published'=>Product::where('status','published')->get(),
-            'InStock'=>Product::where('InStock',1)->get(),
-            'OutStock'=>Product::where('InStock',0)->get()
         ]);
     }
     public function indexajax(Request $request){
-        
+        return ProductCategory::findOrFail($request->category_id);
     }
 
     

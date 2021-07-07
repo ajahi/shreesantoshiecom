@@ -147,7 +147,7 @@ $(document).ready(function(){
                                     <a href="/" title="Back to the home page">Home</a>
                                     </li>
                                     <li> 
-                                        <span>{{search string}}</span>
+                                        <span>{{$query}}</span>
                                     </li>
                                 </ul>
                             </nav>
@@ -163,12 +163,19 @@ $(document).ready(function(){
         <section class="htc__product__area shop__page ptb--130 bg__white">
             <div class="container">
                 <div class="htc__product__container">
+                @if(count($pro)>0)
                     <div class="row">
+                    
                         <div class="col-md-12">
-                            <h3>Total Products Found: <span>(5)</span></h3>
+                            <h3>Total Products Found: <span>({{count($pro)}})</span></h3>
+                            <div class="alert alert-success my-3" role="alert">
+                            <p>We have found products based on your search string. <strong>{{ucwords($query)}}</strong></p>
+                            </div>
                         </div>
+                    
                     </div>
                     <!-- display no result found message -->
+                    @else
                     <div class="row">
                         <div class="col-md-12">
                             <div class="alert alert-danger" role="alert">
@@ -176,6 +183,7 @@ $(document).ready(function(){
                             </div>
                         </div>
                     </div>
+                    @endif
                     <!-- end display no result found message -->
                     <!-- display search result on product found -->
                         <div class="row">                       

@@ -28,7 +28,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        return view('cms.productcategory.productcategorycreate',['productcategory'=>ProductCategory::all()]);
+        return view('cms.productcategory.productcategorycreate',['productcategory'=>ProductCategory::where('parent_id',null)->get()]);
     }
 
     /**

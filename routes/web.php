@@ -48,6 +48,7 @@ Route::get('/newcart',function(){
 Route::get('ajaxrequest','HomeController@ajax');
 Route::post('ajaxRequest','HomeController@ajaxpost');
 Route::post('/order','ProductController@order');
+Route::get('search','ShopController@search');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/post', 'PostController@index');

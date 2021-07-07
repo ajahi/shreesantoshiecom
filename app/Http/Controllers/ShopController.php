@@ -183,6 +183,26 @@ class ShopController extends Controller
                 'totalPrice'=>$cart->totalPrice
         ]);
     }
+    public function search(Request $request){
+         //cart
+         $oldCart=Session::get('cart');
+         $cart= new Cart($oldCart);
+         //search
+         $search = $request->input('search');
+
+         $pro = Product::query()
+        ->where('title', 'LIKE',$search)
+        ->orWhere('slug', 'LIKE',$search)
+        ->get();
+         return view('shop.search',[
+             //search result
+             'pro'=>$pro,
+             'query'=>$request->search,
+             //cart
+             'items'=>$cart->items,
+             'totalPrice'=>$cart->totalPrice
+         ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
