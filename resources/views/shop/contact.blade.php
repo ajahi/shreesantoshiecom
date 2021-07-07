@@ -109,7 +109,7 @@ Shree Santoshi Mata Hastakala
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
                         <div class="map-contacts">
                             <div id="googleMap">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6263.864895327552!2d83.98594118035787!3d28.22324815547767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m3!3e1!4m0!4m0!5e0!3m2!1sen!2snp!4v1624723942147!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3515.7752465821204!2d83.95576031428163!3d28.214140309645952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399594e1f0d7a43f%3A0x6a704ed177501b83!2sshantoshi%20handicraft!5e0!3m2!1sen!2snp!4v1625680836195!5m2!1sen!2snp" width="100%" height="630" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                             </div>
                         </div>
                     </div>

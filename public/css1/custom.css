@@ -847,9 +847,11 @@ body {
   color: #f53753;
   margin-right: 8px;
 }
+.services{
+  padding: 1.5em 0em;
+}
 .services-grid {
   text-align: center;
-  padding: 1.5em 0em;
 }
 .services-grid span{
   font-size: 2em;
@@ -873,7 +875,28 @@ body {
   text-transform: capitalize;
   font-weight: 300;
   color: rgba(245, 55, 83, 0.91);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 1em;
+}
+.services-grid .service{
+  padding-top: 2em;
+  margin-bottom: 2em;
+}
+.services-grid .service:hover span{
+  background: #f53753;
+  color: #fff;
+}
+.services-grid .service:hover .effect-1{
+  border: 1px solid #f53753;
+}
+@media(max-width:767px){
+  .logo img{
+    width: 100px;
+    height: 50px;
+  }
+}
+.ft__logo img{
+  width: 130px;
+  height: 60px;
 }
