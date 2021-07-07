@@ -22,8 +22,6 @@
                                     <li class="drop"><a href="/shop">Shop</a></li>
                                     <li class="drop"><a href="/about-us">About Us</a></li>
                                     <li class="drop"><a href="/our-services">Our Services</a></li>
-                                    <li class="drop"><a href="/our-gallery">Gallery</a></li>
-                                    <li><a href="/our-blogs">Blogs</a></li>
                                     <li><a href="/contact-us">Contact Us</a></li>
                                        
                                 </ul>

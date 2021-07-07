@@ -111,7 +111,7 @@ $(document).ready(function(){
        
                     
                     <!-- Start Blog Area -->
-        <section class="htc__product__area shop__page ptb--130 bg__white site_blogs blogs-page">
+        <section class="htc__product__area shop__page ptb--80 bg__white site_blogs blogs-page">
             <div class="container">
             <div class="row">
             
