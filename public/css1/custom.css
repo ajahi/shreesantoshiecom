@@ -849,6 +849,7 @@ body {
 }
 .services-grid {
   text-align: center;
+  padding: 1.5em 0em;
 }
 .services-grid span{
   font-size: 2em;
