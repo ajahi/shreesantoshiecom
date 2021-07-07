@@ -12,12 +12,13 @@ $(document).ready(function(){
         console.log(selectedcategory);
             $.ajax({
             url:'<?php echo url('/product');?>',
-            data:{request:selectedcategory},
+            data:{category_id:selectedcategory},
             cache:false,
             success:function(response){
+              console.log(response)
               
               alert(selectedcategory);
-              location.reload(true);
+              // location.reload(true);
               }
         });
         
