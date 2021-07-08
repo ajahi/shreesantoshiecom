@@ -31,7 +31,8 @@ class ProductController extends Controller
         if($request->has('category_id')){
             $procat=ProductCategory::findOrFail($request->category_id);
             $product=$procat->products;
-            return $product;
+            return json_encode($product);
+
         }
         $product=Product::orderBy('id', 'DESC')->get();
         return view('cms.product.productindex',[

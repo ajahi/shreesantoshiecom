@@ -3,6 +3,16 @@
 @section('content')
 <div class="content-wrapper container">
 @include('flash')
+
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+$(document).ready(function(){
+    $('.delet').click(function(){
+        alert('You are going to delet a post.');
+    })
+});
+</script>
+
     <div class="section">
     <a href="postcreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
     <span class=" d-inline-block my-2">
@@ -49,7 +59,7 @@
                 <form action="/postdel/{{$posts->id}}" method='POST' class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button class="btn"><i class="fas fa-trash text-danger"></i></button>
+                    <button class="btn delet"><i class="fas fa-trash text-danger"></i></button>
                 </form>
                 </td>
                 </tr>

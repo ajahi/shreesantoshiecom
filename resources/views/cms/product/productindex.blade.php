@@ -16,13 +16,17 @@ $(document).ready(function(){
             cache:false,
             success:function(response){
               console.log(response)
-              alert(response);
+              
               alert(selectedcategory);
-              $('.product-name').val(response);
+              $('#product_data tbody').append(response);
               }
         });
         
     }); 
+    $('.deletbutton').click(function(){
+      alert('You are going to delet a product.');
+    });
+
     function fill_data(filter_procat='',filter_status=''){
       var dataTable=$('#product_data').DataTable({
         processing:true,
@@ -120,7 +124,7 @@ $(document).ready(function(){
                 <form action="/productdel/{{$posts->id}}" class="d-inline" method='POST'>
                     @csrf
                     @method('DELETE')
-                    <button class="btn"><i class="fas fa-trash text-danger"></i></button>
+                    <button class="btn deletbutton"><i class="fas fa-trash text-danger"></i></button>
                 </form>
                
                 </td>
