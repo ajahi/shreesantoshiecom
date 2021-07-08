@@ -114,47 +114,71 @@ $(document).ready(function(){
          <section class="services">
              <div class="container">
                 <div class="row">
-                <div class="col-sm-6 col-md-4 services-grid services-grid1">
-                <span class="effect-1" aria-hidden="true"></span>
-					<div class="services-text">
-						<h4">Quality Work</h4>
-						<p>We Believe In Quality Work &amp; 100% Satisfaction Of Our Customers.</p>
-					</div>
+                <div class="col-sm-12 col-md-4 services-grid services-grid1">
+                    <div class="service">
+                        <span class="effect-1" aria-hidden="true">
+                        <i class="fas fa-check-square"></i>
+                        </span>
+                            <div class="services-text">
+                                <h4>Quality Work</h4>
+                                <p>We Believe In Quality Work &amp; 100% Satisfaction Of Our Customers.</p>
+                            </div>
+                    </div>
 				</div>
-                <div class="col-md-4 services-grid services-grid1">
-                <span class="effect-1" aria-hidden="true"></span>
-					<div class="services-text">
-						<h4>Free Delivery</h4>
-						<p>We Have The Service Of Free Delivery Of Our Products.</p>
-					</div>
+                <div class="col-sm-12 col-md-4 services-grid services-grid1">
+                   <div class="service">
+                   <span class="effect-1" aria-hidden="true">
+                    <i class="fas fa-truck"></i>
+                    </span>
+                        <div class="services-text">
+                            <h4>Free Delivery</h4>
+                            <p>We Have The Service Of Free Delivery Of Our Products.</p>
+                        </div>
+                   </div>
 				</div>
-                <div class="col-md-4 services-grid services-grid1">
-					<span class="effect-1" aria-hidden="true"></span>
-					<div class="services-text">
-						<h4>24 Hour Support</h4>
-						<p>Our Staffs Are 24hrs Available For Customers Support.</p>
-					</div>
+                <div class="col-sm-12 col-md-4 services-grid services-grid1">
+					<div class="service">
+                        <span class="effect-1" aria-hidden="true">
+                        <i class="fas fa-headset"></i>
+                        </span>
+                        <div class="services-text">
+                            <h4>24 Hour Support</h4>
+                            <p>Our Staffs Are 24hrs Available For Customers Support.</p>
+                        </div>
+                    </div>
 				</div>
-                <div class="col-md-4 services-grid services-grid1">
-					<span class="effect-1" aria-hidden="true"></span>
-					<div class="services-text">
-						<h4>100% Money Back</h4>
-						<p>We Guarantee 100% Money Back In case Of Any Defects Of Our Products.</p>
-					</div>
+                <div class="col-sm-12 col-md-4 services-grid services-grid1">
+					<div class="service">
+                        <span class="effect-1" aria-hidden="true">
+                        <i class="fas fa-money-bill-wave"></i>
+                        </span>
+                        <div class="services-text">
+                            <h4>100% Money Back</h4>
+                            <p>We Guarantee 100% Money Back In case Of Any Defects Of Our Products.</p>
+                        </div>
+                    </div>
 				</div>
-                <div class="col-md-4 services-grid services-grid2">
-					<span class="effect-1" aria-hidden="true"></span>
-					<div class="services-text">
-						<h4>Packaging</h4>
-						<p>The Packaging Of Our Products Is Done With High Maintenance.</p>
-					</div>
+                <div class="col-sm-12 col-md-4 services-grid services-grid1">
+					<div class="service">
+                        <span class="effect-1" aria-hidden="true">
+                            <i class="fas fa-gift"></i>
+                        </span>
+                        <div class="services-text">
+                            <h4>Packaging</h4>
+                            <p>The Packaging Of Our Products Is Done With High Maintenance.</p>
+                        </div>
+                    </div>
 				</div>
-                <div class="col-md-4 services-grid services-grid2">
-					<span class="effect-1" aria-hidden="true"></span>
-					<div class="services-text">
-						<h4">Packaging</h4>
-						<p>The Packaging Of Our Products Is Done With High Maintenance.</p>
-					</div>
+                <div class="col-sm-12 col-md-4 services-grid services-grid1">
+					<div class="service">
+                        <span class="effect-1" aria-hidden="true">
+                            <i class="fas fa-briefcase"></i>
+                        </span>
+                        <div class="services-text">
+                            <h4>Fast Delivery</h4>
+                            <p>The Products Are Generally Delivered At Faster Speed..</p>
+                        </div>
+                    </div>
 				</div>
                 </div>
              </div>

@@ -17,7 +17,7 @@ $(document).ready(function(){
             success:function(response){
                var resp=response;
                 
-                location.reload(true);
+                location.reload(true);:
              
               }
         });

@@ -779,7 +779,7 @@ input[type=number] {
 .ht__bradcaump__wrap {
     align-items: center;
     display: flex;
-    height: 320px;
+    height: 160px;
 }
 .bradcaump-title {
     color: #343434;
@@ -1815,7 +1815,7 @@ product__style--7
     min-width: 37px;
 }
 .choose__details h4 {
-    color: #505050;
+    color: #f53753;
     font-size: 22px;
     margin-bottom: 9px;
     text-transform: capitalize;

@@ -112,7 +112,7 @@ $(document).ready(function(){
             </div>
         <!-- end breadcrumb section -->
      
-        <section class="htc__product__area shop__page ptb--130 bg__white">
+        <section class="htc__product__area shop__page ptb--80 bg__white">
             <div class="container">
                 <div class="htc__product__container">
                     <div class="row">

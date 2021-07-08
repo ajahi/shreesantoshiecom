@@ -160,7 +160,7 @@ $(document).ready(function(){
             </div>
         <!-- end breadcrumb section -->
      
-        <section class="htc__product__area shop__page ptb--130 bg__white">
+        <section class="htc__product__area shop__page ptb--80 bg__white">
             <div class="container">
                 <div class="htc__product__container">
                 @if(count($pro)>0)
@@ -234,30 +234,7 @@ $(document).ready(function(){
                 </div>
             </div>                                
                     
-                    
-                    <!-- Start Load More BTn -->
-                    <div class="row mt--60">
-                        <div class="col-md-12">            
-                            <div class="page-pagination text-center col-xs-12 fix">
-                            <nav class="pagination">
-                                <ul class="">
-                                <li>                                    
-                                </li><li class="disabled prev">
-                                    <a href="">
-                                    <span><i class="zmdi zmdi-chevron-left"></i></span>
-                                    </a>
-                                </li>                              
-                                <li class="active"><a href="">1</a></li>
-                                <li>
-                                    <a href="/shop/all?page=2" title="">2</a>
-                                </li>                             
-                                <li class="next"><a href="#" title="Next »"><span aria-hidden="true"><i class="zmdi zmdi-chevron-right"></i></span></a></li>
-                                </ul>
-                            </nav>
-                            </div>
-                        </div>
-                     </div>
-                    <!-- End Load More BTn -->
+                  
                 </div>
             </div>
         </section>

@@ -182,7 +182,7 @@ $(document).ready(function(){
                             <span class="ti-reload"></span>
                             </div>
                             <div class="choose__details">
-                            <h4>M24 Hour Support</h4>
+                            <h4>24 Hour Support</h4>
                             <p>Our Staffs Are 24hrs Available For Customers Support. </p>
                             </div>
                         </div>
@@ -193,8 +193,8 @@ $(document).ready(function(){
                             <span class="ti-time"></span>
                             </div>
                             <div class="choose__details">
-                            <h4>100% Money Back</h4>
-                            <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                            <h4>Packaging</h4>
+                            <p>The Packaging Of Our Products Is Done With High Maintenance. </p>
                             </div>
                         </div>
                         
