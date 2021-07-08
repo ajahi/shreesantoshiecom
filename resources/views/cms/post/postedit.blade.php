@@ -51,8 +51,11 @@
         <div class="form-floating my-3">
         <label for="Category_id" class="text-secondary">Status <span class="font-normal text-danger">*</span></label><br/>
             <select class="form-select custom-select col-lg-7" name="status" aria-label="Floating label select example"> 
-                <option value="published">Published</option>
-                <option value="draft">Draft</option>
+            
+                <option value="published"  <?php if($post->status=='published') {echo "selected";} ?> >Published</option>
+                
+                <option value="draft"  <?php if($post->status=='draft') {echo "selected";} ?>>Draft</option>
+                
             </select>
         </div>
         <div class="py-4">

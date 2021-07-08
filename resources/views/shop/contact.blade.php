@@ -46,7 +46,7 @@ Shree Santoshi Mata Hastakala
                                             <span class="ti-location-pin"></span>
                                         </div>
                                         <div class="contact__details">
-                                            <p>Location : <br> Sunsan Gali Bhut bangla ke samne</p>
+                                            <p>Location : <br> {{$contact->location}}</p>
                                         </div>
                                     </div>
                                     <!-- End Single Adress -->
@@ -58,7 +58,7 @@ Shree Santoshi Mata Hastakala
                                             <span class="ti-mobile"></span>
                                         </div>
                                         <div class="contact__details">
-                                            <p> Phone : <br><a href="#">+999 999 999 999 </a></p>
+                                            <p> Phone : <br><a href="#">{{$contact->telephone}}</a></p>
                                         </div>
                                     </div>
                                     <!-- End Single Adress -->
@@ -68,7 +68,7 @@ Shree Santoshi Mata Hastakala
                                             <span class="ti-email"></span>
                                         </div>
                                         <div class="contact__details">
-                                            <p> Mail :<br><a href="#">info@example.com</a></p>
+                                            <p> Mail :<br><a href="#">{{$contact->email}}</a></p>
                                         </div>
                                     </div>
                                     <!-- End Single Adress -->

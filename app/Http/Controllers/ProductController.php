@@ -24,10 +24,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        if(request()->ajax()){
-            $procat=ProductCategory::findOrFail($request->category_id)->products;
+        // if(request()->ajax()){
+        //     $procat=ProductCategory::findOrFail($request->category_id)->products;
             
-        }
+        // }
         if($request->has('category_id')){
             $procat=ProductCategory::findOrFail($request->category_id);
             $product=$procat->products;

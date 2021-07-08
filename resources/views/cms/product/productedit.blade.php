@@ -130,9 +130,12 @@
         <div class="col-sm-6 col-md-6">
         <div class="form-floating">
             <label for="status" class="text-secondary">Status <span class="font-normal text-danger">*</span></label><br/>
-            <select class="form-select custom-select col-lg-7" name="status" aria-label="Floating label select example">          
-            <option value=0>Draft</option>
-            <option value=1>Published</option>             
+            <select class="form-select custom-select col-lg-7" name="status" aria-label="Floating label select example">  
+                   
+            <option value='draft' <?php if($product->status=='draft') {echo "selected";}?> >Draft</option>
+            
+            <option value='published' <?php if($product->status=='published') {echo "selected";}?>>Published</option>   
+                    
             </select>
         </div>
         </div>

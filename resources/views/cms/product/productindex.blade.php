@@ -16,9 +16,9 @@ $(document).ready(function(){
             cache:false,
             success:function(response){
               console.log(response)
-              
+              alert(response);
               alert(selectedcategory);
-              // location.reload(true);
+              $('.product-name').val(response);
               }
         });
         
@@ -93,7 +93,7 @@ $(document).ready(function(){
                 <td scope="col">{{$posts->id}}</td>
                 <td scope="col">
                   <img src="{{$posts->url()}}" height="60" width="60"><br/>
-                  <a href="/product-detail/{{$posts->slug}}" target="_blank">{{$posts->title}}</a>
+                  <a href="/product-detail/{{$posts->slug}}" target="_blank" class='product-name'>{{$posts->title}}</a>
                   <p class="text-secondary">Categories:<span class="text-dark mr-2"></p> 
                 </td>
                 
@@ -110,7 +110,7 @@ $(document).ready(function(){
                 </div>
                 </td>
                 <td scope="col">{{$posts->quantity}}
-                <p><span class="text-secondary mr-2">Status:</span>
+                <p><span class="text-secondary mr-2">Stock:</span>
                 @if($posts->InStock==1)<span class="text-success">In Stock</span>@endif
                 @if($posts->InStock==0)<span class="text-danger">Out Of Stock</span>@endif
                 </p>

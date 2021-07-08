@@ -25,13 +25,14 @@
         </div>
         <div class="form-floating my-3">
         <label for="Category_id" class="text-secondary">Category <span class="font-normal text-danger">*</span></label>
-            <div class="form-check" >
-            @foreach($category as $category)
-                <input class="form-check-input" type="checkbox" name="category_id" value={{$category->id}} >
-                <label class="form-check-label" for="defaultCheck1" >{{$category->title}}</label>   
-                <br>
-            @endforeach
+            <div class="dropdown" >
+            <select class="form-select custom-select col-lg-7" name="category_id" aria-label="filter by category" placeholder="Filter by category">          
+                @foreach($category as $category)
+                <option value='{{$category->id}}'>{{$category->title}}</option>             
+                @endforeach
+            </select>
             </div>
+            
         </div>
         <div class="form-floating my-3">
         <label for="Category_id" class="text-secondary">Status</label><br/>

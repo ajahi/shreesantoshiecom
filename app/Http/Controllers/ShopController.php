@@ -108,10 +108,14 @@ class ShopController extends Controller
          //cart
          $oldCart=Session::get('cart');
          $cart= new Cart($oldCart);
+         //
+         $site=Site::find(1);
         return view('shop.contact',[
             //cart
             'items'=>$cart->items,
-           'totalPrice'=>$cart->totalPrice
+           'totalPrice'=>$cart->totalPrice,
+           //site
+           'contact'=>$site
         ]);
     }
     public function aboutus(){
@@ -191,8 +195,7 @@ class ShopController extends Controller
          $search = $request->input('search');
 
          $pro = Product::query()
-        ->where('title', 'LIKE',$search)
-        ->orWhere('slug', 'LIKE',$search)
+        ->where('title','LIKE',$search)
         ->get();
          return view('shop.search',[
              //search result
