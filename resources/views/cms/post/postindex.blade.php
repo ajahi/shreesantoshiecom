@@ -6,11 +6,7 @@
 
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script>
-$(document).ready(function(){
-    $('.delet').click(function(){
-        alert('You are going to delet a post.');
-    })
-});
+
 </script>
 
     <div class="section">
@@ -59,7 +55,7 @@ $(document).ready(function(){
                 <form action="/postdel/{{$posts->id}}" method='POST' class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button class="btn delet"><i class="fas fa-trash text-danger"></i></button>
+                    <button class="btn" onclick="return confirm('Are you sure you want to delete this post?');"><i class="fas fa-trash text-danger"></i></button>
                 </form>
                 </td>
                 </tr>

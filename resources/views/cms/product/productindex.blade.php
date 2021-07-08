@@ -3,11 +3,14 @@
 @section('content')
 <div class="content-wrapper container">
 @include('flash')
-    <div class="section">
+    <div class="section px-2">
 
-        <div class="row">
-            <div class="col-10">
-                <div class="d-flex justify-content-between">
+        <div class="row space-between">
+        <div class="col-sm-12 col-md-2">
+        <a href="/productcreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
+        </div>
+            <div class="col-sm-12 col-md-10">
+                <div>
                     <form>
                         <span class=" d-inline-block my-2">
                             <select class="form-select custom-select catfilter" name="category" aria-label="filter by category" placeholder="Filter by category">
@@ -32,10 +35,10 @@
                             </select>
                         </span>
                         <div class="d-inline-block">
-                            <button class="btn btn-primary">Filter</button>
+                            <button class="btn btn-secondary px-4">Filter</button>
                         </div>
                     </form>
-                    <a href="productcreate" class="btn btn-primary my-2"><i class="fas fa-plus mr-1"></i>Create</a>
+                   
                 </div>
             </div>
         </div>
@@ -85,7 +88,7 @@
                 <form action="/productdel/{{$posts->id}}" class="d-inline" method='POST'>
                     @csrf
                     @method('DELETE')
-                    <button class="btn deletbutton"><i class="fas fa-trash text-danger"></i></button>
+                    <button class="btn" onclick="return confirm('Are you sure you want to delete this product?');"><i class="fas fa-trash text-danger"></i></button>
                 </form>
 
                 </td>
