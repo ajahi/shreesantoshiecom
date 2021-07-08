@@ -39,7 +39,7 @@ class ProductController extends Controller
         }
 
         return view('cms.product.productindex', [
-            'product'=>$products->paginate(1),
+            'product'=>$products->paginate(25),
             'procat'=>ProductCategory::where('parent_id', '!=', null)->orderBy('id', 'DESC')->get(),
         ]);
     }
